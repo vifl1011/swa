@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="de.shop.PU">
+		<jta-data-source>java:jboss/datasources/ShopDS</jta-data-source>
+		<validation-mode>NONE</validation-mode>
+   	<properties>
+			<!--http://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch03.html -->
+			<!-- neue, effizientere Strategie fuer generierte Primaerschluessel -->
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
+			<!-- Nur "Java Persistence query language" (siehe Kap. 2.7) nutzen, -->
+			<!-- keine proprietaeren Erweiterungen von HQL nutzen -->
+			<property name="hibernate.query.jpaql_strict_compliance" value="true"/>
+			<!-- In der Log-Datei die SQL-Anweisungen lesbarerrausschreiben -->
+			<property name="hibernate.format_sql" value="true"/>
+			<!-- Kommentare zu den generierten SQL-Anweisungen hinzufuegen -->
+			<property name="hibernate.use_sql_comments" value="true"/>
+			<!-- Sequence-aehnliche Tabelle -->
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
+		</properties>
+	</persistence-unit>
+</persistence>
