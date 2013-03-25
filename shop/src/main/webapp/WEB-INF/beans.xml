@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This file can be an empty text file (0 bytes) 
- We're declaring the schema to save you time if you do have to configure 
-   this in the future -->
 <beans xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:weld="http://jboss.org/schema/weld/beans"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://docs.jboss.org/cdi/beans_1_0.xsd http://jboss.org/schema/weld/beans http://jboss.org/schema/weld/beans_1_1.xsd">
- <!-- 
-	<interceptors></interceptors> 
--->
+<interceptors>
+  <class>de.shop.util.TransactionalInterceptor</class>
+ </interceptors>
+<!--  <class>de.shop.util.LogInterceptor</class> -->
  <weld:scan>
   <!-- Domain- und Exception-Klassen sind irrelevant fuer CDI -->
   <weld:exclude name="de.shop.*.domain.*"/>
   <weld:exclude name="de.shop.**.*Exception"/>
  </weld:scan>
- <interceptors>
-  <class>de.shop.util.LogInterceptor</class>
- </interceptors>
 </beans>

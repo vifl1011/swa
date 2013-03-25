@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0"
-   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="
-        http://java.sun.com/xml/ns/persistence
-        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" 
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+			 version="2.0">
 	<persistence-unit name="de.shop.PU">
 		<jta-data-source>java:jboss/datasources/ShopDS</jta-data-source>
 		<validation-mode>NONE</validation-mode>
    	<properties>
-			<!--http://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch03.html -->
-			<!-- neue, effizientere Strategie fuer generierte Primaerschluessel -->
-			<property name="hibernate.id.new_generator_mappings" value="true"/>
-			<!-- Nur "Java Persistence query language" (siehe Kap. 2.7) nutzen, -->
-			<!-- keine proprietaeren Erweiterungen von HQL nutzen -->
+			<!-- Ab Hibernate 4.1: Tabelle fuer eine emulierte Sequenz anstatt z.B. auto_increment -->
+			<property name="hibernate.id.new_generator_mappings" value="true"/>	
+			<!-- http://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch03.html -->
+			<!-- javadoc fuer org.hibernate.cfg.AvailableSettings -->			
 			<property name="hibernate.query.jpaql_strict_compliance" value="true"/>
-			<!-- In der Log-Datei die SQL-Anweisungen lesbarerrausschreiben -->
-			<property name="hibernate.format_sql" value="true"/>
+			<!-- SQL-Anweisungen lesbar protokollieren -->
+			<property name="hibernate.format_sql" value="true"/>	
 			<!-- Kommentare zu den generierten SQL-Anweisungen hinzufuegen -->
 			<property name="hibernate.use_sql_comments" value="true"/>
 			<!-- Sequence-aehnliche Tabelle -->
 			<property name="hibernate.id.new_generator_mappings" value="true"/>
+		<!-- ++++++++++++++++++++ Ergänzung von FV 25.03.2013 22:14 ++++++++++++++++++++ -->			
+			<!-- Batch fuer DML von automatisch versionierten Datensaetzen -->
+			<property name="hibernate.jdbc.batch_versioned_data" value="true"/>			
+			<!-- L2C: Default = Infinispan -->
+			<property name="hibernate.cache.use_second_level_cache" value="true"/>
+			<property name="hibernate.cache.use_query_cache" value="true"/>	
+			<!-- Ab Hibernate 4.2: direktes Abspeichern von Entity-Referenzen im L2C, falls die Entities unveraenderlich sind -->
+			<property name="hibernate.cache.use_reference_entries" value="true"/>			
+			<!-- im Produktivbetrieb auskommentieren -->
+			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<!-- eigene SQL Scripts einfügen
+				<property name="hibernate.hbm2ddl.import_files" value="sql/01_enum.sql,sql/02_index.sql,sql/10_hibernate_sequence.sql,sql/20_kunde.sql,sql/21_kunde_rolle.sql,sql/22_adresse.sql,sql/23_kunde_hobby.sql,sql/24_wartungsvertrag.sql,sql/30_artikel.sql,sql/40_bestellung.sql,sql/41_bestellposition.sql,sql/50_lieferung.sql,sql/51_bestellung_lieferung.sql"/>
+			-->
+		<!-- ++++++++++++++++++++ Ergänzung von FV 25.03.2013 22:14 ++++++++++++++++++++ -->
 		</properties>
 	</persistence-unit>
 </persistence>
