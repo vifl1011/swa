@@ -18,11 +18,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import de.shop.artikelverwaltung.domain.Produkt;
-import de.shop.util.AbstractTest;
+import de.shop.util.AbstractResourceTest;
 import de.shop.util.Log;
 
 @RunWith(Arquillian.class)
-public class ProduktServiceTest extends AbstractTest {
+public class ProduktServiceTest extends AbstractResourceTest {
 	
 	@Inject
 	private ProduktService ps;

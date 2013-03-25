@@ -13,7 +13,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.shop.util.AbstractDomainTest;
+import de.shop.util.AbstractResourceTest;
 import java.util.List;
 
 import javax.validation.ConstraintViolation;
@@ -24,7 +24,7 @@ import javax.validation.ConstraintViolationException;
  *
  */
 @RunWith(Arquillian.class)
-public class KundeTest extends AbstractDomainTest {
+public class KundeTest extends AbstractResourceTest {
 	
 	private static final String NACHNAME_NEU = "Test";
 	private static final String VORNAME_NEU = "Theo";

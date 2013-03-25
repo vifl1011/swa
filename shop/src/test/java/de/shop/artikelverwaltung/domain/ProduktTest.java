@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import de.shop.util.AbstractDomainTest;
+import de.shop.util.AbstractResourceTest;
 
 import javax.persistence.TypedQuery;
 
@@ -17,7 +17,7 @@ import javax.persistence.TypedQuery;
 
 @RunWith(Arquillian.class)
 
-public class ProduktTest extends AbstractDomainTest {
+public class ProduktTest extends AbstractResourceTest {
 	private static final Long ID_VORHANDEN = Long.valueOf(500);
 	
 	// ein bereits vorhandenes Produkt finden

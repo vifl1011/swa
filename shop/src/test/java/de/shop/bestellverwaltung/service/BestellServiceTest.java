@@ -29,13 +29,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.junit.Arquillian;
 
-import de.shop.util.AbstractTest;
+import de.shop.util.AbstractResourceTest;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
-public class BestellServiceTest extends AbstractTest {
+public class BestellServiceTest extends AbstractResourceTest {
 	private static final Long KUNDE_ID_VORHANDEN = Long.valueOf("200");
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf("600");
 	private static final Long BESTELLPOSITION_ID_VORHANDEN = Long.valueOf("700");

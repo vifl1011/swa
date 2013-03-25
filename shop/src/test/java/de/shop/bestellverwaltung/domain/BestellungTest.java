@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.junit.Arquillian;
 
-import de.shop.util.AbstractDomainTest;
+import de.shop.util.AbstractResourceTest;
 import de.shop.kundenverwaltung.domain.Kunde;
 
 /**
@@ -22,7 +22,7 @@ import de.shop.kundenverwaltung.domain.Kunde;
  * 
  */
 @RunWith(Arquillian.class)
-public class BestellungTest extends AbstractDomainTest {
+public class BestellungTest extends AbstractResourceTest {
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(603);
 	private static final Long KUNDE_ID_VORHANDEN = Long.valueOf(205);
 	private static final Long BESTELLUNG_GESAMTPREIS = Long.valueOf(20);

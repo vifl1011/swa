@@ -29,7 +29,7 @@ import de.shop.kundenverwaltung.domain.Adresse;
 import de.shop.kundenverwaltung.domain.GeschlechtType;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService.FetchType;
-import de.shop.util.AbstractTest;
+import de.shop.util.AbstractResourceTest;
 import de.shop.util.Log;
 
 
@@ -39,7 +39,7 @@ import de.shop.util.Log;
  */
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
-public class KundeServiceTest extends AbstractTest {
+public class KundeServiceTest extends AbstractResourceTest {
 
 	@Inject
 	private KundeService ks;
@@ -103,6 +103,7 @@ public class KundeServiceTest extends AbstractTest {
 				HeuristicMixedException, HeuristicRollbackException, SystemException, NotSupportedException {
 		// Given
 		String email = EMAIL_BESTAND.trim(); 
+
 		final UserTransaction trans = getUserTransaction();
 		trans.commit();
 		// When
