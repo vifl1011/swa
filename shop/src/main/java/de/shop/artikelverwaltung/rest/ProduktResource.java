@@ -35,12 +35,14 @@ import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
+import de.shop.util.Transactional;
 
 @Path("/produkt")
 //@Produces({ APPLICATION_XML, TEXT_XML, APPLICATION_JSON })
 @Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 @Consumes
 @RequestScoped
+@Transactional
 @Log
 public class ProduktResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles

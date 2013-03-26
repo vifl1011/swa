@@ -39,12 +39,14 @@ import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.kundenverwaltung.service.KundeService.FetchType;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
+import de.shop.util.Transactional;
 
 
 @Path("/kunden")
 @Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 @Consumes
 @RequestScoped
+@Transactional
 @Log
 public class KundeResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
