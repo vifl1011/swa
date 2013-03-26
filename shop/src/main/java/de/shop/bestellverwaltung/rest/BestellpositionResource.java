@@ -39,11 +39,13 @@ import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.service.BestellService;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
+import de.shop.util.Transactional;
 
 @Path("/bestellposition")
 @Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 @Consumes
 @RequestScoped
+@Transactional
 @Log
 public class BestellpositionResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());

@@ -32,6 +32,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
+
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
 import de.shop.bestellverwaltung.domain.Bestellposition;
@@ -43,11 +44,13 @@ import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.kundenverwaltung.service.KundeService.FetchType;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
+import de.shop.util.Transactional;
 
 @Path("/bestellung")
 @Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 @Consumes
 @RequestScoped
+@Transactional
 @Log
 public class BestellungResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
