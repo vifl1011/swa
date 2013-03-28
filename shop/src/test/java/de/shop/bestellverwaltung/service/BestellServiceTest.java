@@ -2,6 +2,7 @@ package de.shop.bestellverwaltung.service;
 
 import java.util.List;
 import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,13 +20,14 @@ import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.domain.Lieferung;
 import de.shop.bestellverwaltung.service.BestellService.FetchType;
-
 import static org.junit.Assert.assertThat;
 import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.jboss.arquillian.junit.Arquillian;
 
@@ -45,6 +47,9 @@ public class BestellServiceTest extends AbstractResourceTest {
 	private static final short PRODUKT_MENGE = 4;
 	private static final short BESTELLUNGEN_ANZAHL = 10;
 
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
+	
 	@Inject
 	private BestellService bs;
 
@@ -219,34 +224,34 @@ public class BestellServiceTest extends AbstractResourceTest {
 	}
 
 	
-//	FIXME auskommentiert, da 'thrown' nicht funktioniert
-//	@Test
-//	public void yInvalidBestellung() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, 
-//												SystemException, NotSupportedException {
-//		Locale locale = Locale.GERMAN;
-//		
-//		// Dieser Kunde legt eine neue Bestellung an
-//		Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
-//
-//		// Das Produkt das er kaufen möchte
-//		Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, locale);
-//
-//		// Die Ausgewählte Lieferung
-//		Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, locale);
-//
-//		// neue Bestellung
-//		Bestellung bestellung = new Bestellung();
-//		bestellung.setKunde(kunde);
-//		kunde.addBestellung(bestellung);
-//
-//		// Bestellposition anlegen
-//		Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, 2);
-//		bestellung.setGesamtpreis(bestellposition.getEinzelpreis());
-//		bestellung.setBestellstatus(null);
-//
-//		thrown.expect(BestellungValidationException.class);
-//		bs.validateBestellung(bestellung, locale, Default.class);
-//
-//		em.persist(bestellung);
-//	}
+
+	@Test
+	public void yInvalidBestellung() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, 
+												SystemException, NotSupportedException {
+		Locale locale = Locale.GERMAN;
+		
+		// Dieser Kunde legt eine neue Bestellung an
+		Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
+
+		// Das Produkt das er kaufen möchte
+		Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, locale);
+
+		// Die Ausgewählte Lieferung
+		Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, locale);
+
+		// neue Bestellung
+		Bestellung bestellung = new Bestellung();
+		bestellung.setKunde(kunde);
+		kunde.addBestellung(bestellung);
+
+		// Bestellposition anlegen
+		Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, 2);
+		bestellung.setGesamtpreis(bestellposition.getEinzelpreis());
+		bestellung.setBestellstatus(null);
+
+		thrown.expect(BestellungValidationException.class);
+		bs.validateBestellung(bestellung, locale, Default.class);
+
+		em.persist(bestellung);
+	}
 }

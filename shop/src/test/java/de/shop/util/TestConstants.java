@@ -1,7 +1,7 @@
 package de.shop.util;
 
 public final class TestConstants {
-	public static final String WEB_PROJEKT = "shop2";
+	public static final String WEB_PROJEKT = "shop";
 	
 	// HTTP-Header
 	public static final String ACCEPT = "Accept";
@@ -15,7 +15,7 @@ public final class TestConstants {
 	static {
 		BASEURI = System.getProperty("baseuri", "http://localhost");
 		PORT = Integer.parseInt(System.getProperty("port", "8080"));
-		BASEPATH = System.getProperty("basepath", "/shop2/rest");
+		BASEPATH = System.getProperty("basepath", "/shop/rest");
 	}
 	
 	public static final String KUNDEN_PATH = "/kunden";

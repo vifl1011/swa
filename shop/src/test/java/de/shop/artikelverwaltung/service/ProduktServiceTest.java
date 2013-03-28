@@ -14,7 +14,9 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import de.shop.artikelverwaltung.domain.Produkt;
@@ -35,6 +37,9 @@ public class ProduktServiceTest extends AbstractResourceTest {
 	private static final int VORRAT = 5;
 	private static final Float PRODUKT_PREIS = Float.valueOf(50);
 //	private static final Long PRODUKT_ID_NEW = Long.valueOf("525");
+	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 	
 	private Produkt createTestProdukt() {
 		Produkt produkt = new Produkt(BEZEICHNUNG, PRODUKT_PREIS, FARBE, GROESSE, VORRAT);
@@ -91,22 +96,22 @@ public class ProduktServiceTest extends AbstractResourceTest {
 	}
 	
 	
-//	FIXME 'thrown' nicht erkannt
-//	@Test
-//	public void updateTestFail() {
-//		// Given
-//		Locale locale = Locale.GERMAN;
-//		Long l = Long.valueOf("508");
-//		Produkt produkt = ps.findProduktById(l, locale);
-//		produkt.setBezeichnung("12polizei");
-//		
-//		// When		
-//		thrown.expect(InvalidProduktBezeichnungException.class);	
-//		ps.updateProdukt(produkt, locale);
-//		
-//		// Then
-//		thrown.expect(InvalidProduktBezeichnungException.class);
-//	}
+
+	@Test
+	public void updateTestFail() {
+		// Given
+		Locale locale = Locale.GERMAN;
+		Long l = Long.valueOf("508");
+		Produkt produkt = ps.findProduktById(l, locale);
+		produkt.setBezeichnung("12polizei");
+		
+		// When		
+		thrown.expect(InvalidProduktBezeichnungException.class);	
+		ps.updateProdukt(produkt, locale);
+		
+		// Then
+		thrown.expect(InvalidProduktBezeichnungException.class);
+	}
 	
 	
 }

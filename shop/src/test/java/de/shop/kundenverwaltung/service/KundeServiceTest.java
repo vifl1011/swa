@@ -22,7 +22,9 @@ import javax.transaction.UserTransaction;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 import de.shop.kundenverwaltung.domain.Adresse;
@@ -60,6 +62,8 @@ public class KundeServiceTest extends AbstractResourceTest {
 	private static final Long ID_BESTAND = Long.valueOf("201");
 	private static final String EMAIL_BESTAND = "Joebstl.Emi@web-ka.de";
 	
+	@Rule
+	public ExpectedException thrown = ExpectedException.none();
 	
 	private Kunde createBspKunde() {
 		Kunde kunde = new Kunde(EMAIL_NEU, GeschlechtType.MAENNLICH, LOGIN_NEU, NACHNAME_NEU, VORNAME_NEU, 
@@ -162,26 +166,26 @@ public class KundeServiceTest extends AbstractResourceTest {
 	}
 	
 	
-//	FIXME 'thrown nicht erkannt'
-//	@Log
-//	@Test
-//	public void createDuplicateKunde() throws RollbackException, 
-//					HeuristicMixedException, HeuristicRollbackException, SystemException, NotSupportedException {
-//		// Given
-//		
-//		Kunde kunde = createBspKunde();
-//		Locale locale = Locale.GERMAN;
-//		// When
-//		Kunde cKunde = ks.createKunde(kunde, locale);	
-//		
-//
-//		// Then
-//		thrown.expect(EmailExistsException.class);
-//		ks.createKunde(kunde, LOCALE);
-//		
-//		
-//		assertThat(cKunde.getEmail(),   is(EMAIL_NEU));
-//		assertThat(cKunde.getErzeugt() != null, is(true));
-//		assertThat(cKunde.getAktualisiert() != null, is(true));
-//	}
+
+	@Log
+	@Test
+	public void createDuplicateKunde() throws RollbackException, 
+					HeuristicMixedException, HeuristicRollbackException, SystemException, NotSupportedException {
+		// Given
+		
+		Kunde kunde = createBspKunde();
+		Locale locale = Locale.GERMAN;
+		// When
+		Kunde cKunde = ks.createKunde(kunde, locale);	
+		
+
+		// Then
+		thrown.expect(EmailExistsException.class);
+		ks.createKunde(kunde, locale);
+		
+		
+		assertThat(cKunde.getEmail(),   is(EMAIL_NEU));
+		assertThat(cKunde.getErzeugt() != null, is(true));
+		assertThat(cKunde.getAktualisiert() != null, is(true));
+	}
 }
