@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<project>
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-default-skin</artifactId>
+		<version>1.1</version>
+		<!--
+		<artifactId>maven-application-skin</artifactId>
+		<version>1.0</version>
+		-->
+		<!--
+		<artifactId>maven-fluido-skin</artifactId>
+		<version>1.1</version>
+		-->
+	</skin>
+
+	<!-- Skin von http://maven.apache.org
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-stylus-skin</artifactId>
+		<version>1.2</version>
+	</skin>
+	-->
+
+	<body>
+		<menu name="Shop">
+			<item name="Startseite" href="index.html"/>
+			<item name="Zusammenfassung" href="project-summary.html"/>
+			<item name="&#220;bersicht" href="project-info.html"/>
+			<item name="Abh&#228;ngigkeiten" href="dependencies.html"/>
+			<item name="Berichte" href="project-reports.html"/>
+			<item name="Projektteam" href="team-list.html"/>
+		</menu>
+	</body>
+</project>

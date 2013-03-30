@@ -6,10 +6,12 @@ import java.net.URI;
 
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.REMOVE;
-
+import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -26,6 +28,8 @@ import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.persistence.UniqueConstraint;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 //Gruppe Tobias Weigel, Florian Vieﬂer, Alex Vollmann, Patrik Steuer
 import org.hibernate.validator.constraints.Email;
@@ -45,7 +49,9 @@ import de.shop.util.Log;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import de.shop.auth.service.jboss.AuthService.RolleType;
 
 
 /**
@@ -57,6 +63,14 @@ import java.util.List;
 	@NamedQuery(name  = Kunde.FIND_KUNDEN,
             query = "SELECT k "
 			        + " FROM   Kunde as k"),
+	@NamedQuery(name  = Kunde.FIND_KUNDE_BY_LOGIN,
+			query = "SELECT k "
+			    			        + " FROM   Kunde as k"
+			    	   			    + " WHERE  k.login = :" + Kunde.PARAM_KUNDE_LOGIN),
+	@NamedQuery(name  = Kunde.FIND_LOGIN_BY_LOGIN_PREFIX,
+			query = "SELECT   CONCAT('', k.id)"
+			    	+ " FROM  Kunde k"
+			    	+ " WHERE CONCAT('', k.id) LIKE :" + Kunde.PARAM_LOGIN_PREFIX),
 	@NamedQuery(name  = Kunde.FIND_KUNDE_BY_EMAIL,
 	   	    query = "SELECT DISTINCT k"
 	   			    + " FROM   Kunde k"
@@ -100,6 +114,8 @@ public class Kunde implements Serializable, Cloneable {
 
 	private static final String PREFIX = "Kunde.";
 	public static final String FIND_KUNDEN = PREFIX + "findKunden";
+	public static final String FIND_KUNDE_BY_LOGIN = PREFIX + "findKundenByLogin";
+	public static final String FIND_LOGIN_BY_LOGIN_PREFIX = PREFIX + "findLoginByLoginPrefix";
 	public static final String FIND_KUNDE_BY_EMAIL = PREFIX + "findKundeByEmail";
 	public static final String FIND_KUNDE_BY_ID = PREFIX + "findKundeById";
 	public static final String FIND_KUNDE_BY_ID_FETCH_BESTELLUNGEN = PREFIX + "findKundeByIdFetchBestellungen";
@@ -112,6 +128,8 @@ public class Kunde implements Serializable, Cloneable {
 	public static final String PARAM_KUNDE_ID = "kundeId";
 	public static final String PARAM_KUNDE_NACHNAME = "nachname";
 	public static final String PARAM_KUNDE_EMAIL = "email";
+	public static final String PARAM_KUNDE_LOGIN = "login";
+	public static final String PARAM_LOGIN_PREFIX = "login_prefix";
 
 	@Id
 	@GeneratedValue
@@ -171,6 +189,13 @@ public class Kunde implements Serializable, Cloneable {
 	@Transient
 	@XmlElement(name = "bestellungen")
 	private URI bestellungenUri;
+	
+	@ElementCollection(fetch = EAGER)
+	@CollectionTable(name = "kunde_rolle",
+		joinColumns = @JoinColumn(name = "kunde_fk", nullable = false),
+		uniqueConstraints =  @UniqueConstraint(columnNames = { "kunde_fk", "rolle_fk" }))
+	@Column(table = "kunde_rolle", name = "rolle_fk", nullable = false)
+	private Set<RolleType> rollen;
 	
 	@PrePersist
 	private void prePersist() {
@@ -350,6 +375,13 @@ public class Kunde implements Serializable, Cloneable {
 		
 	}
 	
+	public Set<RolleType> getRollen() {
+		return rollen;
+	}
+
+	public void setRollen(Set<RolleType> rollen) {
+		this.rollen = rollen;
+	}
 	
 	@Log
 	@Override

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!--
+	https://docs.jboss.org/author/display/AS71/Developer+Guide#DeveloperGuide-JBossDeploymentStructureFile
+	https://github.com/jbossas/jboss-as/blob/master/build/src/main/resources/docs/schema/jboss-deployment-structure-1_1.xsd
+-->
+
+<jboss-deployment-structure>
+	<deployment>
+		<dependencies>
+			<!-- JAAS: Security-Cache -->
+			<module name="org.jboss.as.controller-client"/>
+			<!-- DMR (= Dynamic Model Representation) fuer die Klassen ModelControllerClient und ModelNode,
+			     um Rollen bei Zugriffsrechten dynamisch zu verwalten. -->
+			<module name="org.jboss.dmr"/>
+		</dependencies>
+	</deployment>
+</jboss-deployment-structure>
