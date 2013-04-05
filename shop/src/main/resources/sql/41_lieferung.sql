@@ -1,0 +1,10 @@
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (300,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (301,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (302,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (303,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (304,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (305,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (306,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (307,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (308,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
+insert into lieferung (id,art,versanddatum,erzeugt,aktualisiert) values (309,'dhl','05.08.06 00:00','05.08.06 00:00','05.08.06 00:00');
