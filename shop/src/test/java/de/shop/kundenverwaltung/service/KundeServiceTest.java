@@ -18,8 +18,6 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
-
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;

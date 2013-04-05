@@ -11,7 +11,6 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
-import javax.transaction.UserTransaction;
 import javax.validation.groups.Default;
 
 import de.shop.artikelverwaltung.domain.Produkt;
