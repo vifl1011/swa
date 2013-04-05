@@ -1,0 +1,14 @@
+--******************************************************************************
+--*        Anlegen der Beispieldaten für die Tabelle Bestellposition           *
+--******************************************************************************
+
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (700, 600, 300, 500, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (701, 601, 301, 501, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (702, 602, 302, 502, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (703, 603, 303, 503, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (704, 604, 304, 504, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (705, 605, 305, 505, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (706, 606, 306, 506, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (707, 607, 307, 507, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (708, 608, 308, 508, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
+INSERT INTO Bestellposition (id, bestellung_id, lieferung_id, produkt_id, menge, idx, einzelpreis, erzeugt, aktualisiert) values (709, 609, 309, 509, 1, 0, 50, TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'), TO_DATE('2006-08-05 00:00:00', 'DD.MM.YY HH24:MI:SS'));
