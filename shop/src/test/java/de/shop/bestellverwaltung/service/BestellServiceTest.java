@@ -78,7 +78,7 @@ public class BestellServiceTest extends AbstractResourceTest {
 	@Test
 	public void bFindBestellungById() {
 		Bestellung result = null;
-
+		
 		result = bs.findBestellungById(BESTELLUNG_ID_VORHANDEN, Locale.GERMAN);
 
 		assertThat(result.getId(), is(BESTELLUNG_ID_VORHANDEN));
