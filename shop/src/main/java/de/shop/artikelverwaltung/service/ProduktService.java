@@ -1,7 +1,9 @@
 package de.shop.artikelverwaltung.service;
 
 import java.io.Serializable;
+
 import static java.util.logging.Level.FINER;
+
 import java.lang.invoke.MethodHandles;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +23,7 @@ import java.util.logging.Logger;
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.util.Constants;
 import de.shop.util.Log;
-import de.shop.util.ValidationService;
+import de.shop.util.ValidatorProvider;
 
 @Log
 public class ProduktService implements Serializable {
@@ -37,7 +39,7 @@ public class ProduktService implements Serializable {
 	private transient EntityManager em;
 	
 	@Inject
-	private ValidationService validationService;
+	private ValidatorProvider validatorProvider;
 	
 	@PostConstruct
 	private void postConstruct() {
@@ -73,7 +75,7 @@ public class ProduktService implements Serializable {
 	@Log
 	private void validateBezeichnung(String bez, Locale locale) {
 		//erstellen einer Validator Instanz in der Sprache locale
-		final Validator validator = validationService.getValidator(locale);
+		final Validator validator = validatorProvider.getValidator(locale);
 		final Set<ConstraintViolation<Produkt>> violations = validator.validateValue(Produkt.class,
 				                                                                           "bezeichnung",
 				                                                                           bez,

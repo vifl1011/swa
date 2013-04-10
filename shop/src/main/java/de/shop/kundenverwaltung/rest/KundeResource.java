@@ -37,6 +37,7 @@ import de.shop.bestellverwaltung.service.BestellService;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.kundenverwaltung.service.KundeService.FetchType;
+import de.shop.util.Config;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
@@ -51,6 +52,9 @@ import de.shop.util.Transactional;
 public class KundeResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	private static final String VERSION = "1.0";
+	
+	@Inject
+	private Config config;
 	
 	@Inject
 	private KundeService ks;
@@ -113,7 +117,7 @@ public class KundeResource {
 			                           @Context UriInfo uriInfo,
 			                           @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		final Kunde kunde = ks.findKundeById(id, FetchType.NUR_KUNDE, locale);
 		if (kunde == null) {
 			// TODO msg passend zu locale

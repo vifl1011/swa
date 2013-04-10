@@ -21,7 +21,7 @@ import javax.validation.Validator;
 import javax.validation.groups.Default;
 
 import de.shop.util.NotFoundException;
-import de.shop.util.ValidationService;
+import de.shop.util.ValidatorProvider;
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
 import de.shop.bestellverwaltung.domain.Bestellung;
@@ -47,7 +47,7 @@ public class BestellService implements Serializable {
 	private transient EntityManager em;
 
 	@Inject
-	private ValidationService validationService;
+	private ValidatorProvider validatorProvider;
 
 	@Inject
 	private ProduktService ps;
@@ -343,7 +343,7 @@ public class BestellService implements Serializable {
 
 	// Validation Methods....
 	public void validateBestellung(Bestellung bestellung, Locale locale, Class<?>... groups) {
-		final Validator validator = validationService.getValidator(locale);
+		final Validator validator = validatorProvider.getValidator(locale);
 
 		final Set<ConstraintViolation<Bestellung>> violations = validator.validate(bestellung, groups);
 		if (!violations.isEmpty()) {
@@ -352,7 +352,7 @@ public class BestellService implements Serializable {
 	}
 	
 	public void validateLieferung(Lieferung lieferung, Locale locale, Class<?>... groups) {
-		final Validator validator = validationService.getValidator(locale);
+		final Validator validator = validatorProvider.getValidator(locale);
 
 		final Set<ConstraintViolation<Lieferung>> violations = validator.validate(lieferung, groups);
 		if (!violations.isEmpty()) {
@@ -361,7 +361,7 @@ public class BestellService implements Serializable {
 	}
 	
 	public void validateBestellposition(Bestellposition bestellposition, Locale locale, Class<?>... groups) {
-		final Validator validator = validationService.getValidator(locale);
+		final Validator validator = validatorProvider.getValidator(locale);
 
 		final Set<ConstraintViolation<Bestellposition>> violations = validator.validate(bestellposition, groups);
 		if (!violations.isEmpty()) {
