@@ -143,7 +143,7 @@ public class KundeResource {
 			                           @Context UriInfo uriInfo,
 			                           @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		final Kunde kunde = ks.findKundeById(id, FetchType.NUR_KUNDE, locale);
 		if (kunde == null) {
 			// TODO msg passend zu locale
@@ -170,7 +170,7 @@ public class KundeResource {
 	public Response createKunde(Kunde kunde, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
 	//TODO tut leider noch nicht
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		
 		kunde = ks.createKunde(kunde, locale);
 		LOGGER.log(FINEST, "Kunde: {0}", kunde);
@@ -185,7 +185,7 @@ public class KundeResource {
 	public void updateKunde(Kunde kunde, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		// Vorhandenen Kunden 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Kunde orgKunde = ks.findKundeById(kunde.getId(), FetchType.MIT_ADRESSE, locale);
 		
 		if (orgKunde == null) {
