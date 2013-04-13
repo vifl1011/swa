@@ -42,6 +42,7 @@ import de.shop.bestellverwaltung.service.BestellService;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.kundenverwaltung.service.KundeService.FetchType;
+import de.shop.util.Config;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
@@ -56,6 +57,9 @@ public class BestellungResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	private static final String VERSION = "1.0";
 
+	@Inject
+	private Config config;
+	
 	@Inject
 	private BestellService bs;
 	
@@ -181,8 +185,7 @@ public class BestellungResource {
 	public Response createBestellung(
 			Bestellung	bestellung, @Context UriInfo uriInfo, @Context HttpHeaders headers) throws Exception {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
-		
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0); //getDefaultLocale
 		//KUNDEN ERMITTELN
 		//...........................................................................
 		
@@ -288,7 +291,7 @@ public class BestellungResource {
 	public void updateBestellung(Bestellung bestellung, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		// Vorhandenen Kunden 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Bestellung orgBestellung = bs.findBestellungById(bestellung.getId(), locale);
 		List<Bestellposition> orgBestellpositionen = bs.findBestellpositionenByBestellung(orgBestellung);
 		List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();

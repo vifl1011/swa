@@ -35,6 +35,7 @@ import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
 import de.shop.bestellverwaltung.domain.Bestellposition;
 import de.shop.bestellverwaltung.domain.Lieferung;
 import de.shop.bestellverwaltung.service.BestellService;
+import de.shop.util.Config;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
@@ -48,6 +49,9 @@ import de.shop.util.Transactional;
 public class LieferungResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	private static final String VERSION = "1.0";
+	
+	@Inject
+	private Config config;
 
 	@Inject
 	private BestellService bs;
@@ -132,7 +136,7 @@ public class LieferungResource {
 	@Produces
 	public Response createLieferung(Lieferung lieferung, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		
 		lieferung = bs.createLieferung(lieferung, locale);
 		//LOGGER.log(FINEST, "Lieferung: {0}", lieferung);
@@ -148,7 +152,7 @@ public class LieferungResource {
 	public void updateLieferung(Lieferung lieferung, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		// Vorhandenen Kunden 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Lieferung orgLieferung = bs.findLieferungById(lieferung.getId(), locale);
 		
 		if (orgLieferung == null) {
