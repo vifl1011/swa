@@ -57,6 +57,12 @@ public class BestellungResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	private static final String VERSION = "1.0";
 
+	@Context
+	private UriInfo uriInfo;
+	
+    @Context
+    private HttpHeaders headers;
+    
 	@Inject
 	private Config config;
 	
@@ -123,8 +129,7 @@ public class BestellungResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}")
 	@Wrapped(element = "bestellung")
-	public Bestellung findBestellungById(@PathParam("id") Long id,
-			@Context UriInfo uriInfo, @Context HttpHeaders headers) {
+	public Bestellung findBestellungById(@PathParam("id") Long id) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
