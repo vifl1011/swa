@@ -103,7 +103,7 @@ public class BestellungResource {
 	@Wrapped(element = "bestellung")
 	public Collection<Bestellung> findAllBestellungen(@Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		final Collection<Bestellung> bestellungen = bs.findBestellungen(locale);
 
 		if (bestellungen.isEmpty()) {
@@ -126,7 +126,7 @@ public class BestellungResource {
 	public Bestellung findBestellungById(@PathParam("id") Long id,
 			@Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
 
 		if (bestellung == null) {
@@ -148,7 +148,7 @@ public class BestellungResource {
 			@PathParam("id") Long id, @Context UriInfo uriInfo,
 			@Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
 		Collection<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
 
@@ -172,7 +172,7 @@ public class BestellungResource {
 			@PathParam("id") Long id, @Context UriInfo uriInfo,
 			@Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
 		Kunde kunde = bestellung.getKunde();
 
