@@ -92,7 +92,7 @@ public class BestellungResourceTest extends AbstractResourceTest {
 			assertThat(jsonObject.getString("bestellungenUri"),
 					   endsWith("/kunden/" + jsonObject.getInt("id") + "/bestellungen"));
 		}
-
+	
 		LOGGER.finer("ENDE");
 	}
 
