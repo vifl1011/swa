@@ -113,8 +113,7 @@ public class BestellungResource {
 		final Collection<Bestellung> bestellungen = bs.findBestellungen(locale);
 
 		if (bestellungen.isEmpty()) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
@@ -135,8 +134,7 @@ public class BestellungResource {
 		Bestellung bestellung = bs.findBestellungById(id, locale);
 
 		if (bestellung == null) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
@@ -158,8 +156,7 @@ public class BestellungResource {
 		Collection<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
 
 		if (bestellpositionen.isEmpty()) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 		

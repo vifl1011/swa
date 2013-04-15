@@ -236,12 +236,11 @@ public class Bestellposition implements Serializable {
 		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(aktualisiert);
 	}
 	
-	public void setAktualisiertStr(String date) {
+	public void setAktualisiertStr(String date) throws ParseException {
 		try {
 			aktualisiert = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -269,12 +268,11 @@ public class Bestellposition implements Serializable {
 		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(erzeugt);
 	}
 	
-	public void setErzeugtStr(String date) {
+	public void setErzeugtStr(String date) throws ParseException {
 		try {
 			erzeugt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 

@@ -85,8 +85,7 @@ public class LieferungResource {
 		final Collection<Lieferung> lieferungen = bs.findLieferungen(locale);
 
 		if (lieferungen.isEmpty()) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
@@ -103,8 +102,7 @@ public class LieferungResource {
 		final Lieferung lieferung = bs.findLieferungById(id, locale);
 
 		if (lieferung == null) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 		
@@ -123,8 +121,7 @@ public class LieferungResource {
 		final Collection<Bestellposition> bestellpositionen = bs.findLieferungById(id, locale).getBestellpositionen();
 
 		if (bestellpositionen.isEmpty()) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 

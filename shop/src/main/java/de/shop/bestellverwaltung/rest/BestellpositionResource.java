@@ -87,8 +87,7 @@ public class BestellpositionResource {
 		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
@@ -108,8 +107,7 @@ public class BestellpositionResource {
 		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
@@ -129,8 +127,7 @@ public class BestellpositionResource {
 		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
@@ -150,8 +147,7 @@ public class BestellpositionResource {
 		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			// TODO msg passend zu locale
-			final String msg = "Keine Kunden gefunden ";
+			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 
