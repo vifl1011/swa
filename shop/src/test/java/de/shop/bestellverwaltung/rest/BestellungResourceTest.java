@@ -22,6 +22,7 @@ import java.io.StringReader;
 import java.lang.invoke.MethodHandles;
 import java.util.logging.Logger;
 
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
@@ -41,6 +42,7 @@ public class BestellungResourceTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(601);
+	private static final Integer BESTELLUNGEN_GESAMT = Integer.valueOf(10);
 	private static final Long KUNDE_ID_VORHANDEN = Long.valueOf(204);
 	private static final Long ARTIKEL_ID_VORHANDEN_1 = Long.valueOf(502);
 	private static final Long ARTIKEL_ID_VORHANDEN_2 = Long.valueOf(503);
@@ -71,6 +73,26 @@ public class BestellungResourceTest extends AbstractResourceTest {
 		LOGGER.finer("ENDE");
 	}
 
+	@Test
+	public void findBestellungen() {
+		LOGGER.finer("BEGINN");
+		
+		// When
+		final Response response = given().header(ACCEPT, APPLICATION_JSON)
+				                         .get(BESTELLUNGEN_PATH);
+		
+		// Then
+		assertThat(response.getStatusCode(), is(HTTP_OK));
+		
+		try (final JsonReader jsonReader = 
+				getJsonReaderFactory().createReader(new StringReader(response.asString()))) {
+			final JsonArray jsonArray = jsonReader.readArray();
+			assertThat(jsonArray.size(), is(Integer.valueOf(BESTELLUNGEN_GESAMT)));
+		}
+
+		LOGGER.finer("ENDE");
+	}
+	
 	//@Test
 	public void findKundeByBestellungId() {
 		LOGGER.finer("BEGINN");

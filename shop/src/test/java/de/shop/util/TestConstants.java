@@ -47,7 +47,7 @@ public final class TestConstants {
 	public static final String ARTIKEL_URI = BASEURI + ":" + PORT + BASEPATH + ARTIKEL_PATH;
 	
 	// Testklassen fuer Service- und Domain-Tests
-	public static final Class<?>[] TEST_CLASSES = { ProduktServiceTest.class, BestellServiceTest.class, KundeServiceTest.class };
+	public static final Class<?>[] TEST_CLASSES = { };
 	
 	private TestConstants() {
 	}

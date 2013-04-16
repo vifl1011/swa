@@ -107,7 +107,7 @@ public class BestellungResource {
 	 */
 	@GET
 	@Wrapped(element = "bestellung")
-	public Collection<Bestellung> findAllBestellungen(@Context UriInfo uriInfo, @Context HttpHeaders headers) {
+	public Collection<Bestellung> findBestellungen() {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		final Collection<Bestellung> bestellungen = bs.findBestellungen(locale);
