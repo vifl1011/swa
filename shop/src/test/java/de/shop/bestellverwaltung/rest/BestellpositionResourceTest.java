@@ -94,5 +94,53 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		
 		LOGGER.finer("Test erfolgreich!");
 	}
+	
+	@Test
+	public void findProduktByBestellposition() {
+		LOGGER.finer("Starting test method \"findProduktByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+		
+		final Long produktID = Long.valueOf(500);
+		
+		final Response response = given().header(ACCEPT, APPLICATION_JSON)
+                							.pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
+                							.get(BESTELLPOSITION_ID_PRODUKT_PATH);
+		
+		assertThat(response.getStatusCode(), is(HTTP_OK));
+		
+		LOGGER.finer("Response Status Code was 200... OK");
+		
+		try (final JsonReader jsonReader = 
+				getJsonReaderFactory().createReader(new StringReader(response.asString()))) {
+			final JsonObject jsonObject = jsonReader.readObject();
+			assertThat(jsonObject.getJsonNumber("id").longValue(), is(produktID.longValue()));
+			LOGGER.finer("ID des geladenen Objekts ist " + produktID + "... OK");
+		}
+		
+		LOGGER.finer("Test erfolgreich!");
+	}
+	
+	@Test
+	public void findLieferungByBestellposition() {
+		LOGGER.finer("Starting test method \"findLieferungByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+		
+		final Long lieferungID = Long.valueOf(300);
+		
+		final Response response = given().header(ACCEPT, APPLICATION_JSON)
+                							.pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
+                							.get(BESTELLPOSITION_ID_LIEFERUNG_PATH);
+		
+		assertThat(response.getStatusCode(), is(HTTP_OK));
+		
+		LOGGER.finer("Response Status Code was 200... OK");
+		
+		try (final JsonReader jsonReader = 
+				getJsonReaderFactory().createReader(new StringReader(response.asString()))) {
+			final JsonObject jsonObject = jsonReader.readObject();
+			assertThat(jsonObject.getJsonNumber("id").longValue(), is(lieferungID.longValue()));
+			LOGGER.finer("ID des geladenen Objekts ist " + lieferungID + "... OK");
+		}
+		
+		LOGGER.finer("Test erfolgreich!");
+	}
 
 }
