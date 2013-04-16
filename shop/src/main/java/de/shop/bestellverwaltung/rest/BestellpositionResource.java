@@ -59,6 +59,9 @@ public class BestellpositionResource {
 
 	@Inject
 	private UriHelperBestellposition uriHelperBestellposition;
+	
+	@Inject
+	private UriHelperBestellung uriHelperBestellung;
 
 	@PostConstruct
 	private void postConstruct() {
@@ -150,11 +153,12 @@ public class BestellpositionResource {
 			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
-
-		// URLs innerhalb der Bestellposition anpassen
-		//uriHelperBestellposition.updateUriBestellposition(bestellposition, uriInfo);
-
-		return bestellposition.getBestellung();
+		
+		Bestellung bestellung = bestellposition.getBestellung();
+		// URLs innerhalb der Bestellung anpassen
+		uriHelperBestellung.updateUriBestellung(bestellung, uriInfo);
+		
+		return bestellung;
 	}
 	
 	@POST
