@@ -24,6 +24,7 @@ import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -36,6 +37,7 @@ import de.shop.kundenverwaltung.service.KundeService;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
+@Ignore
 public class BestellServiceTest extends AbstractResourceTest {
 	private static final Long KUNDE_ID_VORHANDEN = Long.valueOf("200");
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf("600");

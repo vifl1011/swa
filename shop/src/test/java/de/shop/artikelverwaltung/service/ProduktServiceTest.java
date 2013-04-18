@@ -11,7 +11,9 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
+
 import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,6 +24,7 @@ import de.shop.util.AbstractResourceTest;
 import de.shop.util.Log;
 
 @RunWith(Arquillian.class)
+@Ignore
 public class ProduktServiceTest extends AbstractResourceTest {
 	
 	@Inject

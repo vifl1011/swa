@@ -18,8 +18,10 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
+
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -39,6 +41,7 @@ import de.shop.util.Log;
  */
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
+@Ignore
 public class KundeServiceTest extends AbstractResourceTest {
 
 	@Inject
