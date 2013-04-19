@@ -108,36 +108,13 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Bestellung lesen</web-resource-name>
-   <url-pattern>/rest/bestellung/id</url-pattern>
+   <url-pattern>/rest/bestellung/*</url-pattern>
    <http-method>GET</http-method>
   </web-resource-collection>
   <auth-constraint>
    <role-name>admin</role-name>
    <role-name>mitarbeiter</role-name>
    <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Bestellpositionen einer Bestellung lesen</web-resource-name>
-   <url-pattern>/rest/bestellung/id/bestellpositionen</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-   <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Kunde einer Bestellung lesen</web-resource-name>
-   <url-pattern>/rest/bestellung/id/kunde</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
   </auth-constraint>
  </security-constraint>
  <security-constraint>
@@ -168,43 +145,7 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Bestellposition lesen</web-resource-name>
-   <url-pattern>/rest/bestellposition/[1-9]{1}[0-9]{4}</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-   <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Bestellung einer Bestellposition lesen</web-resource-name>
-   <url-pattern>/rest/bestellposition/id/bestellung</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-   <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Produkt einer Bestellposition lesen</web-resource-name>
-   <url-pattern>/rest/bestellposition/id/produkt</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-   <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Lieferung einer Bestellposition lesen</web-resource-name>
-   <url-pattern>/rest/bestellposition/id/lieferung</url-pattern>
+   <url-pattern>/rest/bestellposition/*</url-pattern>
    <http-method>GET</http-method>
   </web-resource-collection>
   <auth-constraint>
@@ -216,19 +157,7 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Lieferung lesen</web-resource-name>
-   <url-pattern>/rest/lieferung/id</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-   <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Bestellpositionen einer Lieferung lesen</web-resource-name>
-   <url-pattern>/rest/lieferung/id/bestellpositionen</url-pattern>
+   <url-pattern>/rest/lieferung/*</url-pattern>
    <http-method>GET</http-method>
   </web-resource-collection>
   <auth-constraint>
@@ -247,6 +176,42 @@
   <auth-constraint>
    <role-name>admin</role-name>
    <role-name>mitarbeiter</role-name>
+  </auth-constraint>
+ </security-constraint>
+ <security-constraint>
+  <web-resource-collection>
+   <web-resource-name>Produkt erstellen / updaten</web-resource-name>
+   <url-pattern>/rest/produkt</url-pattern>
+   <http-method>POST</http-method>
+   <http-method>PUT</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>admin</role-name>
+   <role-name>mitarbeiter</role-name>
+  </auth-constraint>
+ </security-constraint>
+ <security-constraint>
+  <web-resource-collection>
+   <web-resource-name>Produkte lesen</web-resource-name>
+   <url-pattern>/rest/produkt/</url-pattern>
+   <http-method>GET</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>admin</role-name>
+   <role-name>mitarbeiter</role-name>
+   <role-name>kunde</role-name>
+  </auth-constraint>
+ </security-constraint>
+ <security-constraint>
+  <web-resource-collection>
+   <web-resource-name>Produkt lesen</web-resource-name>
+   <url-pattern>/rest/produkt/*</url-pattern>
+   <http-method>GET</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>admin</role-name>
+   <role-name>mitarbeiter</role-name>
+   <role-name>kunde</role-name>
   </auth-constraint>
  </security-constraint>
  <!-- ================================================================================ -->
