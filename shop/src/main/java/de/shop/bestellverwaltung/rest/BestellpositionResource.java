@@ -263,7 +263,6 @@ public class BestellpositionResource {
 		//Extrahiere Lieferung ID
 		final String lieferungUriStr = bestellposition.getLieferungUri().toString();
 		int startPos = lieferungUriStr.lastIndexOf('/') + 1;
-		lieferungUriStr.
 		final String lieferungIdStr = lieferungUriStr.substring(startPos);
 		
 		Long lieferungId = null;
