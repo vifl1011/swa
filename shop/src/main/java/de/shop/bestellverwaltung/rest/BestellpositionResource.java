@@ -250,19 +250,20 @@ public class BestellpositionResource {
 	@Log
 	public void updateBestellposition(
 			Bestellposition bestellposition, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
-		// Vorhandenen Kunden 	ermitteln
+		// Vorhandene Bestellposition 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
 		Bestellposition orgBestellposition = bs.findBestellpositionById(bestellposition.getId(), locale);
 		
 		if (orgBestellposition == null) {
-			String msg = "Kunde nicht gefunden";
+			String msg = "Bestellposition nicht gefunden";
 			throw new NotFoundException(msg);
 		}
 		
-		//Extrahiere Lieferung ID (Produkt ist eh nicht updateable)
+		//Extrahiere Lieferung ID
 		final String lieferungUriStr = bestellposition.getLieferungUri().toString();
 		int startPos = lieferungUriStr.lastIndexOf('/') + 1;
+		lieferungUriStr.
 		final String lieferungIdStr = lieferungUriStr.substring(startPos);
 		
 		Long lieferungId = null;
@@ -278,15 +279,62 @@ public class BestellpositionResource {
 		if (lieferung == null) {
 			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
 		}
-		bestellposition.setLieferung(lieferung);
-		LOGGER.log(FINEST, "Kunde vorher: %s", orgBestellposition);
-		orgBestellposition.setValues(bestellposition);
-		LOGGER.log(FINEST, "Kunde nachher: %s", orgBestellposition);
 		
-		//Update Bestellposition
+		//	Extrahiere Produkt ID
+		
+		final String produktUriStr = bestellposition.getProduktUri().toString();
+		startPos = produktUriStr.lastIndexOf('/') + 1;
+		final String produktIdStr = produktUriStr.substring(startPos);
+		
+		Long produktId = null;
+		
+		try {
+			produktId = Long.valueOf(produktIdStr);
+		} catch (NotFoundException e) {
+			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
+		}
+		
+		Produkt produkt = av.findProduktById(produktId, locale);
+		
+		if (produkt == null) {
+			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
+		}
+		
+
+		//	Extrahiere Bestellung ID
+		
+		
+		final String bestellungUriStr = bestellposition.getBestellungUri().toString();
+		startPos = bestellungUriStr.lastIndexOf('/') + 1;
+		final String bestellungIdStr = bestellungUriStr.substring(startPos);
+		
+		Long bestellungId = null;
+		
+		try {
+			bestellungId = Long.valueOf(bestellungIdStr);
+		} catch (NotFoundException e) {
+			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungIdStr, e);
+		}
+		
+		Bestellung bestellung = bs.findBestellungById(bestellungId, locale);
+		
+		if (bestellung == null) {
+			throw new NotFoundException("keine bestellung vorhanden mit ID " + bestellungId);
+		}
+		
+		//	Update Bestellposition
+		
+		bestellposition.setLieferung(lieferung);
+		bestellposition.setBestellung(bestellung);
+		bestellposition.setProdukt(produkt);
+		
+		LOGGER.log(FINEST, "Bestellposition vorher: %s", orgBestellposition);
+		orgBestellposition.setValues(bestellposition);
+		LOGGER.log(FINEST, "Bestellposition nachher: %s", orgBestellposition);
+		
 		bestellposition = bs.updateBestellposition(orgBestellposition, locale);
 		if (bestellposition == null) {
-			final String msg = "Kein Kunde gefunden mit der ID " + orgBestellposition.getId();
+			final String msg = "Keine Bestellposition gefunden mit der ID " + orgBestellposition.getId();
 			throw new NotFoundException(msg);
 		}
 	}

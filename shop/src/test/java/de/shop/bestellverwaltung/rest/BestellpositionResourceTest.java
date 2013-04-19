@@ -2,12 +2,22 @@ package de.shop.bestellverwaltung.rest;
 
 import static com.jayway.restassured.RestAssured.given;
 import static de.shop.util.TestConstants.ACCEPT;
+import static de.shop.util.TestConstants.ARTIKEL_URI;
+import static de.shop.util.TestConstants.KUNDEN_URI;
+import static de.shop.util.TestConstants.LIEFERUNG_URI;
+import static de.shop.util.TestConstants.BESTELLUNGEN_URI;
+import static de.shop.util.TestConstants.BESTELLPOSITION_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PATH_PARAM;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_BESTELLUNG_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_LIEFERUNG_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PRODUKT_PATH;
+import static de.shop.util.TestConstants.BESTELLUNGEN_PATH;
+import static de.shop.util.TestConstants.LOCATION;
+import static java.net.HttpURLConnection.HTTP_CREATED;
+import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -16,9 +26,11 @@ import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.io.StringReader;
 import java.lang.invoke.MethodHandles;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
@@ -37,6 +49,9 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	
 	private static final Long BESTELLPOSITION_ID_VORHANDEN = Long.valueOf(700);
+	private static final Long ARTIKEL_ID_VORHANDEN = Long.valueOf(500);
+	private static final Long LIEFERUNG_ID_VORHANDEN = Long.valueOf(300);
+	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(600);
 	
 	@Test
 	public void first() {
@@ -47,16 +62,27 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		LOGGER.finer("Finished test method \"first\"...");
 	}
 	
+	//GET-TESTS...
+	
 	@Test
-	public void findBestellpositionByID() {
-		LOGGER.finer("Starte Testmethode \"findBestellpositionByID\" mit ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+	public void findBestellpositionById() {
+		LOGGER.finer("Starte Testmethode \"findBestellpositionById\" mit ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
-		final Response response = given().header(ACCEPT, APPLICATION_JSON)
-                							.pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
-                							.get(BESTELLPOSITION_ID_PATH);
+		int expectedStatusCode = HTTP_OK;
+		String username = "200";
+		String password = "supergeheimespasswort";
 		
-		assertThat(response.getStatusCode(), is(HTTP_OK));
-		LOGGER.finer("Response Status Code was 200... OK");
+		final Response response = given().auth()
+										 .basic(username, password)
+										 .header(ACCEPT, APPLICATION_JSON)
+                					     .pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
+                						 .get(BESTELLPOSITION_ID_PATH);
+											
+		
+		assertThat(response.getStatusCode(), is(expectedStatusCode));
+		
+		LOGGER.finer("Response Status Code was " + expectedStatusCode + "... OK");
+		
 		try (final JsonReader jsonReader = 
 				getJsonReaderFactory().createReader(new StringReader(response.asString()))) {
 			final JsonObject jsonObject = jsonReader.readObject();
@@ -76,8 +102,12 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		LOGGER.finer("Starting test method \"findBestellungByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
 		final Long bestellungID = Long.valueOf(600);
+		String username = "200";
+		String password = "supergeheimespasswort";
 		
-		final Response response = given().header(ACCEPT, APPLICATION_JSON)
+		final Response response = given().auth()
+											.basic(username,  password)
+											.header(ACCEPT, APPLICATION_JSON)
                 							.pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
                 							.get(BESTELLPOSITION_ID_BESTELLUNG_PATH);
 		
@@ -100,8 +130,12 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		LOGGER.finer("Starting test method \"findProduktByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
 		final Long produktID = Long.valueOf(500);
+		String username = "200";
+		String password = "supergeheimespasswort";
 		
-		final Response response = given().header(ACCEPT, APPLICATION_JSON)
+		final Response response = given().auth()
+											.basic(username, password)
+											.header(ACCEPT, APPLICATION_JSON)
                 							.pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
                 							.get(BESTELLPOSITION_ID_PRODUKT_PATH);
 		
@@ -124,8 +158,12 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		LOGGER.finer("Starting test method \"findLieferungByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
 		final Long lieferungID = Long.valueOf(300);
+		String username = "200";
+		String password = "supergeheimespasswort";
 		
-		final Response response = given().header(ACCEPT, APPLICATION_JSON)
+		final Response response = given().auth()
+											.basic(username,  password)
+											.header(ACCEPT, APPLICATION_JSON)
                 							.pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
                 							.get(BESTELLPOSITION_ID_LIEFERUNG_PATH);
 		
@@ -139,6 +177,99 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 			assertThat(jsonObject.getJsonNumber("id").longValue(), is(lieferungID.longValue()));
 			LOGGER.finer("ID des geladenen Objekts ist " + lieferungID + "... OK");
 		}
+		
+		LOGGER.finer("Test erfolgreich!");
+	}
+	
+	//POST - TESTS
+	
+	@Test
+	public void createBestellposition() {
+		LOGGER.finer("Starte Testmethode \"createBestellposition\": ...");
+			
+		// Given
+		final Long artikelId = ARTIKEL_ID_VORHANDEN;
+		final Long lieferungId = LIEFERUNG_ID_VORHANDEN;
+		final Long bestellungId = BESTELLUNG_ID_VORHANDEN;
+		final String username = "200";
+		final String password = "supergeheimespasswort";
+		
+		// Neues, client-seitiges Bestellungsobjekt als JSON-Datensatz
+		final JsonObject jsonObject = getJsonBuilderFactory().createObjectBuilder()
+				                      .add("produktUri", ARTIKEL_URI + "/" + artikelId)
+				                      .add("lieferungUri", LIEFERUNG_URI + "/" + lieferungId)
+				                      .add("bestellungUri", BESTELLUNGEN_URI + "/" + bestellungId)
+				                      .add("menge", 1)
+				                      .build();
+		// When
+		final Response response = given().contentType(APPLICATION_JSON)
+				                         .body(jsonObject.toString())
+				                         .auth()
+				                         .basic(username, password)
+				                         .post(BESTELLPOSITION_PATH);
+			
+		assertThat(response.getStatusCode(), is(HTTP_CREATED));
+		
+		final String location = response.getHeader(LOCATION);
+		final int startPos = location.lastIndexOf('/');
+		final String idStr = location.substring(startPos + 1);
+		final Long id = Long.valueOf(idStr);
+		assertThat(id.longValue() > 0, is(true));
+
+		LOGGER.finer("Bestellposition wurde erfolgreich angelegt mit ID: " + id);
+		LOGGER.finer("Test erfolgreich!");
+	}
+	
+	//PUT - TESTS
+	
+	@Test
+	public void updateBestellposition() {
+		LOGGER.finer("Starte Testmethode \"updateBestellposition\": ...");
+		
+		//	GIVEN
+		final String username = "200";
+		final String password = "supergeheimespasswort";
+		
+		final int neueMenge = 2000;
+		
+		//	WHEN
+		Response response = given().auth()
+				.basic(username,  password)
+				.header(ACCEPT, APPLICATION_JSON)
+                .pathParameter(BESTELLPOSITION_ID_PATH_PARAM, BESTELLPOSITION_ID_VORHANDEN)
+                .get(BESTELLPOSITION_ID_PATH);
+		
+		JsonObject jsonObject;
+		try (final JsonReader jsonReader =
+									getJsonReaderFactory().createReader(new StringReader(response.asString()))) {
+			jsonObject = jsonReader.readObject();
+		}
+		
+		assertThat(jsonObject.getJsonNumber("id").longValue(), is(BESTELLPOSITION_ID_VORHANDEN));
+		
+		LOGGER.finer("Das Object welches geupdated werden soll ist vorhanden...");
+		
+		final JsonObjectBuilder job = getJsonBuilderFactory().createObjectBuilder();
+		final Set<String> keys = jsonObject.keySet();
+		for (String k : keys) {
+			if ("menge".equals(k)) {
+				job.add("menge",  neueMenge);
+			}
+			else {
+				job.add(k, jsonObject.get(k));
+			}
+		}
+		
+		jsonObject = job.build();
+		
+		response = given().auth()
+							.basic(username,  password)
+							.contentType(APPLICATION_JSON)
+							.body(jsonObject.toString())
+							.put(BESTELLPOSITION_PATH);
+		
+		//	THEN
+		assertThat(response.getStatusCode(), is(HTTP_NO_CONTENT));
 		
 		LOGGER.finer("Test erfolgreich!");
 	}

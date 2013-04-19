@@ -117,18 +117,7 @@
    <role-name>kunde</role-name>
   </auth-constraint>
  </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Lieferung erstellen / updaten</web-resource-name>
-   <url-pattern>/rest/lieferung</url-pattern>
-   <http-method>POST</http-method>
-   <http-method>PUT</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-  </auth-constraint>
- </security-constraint>
+ <!-- ==================== Bestellposition =========================================== -->
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Bestellposition erzeugen / updaten</web-resource-name>
@@ -152,6 +141,19 @@
    <role-name>admin</role-name>
    <role-name>mitarbeiter</role-name>
    <role-name>kunde</role-name>
+  </auth-constraint>
+ </security-constraint>
+ <!-- ==================== Lieferung =========================================== -->
+ <security-constraint>
+  <web-resource-collection>
+   <web-resource-name>Lieferung erstellen / updaten</web-resource-name>
+   <url-pattern>/rest/lieferung</url-pattern>
+   <http-method>POST</http-method>
+   <http-method>PUT</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>admin</role-name>
+   <role-name>mitarbeiter</role-name>
   </auth-constraint>
  </security-constraint>
  <security-constraint>
@@ -178,6 +180,7 @@
    <role-name>mitarbeiter</role-name>
   </auth-constraint>
  </security-constraint>
+ <!-- ==================== Produkt =========================================== -->
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Produkt erstellen / updaten</web-resource-name>

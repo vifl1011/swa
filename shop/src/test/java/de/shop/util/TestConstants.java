@@ -35,6 +35,7 @@ public final class TestConstants {
 	public static final String BESTELLUNGEN_ID_PATH_PARAM = "bestellungId";
 	public static final String BESTELLUNGEN_ID_PATH = BESTELLUNGEN_PATH + "/{" + BESTELLUNGEN_ID_PATH_PARAM + "}";
 	public static final String BESTELLUNGEN_ID_KUNDE_PATH = BESTELLUNGEN_ID_PATH + "/kunde";
+	public static final String BESTELLUNGEN_URI = BASEURI + ":" + PORT + BASEPATH + BESTELLUNGEN_PATH;
 	
 	public static final String BESTELLPOSITION_PATH = "/bestellposition";
 	public static final String BESTELLPOSITION_ID_PATH_PARAM = "bestellpositionId";
@@ -42,6 +43,12 @@ public final class TestConstants {
 	public static final String BESTELLPOSITION_ID_BESTELLUNG_PATH = BESTELLPOSITION_ID_PATH + "/bestellung";
 	public static final String BESTELLPOSITION_ID_LIEFERUNG_PATH = BESTELLPOSITION_ID_PATH + "/lieferung";
 	public static final String BESTELLPOSITION_ID_PRODUKT_PATH = BESTELLPOSITION_ID_PATH + "/produkt";
+	public static final String BESTELLPOSITION_URI = BASEURI + ":" + PORT + BASEPATH + BESTELLPOSITION_PATH;
+	
+	public static final String LIEFERUNG_PATH = "/lieferung";
+	public static final String LIEFERUNG_ID_PATH_PARAM = "lieferungId";
+	public static final String LIEFERUNG_ID_PARAM = LIEFERUNG_PATH + "/{" + LIEFERUNG_ID_PATH_PARAM + "}";
+	public static final String LIEFERUNG_URI = BASEURI + ":" + PORT + BASEPATH + LIEFERUNG_PATH;
 	
 	public static final String ARTIKEL_PATH = "/artikel";
 	public static final String ARTIKEL_URI = BASEURI + ":" + PORT + BASEPATH + ARTIKEL_PATH;
