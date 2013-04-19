@@ -168,7 +168,7 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Bestellposition lesen</web-resource-name>
-   <url-pattern>/rest/bestellposition/id</url-pattern>
+   <url-pattern>/rest/bestellposition/[1-9]{1}[0-9]{4}</url-pattern>
    <http-method>GET</http-method>
   </web-resource-collection>
   <auth-constraint>

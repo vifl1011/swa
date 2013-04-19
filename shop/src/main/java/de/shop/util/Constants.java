@@ -14,7 +14,7 @@ public final class Constants {
 	public static final String SECURITY_DOMAIN = "shop";
 	public static final String KUNDE_ROLLE_TABELLE = "kunde_rolle";
 	
-	public static final String HASH_ALGORITHM = "SHA-1";
+	public static final String HASH_ALGORITHM = "SHA-256"; //von SHA-1 auf SHA 256 geändert
 	public static final String HASH_ENCODING = "base64";
 	public static final String HASH_CHARSET = "UTF-8";
 	
