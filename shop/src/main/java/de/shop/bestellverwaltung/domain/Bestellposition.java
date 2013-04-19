@@ -318,8 +318,6 @@ public class Bestellposition implements Serializable {
 		produktUri = bestellposition.getProduktUri();
 		lieferung = bestellposition.getLieferung();
 		lieferungUri = bestellposition.getLieferungUri();
-		bestellung = bestellposition.getBestellung();
-		bestellungUri = bestellposition.getBestellungUri();
 	}
 
 	@Override

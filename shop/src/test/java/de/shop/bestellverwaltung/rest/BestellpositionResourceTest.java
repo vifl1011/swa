@@ -4,8 +4,8 @@ import static com.jayway.restassured.RestAssured.given;
 import static de.shop.util.TestConstants.ACCEPT;
 import static de.shop.util.TestConstants.ARTIKEL_URI;
 import static de.shop.util.TestConstants.KUNDEN_URI;
-import static de.shop.util.TestConstants.LIEFERUNG_URI;
 import static de.shop.util.TestConstants.BESTELLUNGEN_URI;
+import static de.shop.util.TestConstants.LIEFERUNG_URI;
 import static de.shop.util.TestConstants.BESTELLPOSITION_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PATH_PARAM;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PATH;
@@ -254,6 +254,12 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		for (String k : keys) {
 			if ("menge".equals(k)) {
 				job.add("menge",  neueMenge);
+			}
+			else if ("produktUri".equals(k)) {
+				job.add("produktUri", ARTIKEL_URI + "/" + ARTIKEL_ID_VORHANDEN);
+			}
+			else if ("lieferungUri".equals(k)) {
+				job.add("lieferungUri", LIEFERUNG_URI + "/" + LIEFERUNG_ID_VORHANDEN);
 			}
 			else {
 				job.add(k, jsonObject.get(k));

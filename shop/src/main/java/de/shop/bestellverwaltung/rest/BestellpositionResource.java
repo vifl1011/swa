@@ -299,32 +299,10 @@ public class BestellpositionResource {
 			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
 		}
 		
-
-		//	Extrahiere Bestellung ID
-		
-		
-		final String bestellungUriStr = bestellposition.getBestellungUri().toString();
-		startPos = bestellungUriStr.lastIndexOf('/') + 1;
-		final String bestellungIdStr = bestellungUriStr.substring(startPos);
-		
-		Long bestellungId = null;
-		
-		try {
-			bestellungId = Long.valueOf(bestellungIdStr);
-		} catch (NotFoundException e) {
-			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungIdStr, e);
-		}
-		
-		Bestellung bestellung = bs.findBestellungById(bestellungId, locale);
-		
-		if (bestellung == null) {
-			throw new NotFoundException("keine bestellung vorhanden mit ID " + bestellungId);
-		}
-		
 		//	Update Bestellposition
 		
 		bestellposition.setLieferung(lieferung);
-		bestellposition.setBestellung(bestellung);
+//		bestellposition.setBestellung(bestellung);
 		bestellposition.setProdukt(produkt);
 		
 		LOGGER.log(FINEST, "Bestellposition vorher: %s", orgBestellposition);
