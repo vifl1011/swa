@@ -2,11 +2,13 @@ package de.shop.kundenverwaltung.service;
 
 import static java.util.logging.Level.FINER;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -14,6 +16,8 @@ import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 
 import java.util.List;
 import java.util.Locale;
@@ -25,11 +29,16 @@ import de.shop.kundenverwaltung.domain.PasswordGroup;
 import de.shop.util.IdGroup;
 import de.shop.util.Log;
 import de.shop.util.Constants;
+import de.shop.util.Transactional;
 import de.shop.util.ValidatorProvider;
 
 /**
  * Anwendungslogik fuer die KundeService
  */
+@Produces(APPLICATION_JSON)
+@Consumes
+@RequestScoped
+@Transactional
 @Log
 public class KundeService implements Serializable {
 	private static final long serialVersionUID = -5520738420154763865L;

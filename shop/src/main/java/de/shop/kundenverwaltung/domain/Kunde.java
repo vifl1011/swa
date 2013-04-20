@@ -295,11 +295,6 @@ public class Kunde implements Serializable, Cloneable {
 	public String getGeschlecht() {
 		return this.geschlecht;
 	}
-
-	@JsonIgnore
-	public void setGeschlecht(GeschlechtType geschlecht) {
-		this.geschlecht = (geschlecht == GeschlechtType.MAENNLICH ?  "m" : "w");
-	}
 	
 	public void setGeschlecht(String geschlecht) {
 		if  (geschlecht == null)
@@ -307,6 +302,11 @@ public class Kunde implements Serializable, Cloneable {
 		if  (geschlecht.matches("[mw]"))
 			this.geschlecht = geschlecht;
 		
+	}
+	
+	@JsonIgnore
+	public void setGeschlecht(GeschlechtType geschlecht) {
+		this.geschlecht = (geschlecht == GeschlechtType.MAENNLICH ?  "m" : "w");
 	}
 	
 	public String getLogin() {
