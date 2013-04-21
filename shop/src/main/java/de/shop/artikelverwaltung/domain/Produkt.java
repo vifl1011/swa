@@ -1,6 +1,9 @@
 package de.shop.artikelverwaltung.domain;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,21 +11,32 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 import de.shop.bestellverwaltung.domain.Bestellposition;
+import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.util.Constants;
 import de.shop.util.IdGroup;
+
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
+
 import javax.xml.bind.annotation.XmlElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+
+import static de.shop.util.Constants.ERSTE_VERSION;
+import static de.shop.util.Constants.KEINE_ID;
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 
 /**
@@ -40,7 +54,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 @XmlRootElement
 public class Produkt implements Serializable {
-
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	private static final long serialVersionUID = -3725063964228781630L;
 	private static final String PREFIX = "Produkt.";
 	public static final String FIND_PRODUKT_BY_ID = PREFIX + "findProduktById";
@@ -53,6 +67,10 @@ public class Produkt implements Serializable {
 	@Min(value = Constants.MIN_ID, message = "{artikelverwaltung.produkt.id.min}", groups = IdGroup.class)
 	@XmlElement
 	private Long id;
+	
+	@Version
+	@Basic(optional = false)
+	private int version = ERSTE_VERSION;
 
 	@Column(name = "bezeichnung", nullable = true)
 	@Pattern(regexp = "[A-Za-z]*")
@@ -119,6 +137,11 @@ public class Produkt implements Serializable {
 	private void preUpdate() {
 		aktualisiert = new Date();
 	}
+	
+//	@PostUpdate
+//	protected void postUpdate() {
+//		LOGGER.debugf("Produkt mit ID=%d aktualisiert: version=%d", id, version);
+//	}
 
 	public void addBestellposition(Bestellposition bestellPosition) {
 		if (bestellPosition != null)
@@ -188,6 +211,13 @@ public class Produkt implements Serializable {
 	public void setVorrat(int vorrat) {
 		this.vorrat = vorrat;
 	}
+	
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 	@XmlTransient
 	public List<Bestellposition> getBestellpositionen() {
@@ -197,12 +227,22 @@ public class Produkt implements Serializable {
 	public void setBestellpositionen(List<Bestellposition> bestellpositionen) {
 		this.bestellpositionen = bestellpositionen;
 	}
+	
+	public void setValues(Produkt p) {
+		version = p.version;
+		setBezeichnung(p.getBezeichnung());
+		setPreis(p.getPreis());
+		setFarbe(p.getFarbe());
+		setGroesse(p.groesse);
+		setVorrat(p.getVorrat());
+		
+	}
 
 	// Object Methoden
 	// ===================================================================================
 	@Override
 	public String toString() {
-		return "Produkt [id=" + getId() + ", aktualisiert=" + getAktualisiert()
+		return "Produkt [id=" + getId() + ", version=" + version + ", aktualisiert=" + getAktualisiert()
 				+ ", bezeichnung " + getBezeichnung() + ",preis: " + getPreis()
 				+ ", erzeugt=" + getErzeugt() + ", farbe=" + getFarbe()
 				+ ", groesse=" + getGroesse() + ", vorrat=" + getVorrat()

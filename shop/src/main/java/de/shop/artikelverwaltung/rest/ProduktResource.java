@@ -112,8 +112,38 @@ public class ProduktResource {
 		return Response.created(produktUri).build();
 	}
 
+	
+	// bsp
+	
+//	@PUT
+//	@Consumes(APPLICATION_JSON)
+//	public void updateKunde(Produkt produkt) {
+//		final Locale locale = localeHelper.getLocale(headers);
+//
+//		// Vorhandenen Kunden ermitteln
+//		final AbstractKunde origKunde = ks.findKundeById(kunde.getId(), FetchType.NUR_KUNDE, locale);
+//		if (origKunde == null) {
+//			// TODO msg passend zu locale
+//			final String msg = "Kein Kunde gefunden mit der ID " + kunde.getId();
+//			throw new NotFoundException(msg);
+//		}
+//		LOGGER.tracef("Kunde vorher = %s", origKunde);
+//	
+//		// Daten des vorhandenen Kunden ueberschreiben
+//		origKunde.setValues(kunde);
+//		LOGGER.tracef("Kunde nachher = %s", origKunde);
+//		
+//		// Update durchfuehren
+//		ks.updateKunde(origKunde, locale, false);
+//	}
+	
+	
+	
+	
+	
+	// 			ALT
 	 @PUT
-	 @Consumes({ APPLICATION_XML, TEXT_XML })
+	 @Consumes({APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
 	 @Produces
 	 @Log
 	 public void updateProdukt(Produkt produkt, @Context UriInfo uriInfo,
@@ -122,22 +152,21 @@ public class ProduktResource {
 	 final Locale locale = locales.isEmpty() ? Locale.getDefault() 
 			 : locales.get(0);
 	 
-	 Produkt p = ps.findProduktById(produkt.getId(), locale);
+	 Produkt orgProdukt = ps.findProduktById(produkt.getId(), locale);
 	
-	 if (p == null) {
-	 final String msg = "Kein Produkt gefunden mit der ID " + produkt.getId();
+	 if (orgProdukt == null) {
+	 final String msg = "Kein Produkt gefunden! ";
 	 throw new NotFoundException(msg);
 	 }
-	
-	 // ändern
-	 //p.setBezeichnung("geaendert lol");
-	 produkt = ps.updateProdukt(produkt, locale);
+	 
+	 orgProdukt.setValues(produkt);
+	 
+	 produkt = ps.updateProdukt(orgProdukt, locale);
 	
 	 if (produkt == null) {
-	 final String msg = "2. Kein Produkt gefunden mit der ID " + p.getId();
-	 throw new NotFoundException(msg);
-	 }
-	
+		 final String msg = "Kein Produkt gefunden!";
+		 throw new NotFoundException(msg);
+	 	 }	
 	 }
 
 }
