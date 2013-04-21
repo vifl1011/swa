@@ -16,3 +16,4 @@ INSERT INTO kunde_rolle (kunde_fk, rolle_fk) VALUES (202,3);
 INSERT INTO kunde_rolle (kunde_fk, rolle_fk) VALUES (203,1);
 INSERT INTO kunde_rolle (kunde_fk, rolle_fk) VALUES (203,3);
 INSERT INTO kunde_rolle (kunde_fk, rolle_fk) VALUES (204,3);
+INSERT INTO kunde_rolle (kunde_fk, rolle_fk) VALUES (205,0);
