@@ -28,6 +28,7 @@ import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,6 +39,7 @@ import de.shop.util.AbstractResourceTest;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
+@Ignore
 public class BestellungResourceTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	

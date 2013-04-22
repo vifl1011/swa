@@ -73,6 +73,8 @@ public class ProduktResourceTest extends AbstractResourceTest {
 		// When
 		final Response response = given().header(ACCEPT, APPLICATION_JSON)
 				                         .pathParameter(PRODUKT_ID_PATH_PARAM, produktId)
+				                         .auth()
+                                         .basic(USERNAME, PASSWORD)
 				                         .get(PRODUKT_ID_PATH);
 		
 		// Then
@@ -97,6 +99,8 @@ public class ProduktResourceTest extends AbstractResourceTest {
 		// When
 		final Response response = given().header(ACCEPT, APPLICATION_JSON)
 				                         .pathParameter(PRODUKT_ID_PATH_PARAM, produktId)
+				                         .auth()
+                                         .basic(USERNAME, PASSWORD)
                                          .get(PRODUKT_ID_PATH);
 
     	// Then
@@ -116,8 +120,8 @@ public class ProduktResourceTest extends AbstractResourceTest {
 		final String groesse = GROESSE;
 		
 		
-		final String username = USERNAME;
-		final String password = PASSWORD;
+		final String username = USERNAME_ADMIN;
+		final String password = PASSWORD_ADMIN;
 		
 		final JsonObject jsonObject = getJsonBuilderFactory().createObjectBuilder()
 //		             		          .add("type", AbstractKunde.PRIVATKUNDE)
@@ -137,40 +141,40 @@ public class ProduktResourceTest extends AbstractResourceTest {
 		
 		// Then
 		assertThat(response.getStatusCode(), is(HTTP_CREATED));
-//		final String location = response.getHeader(LOCATION);
-//		final int startPos = location.lastIndexOf('/');
-//		final String idStr = location.substring(startPos + 1);
-//		final Long id = Long.valueOf(idStr);
-//		assertThat(id.longValue() > 0, is(true));
+		final String location = response.getHeader(LOCATION);
+		final int startPos = location.lastIndexOf('/');
+		final String idStr = location.substring(startPos + 1);
+		final Long id = Long.valueOf(idStr);
+		assertThat(id.longValue() > 0, is(true));
 
 		LOGGER.finer("ENDE");
 	}
 	
-//	@Test
-//	public void createProduktFalschesPassword() {
-//		LOGGER.finer("BEGINN");
-//		
-//		// Given
-//		final String username = USERNAME;
-//		final String password = PASSWORD_FALSCH;
-//		final String bezeichnung = NEUE_BEZEICHNUNG;
-//		
-//		final JsonObject jsonObject = getJsonBuilderFactory().createObjectBuilder()
-//            		                  .add("bezeichnung", bezeichnung)
-//            		                  .build();
-//		
-//		// When
-//		final Response response = given().contentType(APPLICATION_JSON)
-//				                         .body(jsonObject.toString())
-//                                         .auth()
-//                                         .basic(username, password)
-//                                         .post(PRODUKT_PATH);
-//		
-//		// Then
-//		assertThat(response.getStatusCode(), is(HTTP_UNAUTHORIZED));
-//		
-//		LOGGER.finer("ENDE");
-//	}
+	@Test
+	public void createProduktFalschesPassword() {
+		LOGGER.finer("BEGINN");
+		
+		// Given
+		final String username = USERNAME;
+		final String password = PASSWORD_FALSCH;
+		final String bezeichnung = NEUE_BEZEICHNUNG;
+		
+		final JsonObject jsonObject = getJsonBuilderFactory().createObjectBuilder()
+            		                  .add("bezeichnung", bezeichnung)
+            		                  .build();
+		
+		// When
+		final Response response = given().contentType(APPLICATION_JSON)
+				                         .body(jsonObject.toString())
+                                         .auth()
+                                         .basic(username, password)
+                                         .post(PRODUKT_PATH);
+		
+		// Then
+		assertThat(response.getStatusCode(), is(HTTP_UNAUTHORIZED));
+		
+		LOGGER.finer("ENDE");
+	}
 	
 	@Test
 	@Log
@@ -180,12 +184,14 @@ public class ProduktResourceTest extends AbstractResourceTest {
 		// Given
 		final Long produktId = PRODUKT_ID_UPDATE;
 		final String neueBezeichnung = NEUE_BEZEICHNUNG;
-		final String username = USERNAME;
-		final String password = PASSWORD;
+		final String username = USERNAME_ADMIN;
+		final String password = PASSWORD_ADMIN;
 		
 		// When
 		Response response = given().header(ACCEPT, APPLICATION_JSON)
 				                   .pathParameter(PRODUKT_ID_PATH_PARAM, produktId)
+				                   .auth()
+                                   .basic(USERNAME, PASSWORD)
                                    .get(PRODUKT_ID_PATH);
 		
 		JsonObject jsonObject;

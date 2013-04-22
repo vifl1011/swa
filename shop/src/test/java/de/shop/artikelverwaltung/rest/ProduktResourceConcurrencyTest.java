@@ -40,7 +40,6 @@ import de.shop.util.ConcurrentUpdate;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
-@Ignore
 public class ProduktResourceConcurrencyTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
@@ -50,6 +49,7 @@ public class ProduktResourceConcurrencyTest extends AbstractResourceTest {
 
 	
 	@Test
+	@Ignore
 	public void updateUpdate() throws InterruptedException, ExecutionException {
 		LOGGER.finer("BEGINN");
 		
@@ -57,12 +57,14 @@ public class ProduktResourceConcurrencyTest extends AbstractResourceTest {
 		final Long produktId = PRODUKT_ID_UPDATE;
     	final String neueBez = NEUE_BEZEICHNUNG;
     	final String neueBez2 = NEUE_BEZEICHNUNG_2;
-		final String username = USERNAME;
-		final String password = PASSWORD;
+		final String username = USERNAME_ADMIN;
+		final String password = PASSWORD_ADMIN;
 		
 		// When
 		Response response = given().header(ACCEPT, APPLICATION_JSON)
 				                   .pathParameter(PRODUKT_ID_PATH_PARAM, produktId)
+				                   .auth()
+                                   .basic(username, password)
                                    .get(PRODUKT_ID_PATH);
 		JsonObject jsonObject;
 		try (final JsonReader jsonReader =
@@ -105,8 +107,8 @@ public class ProduktResourceConcurrencyTest extends AbstractResourceTest {
     	jsonObject = job.build();
 		response = given().contentType(APPLICATION_JSON)
 				          .body(jsonObject.toString())
-		//                  .auth()
-		//                  .basic(username, password)
+		                  .auth()
+		                  .basic(username, password)
 		                  .put(PRODUKT_PATH);
     	
 		// Then

@@ -28,7 +28,7 @@ import org.junit.BeforeClass;
 import com.jayway.restassured.RestAssured;
 
 public abstract class AbstractResourceTest {
-	protected static final String USERNAME = "204";
+	protected static final String USERNAME = "204";   // 204 hat die rolle kunde?
 	protected static final String PASSWORD = "123456";
 	protected static final String USERNAME_ADMIN = "205";
 	protected static final String PASSWORD_ADMIN = "123456";
