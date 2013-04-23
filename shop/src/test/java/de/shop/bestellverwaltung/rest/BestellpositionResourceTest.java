@@ -49,7 +49,6 @@ import de.shop.util.ConcurrentUpdate;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
-@Ignore
 public class BestellpositionResourceTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	
@@ -57,8 +56,8 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	private static final Long ARTIKEL_ID_VORHANDEN = Long.valueOf(500);
 	private static final Long LIEFERUNG_ID_VORHANDEN = Long.valueOf(300);
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(600);
-	private static final String USERNAME_ADMIN = "200";
-	private static final String PASSWORD_ADMIN = "supergeheimespasswort";
+	private static final String USERNAME_ADMIN = USERNAME;
+	private static final String PASSWORD_ADMIN = PASSWORD;
 	
 	@Test
 	public void first() {

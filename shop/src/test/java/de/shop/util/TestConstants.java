@@ -47,7 +47,8 @@ public final class TestConstants {
 	
 	public static final String LIEFERUNG_PATH = "/lieferung";
 	public static final String LIEFERUNG_ID_PATH_PARAM = "lieferungId";
-	public static final String LIEFERUNG_ID_PARAM = LIEFERUNG_PATH + "/{" + LIEFERUNG_ID_PATH_PARAM + "}";
+	public static final String LIEFERUNG_ID_PATH = LIEFERUNG_PATH + "/{" + LIEFERUNG_ID_PATH_PARAM + "}";
+	public static final String LIEFERUNG_ID_BESTELLPOSITIONEN_PATH = LIEFERUNG_ID_PATH + "/bestellpositionen";
 	public static final String LIEFERUNG_URI = BASEURI + ":" + PORT + BASEPATH + LIEFERUNG_PATH;
 	
 	public static final String ARTIKEL_PATH = "/artikel";
