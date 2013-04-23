@@ -236,14 +236,88 @@ public class BestellService implements Serializable {
 			return null;
 		}
 		
-		validateBestellposition(bestellposition, locale, Default.class, IdGroup.class);
-//		em.detach(bestellposition);
-//		Bestellposition temp = findBestellpositionById(bestellposition.getId(), locale);
-//		em.detach(temp);
-		em.refresh(bestellposition);
-		em.lock(bestellposition, LockModeType.OPTIMISTIC);
+		//******************************************************************
+		Bestellposition tmp = findBestellpositionById(bestellposition.getId(), locale);
+		
+		if (tmp == null) {
+			String msg = "Bestellposition nicht gefunden";
+			throw new NotFoundException(msg);
+		}
+		
+		//Extrahiere Lieferung ID
+		final String lieferungUriStr = bestellposition.getLieferungUri().toString();
+		int startPos = lieferungUriStr.lastIndexOf('/') + 1;
+		final String lieferungIdStr = lieferungUriStr.substring(startPos);
+		
+		Long lieferungId = null;
+		
+		try {
+			lieferungId = Long.valueOf(lieferungIdStr);
+		} catch (NotFoundException e) {
+			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
+		}
+		
+		Lieferung lieferung = findLieferungById(lieferungId, locale);
+		
+		if (lieferung == null) {
+			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
+		}
+		
+		//	Extrahiere Produkt ID
+		
+		final String produktUriStr = bestellposition.getProduktUri().toString();
+		startPos = produktUriStr.lastIndexOf('/') + 1;
+		final String produktIdStr = produktUriStr.substring(startPos);
+		
+		Long produktId = null;
+		
+		try {
+			produktId = Long.valueOf(produktIdStr);
+		} catch (NotFoundException e) {
+			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
+		}
+		
+		Produkt produkt = ps.findProduktById(produktId, locale);
+		
+		if (produkt == null) {
+			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
+		}
+		
+//		Extrahiere Bestellung ID
+		
+		final String bestellungUriStr = bestellposition.getBestellungUri().toString();
+		startPos = bestellungUriStr.lastIndexOf('/') + 1;
+		final String bestellungIdStr = bestellungUriStr.substring(startPos);
+		
+		Long bestellungId = null;
+		
+		try {
+			bestellungId = Long.valueOf(bestellungIdStr);
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException("keine Bestellung vorhanden mit ID " + bestellungIdStr);
+		}
+		
+		Bestellung bestellung = findBestellungById(bestellungId, locale);
+		
+		if (bestellung == null) {
+			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungId);
+		}
+		
+		
+		
+		//	Update Bestellposition
+		
+		bestellposition.setLieferung(lieferung);
+		bestellposition.setBestellung(bestellung);
+		bestellposition.setProdukt(produkt);
+		
+//		LOGGER.tracef("Bestellposition vorher: %s", tmp);
+//		tmp.setValues(bestellposition);
+//		LOGGER.tracef("Bestellposition nachher: %s", tmp);
+		//******************************************************************
 		
 		//TODO Preis wird noch nicht gesetzt, benötigt wird NamedQuery zum finden des Produkts einer Bestellposition
+		validateBestellposition(bestellposition, locale, Default.class, IdGroup.class);
 		em.merge(bestellposition);
 		LOGGER.finest("update der Bestellposition erfolgreich");
 		

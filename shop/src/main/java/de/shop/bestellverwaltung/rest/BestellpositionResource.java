@@ -11,7 +11,6 @@ import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -29,6 +28,7 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
 
 import de.shop.artikelverwaltung.domain.Produkt;
@@ -48,7 +48,7 @@ import de.shop.util.Transactional;
 @Transactional
 @Log
 public class BestellpositionResource {
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	private static final String VERSION = "1.0";
 
 	@Inject
@@ -65,12 +65,12 @@ public class BestellpositionResource {
 
 	@PostConstruct
 	private void postConstruct() {
-		LOGGER.log(FINER, "CDI-faehiges Bean {0} wurde erzeugt", this);
+		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
 	}
 
 	@PreDestroy
 	private void preDestroy() {
-		LOGGER.log(FINER, "CDI-faehiges Bean {0} wird geloescht", this);
+		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
 	}
 
 	@GET
@@ -238,7 +238,7 @@ public class BestellpositionResource {
 		bestellposition.setLieferung(lieferung);
 		
 		bestellposition = bs.createBestellposition(bestellposition, locale);
-		LOGGER.log(FINEST, "Bestellposition: {0}", bestellposition);
+		LOGGER.tracef("Bestellposition: %s", bestellposition);
 		
 		final URI bestellpositionUri = uriHelperBestellposition.getUriBestellposition(bestellposition, uriInfo);
 		return Response.created(bestellpositionUri).build();
@@ -253,65 +253,11 @@ public class BestellpositionResource {
 		// Vorhandene Bestellposition 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? Locale.getDefault() : locales.get(0);
-		Bestellposition orgBestellposition = bs.findBestellpositionById(bestellposition.getId(), locale);
 		
-		if (orgBestellposition == null) {
-			String msg = "Bestellposition nicht gefunden";
-			throw new NotFoundException(msg);
-		}
 		
-		//Extrahiere Lieferung ID
-		final String lieferungUriStr = bestellposition.getLieferungUri().toString();
-		int startPos = lieferungUriStr.lastIndexOf('/') + 1;
-		final String lieferungIdStr = lieferungUriStr.substring(startPos);
-		
-		Long lieferungId = null;
-		
-		try {
-			lieferungId = Long.valueOf(lieferungIdStr);
-		} catch (NotFoundException e) {
-			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
-		}
-		
-		Lieferung lieferung = bs.findLieferungById(lieferungId, locale);
-		
-		if (lieferung == null) {
-			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
-		}
-		
-		//	Extrahiere Produkt ID
-		
-		final String produktUriStr = bestellposition.getProduktUri().toString();
-		startPos = produktUriStr.lastIndexOf('/') + 1;
-		final String produktIdStr = produktUriStr.substring(startPos);
-		
-		Long produktId = null;
-		
-		try {
-			produktId = Long.valueOf(produktIdStr);
-		} catch (NotFoundException e) {
-			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
-		}
-		
-		Produkt produkt = av.findProduktById(produktId, locale);
-		
-		if (produkt == null) {
-			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
-		}
-		
-		//	Update Bestellposition
-		
-		bestellposition.setLieferung(lieferung);
-//		bestellposition.setBestellung(bestellung);
-		bestellposition.setProdukt(produkt);
-		
-		LOGGER.log(FINEST, "Bestellposition vorher: %s", orgBestellposition);
-		orgBestellposition.setValues(bestellposition);
-		LOGGER.log(FINEST, "Bestellposition nachher: %s", orgBestellposition);
-		
-		bestellposition = bs.updateBestellposition(orgBestellposition, locale);
+		bestellposition = bs.updateBestellposition(bestellposition, locale);
 		if (bestellposition == null) {
-			final String msg = "Keine Bestellposition gefunden mit der ID " + orgBestellposition.getId();
+			final String msg = "Keine Bestellposition gefunden";
 			throw new NotFoundException(msg);
 		}
 	}

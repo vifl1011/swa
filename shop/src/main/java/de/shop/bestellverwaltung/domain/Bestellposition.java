@@ -346,6 +346,7 @@ public class Bestellposition implements Serializable {
 				+ ", einzelpreis=" + getEinzelpreis() 
 				+ ", erzeugt=" + getErzeugt()
 				+ ", menge=" + getMenge()
+				+ ", version=" + getVersion()
 				+ "]";
 	}
 

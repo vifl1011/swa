@@ -253,6 +253,9 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 			else if ("lieferungUri".equals(k)) {
 				job.add("lieferungUri", LIEFERUNG_URI + "/" + LIEFERUNG_ID_VORHANDEN);
 			}
+			else if ("bestellungUri".equals(k)) {
+				job.add("bestellungUri", BESTELLUNGEN_URI + "/" + BESTELLUNG_ID_VORHANDEN);
+			}
 			else {
 				job.add(k, jsonObject.get(k));
 			}
@@ -308,6 +311,9 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 			else if ("lieferungUri".equals(k)) {
 				job.add("lieferungUri", LIEFERUNG_URI + "/" + LIEFERUNG_ID_VORHANDEN);
 			}
+			else if ("bestellungUri".equals(k)) {
+				job.add("bestellungUri", BESTELLUNGEN_URI + "/" + BESTELLUNG_ID_VORHANDEN);
+			}
 			else {
 				job.add(k, jsonObject.get(k));
 			}
@@ -333,6 +339,9 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 			}
 			else if ("lieferungUri".equals(k)) {
 				job.add("lieferungUri", LIEFERUNG_URI + "/" + LIEFERUNG_ID_VORHANDEN);
+			}
+			else if ("bestellungUri".equals(k)) {
+				job.add("bestellungUri", BESTELLUNGEN_URI + "/" + BESTELLUNG_ID_VORHANDEN);
 			}
 			else {
 				job.add(k, jsonObject.get(k));
