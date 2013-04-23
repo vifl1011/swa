@@ -40,6 +40,7 @@ CREATE TABLE lieferung (
 
 CREATE TABLE produkt (
   id INTEGER NOT NULL,
+  version INTEGER NULL,
   bezeichnung VARCHAR2(30) NULL,
   preis FLOAT NULL,
   groesse VARCHAR2(30) NULL,
