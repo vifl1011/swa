@@ -42,7 +42,7 @@ import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
 
 @Path("/bestellposition")
-@Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+@Produces(APPLICATION_JSON)
 @Consumes
 @RequestScoped
 @Transactional

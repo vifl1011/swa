@@ -15,11 +15,14 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
+import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
 
+import de.shop.util.IdGroup;
 import de.shop.util.NotFoundException;
 import de.shop.util.ValidatorProvider;
 import de.shop.artikelverwaltung.domain.Produkt;
@@ -233,8 +236,14 @@ public class BestellService implements Serializable {
 			return null;
 		}
 		
-		//TODO Preis wird noch nicht gesetzt, benötigt wird NamedQuery zum finden des Produkts einer Bestellposition
+		validateBestellposition(bestellposition, locale, Default.class, IdGroup.class);
+//		em.detach(bestellposition);
+//		Bestellposition temp = findBestellpositionById(bestellposition.getId(), locale);
+//		em.detach(temp);
+		em.refresh(bestellposition);
+		em.lock(bestellposition, LockModeType.OPTIMISTIC);
 		
+		//TODO Preis wird noch nicht gesetzt, benötigt wird NamedQuery zum finden des Produkts einer Bestellposition
 		em.merge(bestellposition);
 		LOGGER.finest("update der Bestellposition erfolgreich");
 		

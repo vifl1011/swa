@@ -3,6 +3,9 @@ package de.shop.bestellverwaltung.domain;
 import java.io.Serializable;
 import java.net.URI;
 
+import javax.annotation.Generated;
+import javax.persistence.Basic;
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
@@ -14,13 +17,17 @@ import javax.persistence.Table;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.jboss.resteasy.annotations.providers.jaxb.Formatted;
@@ -28,6 +35,7 @@ import org.jboss.resteasy.annotations.providers.jaxb.Formatted;
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.util.Constants;
 
+import java.security.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,8 +47,7 @@ import java.util.Locale;
  */
 @Entity
 @Table(name = "bestellposition")
-@XmlRootElement
-@Formatted
+@Cacheable
 @NamedQueries({
 		@NamedQuery(name = Bestellposition.FIND_BESTELLPOSITIONEN_BY_KUNDE, 
 			query = "select b from Bestellposition as b"
@@ -82,14 +89,17 @@ public class Bestellposition implements Serializable {
 	public static final String PARAM_ID = "BestellpositionId";
 	public static final String PARAM_BESTELLUNG_ID = "BestellungId";
 	public static final String PARAM_PRODUKT_ID = "ProduktId";
-
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false, updatable = false, precision = Constants.LONG_ANZ_ZIFFERN)
-	@XmlAttribute
 	private Long id = Constants.KEINE_ID;
 
-	@XmlTransient
+	@Version
+	@Basic(optional=false)
+	@Column(name ="version")
+	private int version = 0;
+
 	@JsonIgnore
 	private Date aktualisiert;
 
@@ -97,7 +107,6 @@ public class Bestellposition implements Serializable {
 	private float einzelpreis;
 
 	//@Column(nullable = false, updatable = false)
-	@XmlTransient
 	@JsonIgnore
 	private Date erzeugt;
 
@@ -109,11 +118,9 @@ public class Bestellposition implements Serializable {
 	@JoinColumn(name = "PRODUKT_ID", nullable = false, updatable = false)
 	@NotNull(message = "{bestellverwaltung.bestellposition.artikel.notNull}")
 	@JsonIgnore
-	@XmlTransient
 	private Produkt produkt;
 	
 	@Transient
-	@XmlElement(name = "produkt", required = true)
 	@JsonProperty
 	private URI produktUri;
 
@@ -122,11 +129,9 @@ public class Bestellposition implements Serializable {
 	@JoinColumn(name = "LIEFERUNG_ID", nullable = false)
 	@NotNull(message = "{bestellverwaltung.bestellposition.lieferung.notNull}")
 	@JsonIgnore
-	@XmlTransient
 	private Lieferung lieferung;
 	
 	@Transient
-	@XmlElement(name = "lieferung", required = true)
 	@JsonProperty
 	private URI lieferungUri;
 
@@ -135,11 +140,9 @@ public class Bestellposition implements Serializable {
 	@JoinColumn(name = "BESTELLUNG_ID", insertable = false, nullable = false, updatable = false)
 	@NotNull(message = "{bestellverwaltung.bestellposition.bestellung.notNull}")
 	@JsonIgnore
-	@XmlTransient
 	private Bestellung bestellung;
 	
 	@Transient
-	@XmlElement(name = "bestellung", required = true)
 	@JsonProperty
 	private URI bestellungUri;
 	
@@ -171,22 +174,31 @@ public class Bestellposition implements Serializable {
 	public void prePersist() {
 		this.erzeugt = new Date();
 		this.aktualisiert = new Date();
+		this.version++;
 	}
 
 	@PreUpdate
 	public void preUpdate() {
 		this.aktualisiert = new Date();
+		this.version++;
 	}
 
 	// Getter-/Setter
 	// ...................................
-	@XmlTransient
 	public URI getProduktUri() {
 		return produktUri;
 	}
 	
 	public void setProduktUri(URI produktUri) {
 		this.produktUri = produktUri;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 	
 	@XmlTransient
@@ -313,6 +325,7 @@ public class Bestellposition implements Serializable {
 	
 	public void setValues(Bestellposition bestellposition) {
 		einzelpreis = bestellposition.getEinzelpreis();
+		version = bestellposition.getVersion();
 		menge = bestellposition.getMenge();
 		produkt = bestellposition.getProdukt();
 		produktUri = bestellposition.getProduktUri();
