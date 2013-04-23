@@ -9,6 +9,7 @@ import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
+import javax.persistence.Basic;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -26,6 +27,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.persistence.UniqueConstraint;
@@ -137,6 +139,10 @@ public class Kunde implements Serializable, Cloneable {
 	@Min(value = Constants.MIN_ID, message = "{kundenverwaltung.kunde.id.min}", groups = IdGroup.class)
 	@XmlAttribute
 	private Long id = null;
+	
+	@Version
+	@Basic(optional = false)
+	private int version = Constants.ERSTE_VERSION;
 
 	@Column(name = "AKTUALISIERT", nullable = false)
 	@Temporal(TIMESTAMP)
@@ -371,6 +377,7 @@ public class Kunde implements Serializable, Cloneable {
 		setPasswort(k.getPasswort());
 		setLogin(k.getLogin());
 		setGeschlecht(k.geschlecht);
+		setVersion(k.getVersion());
 		adresse.setValues(k.getAdresse());
 		
 	}
@@ -393,7 +400,8 @@ public class Kunde implements Serializable, Cloneable {
 			   + ", password=" + getPasswort() 
 			   // null muss hier überprüft werden
 			   + ", erzeugt=" + (getErzeugt() == null ? "ungesetzt" : getErzeugt().toString())
-			   + ", aktualisiert=" + (getAktualisiert() == null ? "ungesetzt" : getAktualisiert().toString()) + "]";
+			   + ", aktualisiert=" + (getAktualisiert() == null ? "ungesetzt" : getAktualisiert().toString()) 
+			   + ", Version=" +getVersion() + "]";
 
 	}
 
@@ -528,5 +536,13 @@ public class Kunde implements Serializable, Cloneable {
 
 	public void setBestellungenUri(URI bestellungenUri) {
 		this.bestellungenUri = bestellungenUri;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 }

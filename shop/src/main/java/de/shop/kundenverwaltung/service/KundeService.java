@@ -1,8 +1,8 @@
 package de.shop.kundenverwaltung.service;
 
 import static java.util.logging.Level.FINER;
-
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 
@@ -29,6 +29,7 @@ import de.shop.kundenverwaltung.domain.PasswordGroup;
 import de.shop.util.IdGroup;
 import de.shop.util.Log;
 import de.shop.util.Constants;
+import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
 import de.shop.util.ValidatorProvider;
 
@@ -195,12 +196,15 @@ public class KundeService implements Serializable {
 	
 	@Log
 	public Kunde updateKunde(Kunde kunde, Locale locale) {
+		LOGGER.finest("updateKunde BEGIN");
 		if (kunde == null) {
 			return null;
 		}
 		// Werden alle Constraints beim Update gewahrt?
 		validateKunde(kunde, locale, Default.class, PasswordGroup.class, IdGroup.class);
-		final Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
+		//Detachen des Kunden fals vorhanden
+		em.detach(kunde);
+		Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
 		
 		if (eKunde == null) {
 			LOGGER.finest("Email-Adresse existiert noch nicht");
@@ -211,8 +215,11 @@ public class KundeService implements Serializable {
 		else {
 			throw new EmailExistsException(kunde.getEmail());
 		}
-
+		em.detach(eKunde);
+		LOGGER.finest("originalKunde:"+eKunde);
+		LOGGER.finest("geänderterKunde:"+kunde);
 		em.merge(kunde);
+		LOGGER.finest("updateKunde END");
 		return kunde;
 	}
 	
