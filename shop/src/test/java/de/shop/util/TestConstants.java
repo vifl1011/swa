@@ -1,11 +1,5 @@
 package de.shop.util;
 
-import de.shop.artikelverwaltung.service.ProduktServiceTest;
-import de.shop.bestellverwaltung.domain.Bestellung;
-import de.shop.bestellverwaltung.service.BestellService;
-import de.shop.bestellverwaltung.service.BestellServiceTest;
-import de.shop.kundenverwaltung.service.KundeServiceTest;
-
 public final class TestConstants {
 	public static final String WEB_PROJEKT = "shop";
 	

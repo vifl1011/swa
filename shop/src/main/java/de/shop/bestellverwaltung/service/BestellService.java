@@ -1,6 +1,7 @@
 package de.shop.bestellverwaltung.service;
 
 import static java.util.logging.Level.FINER;
+import static java.util.logging.Level.FINEST;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -15,8 +16,6 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -205,6 +204,18 @@ public class BestellService implements Serializable {
 			return null;
 		}
 		
+		em.detach(lieferung);
+		Lieferung tmp = findLieferungById(lieferung.getId(), locale);
+		
+		if (tmp == null) {
+			String msg = "Keine solche Lieferung vorhanden";
+			throw new NotFoundException(msg);
+		}
+		
+		LOGGER.log(FINEST, "Lieferung vorher: %s", tmp);
+		em.detach(tmp);
+		LOGGER.log(FINEST, "Lieferung nachher: %s", lieferung);
+		
 		em.merge(lieferung);
 		LOGGER.finest("update der Lieferung erfolgreich");
 		
@@ -227,16 +238,15 @@ public class BestellService implements Serializable {
 	public Bestellposition updateBestellposition(Bestellposition bestellposition, Locale locale)
 	{
 		if (bestellposition == null) {
-			LOGGER.finest("Bestellposition ist null => Update nicht möglich");
+			LOGGER.log(FINEST, "Bestellposition ist null => Update nicht möglich");
 			return null;
 		}
 			
 		if (bestellposition.getId() == null) {
-			LOGGER.finest("ID der Bestellposition null => Update nicht möglich, noch nicht in der Datenbank vorhanden");
+			LOGGER.log(FINEST, "ID der Bestellposition null => Update nicht möglich, noch nicht in der Datenbank vorhanden");
 			return null;
 		}
-		
-		//******************************************************************
+
 		Bestellposition tmp = findBestellpositionById(bestellposition.getId(), locale);
 		
 		if (tmp == null) {
@@ -283,7 +293,7 @@ public class BestellService implements Serializable {
 			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
 		}
 		
-//		Extrahiere Bestellung ID
+		//	Extrahiere Bestellung ID
 		
 		final String bestellungUriStr = bestellposition.getBestellungUri().toString();
 		startPos = bestellungUriStr.lastIndexOf('/') + 1;
@@ -304,17 +314,13 @@ public class BestellService implements Serializable {
 		}
 		
 		
-		
-		//	Update Bestellposition
-		
 		bestellposition.setLieferung(lieferung);
 		bestellposition.setBestellung(bestellung);
 		bestellposition.setProdukt(produkt);
 		
-//		LOGGER.tracef("Bestellposition vorher: %s", tmp);
-//		tmp.setValues(bestellposition);
-//		LOGGER.tracef("Bestellposition nachher: %s", tmp);
-		//******************************************************************
+		LOGGER.log(FINEST, "Bestellposition vorher: %s", tmp);
+		tmp.setValues(bestellposition);
+		LOGGER.log(FINEST, "Bestellposition nachher: %s", tmp);
 		
 		//TODO Preis wird noch nicht gesetzt, benötigt wird NamedQuery zum finden des Produkts einer Bestellposition
 		validateBestellposition(bestellposition, locale, Default.class, IdGroup.class);

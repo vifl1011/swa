@@ -3,7 +3,6 @@ package de.shop.bestellverwaltung.rest;
 import static com.jayway.restassured.RestAssured.given;
 import static de.shop.util.TestConstants.ACCEPT;
 import static de.shop.util.TestConstants.ARTIKEL_URI;
-import static de.shop.util.TestConstants.KUNDEN_URI;
 import static de.shop.util.TestConstants.BESTELLUNGEN_URI;
 import static de.shop.util.TestConstants.LIEFERUNG_URI;
 import static de.shop.util.TestConstants.BESTELLPOSITION_PATH;
@@ -12,13 +11,11 @@ import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_BESTELLUNG_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_LIEFERUNG_PATH;
 import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PRODUKT_PATH;
-import static de.shop.util.TestConstants.BESTELLUNGEN_PATH;
 import static de.shop.util.TestConstants.LOCATION;
 import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
-import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -37,7 +34,6 @@ import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -320,7 +316,7 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		}
 			
 		JsonObject jsonObject2 = job.build();
-		ConcurrentUpdate concUpdate = new ConcurrentUpdate(jsonObject2, BESTELLPOSITION_PATH, USERNAME_ADMIN, PASSWORD_ADMIN);
+		ConcurrentUpdate concUpdate = new ConcurrentUpdate(jsonObject2, BESTELLPOSITION_PATH, USERNAME_ADMIN, PASSWORD);
 		
 		ExecutorService executorService = Executors.newSingleThreadExecutor();
 		Future<Response> future = executorService.submit(concUpdate);
@@ -349,7 +345,7 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 		}
 		jsonObject = job.build();
 		response = given().auth()
-							.basic(USERNAME_ADMIN,  PASSWORD_ADMIN)
+							.basic(USERNAME_ADMIN,  PASSWORD)
 							.contentType(APPLICATION_JSON)
 							.body(jsonObject.toString())
 							.put(BESTELLPOSITION_PATH);

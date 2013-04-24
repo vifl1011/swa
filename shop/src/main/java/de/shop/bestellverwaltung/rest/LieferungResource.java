@@ -1,7 +1,6 @@
 package de.shop.bestellverwaltung.rest;
 
 import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.FINEST;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
@@ -150,20 +149,7 @@ public class LieferungResource {
 		// Vorhandene Lieferung 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
-		Lieferung orgLieferung = bs.findLieferungById(lieferung.getId(), locale);
 		
-		if (orgLieferung == null) {
-			String msg = "Keine solche Lieferung vorhanden";
-			throw new NotFoundException(msg);
-		}
-		LOGGER.log(FINEST, "Lieferung vorher: %s", orgLieferung);
-		orgLieferung.setValues(lieferung);
-		LOGGER.log(FINEST, "Lieferung nachher: %s", orgLieferung);
-		
-		lieferung = bs.updateLieferung(orgLieferung, locale);
-		if (lieferung == null) {
-			final String msg = "Keine Lieferung gefunden mit der ID " + orgLieferung.getId();
-			throw new NotFoundException(msg);
-		}
+		lieferung = bs.updateLieferung(lieferung, locale);
 	}
 }

@@ -1,7 +1,5 @@
 package de.shop.bestellverwaltung.rest;
 
-import static java.util.logging.Level.FINER;
-import static java.util.logging.Level.FINEST;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;

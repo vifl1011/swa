@@ -1,6 +1,8 @@
 package de.shop.bestellverwaltung.domain;
 
 import java.io.Serializable;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,10 +14,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jboss.resteasy.annotations.providers.jaxb.Formatted;
 
@@ -60,6 +64,11 @@ public class Lieferung implements Serializable {
 	@XmlAttribute
 	private Long id = Constants.KEINE_ID;
 
+	@Version
+	@Basic(optional=false)
+	@Column(name ="version")
+	private int version = 0;
+	
 	@XmlTransient
 	@JsonIgnore
 	private Date aktualisiert;

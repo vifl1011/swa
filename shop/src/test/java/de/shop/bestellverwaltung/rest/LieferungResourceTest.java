@@ -2,33 +2,22 @@ package de.shop.bestellverwaltung.rest;
 
 import static com.jayway.restassured.RestAssured.given;
 import static de.shop.util.TestConstants.ACCEPT;
-import static de.shop.util.TestConstants.ARTIKEL_URI;
 import static de.shop.util.TestConstants.LIEFERUNG_ID_BESTELLPOSITIONEN_PATH;
-import static de.shop.util.TestConstants.BESTELLPOSITION_ID_LIEFERUNG_PATH;
 import static de.shop.util.TestConstants.LIEFERUNG_ID_PATH;
 import static de.shop.util.TestConstants.LIEFERUNG_ID_PATH_PARAM;
-import static de.shop.util.TestConstants.BESTELLPOSITION_ID_PRODUKT_PATH;
 import static de.shop.util.TestConstants.LIEFERUNG_PATH;
-import static de.shop.util.TestConstants.BESTELLUNGEN_URI;
-import static de.shop.util.TestConstants.LIEFERUNG_URI;
 import static de.shop.util.TestConstants.LOCATION;
-import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.io.StringReader;
 import java.lang.invoke.MethodHandles;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import javax.json.JsonObject;
@@ -37,25 +26,20 @@ import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.jayway.restassured.response.Response;
 
 import de.shop.util.AbstractResourceTest;
-import de.shop.util.ConcurrentUpdate;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
-@Ignore
 public class LieferungResourceTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	
-	private static final Long BESTELLPOSITION_ID_VORHANDEN = Long.valueOf(700);
-	private static final Long ARTIKEL_ID_VORHANDEN = Long.valueOf(500);
 	private static final Long LIEFERUNG_ID_VORHANDEN = Long.valueOf(300);
-	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(600);
+	
 	
 	
 	//GET-TESTS...
@@ -127,7 +111,7 @@ public class LieferungResourceTest extends AbstractResourceTest {
 		final Response response = given().contentType(APPLICATION_JSON)
 				                         .body(jsonObject.toString())
 				                         .auth()
-				                         .basic(USERNAME, PASSWORD)
+				                         .basic(USERNAME_ADMIN, PASSWORD)
 				                         .post(LIEFERUNG_PATH);
 			
 		assertThat(response.getStatusCode(), is(HTTP_CREATED));
@@ -153,7 +137,7 @@ public class LieferungResourceTest extends AbstractResourceTest {
 		
 		//	WHEN
 		Response response = given().auth()
-				.basic(USERNAME,  PASSWORD)
+				.basic(USERNAME_ADMIN,  PASSWORD)
 				.header(ACCEPT, APPLICATION_JSON)
                 .pathParameter(LIEFERUNG_ID_PATH_PARAM, LIEFERUNG_ID_VORHANDEN)
                 .get(LIEFERUNG_ID_PATH);
@@ -182,7 +166,7 @@ public class LieferungResourceTest extends AbstractResourceTest {
 		jsonObject = job.build();
 		
 		response = given().auth()
-							.basic(USERNAME,  PASSWORD)
+							.basic(USERNAME_ADMIN,  PASSWORD)
 							.contentType(APPLICATION_JSON)
 							.body(jsonObject.toString())
 							.put(LIEFERUNG_PATH);
