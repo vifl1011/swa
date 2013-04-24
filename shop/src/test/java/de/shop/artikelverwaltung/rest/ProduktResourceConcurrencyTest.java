@@ -6,7 +6,6 @@ import static de.shop.util.TestConstants.PRODUKT_ID_PATH_PARAM;
 import static de.shop.util.TestConstants.PRODUKT_ID_PATH;
 import static de.shop.util.TestConstants.PRODUKT_PATH;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
-import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.hamcrest.CoreMatchers.is;
@@ -28,13 +27,11 @@ import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.jayway.restassured.response.Response;
 
-import de.shop.util.ConcurrentDelete;
 import de.shop.util.AbstractResourceTest;
 import de.shop.util.ConcurrentUpdate;
 
@@ -49,7 +46,6 @@ public class ProduktResourceConcurrencyTest extends AbstractResourceTest {
 
 	
 	@Test
-	@Ignore
 	public void updateUpdate() throws InterruptedException, ExecutionException {
 		LOGGER.finer("BEGINN");
 		

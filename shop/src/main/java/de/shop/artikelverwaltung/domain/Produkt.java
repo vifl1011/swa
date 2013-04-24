@@ -1,7 +1,6 @@
 package de.shop.artikelverwaltung.domain;
 
 import java.io.Serializable;
-import java.lang.invoke.MethodHandles;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -11,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.PostUpdate;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -22,21 +20,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.shop.bestellverwaltung.domain.Bestellposition;
-import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.util.Constants;
 import de.shop.util.IdGroup;
 
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import static de.shop.util.Constants.ERSTE_VERSION;
-import static de.shop.util.Constants.KEINE_ID;
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 
 /**
@@ -54,7 +48,6 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 @XmlRootElement
 public class Produkt implements Serializable {
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	private static final long serialVersionUID = -3725063964228781630L;
 	private static final String PREFIX = "Produkt.";
 	public static final String FIND_PRODUKT_BY_ID = PREFIX + "findProduktById";
@@ -229,7 +222,7 @@ public class Produkt implements Serializable {
 	}
 	
 	public void setValues(Produkt p) {
-		version = p.version;
+		setVersion(p.getVersion());
 		setBezeichnung(p.getBezeichnung());
 		setPreis(p.getPreis());
 		setFarbe(p.getFarbe());

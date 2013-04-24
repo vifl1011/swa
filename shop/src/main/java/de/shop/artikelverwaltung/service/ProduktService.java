@@ -99,11 +99,17 @@ public class ProduktService implements Serializable {
 	
 	@Log
 	public Produkt updateProdukt(Produkt produkt, Locale locale) {
+		LOGGER.finest("updateProdukt BEGIN undso");
 		if (produkt == null) {
 			return null;
 		}
 				
 		this.validateBezeichnung(produkt.getBezeichnung(), locale);
+		
+		em.detach(produkt);
+		Produkt aProdukt = findProduktById(produkt.getId(), locale);
+		em.detach(aProdukt);
+		
 		if (produkt.getBezeichnung().matches("[0-9]+")) {
 			throw new InvalidProduktBezeichnungException(produkt.getBezeichnung());			
 		}	

@@ -30,8 +30,7 @@ public class ProduktServiceTest extends AbstractResourceTest {
 	@Inject
 	private ProduktService ps;
 	
-	private static final Long PRODUKT_ID = Long.valueOf("500");
-	
+	private static final Long PRODUKT_ID = Long.valueOf("500");	
 	private static final String BEZEICHNUNG = "Pulli";
 	private static final String FARBE = "Blau";
 	private static final String GROESSE = "42";
