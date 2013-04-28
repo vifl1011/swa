@@ -34,7 +34,6 @@ import org.junit.runner.RunWith;
 
 import com.jayway.restassured.response.Response;
 
-import de.shop.auth.service.jboss.AuthService.RolleType;
 import de.shop.util.AbstractResourceTest;
 
 @RunWith(Arquillian.class)
