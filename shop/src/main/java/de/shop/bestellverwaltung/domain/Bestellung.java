@@ -160,8 +160,6 @@ public class Bestellung implements Serializable {
 	// bi-directional many-to-one association to Kunde
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "kunde_id", nullable = false, updatable = false, insertable = false)
-	@Valid
-	@XmlTransient
 	@JsonIgnore
 	private Kunde kunde;
 	
