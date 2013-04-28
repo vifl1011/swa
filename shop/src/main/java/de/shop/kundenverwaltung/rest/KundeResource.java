@@ -186,10 +186,10 @@ public class KundeResource {
 		// Vorhandenen Kunden 	ermitteln
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
-		Kunde orgKunde = ks.findKundeById(kunde.getId(), FetchType.MIT_ADRESSE, locale);
+		final Kunde orgKunde = ks.findKundeById(kunde.getId(), FetchType.MIT_ADRESSE, locale);
 		
 		if (orgKunde == null) {
-			String msg = "Kunde nicht gefunden";
+			final String msg = "Kunde nicht gefunden";
 			throw new NotFoundException(msg);
 		}
 		LOGGER.log(FINEST, "Kunde vorher: %s", orgKunde);

@@ -29,7 +29,6 @@ import de.shop.kundenverwaltung.domain.PasswordGroup;
 import de.shop.util.IdGroup;
 import de.shop.util.Log;
 import de.shop.util.Constants;
-import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
 import de.shop.util.ValidatorProvider;
 
@@ -177,7 +176,7 @@ public class KundeService implements Serializable {
 		// Werden alle Constraints beim Einfuegen gewahrt?
 		validateKunde(kunde, locale, Default.class, PasswordGroup.class);
 		// Pruefung, ob die Email-Adresse schon existiert
-		Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
+		final Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
 		if (eKunde == null) {
 			LOGGER.finest("Email-Adresse existiert noch nicht");
 		}
@@ -204,7 +203,7 @@ public class KundeService implements Serializable {
 		validateKunde(kunde, locale, Default.class, PasswordGroup.class, IdGroup.class);
 		//Detachen des Kunden fals vorhanden
 		em.detach(kunde);
-		Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
+		final Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
 		
 		if (eKunde == null) {
 			LOGGER.finest("Email-Adresse existiert noch nicht");
@@ -216,8 +215,8 @@ public class KundeService implements Serializable {
 			throw new EmailExistsException(kunde.getEmail());
 		}
 		em.detach(eKunde);
-		LOGGER.finest("originalKunde:"+eKunde);
-		LOGGER.finest("geänderterKunde:"+kunde);
+		LOGGER.finest("originalKunde:" + eKunde);
+		LOGGER.finest("geänderterKunde:" + kunde);
 		em.merge(kunde);
 		LOGGER.finest("updateKunde END");
 		return kunde;
@@ -245,7 +244,4 @@ public class KundeService implements Serializable {
 		
 		em.remove(kunde);
 	}
-
-	
-	
 }
