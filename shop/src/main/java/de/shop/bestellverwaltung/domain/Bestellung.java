@@ -23,7 +23,6 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -160,8 +159,6 @@ public class Bestellung implements Serializable {
 	// bi-directional many-to-one association to Kunde
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "kunde_id", nullable = false, updatable = false, insertable = false)
-	@Valid
-	@XmlTransient
 	@JsonIgnore
 	private Kunde kunde;
 	

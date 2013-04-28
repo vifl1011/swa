@@ -98,7 +98,7 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
     @NamedQuery(name  = Kunde.FIND_KUNDE_BY_ID_FETCH_ADRESSE,
             query = "SELECT k "
 			        + " FROM   Kunde as k LEFT JOIN FETCH k.adresse"
-			        + " WHERE k.id = :" + Kunde.PARAM_KUNDE_ID),                  			        
+			        + " WHERE k.id = :" + Kunde.PARAM_KUNDE_ID)                 			        
 })
 
 @ScriptAssert(lang = "javascript",
@@ -401,7 +401,7 @@ public class Kunde implements Serializable, Cloneable {
 			   // null muss hier überprüft werden
 			   + ", erzeugt=" + (getErzeugt() == null ? "ungesetzt" : getErzeugt().toString())
 			   + ", aktualisiert=" + (getAktualisiert() == null ? "ungesetzt" : getAktualisiert().toString()) 
-			   + ", Version=" +getVersion() + "]";
+			   + ", Version=" + getVersion() + "]";
 
 	}
 
@@ -436,7 +436,7 @@ public class Kunde implements Serializable, Cloneable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Kunde other = (Kunde) obj;
+		final Kunde other = (Kunde) obj;
 		if (adresse == null) {
 			if (other.adresse != null) {
 				return false;
@@ -529,7 +529,7 @@ public class Kunde implements Serializable, Cloneable {
 	
 	@Log
 	public Kunde clone() {
-		Kunde result = new Kunde(this.email, this.geschlecht, this.login, this.name, this.vorname, 
+		final Kunde result = new Kunde(this.email, this.geschlecht, this.login, this.name, this.vorname, 
 					   this.passwort, this.rabatt);
 		return result;
 	}

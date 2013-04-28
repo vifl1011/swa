@@ -64,13 +64,13 @@ public class KundeServiceTest extends AbstractResourceTest {
 	private static final String EMAIL_BESTAND = "Joebstl.Emi@web-ka.de";
 	
 	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+	private ExpectedException thrown = ExpectedException.none();
 	
 	private Kunde createBspKunde() {
-		Kunde kunde = new Kunde(EMAIL_NEU, GeschlechtType.MAENNLICH, LOGIN_NEU, NACHNAME_NEU, VORNAME_NEU, 
+		final Kunde kunde = new Kunde(EMAIL_NEU, GeschlechtType.MAENNLICH, LOGIN_NEU, NACHNAME_NEU, VORNAME_NEU, 
 								PASSWORT_NEU, RABATT_NEU);
 		
-		Adresse adresse = new Adresse(ORT_NEU, PLZ_NEU, STRASSE_NEU, HAUSNR_NEU, kunde);
+		final Adresse adresse = new Adresse(ORT_NEU, PLZ_NEU, STRASSE_NEU, HAUSNR_NEU, kunde);
 		kunde.setAdresse(adresse);
 		return kunde;
 	
@@ -95,10 +95,10 @@ public class KundeServiceTest extends AbstractResourceTest {
 	@Test  // innerhalb eines laufenden JBoss
 	public void findKundeById() {
 		// Given
-		Long kundeId = ID_BESTAND;
-		Locale locale = Locale.GERMAN;
+		final Long kundeId = ID_BESTAND;
+		final Locale locale = Locale.GERMAN;
 		// When
-		Kunde kunde = ks.findKundeById(ID_BESTAND, FetchType.NUR_KUNDE, locale);
+		final Kunde kunde = ks.findKundeById(ID_BESTAND, FetchType.NUR_KUNDE, locale);
 		// Then
 		assertThat(kunde.getId(), is(kundeId));
 	}
@@ -107,10 +107,10 @@ public class KundeServiceTest extends AbstractResourceTest {
 	public void findKundeByEmail() throws RollbackException, 
 				HeuristicMixedException, HeuristicRollbackException, SystemException, NotSupportedException {
 		// Given
-		String email = EMAIL_BESTAND.trim(); 
+		final String email = EMAIL_BESTAND.trim(); 
 
 		// When
-		Kunde kunde = ks.findKundeByEmail(email, Locale.GERMAN);
+		final Kunde kunde = ks.findKundeByEmail(email, Locale.GERMAN);
 		// Then
 		assertThat(kunde.getEmail(), is(email));
 	}
@@ -120,14 +120,14 @@ public class KundeServiceTest extends AbstractResourceTest {
 	public void aCreate() throws RollbackException, 
 					HeuristicMixedException, HeuristicRollbackException, SystemException, NotSupportedException {
 		// Given
-		Integer orgAnzahl = ks.findAllKunden(KundeService.FetchType.NUR_KUNDE).size();
+		final Integer orgAnzahl = ks.findAllKunden(KundeService.FetchType.NUR_KUNDE).size();
 
-		Kunde kunde = createBspKunde();
-		Locale locale = Locale.GERMAN;
+		final Kunde kunde = createBspKunde();
+		final Locale locale = Locale.GERMAN;
 		// When
-		Kunde ckunde = ks.createKunde(kunde, locale);	
+		final Kunde ckunde = ks.createKunde(kunde, locale);	
 		
-		Integer neueAnzahl = ks.findAllKunden(KundeService.FetchType.NUR_KUNDE).size();
+		final Integer neueAnzahl = ks.findAllKunden(KundeService.FetchType.NUR_KUNDE).size();
 		// Then
 		assertThat(ckunde.getEmail(),   is(EMAIL_NEU));
 		assertThat(ckunde.getErzeugt() != null, is(true));
@@ -139,13 +139,13 @@ public class KundeServiceTest extends AbstractResourceTest {
 	@Test
 	public void bUpdate() {
 		// Given
-		Locale locale = Locale.GERMAN;
-		Kunde kunde = ks.findKundeByEmail(EMAIL_NEU, locale);
+		final Locale locale = Locale.GERMAN;
+		final Kunde kunde = ks.findKundeByEmail(EMAIL_NEU, locale);
 		kunde.setEmail(EMAIL_AKT);
 		
 		// When		
 		ks.updateKunde(kunde, locale);
-		Kunde updkunde = ks.findKundeByEmail(EMAIL_AKT, locale);
+		final Kunde updkunde = ks.findKundeByEmail(EMAIL_AKT, locale);
 		
 		// Then
 		assertThat(updkunde.getEmail(), is(EMAIL_AKT));
@@ -155,12 +155,12 @@ public class KundeServiceTest extends AbstractResourceTest {
 	@Test
 	public void cDelete() {
 		// Given
-		Locale locale = Locale.GERMAN;
-		Kunde kunde = ks.findKundeByEmail(EMAIL_AKT, locale);
+		final Locale locale = Locale.GERMAN;
+		final Kunde kunde = ks.findKundeByEmail(EMAIL_AKT, locale);
 		
 		// When		
 		ks.deleteKunde(kunde);
-		Kunde leererKunde = ks.findKundeByEmail(EMAIL_AKT, locale);
+		final Kunde leererKunde = ks.findKundeByEmail(EMAIL_AKT, locale);
 		
 		// Then
 		assertThat(leererKunde, is(nullValue()));
@@ -174,10 +174,10 @@ public class KundeServiceTest extends AbstractResourceTest {
 					HeuristicMixedException, HeuristicRollbackException, SystemException, NotSupportedException {
 		// Given
 		
-		Kunde kunde = createBspKunde();
-		Locale locale = Locale.GERMAN;
+		final Kunde kunde = createBspKunde();
+		final Locale locale = Locale.GERMAN;
 		// When
-		Kunde cKunde = ks.createKunde(kunde, locale);	
+		final Kunde cKunde = ks.createKunde(kunde, locale);	
 		
 
 		// Then

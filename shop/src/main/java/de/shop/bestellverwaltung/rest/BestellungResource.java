@@ -3,9 +3,7 @@ package de.shop.bestellverwaltung.rest;
 import static java.util.logging.Level.FINER;
 import static java.util.logging.Level.FINEST;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
-import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
@@ -42,13 +40,13 @@ import de.shop.bestellverwaltung.service.BestellService;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService;
 import de.shop.kundenverwaltung.service.KundeService.FetchType;
-import de.shop.util.Config;
+import de.shop.util.LocaleHelper;
 import de.shop.util.Log;
 import de.shop.util.NotFoundException;
 import de.shop.util.Transactional;
 
 @Path("/bestellung")
-@Produces({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+@Produces(APPLICATION_JSON)
 @Consumes
 @RequestScoped
 @Transactional
@@ -59,27 +57,27 @@ public class BestellungResource {
 
 	@Context
 	private UriInfo uriInfo;
-	
-    @Context
-    private HttpHeaders headers;
-    
-	@Inject
-	private Config config;
-	
+
+	@Context
+	private HttpHeaders headers;
+
 	@Inject
 	private BestellService bs;
-	
+
 	@Inject
 	private KundeService ks;
-	
+
 	@Inject
 	private ProduktService ps;
 
 	@Inject
 	private UriHelperBestellung uriHelperBestellung;
-	
+
 	@Inject
 	private UriHelperBestellposition uriHelperBestellposition;
+
+	@Inject
+	private LocaleHelper localeHelper;
 
 	@PostConstruct
 	private void postConstruct() {
@@ -108,8 +106,7 @@ public class BestellungResource {
 	@GET
 	@Wrapped(element = "bestellung")
 	public Collection<Bestellung> findBestellungen() {
-		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+		final Locale locale = localeHelper.getLocale(headers);
 		final Collection<Bestellung> bestellungen = bs.findBestellungen(locale);
 
 		if (bestellungen.isEmpty()) {
@@ -129,8 +126,7 @@ public class BestellungResource {
 	@Path("{id:[1-9][0-9]*}")
 	@Wrapped(element = "bestellung")
 	public Bestellung findBestellungById(@PathParam("id") Long id) {
-		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+		final Locale locale = localeHelper.getLocale(headers);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
 
 		if (bestellung == null) {
@@ -147,11 +143,8 @@ public class BestellungResource {
 	@GET
 	@Path("{id:[1-9][0-9]*}/bestellpositionen")
 	@Wrapped(element = "bestellposition")
-	public Collection<Bestellposition> findBestellpositionenByBestellungId(
-			@PathParam("id") Long id, @Context UriInfo uriInfo,
-			@Context HttpHeaders headers) {
-		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+	public Collection<Bestellposition> findBestellpositionenByBestellungId(@PathParam("id") Long id) {
+		final Locale locale = localeHelper.getLocale(headers);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
 		Collection<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
 
@@ -159,110 +152,104 @@ public class BestellungResource {
 			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
-		
+
 		for (Bestellposition bestellposition : bestellpositionen) {
 			uriHelperBestellposition.updateUriBestellposition(bestellposition, uriInfo);
 		}
 
 		return bestellpositionen;
 	}
-	
+
 	@GET
 	@Path("{id:[1-9][0-9]*}/kunde")
 	@Wrapped(element = "kunde")
-	public Kunde findKundeByBestellungId(
-			@PathParam("id") Long id, @Context UriInfo uriInfo,
-			@Context HttpHeaders headers) {
-		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+	public Kunde findKundeByBestellungId(@PathParam("id") Long id) {
+		final Locale locale = localeHelper.getLocale(headers);
 		Bestellung bestellung = bs.findBestellungById(id, locale);
-		Kunde kunde = bestellung.getKunde();
-
-		return kunde;
+		if (bestellung != null) {
+			Kunde kunde = bestellung.getKunde();
+			if (kunde == null) {
+				final String msg = "Kein Kunde gefunden";
+				throw new NotFoundException(msg);
+			}
+			return kunde;
+		} else {
+			// TODO msg passend zu locale
+			final String msg = "Keine Bestellung gefunden mit der ID " + id;
+			throw new NotFoundException(msg);
+		}
 	}
-	
+
 	@POST
-	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Consumes(APPLICATION_JSON)
 	@Produces
-	public Response createBestellung(
-			Bestellung	bestellung, @Context UriInfo uriInfo, @Context HttpHeaders headers) throws Exception {
-		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0); //getDefaultLocale
-		//KUNDEN ERMITTELN
-		//...........................................................................
-		
-		//Schlüssel des Kunden extrahieren
+	public Response createBestellung(Bestellung bestellung) throws Exception {
+		final Locale locale = localeHelper.getLocale(headers);
 		final String kundeUriStr = bestellung.getKundeUri().toString();
 		int startPos = kundeUriStr.lastIndexOf('/') + 1;
 		final String kundeIdStr = kundeUriStr.substring(startPos);
 		Long kundeId = null;
-		
+
 		try {
 			kundeId = Long.valueOf(kundeIdStr);
-		}
-		catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			throw new NotFoundException("Kein Kunde vorhanden mit ID " + kundeIdStr, e);
 		}
-		
-		final Kunde kunde = ks.findKundeById(kundeId,  FetchType.NUR_KUNDE, locale);
-		
+
+		final Kunde kunde = ks.findKundeById(kundeId, FetchType.NUR_KUNDE, locale);
+
 		if (kunde == null) {
 			throw new NotFoundException("kein Kunde vorhanden mit Id " + kundeId);
 		}
-		
-		//PRODUKT ERMITTELN
-		//...........................................................................
-		
-		// persistente Artikel ermitteln
+
 		Collection<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		final List<Bestellposition> neueBestellpositionen = new ArrayList<>(bestellpositionen.size());
-		//List<Long> produktIds = new ArrayList<>(bestellpositionen.size());
-		
-		//Ermittle Bestellpositionen => neueBestellpositionen
+		// List<Long> produktIds = new ArrayList<>(bestellpositionen.size());
+
 		for (Bestellposition bp : bestellpositionen) {
-			//Ermittle Produkt
-			//TODO momentant wird für jeden Artikel und für jede Lieferung ein DB-Zugriff durchgeführt
-			//		Bitte beizeiten noch entsprechende Methoden zur Bestell- und Artikelverwaltung zum
-			//		zum finden mehrer Objekte anhand der Ids bereitstellen
+			// Ermittle Produkt
+			// TODO momentant wird für jeden Artikel und für jede Lieferung ein
+			// DB-Zugriff durchgeführt
+			// Bitte beizeiten noch entsprechende Methoden zur Bestell- und
+			// Artikelverwaltung zum
+			// zum finden mehrer Objekte anhand der Ids bereitstellen
 			final String produktUriStr = bp.getProduktUri().toString();
 			startPos = produktUriStr.lastIndexOf('/') + 1;
 			final String produktIdStr = produktUriStr.substring(startPos);
 			Long produktId = null;
-			
+
 			try {
 				produktId = Long.valueOf(produktIdStr);
-			}
-			catch (NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				throw new NumberFormatException("Kein Produkt vorhanden mit ID " + produktIdStr);
 			}
-			
+
 			Produkt produkt = ps.findProduktById(produktId, locale);
 			if (produkt == null) {
 				throw new Exception("Kein Produkt vorhanden mit ID " + produktId);
 			}
-			
-			//Ermittle Lieferung
+
+			// Ermittle Lieferung
 			final String lieferungUriStr = bp.getLieferungUri().toString();
 			startPos = lieferungUriStr.lastIndexOf('/') + 1;
 			final String lieferungIdStr = lieferungUriStr.substring(startPos);
 			Long lieferungId = null;
 			try {
 				lieferungId = Long.valueOf(lieferungIdStr);
-			}
-			catch (NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				throw new NumberFormatException("Keine Lieferung vorhanden mit ID " + lieferungIdStr);
 			}
 			Lieferung lieferung = bs.findLieferungById(lieferungId, locale);
 			if (lieferung == null) {
 				throw new Exception("Keine Lieferung vorhanden mit ID " + lieferungId);
 			}
-			
+
 			bp.setLieferung(lieferung);
 			bp.setProdukt(produkt);
-			//füge bestellposition hinzu
+			// füge bestellposition hinzu
 			neueBestellpositionen.add(bp);
 		}
-		
+
 		if (neueBestellpositionen.isEmpty()) {
 			// keine einzige gueltige Artikel-ID
 			final StringBuilder sb = new StringBuilder("Keine Artikel vorhanden mit den IDs: ");
@@ -276,65 +263,62 @@ public class BestellungResource {
 		}
 
 		bestellung.setBestellpositionen(neueBestellpositionen);
-		
+
 		bestellung = bs.createBestellung(bestellung, kunde, locale);
-		
 
 		LOGGER.log(FINEST, "Bestellung: {0}", bestellung);
-		
+
 		final URI bestellungUri = uriHelperBestellung.getUriBestellung(bestellung, uriInfo);
 		return Response.created(bestellungUri).build();
 	}
 
 	@PUT
-	@Consumes({ APPLICATION_JSON, APPLICATION_XML, TEXT_XML })
+	@Consumes(APPLICATION_JSON)
 	@Produces
 	@Log
-	public void updateBestellung(Bestellung bestellung, @Context UriInfo uriInfo, @Context HttpHeaders headers) {
-		// Vorhandenen Kunden 	ermitteln
-		final List<Locale> locales = headers.getAcceptableLanguages();
-		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+	public void updateBestellung(Bestellung bestellung) {
+		final Locale locale = localeHelper.getLocale(headers);
 		Bestellung orgBestellung = bs.findBestellungById(bestellung.getId(), locale);
 		List<Bestellposition> orgBestellpositionen = bs.findBestellpositionenByBestellung(orgBestellung);
 		List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		Bestellposition bestellposition = null;
-		
+
 		int count = 0;
 		for (Bestellposition bp : orgBestellpositionen) {
 			bestellposition = bestellpositionen.get(count++);
 			if (bestellposition == null)
 				continue;
-			
-			//Extrahiere Lieferung ID (Produkt erhält kein update)
+
+			// Extrahiere Lieferung ID (Produkt erhält kein update)
 			final String lieferungUriStr = bestellposition.getLieferungUri().toString();
 			int startPos = lieferungUriStr.lastIndexOf('/') + 1;
 			final String lieferungIdStr = lieferungUriStr.substring(startPos);
-			
+
 			Long lieferungId = null;
-			
+
 			try {
 				lieferungId = Long.valueOf(lieferungIdStr);
 			} catch (NumberFormatException e) {
 				throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
 			}
-			
+
 			Lieferung lieferung = bs.findLieferungById(lieferungId, locale);
 			bestellposition.setLieferung(lieferung);
-			
+
 			bp.setValues(bestellposition);
 		}
-		
+
 		if (orgBestellung == null) {
 			String msg = "Kunde nicht gefunden";
 			throw new NotFoundException(msg);
 		}
-		
+
 		orgBestellung.setBestellpositionen(orgBestellpositionen);
-		
+
 		LOGGER.log(FINEST, "Kunde vorher: %s", orgBestellung);
 		orgBestellung.setValues(bestellung);
 		LOGGER.log(FINEST, "Kunde nachher: %s", orgBestellung);
-		
+
 		bestellung = bs.updateBestellung(orgBestellung, locale);
 		if (bestellung == null) {
 			final String msg = "Kein Kunde gefunden mit der ID " + orgBestellung.getId();
