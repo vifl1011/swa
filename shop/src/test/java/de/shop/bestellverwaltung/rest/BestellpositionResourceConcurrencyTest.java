@@ -45,8 +45,6 @@ public class BestellpositionResourceConcurrencyTest extends AbstractResourceTest
 	private static final Long ARTIKEL_ID_VORHANDEN = Long.valueOf(500);
 	private static final Long LIEFERUNG_ID_VORHANDEN = Long.valueOf(300);
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(600);
-	private static final String USERNAME_ADMIN = USERNAME;
-	private static final String PASSWORD_ADMIN = PASSWORD;
 	
 	
 	@Test

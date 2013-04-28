@@ -246,7 +246,7 @@ public class BestellService implements Serializable {
 			LOGGER.log(FINEST, "ID der Bestellposition null => Update nicht möglich, noch nicht in der Datenbank vorhanden");
 			return null;
 		}
-
+		
 		Bestellposition tmp = findBestellpositionById(bestellposition.getId(), locale);
 		
 		if (tmp == null) {
@@ -318,9 +318,9 @@ public class BestellService implements Serializable {
 		bestellposition.setBestellung(bestellung);
 		bestellposition.setProdukt(produkt);
 		
-		LOGGER.log(FINEST, "Bestellposition vorher: %s", tmp);
-		tmp.setValues(bestellposition);
-		LOGGER.log(FINEST, "Bestellposition nachher: %s", tmp);
+//		LOGGER.log(FINEST, "Bestellposition vorher: %s", tmp);
+//		tmp.setValues(bestellposition);
+//		LOGGER.log(FINEST, "Bestellposition nachher: %s", tmp);
 		
 		//TODO Preis wird noch nicht gesetzt, benötigt wird NamedQuery zum finden des Produkts einer Bestellposition
 		validateBestellposition(bestellposition, locale, Default.class, IdGroup.class);
