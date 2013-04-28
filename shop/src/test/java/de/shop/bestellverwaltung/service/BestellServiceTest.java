@@ -49,7 +49,7 @@ public class BestellServiceTest extends AbstractResourceTest {
 	private static final short BESTELLUNGEN_ANZAHL = 10;
 
 	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+	private ExpectedException thrown = ExpectedException.none();
 	
 	@Inject
 	private BestellService bs;
@@ -89,9 +89,9 @@ public class BestellServiceTest extends AbstractResourceTest {
 	@Test
 	public void dFindBestellungenByKunde() {
 		List<Bestellung> result = null;
-		Locale locale = Locale.GERMAN;
+		final Locale locale = Locale.GERMAN;
 
-		Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
+		final Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
 
 		result = bs.findBestellungenByKunde(kunde, FetchType.NUR_BESTELLUNG);
 
@@ -102,7 +102,7 @@ public class BestellServiceTest extends AbstractResourceTest {
 	@Test
 	public void eFindBestellpositionenByBestellung() throws Exception {
 		List<Bestellposition> result = null;
-		Bestellung bestellung = bs.findBestellungById(BESTELLUNG_ID_VORHANDEN, Locale.GERMAN);
+		final Bestellung bestellung = bs.findBestellungById(BESTELLUNG_ID_VORHANDEN, Locale.GERMAN);
 
 		result = bs.findBestellpositionenByBestellung(bestellung);
 
@@ -112,36 +112,36 @@ public class BestellServiceTest extends AbstractResourceTest {
 	@Test
 	public void xCreateBestellung() throws Exception {
 		Bestellung bestellung = null;
-		Locale locale = Locale.GERMAN;
+		final Locale locale = Locale.GERMAN;
 
 		// Dieser Kunde legt eine neue Bestellung an
-		Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
+		final Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
 		
 		// Anzahl Bestellungen des Kunden vorher
-		int bestellungenVorher = bs.findBestellungenByKunde(kunde, FetchType.NUR_BESTELLUNG).size();
+		final int bestellungenVorher = bs.findBestellungenByKunde(kunde, FetchType.NUR_BESTELLUNG).size();
 		
 		// Das Produkt das er kaufen möchte
-		Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, locale);
+		final Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, locale);
 		
 		// Die Ausgewählte Lieferung
-		Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, locale);
+		final Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, locale);
 		
 		// erstelle neue Bestellung
 		bestellung = bs.createBestellung(kunde, produkt, PRODUKT_MENGE, lieferung, locale);
-		Long neueBestellungId = bestellung.getId();
+		final Long neueBestellungId = bestellung.getId();
 		
 		// end transaction
 		assertThat(neueBestellungId != null, is(true));
 		
 		// versuche besagte Bestellung wieder aus der Datenbank raus zu lesen
 		// Anzahl der Bestellungen des Kunden nach der Transaktion
-		int bestellungenNachher = bs.findBestellungenByKunde(kunde, FetchType.NUR_BESTELLUNG).size();
+		final int bestellungenNachher = bs.findBestellungenByKunde(kunde, FetchType.NUR_BESTELLUNG).size();
 		
 		// Neuladen der eben angelegten Bestellung
 		bestellung = bs.findBestellungById(neueBestellungId, Locale.GERMAN);
 		
 		// Wie viele Bestellpositionen hat die neue Bestellung?
-		int anzahlBestellpositionen = bs.findBestellpositionenByBestellung(bestellung).size();
+		final int anzahlBestellpositionen = bs.findBestellpositionenByBestellung(bestellung).size();
 		
 		// Then
 		assertThat(bestellungenNachher, is(bestellungenVorher + 1));
@@ -153,21 +153,21 @@ public class BestellServiceTest extends AbstractResourceTest {
 	@Test
 	public void wCreateBestellposition() throws Exception {
 		Bestellung bestellung = bs.findBestellungById(BESTELLUNG_ID_VORHANDEN, Locale.GERMAN);
-		int sizeBefore = bs.findBestellpositionenByBestellung(bestellung).size();
-		Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, Locale.GERMAN);
-		Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, Locale.GERMAN);
+		final int sizeBefore = bs.findBestellpositionenByBestellung(bestellung).size();
+		final Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, Locale.GERMAN);
+		final Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, Locale.GERMAN);
 
 		// Create New Bestellposition
-		Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, 2);
+		final Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, 2);
 		
 		//em.persist(bestellposition);
 		bs.createBestellposition(bestellposition, Locale.GERMAN);
 
 		// Update Gesamtpreis der Bestellung
-		int sizeAfter = bs.findBestellpositionenByBestellung(bestellung).size();
+		final int sizeAfter = bs.findBestellpositionenByBestellung(bestellung).size();
 		bestellung = bs.findBestellungById(BESTELLUNG_ID_VORHANDEN, Locale.GERMAN);
 
-		List<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
+		final List<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
 		int preisGesamt = 0;
 
 		for (Bestellposition b : bestellpositionen) {
@@ -184,11 +184,11 @@ public class BestellServiceTest extends AbstractResourceTest {
 	public void uCreateLieferung() throws RollbackException, HeuristicMixedException, 
 											HeuristicRollbackException, SystemException, 
 											NotSupportedException  {
-		int lieferungenVorher = bs.findLieferungen(Locale.GERMAN).size();
-		Lieferung lieferung = new Lieferung("DHL2");
+		final int lieferungenVorher = bs.findLieferungen(Locale.GERMAN).size();
+		final Lieferung lieferung = new Lieferung("DHL2");
 		bs.createLieferung(lieferung, Locale.GERMAN);
 		
-		int lieferungenNachher = bs.findLieferungen(Locale.GERMAN).size();
+		final int lieferungenNachher = bs.findLieferungen(Locale.GERMAN).size();
 		
 		assertThat(lieferungenVorher + 1, is(lieferungenNachher));
 	
@@ -204,7 +204,7 @@ public class BestellServiceTest extends AbstractResourceTest {
 		bs.updateBestellposition(bestellposition, Locale.GERMAN);
 		
 		bestellposition = bs.findBestellpositionById(BESTELLPOSITION_ID_VORHANDEN, Locale.GERMAN);
-		float result = bestellposition.getEinzelpreis();
+		final float result = bestellposition.getEinzelpreis();
 		assertThat(result, is((float) PRODUKT_PREIS_VORHANDEN));
 		
 	}
@@ -219,7 +219,7 @@ public class BestellServiceTest extends AbstractResourceTest {
 		bs.updateBestellung(bestellung, Locale.GERMAN);
 		
 		bestellung = bs.findBestellungById(BESTELLUNG_ID_VORHANDEN, Locale.GERMAN);
-		String result = bestellung.getBestellstatus();
+		final String result = bestellung.getBestellstatus();
 		assertThat(result, is((String) "funktioniert doch :P"));
 		
 	}
@@ -229,24 +229,24 @@ public class BestellServiceTest extends AbstractResourceTest {
 	@Test
 	public void yInvalidBestellung() throws RollbackException, HeuristicMixedException, HeuristicRollbackException, 
 												SystemException, NotSupportedException {
-		Locale locale = Locale.GERMAN;
+		final Locale locale = Locale.GERMAN;
 		
 		// Dieser Kunde legt eine neue Bestellung an
-		Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
+		final Kunde kunde = ks.findKundeById(KUNDE_ID_VORHANDEN, KundeService.FetchType.NUR_KUNDE, locale);
 
 		// Das Produkt das er kaufen möchte
-		Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, locale);
+		final Produkt produkt = as.findProduktById(PRODUKT_ID_VORHANDEN, locale);
 
 		// Die Ausgewählte Lieferung
-		Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, locale);
+		final Lieferung lieferung = bs.findLieferungById(LIEFERUNG_ID_VORHANDEN, locale);
 
 		// neue Bestellung
-		Bestellung bestellung = new Bestellung();
+		final Bestellung bestellung = new Bestellung();
 		bestellung.setKunde(kunde);
 		kunde.addBestellung(bestellung);
 
 		// Bestellposition anlegen
-		Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, 2);
+		final Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, 2);
 		bestellung.setGesamtpreis(bestellposition.getEinzelpreis());
 		bestellung.setBestellstatus(null);
 

@@ -4,12 +4,10 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.MediaType.TEXT_XML;
-
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
 import java.util.List;
 import java.util.Locale;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
@@ -25,10 +23,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
-
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.domain.Lieferung;
@@ -85,7 +81,7 @@ public class BestellpositionResource {
 			@Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
-		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
+		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
 			final String msg = "{object.notFound}";
@@ -105,7 +101,7 @@ public class BestellpositionResource {
 			@Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
-		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
+		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
 			final String msg = "{object.notFound}";
@@ -125,7 +121,7 @@ public class BestellpositionResource {
 			@Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
-		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
+		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
 			final String msg = "{object.notFound}";
@@ -145,14 +141,14 @@ public class BestellpositionResource {
 			@Context UriInfo uriInfo, @Context HttpHeaders headers) {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? Locale.GERMAN : locales.get(0);
-		Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
+		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
 			final String msg = "{object.notFound}";
 			throw new NotFoundException(msg);
 		}
 		
-		Bestellung bestellung = bestellposition.getBestellung();
+		final Bestellung bestellung = bestellposition.getBestellung();
 		// URLs innerhalb der Bestellung anpassen
 		uriHelperBestellung.updateUriBestellung(bestellung, uriInfo);
 		
@@ -260,3 +256,4 @@ public class BestellpositionResource {
 		}
 	}
 }
+

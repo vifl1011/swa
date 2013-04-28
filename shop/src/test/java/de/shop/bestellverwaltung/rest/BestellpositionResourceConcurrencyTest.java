@@ -18,7 +18,10 @@ import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 import java.io.StringReader;
 import java.lang.invoke.MethodHandles;
 import java.util.Set;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import javax.json.JsonObject;
@@ -91,11 +94,12 @@ public class BestellpositionResourceConcurrencyTest extends AbstractResourceTest
 			}
 		}
 			
-		JsonObject jsonObject2 = job.build();
-		ConcurrentUpdate concUpdate = new ConcurrentUpdate(jsonObject2, BESTELLPOSITION_PATH, USERNAME_ADMIN, PASSWORD);
+		final JsonObject jsonObject2 = job.build();
+		final ConcurrentUpdate concUpdate = new ConcurrentUpdate(jsonObject2, BESTELLPOSITION_PATH, 
+																					USERNAME_ADMIN, PASSWORD);
 		
-		ExecutorService executorService = Executors.newSingleThreadExecutor();
-		Future<Response> future = executorService.submit(concUpdate);
+		final ExecutorService executorService = Executors.newSingleThreadExecutor();
+		final Future<Response> future = executorService.submit(concUpdate);
 		response = future.get();
 		assertThat(response.getStatusCode(), is(HTTP_NO_CONTENT));
 		
@@ -131,3 +135,4 @@ public class BestellpositionResourceConcurrencyTest extends AbstractResourceTest
 	}
 
 }
+

@@ -33,7 +33,7 @@ public class UriHelperBestellung {
 		final URI kundeUri = ub.build(bestellung.getId());
 		bestellung.setKundeUri(kundeUri);
 		
-		List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
+		final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		for (Bestellposition bp : bestellpositionen) {
 			uriHelperBestellposition.updateUriBestellposition(bp, uriInfo);
 		}

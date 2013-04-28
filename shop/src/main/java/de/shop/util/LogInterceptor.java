@@ -39,7 +39,7 @@ public class LogInterceptor implements Serializable {
 			return ctx.proceed();
 		}
 
-		String methodName = ctx.getMethod().getName();
+		final String methodName = ctx.getMethod().getName();
 
 		// getXy, setXy, isXy und toString nicht protokollieren
 		if ((methodName.startsWith("get") || methodName.startsWith("set"))

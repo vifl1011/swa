@@ -75,11 +75,11 @@ public class LieferungResourceConcurrencyTest extends AbstractResourceTest {
 			}
 		}
 			
-		JsonObject jsonObject2 = job.build();
-		ConcurrentUpdate concUpdate = new ConcurrentUpdate(jsonObject2, LIEFERUNG_PATH, USERNAME_ADMIN, PASSWORD);
+		final JsonObject jsonObject2 = job.build();
+		final ConcurrentUpdate concUpdate = new ConcurrentUpdate(jsonObject2, LIEFERUNG_PATH, USERNAME_ADMIN, PASSWORD);
 		
-		ExecutorService executorService = Executors.newSingleThreadExecutor();
-		Future<Response> future = executorService.submit(concUpdate);
+		final ExecutorService executorService = Executors.newSingleThreadExecutor();
+		final Future<Response> future = executorService.submit(concUpdate);
 		response = future.get();
 		assertThat(response.getStatusCode(), is(HTTP_NO_CONTENT));
 		

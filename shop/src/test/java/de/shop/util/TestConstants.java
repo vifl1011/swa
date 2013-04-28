@@ -33,7 +33,8 @@ public final class TestConstants {
 	
 	public static final String BESTELLPOSITION_PATH = "/bestellposition";
 	public static final String BESTELLPOSITION_ID_PATH_PARAM = "bestellpositionId";
-	public static final String BESTELLPOSITION_ID_PATH = BESTELLPOSITION_PATH + "/{" + BESTELLPOSITION_ID_PATH_PARAM + "}";
+	public static final String BESTELLPOSITION_ID_PATH = BESTELLPOSITION_PATH + "/{" 
+																				+ BESTELLPOSITION_ID_PATH_PARAM + "}";
 	public static final String BESTELLPOSITION_ID_BESTELLUNG_PATH = BESTELLPOSITION_ID_PATH + "/bestellung";
 	public static final String BESTELLPOSITION_ID_LIEFERUNG_PATH = BESTELLPOSITION_ID_PATH + "/lieferung";
 	public static final String BESTELLPOSITION_ID_PRODUKT_PATH = BESTELLPOSITION_ID_PATH + "/produkt";
@@ -55,7 +56,7 @@ public final class TestConstants {
 	
 	
 	// Testklassen fuer Service- und Domain-Tests
-	public static final Class<?>[] TEST_CLASSES = { };
+	public static final Class<?>[] TEST_CLASSES = {};
 	
 	private TestConstants() {
 	}

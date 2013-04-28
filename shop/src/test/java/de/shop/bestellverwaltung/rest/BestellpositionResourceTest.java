@@ -54,7 +54,7 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	public void first() {
 		LOGGER.finer("Starting test method \"first\"...");
 		
-		assertThat(true,is(true));
+		assertThat(true, is(true));
 		
 		LOGGER.finer("Finished test method \"first\"...");
 	}
@@ -63,9 +63,10 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	
 	@Test
 	public void findBestellpositionById() {
-		LOGGER.finer("Starte Testmethode \"findBestellpositionById\" mit ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+		LOGGER.finer("Starte Testmethode \"findBestellpositionById\" mit ID: " 
+														+ BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
-		int expectedStatusCode = HTTP_OK;
+		final int expectedStatusCode = HTTP_OK;
 		
 		final Response response = given().auth()
 										 .basic(USERNAME_ADMIN, PASSWORD_ADMIN)
@@ -94,7 +95,8 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	
 	@Test
 	public void findBestellungByBestellposition() {
-		LOGGER.finer("Starting test method \"findBestellungByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+		LOGGER.finer("Starting test method \"findBestellungByBestellposition\" with ID: " 
+																+ BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
 		final Long bestellungID = Long.valueOf(600);
 		
@@ -120,7 +122,8 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	
 	@Test
 	public void findProduktByBestellposition() {
-		LOGGER.finer("Starting test method \"findProduktByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+		LOGGER.finer("Starting test method \"findProduktByBestellposition\" with ID: "
+																+ BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
 		final Long produktID = Long.valueOf(500);
 		
@@ -146,7 +149,8 @@ public class BestellpositionResourceTest extends AbstractResourceTest {
 	
 	@Test
 	public void findLieferungByBestellposition() {
-		LOGGER.finer("Starting test method \"findLieferungByBestellposition\" with ID: " + BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
+		LOGGER.finer("Starting test method \"findLieferungByBestellposition\" with ID: " 
+																	+ BESTELLPOSITION_ID_VORHANDEN.toString() + "...");
 		
 		final Long lieferungID = Long.valueOf(300);
 		

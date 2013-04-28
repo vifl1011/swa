@@ -20,8 +20,6 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import de.shop.artikelverwaltung.domain.Produkt;
@@ -87,8 +85,8 @@ public class Bestellposition implements Serializable {
 	private Long id = Constants.KEINE_ID;
 
 	@Version
-	@Basic(optional=false)
-	@Column(name ="version")
+	@Basic(optional = false)
+	@Column(name = "version")
 	private int version = 0;
 
 	@JsonIgnore
@@ -192,7 +190,6 @@ public class Bestellposition implements Serializable {
 		this.version = version;
 	}
 	
-	@XmlTransient
 	public URI getBestellungUri() {
 		return bestellungUri;
 	}
@@ -201,7 +198,6 @@ public class Bestellposition implements Serializable {
 		this.bestellungUri = bestellungUri;
 	}
 	
-	@XmlTransient
 	public URI getLieferungUri() {
 		return lieferungUri;
 	}
@@ -210,7 +206,6 @@ public class Bestellposition implements Serializable {
 		this.lieferungUri = lieferungUri;
 	}
 	
-	@XmlTransient
 	public Long getId() {
 		return this.id;
 	}
@@ -219,7 +214,6 @@ public class Bestellposition implements Serializable {
 		this.id = id;
 	}
 
-	@XmlTransient
 	public Date getAktualisiert() {
 		if (aktualisiert != null)
 			return (Date) this.aktualisiert.clone();
@@ -255,7 +249,6 @@ public class Bestellposition implements Serializable {
 		this.einzelpreis = einzelpreis;
 	}
 
-	@XmlTransient
 	public Date getErzeugt() {
 		return (Date) this.erzeugt.clone();
 	}
@@ -287,7 +280,6 @@ public class Bestellposition implements Serializable {
 		this.menge = menge;
 	}
 
-	@XmlTransient
 	public Produkt getProdukt() {
 		return this.produkt;
 	}
@@ -296,7 +288,6 @@ public class Bestellposition implements Serializable {
 		this.produkt = produkt;
 	}
 
-	@XmlTransient
 	public Lieferung getLieferung() {
 		return this.lieferung;
 	}
@@ -305,7 +296,6 @@ public class Bestellposition implements Serializable {
 		this.lieferung = lieferung;
 	}
 
-	@XmlTransient
 	public Bestellung getBestellung() {
 		return this.bestellung;
 	}
@@ -369,7 +359,7 @@ public class Bestellposition implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Bestellposition other = (Bestellposition) obj;
+		final Bestellposition other = (Bestellposition) obj;
 		if (aktualisiert == null) {
 			if (other.aktualisiert != null) {
 				return false;
@@ -430,3 +420,4 @@ public class Bestellposition implements Serializable {
 		return true;
 	}
 }
+

@@ -30,3 +30,4 @@ public class BestellpositionValidationException extends BestellpositionServiceEx
 		return violations;
 	}
 }
+

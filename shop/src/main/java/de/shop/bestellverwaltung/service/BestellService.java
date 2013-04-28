@@ -82,7 +82,7 @@ public class BestellService implements Serializable {
 	 * Liefert eine Bestellung mit der entsprechenden ID zurück
 	 */
 	public Bestellung findBestellungById(Long id, Locale locale) {
-		List<Bestellung> result = em.createNamedQuery(Bestellung.FIND_BESTELLUNG_BY_ID, Bestellung.class)
+		final List<Bestellung> result = em.createNamedQuery(Bestellung.FIND_BESTELLUNG_BY_ID, Bestellung.class)
 				.setParameter(Bestellung.PARAM_BESTELLUNG_ID, id).getResultList();
 
 		if (result.size() > 0)
@@ -114,7 +114,7 @@ public class BestellService implements Serializable {
 	 */
 	@Log
 	public List<Lieferung> findLieferungen(Locale locale) {
-		List<Lieferung> result = em.createNamedQuery(Lieferung.FIND_LIEFERUNGEN, Lieferung.class).getResultList();
+		final List<Lieferung> result = em.createNamedQuery(Lieferung.FIND_LIEFERUNGEN, Lieferung.class).getResultList();
 
 		if (result.size() > 0)
 			return result;
@@ -205,10 +205,10 @@ public class BestellService implements Serializable {
 		}
 		
 		em.detach(lieferung);
-		Lieferung tmp = findLieferungById(lieferung.getId(), locale);
+		final Lieferung tmp = findLieferungById(lieferung.getId(), locale);
 		
 		if (tmp == null) {
-			String msg = "Keine solche Lieferung vorhanden";
+			final String msg = "Keine solche Lieferung vorhanden";
 			throw new NotFoundException(msg);
 		}
 		
@@ -226,7 +226,7 @@ public class BestellService implements Serializable {
 	//Eine Bestellposition benötigt immer ein Produkt, eine Lieferung und eine dazugehörige Bestellung
 	@Log
 	public Bestellposition createBestellposition(Bestellposition bestellposition, Locale locale) {
-		Produkt produkt = bestellposition.getProdukt();
+		final Produkt produkt = bestellposition.getProdukt();
 		bestellposition.setEinzelpreis(produkt.getPreis());
 		em.persist(bestellposition);
 
@@ -243,14 +243,15 @@ public class BestellService implements Serializable {
 		}
 			
 		if (bestellposition.getId() == null) {
-			LOGGER.log(FINEST, "ID der Bestellposition null => Update nicht möglich, noch nicht in der Datenbank vorhanden");
+			LOGGER.log(FINEST, "ID der Bestellposition null => Update nicht möglich, " 
+													+ "noch nicht in der Datenbank vorhanden");
 			return null;
 		}
 		
-		Bestellposition tmp = findBestellpositionById(bestellposition.getId(), locale);
+		final Bestellposition tmp = findBestellpositionById(bestellposition.getId(), locale);
 		
 		if (tmp == null) {
-			String msg = "Bestellposition nicht gefunden";
+			final String msg = "Bestellposition nicht gefunden";
 			throw new NotFoundException(msg);
 		}
 		
@@ -267,7 +268,7 @@ public class BestellService implements Serializable {
 			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
 		}
 		
-		Lieferung lieferung = findLieferungById(lieferungId, locale);
+		final Lieferung lieferung = findLieferungById(lieferungId, locale);
 		
 		if (lieferung == null) {
 			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
@@ -287,7 +288,7 @@ public class BestellService implements Serializable {
 			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
 		}
 		
-		Produkt produkt = ps.findProduktById(produktId, locale);
+		final Produkt produkt = ps.findProduktById(produktId, locale);
 		
 		if (produkt == null) {
 			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
@@ -307,7 +308,7 @@ public class BestellService implements Serializable {
 			throw new NumberFormatException("keine Bestellung vorhanden mit ID " + bestellungIdStr);
 		}
 		
-		Bestellung bestellung = findBestellungById(bestellungId, locale);
+		final Bestellung bestellung = findBestellungById(bestellungId, locale);
 		
 		if (bestellung == null) {
 			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungId);
@@ -345,7 +346,7 @@ public class BestellService implements Serializable {
 		bestellung.setKunde(kunde);
 		kunde.addBestellung(bestellung);
 		
-		List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
+		final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		
 		if (bestellpositionen == null || bestellpositionen.isEmpty()) {
 			LOGGER.finest("Bestellung nicht erstellt => bestellpositionen sind null oder leer");
@@ -380,12 +381,12 @@ public class BestellService implements Serializable {
 	public Bestellung createBestellung(
 			Kunde kunde, Produkt produkt, int menge, Lieferung lieferung, Locale locale) throws Exception {
 		// Bestellung anlegen
-		Bestellung bestellung = new Bestellung();
+		final Bestellung bestellung = new Bestellung();
 		bestellung.setKunde(kunde);
 		kunde.addBestellung(bestellung);
 
 		// Bestellposition anlegen
-		Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, menge);
+		final Bestellposition bestellposition = new Bestellposition(bestellung, lieferung, produkt, menge);
 
 		// bestellung anpassen
 		bestellung.setGesamtpreis(bestellposition.getEinzelpreis());
@@ -408,7 +409,7 @@ public class BestellService implements Serializable {
 			return null;
 		}
 		
-		List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
+		final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		
 		if (bestellpositionen == null || bestellpositionen.isEmpty()) {
 			LOGGER.finest("Bestellung nicht erstellt => bestellpositionen sind null oder leer");

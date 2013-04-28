@@ -150,6 +150,7 @@ public class LieferungResource {
 		final List<Locale> locales = headers.getAcceptableLanguages();
 		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
 		
-		lieferung = bs.updateLieferung(lieferung, locale);
+		bs.updateLieferung(lieferung, locale);
 	}
 }
+

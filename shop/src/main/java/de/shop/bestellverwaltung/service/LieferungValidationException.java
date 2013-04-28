@@ -30,3 +30,4 @@ public class LieferungValidationException extends LieferungServiceException {
 		return violations;
 	}
 }
+

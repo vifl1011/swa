@@ -48,7 +48,7 @@ public class LieferungResourceTest extends AbstractResourceTest {
 	public void findLieferungById() {
 		LOGGER.finer("Starte Testmethode \"findLieferungById\" mit ID: " + LIEFERUNG_ID_VORHANDEN.toString() + "...");
 		
-		int expectedStatusCode = HTTP_OK;
+		final int expectedStatusCode = HTTP_OK;
 		
 		final Response response = given().auth()
 										 .basic(USERNAME, PASSWORD)
@@ -73,7 +73,8 @@ public class LieferungResourceTest extends AbstractResourceTest {
 	
 	@Test
 	public void findBestellpositionenByLieferung() {
-		LOGGER.finer("Starting test method \"findBestellpositionenByLieferung\" with ID: " + LIEFERUNG_ID_VORHANDEN.toString() + "...");
+		LOGGER.finer("Starting test method \"findBestellpositionenByLieferung\" with ID: " 
+																	+ LIEFERUNG_ID_VORHANDEN.toString() + "...");
 		
 		final Response response = given().auth()
 											.basic(USERNAME,  PASSWORD)

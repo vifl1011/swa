@@ -13,3 +13,4 @@ public abstract class BestellpositionServiceException extends ShopException {
 		super(msg, t);
 	}
 }
+

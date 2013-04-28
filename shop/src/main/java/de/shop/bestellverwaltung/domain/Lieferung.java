@@ -16,10 +16,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jboss.resteasy.annotations.providers.jaxb.Formatted;
 
@@ -61,15 +58,13 @@ public class Lieferung implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false, updatable = false, precision = Constants.LONG_ANZ_ZIFFERN)
-	@XmlAttribute
 	private Long id = Constants.KEINE_ID;
 
 	@Version
-	@Basic(optional=false)
-	@Column(name ="version")
+	@Basic(optional = false)
+	@Column(name = "version")
 	private int version = 0;
 	
-	@XmlTransient
 	@JsonIgnore
 	private Date aktualisiert;
 
@@ -77,17 +72,14 @@ public class Lieferung implements Serializable {
 	private String art;
 
 	@NotNull
-	@XmlTransient
 	@JsonIgnore
 	private Date erzeugt;
 
-	@XmlTransient
 	@JsonIgnore
 	private Date versanddatum;
 
 	// bi-directional many-to-one association to Bestellposition
 	@OneToMany(mappedBy = "lieferung", fetch = FetchType.LAZY)
-	@XmlTransient
 	@JsonIgnore
 	private List<Bestellposition> bestellpositionenFL;	
 
@@ -122,7 +114,6 @@ public class Lieferung implements Serializable {
 
 	// Getter-/Setter
 	// ...................................	
-	@XmlTransient
 	public Long getId() {
 		return this.id;
 	}
@@ -159,7 +150,7 @@ public class Lieferung implements Serializable {
 	}
 
 	public Date getErzeugt() {
-		return this.erzeugt;
+		return (Date) this.erzeugt;
 	}
 
 	public void setErzeugt(Date erzeugt) {
@@ -178,7 +169,7 @@ public class Lieferung implements Serializable {
 	}
 
 	public Date getVersanddatum() {
-		return this.versanddatum;
+		return (Date) this.versanddatum;
 	}
 
 	public void setVersanddatum(Date versanddatum) {
@@ -197,7 +188,6 @@ public class Lieferung implements Serializable {
 	}
 	
 	@JsonIgnore
-	@XmlTransient
 	public List<Bestellposition> getBestellpositionen() {
 		return this.bestellpositionenFL;
 	}
@@ -246,7 +236,7 @@ public class Lieferung implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Lieferung other = (Lieferung) obj;
+		final Lieferung other = (Lieferung) obj;
 		if (aktualisiert == null) {
 			if (other.aktualisiert != null) {
 				return false;
@@ -299,3 +289,4 @@ public class Lieferung implements Serializable {
 	}
 
 }
+
