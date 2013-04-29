@@ -41,7 +41,7 @@ import de.shop.util.AbstractResourceTest;
 
 @RunWith(Arquillian.class)
 @FixMethodOrder(NAME_ASCENDING)
-public class BestellungResourceTest extends AbstractResourceTest {
+public class BestellungResourceConcurrencyTest extends AbstractResourceTest {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
 	private static final Long BESTELLUNG_ID_VORHANDEN = Long.valueOf(601);

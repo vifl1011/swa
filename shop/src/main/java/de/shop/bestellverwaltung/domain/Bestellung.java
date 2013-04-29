@@ -7,6 +7,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 import java.io.Serializable;
 import java.net.URI;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,15 +24,12 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jboss.resteasy.annotations.providers.jaxb.Formatted;
 
@@ -52,7 +50,6 @@ import java.util.Locale;
  */
 
 @NamedQueries({
-		// ToDo - still does not work
 		@NamedQuery(name = Bestellung.FIND_BESTELLUNGEN, 
 			query = "SELECT b "
 				+ "FROM Bestellung b"),
@@ -79,7 +76,6 @@ import java.util.Locale;
 				+ "WHERE b.id = :" + Bestellung.PARAM_BESTELLUNG_ID)
 })
 
-@XmlRootElement
 @Formatted
 @Entity
 @Table(name = "bestellung")
@@ -110,18 +106,20 @@ public class Bestellung implements Serializable {
 	public static final String PARAM_BESTELLUNG_ID_PREFIX = "idPrefix";
 	public static final String PARAM_BESTELLUNG_DATE = "bestllungDate";
 	public static final String PARAM_BESTELLUNG_KUNDE_ID = "bestellungKundeId";
-
+	
+	public static final String DATEFORM = "yyyy-MM-dd";
 
 	@Id
 	@GeneratedValue
 	@Column(name = "id", unique = true, nullable = false, updatable = false, precision = Constants.LONG_ANZ_ZIFFERN)
 	@Min(value = Constants.MIN_ID, message = "{bestellverwaltung.bestellung.id.min}", groups = IdGroup.class)
-	@XmlAttribute
 	private Long id = Constants.KEINE_ID;
 
-	@Column(name = "aktualisiert", nullable = false)
+	@Version
+	@Basic(optional = false)
+	private int version = 0;
+	
 	@Temporal(TIMESTAMP)
-	@XmlTransient
 	@JsonIgnore
 	private Date aktualisiert;
 
@@ -130,11 +128,9 @@ public class Bestellung implements Serializable {
 	private String bestellstatus;
 
 	@Temporal(TIMESTAMP)
-	@XmlTransient
 	@JsonIgnore
 	private Date bestellzeitpunkt;
 
-	//@Column(name = "erzeugt", nullable = false)
 	@Temporal(TIMESTAMP)
 	@JsonIgnore
 	private Date erzeugt;
@@ -150,7 +146,6 @@ public class Bestellung implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade = { PERSIST, REMOVE })
 	@JoinColumn(name = "bestellung_id", nullable = false, updatable = false)
 	@OrderColumn(name = "idx", nullable = false)
-	@XmlElement
 	@JsonProperty
 	private List<Bestellposition> bestellpositionen;
 
@@ -162,8 +157,6 @@ public class Bestellung implements Serializable {
 	private Kunde kunde;
 	
 	@Transient
-	@XmlElement(name = "kunde", required = true)
-	@JsonProperty
 	private URI kundeUri;
 
 	// Standardkonstruktor
@@ -215,9 +208,6 @@ public class Bestellung implements Serializable {
 		this.aktualisiert = new Date();
 	}
 
-	// Getter-/Setter
-	// ...................................
-	@XmlTransient
 	public URI getKundeUri() {
 		return kundeUri;
 	}
@@ -226,7 +216,6 @@ public class Bestellung implements Serializable {
 		this.kundeUri = kundeUri;
 	}
 	
-	@XmlTransient
 	public Long getId() {
 		return this.id;
 	}
@@ -235,7 +224,6 @@ public class Bestellung implements Serializable {
 		this.id = id;
 	}
 
-	@XmlTransient
 	public Date getAktualisiert() {
 		if (aktualisiert != null)
 			return (Date) this.aktualisiert.clone();
@@ -251,11 +239,11 @@ public class Bestellung implements Serializable {
 		if (aktualisiert == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(aktualisiert);
+		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(aktualisiert);
 	}
 	
 	public void setAktualisiertStr(String date) throws ParseException {
-			aktualisiert = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			aktualisiert = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
 	}
 
 	public String getBestellstatus() {
@@ -266,7 +254,6 @@ public class Bestellung implements Serializable {
 		this.bestellstatus = bestellstatus;
 	}
 	
-	@XmlTransient
 	public Date getBestellzeitpunkt() {
 		return this.bestellzeitpunkt;
 	}
@@ -279,14 +266,13 @@ public class Bestellung implements Serializable {
 		if (bestellzeitpunkt == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(bestellzeitpunkt);
+		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(bestellzeitpunkt);
 	}
 	
 	public void setBestellzeitpunktStr(String date) throws ParseException {
-			bestellzeitpunkt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			bestellzeitpunkt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
 	}
 
-	@XmlTransient
 	public Date getErzeugt() {
 		return this.erzeugt;
 	}
@@ -299,11 +285,11 @@ public class Bestellung implements Serializable {
 		if (erzeugt == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(erzeugt);
+		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(erzeugt);
 	}
 	
 	public void setErzeugtStr(String date) throws ParseException {
-			erzeugt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			erzeugt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
 	}
 	
 	public float getGesamtpreis() {
@@ -322,7 +308,6 @@ public class Bestellung implements Serializable {
 		this.gezahlt = gezahlt;
 	}
 
-	@XmlTransient
 	@JsonIgnore
 	public List<Bestellposition> getBestellpositionen() {
 		return this.bestellpositionen;
@@ -332,7 +317,7 @@ public class Bestellung implements Serializable {
 		this.bestellpositionen = bestellpositionen;
 	}
 
-	@XmlTransient
+	@JsonIgnore
 	public Kunde getKunde() {
 		return this.kunde;
 	}
