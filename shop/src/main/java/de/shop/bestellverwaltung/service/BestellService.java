@@ -50,7 +50,7 @@ public class BestellService implements Serializable {
 
 	@Inject
 	private ValidatorProvider validatorProvider;
-
+	
 	@Inject
 	private ProduktService ps;
 
@@ -65,6 +65,74 @@ public class BestellService implements Serializable {
 	@PreDestroy
 	private void preDestroy() {
 		LOGGER.log(FINER, "CDI-faehiges Bean {0} wird geloescht", this);
+	}
+	
+	public void resetConstraintsByBestellposition(Bestellposition bestellposition, Locale locale) {
+		//Extrahiere Lieferung ID
+		
+		final String lieferungUriStr = bestellposition.getLieferungUri().toString();
+		int startPos = lieferungUriStr.lastIndexOf('/') + 1;
+		final String lieferungIdStr = lieferungUriStr.substring(startPos);
+				
+		Long lieferungId = null;
+		
+		try {
+			lieferungId = Long.valueOf(lieferungIdStr);
+		} catch (NotFoundException e) {
+			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
+		}
+				
+		final Lieferung lieferung = findLieferungById(lieferungId, locale);
+		
+		if (lieferung == null) {
+			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
+		}
+				
+		bestellposition.setLieferung(lieferung);
+		
+//		Extrahiere Produkt ID
+		
+		final String produktUriStr = bestellposition.getProduktUri().toString();
+		startPos = produktUriStr.lastIndexOf('/') + 1;
+		final String produktIdStr = produktUriStr.substring(startPos);
+		
+		Long produktId = null;
+		
+		try {
+			produktId = Long.valueOf(produktIdStr);
+		} catch (NotFoundException e) {
+			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
+		}
+		
+		final Produkt produkt = ps.findProduktById(produktId, locale);
+		
+		if (produkt == null) {
+			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
+		}
+		
+		bestellposition.setProdukt(produkt);
+		
+		//	Extrahiere Bestellung ID
+		
+		final String bestellungUriStr = bestellposition.getBestellungUri().toString();
+		startPos = bestellungUriStr.lastIndexOf('/') + 1;
+		final String bestellungIdStr = bestellungUriStr.substring(startPos);
+		
+		Long bestellungId = null;
+		
+		try {
+			bestellungId = Long.valueOf(bestellungIdStr);
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException("keine Bestellung vorhanden mit ID " + bestellungIdStr);
+		}
+		
+		final Bestellung bestellung = findBestellungById(bestellungId, locale);
+		
+		if (bestellung == null) {
+			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungId);
+		}
+		
+		bestellposition.setBestellung(bestellung);
 	}
 
 	/*
