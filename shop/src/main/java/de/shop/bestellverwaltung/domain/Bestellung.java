@@ -134,9 +134,8 @@ public class Bestellung implements Serializable {
 	@JsonIgnore
 	private Date bestellzeitpunkt;
 
-	@Column(name = "erzeugt", nullable = false)
+	//@Column(name = "erzeugt", nullable = false)
 	@Temporal(TIMESTAMP)
-	@XmlTransient
 	@JsonIgnore
 	private Date erzeugt;
 

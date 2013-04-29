@@ -90,7 +90,7 @@ public class BestellService implements Serializable {
 				
 		bestellposition.setLieferung(lieferung);
 		
-//		Extrahiere Produkt ID
+		//Extrahiere Produkt ID
 		
 		final String produktUriStr = bestellposition.getProduktUri().toString();
 		startPos = produktUriStr.lastIndexOf('/') + 1;
@@ -112,7 +112,7 @@ public class BestellService implements Serializable {
 		
 		bestellposition.setProdukt(produkt);
 		
-		//	Extrahiere Bestellung ID
+		//Extrahiere Bestellung ID
 		
 		final String bestellungUriStr = bestellposition.getBestellungUri().toString();
 		startPos = bestellungUriStr.lastIndexOf('/') + 1;
@@ -477,7 +477,29 @@ public class BestellService implements Serializable {
 			return null;
 		}
 		
-		final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
+		Bestellung orgBestellung = findBestellungById(bestellung.getId(), locale);
+		
+		if (orgBestellung == null) {
+			String msg = "Bestellung nicht gefunden";
+			throw new NotFoundException(msg);
+		}
+		
+		List<Bestellposition> bestellpositionen = findBestellpositionenByBestellung(bestellung);
+		
+		if (bestellpositionen == null)
+			throw new NotFoundException("keine Bestellpositionen vorhanden!");
+		
+		for (Bestellposition bp : bestellpositionen) {
+			if (bp == null)
+				continue;
+			
+			//resetConstraintsByBestellposition(bp, locale);
+			bp.setBestellung(bestellung);
+		}
+		
+		bestellung.setBestellpositionen(bestellpositionen);
+		
+		//final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		
 		if (bestellpositionen == null || bestellpositionen.isEmpty()) {
 			LOGGER.finest("Bestellung nicht erstellt => bestellpositionen sind null oder leer");
