@@ -31,7 +31,6 @@ import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -53,7 +52,6 @@ public class BestellungResourceTest extends AbstractResourceTest {
 	private static final Float BESTELLUNG_GESAMTPREIS = Float.valueOf(80);
 	private static final Byte BESTELLUNG_GEZAHLT = Byte.valueOf((byte) 0);
 	private static final String BESTELLUNG_STATUS = "offen";
-	private static final String BESTELLUNG_STATUS_NEU = "neuer Bestellstatus";
 	
 	@Test
 	public void validate() {
@@ -167,16 +165,16 @@ public class BestellungResourceTest extends AbstractResourceTest {
 			assertThat(jsonObject.getJsonNumber("id").longValue(), is(BESTELLUNG_ID_VORHANDEN.longValue()));
 		}
 		
-		JsonObjectBuilder jsonObjectBuilder = getJsonBuilderFactory().createObjectBuilder();
-		Set<String> keys = jsonObject.keySet();
+		final JsonObjectBuilder jsonObjectBuilder = getJsonBuilderFactory().createObjectBuilder();
+		final Set<String> keys = jsonObject.keySet();
     	for (String k : keys) {
     		if ("kundeUri".equals(k)) {
     			jsonObjectBuilder.add("kundeUri", KUNDEN_URI + "/" + KUNDE_ID_VORHANDEN);
     		}
-    		else if ("bestellstatus".equals(k)){
+    		else if ("bestellstatus".equals(k)) {
     			jsonObjectBuilder.add("bestellstatus", BESTELLUNG_STATUS);
     		}
-    		else if ("gezahlt".equals(k)){
+    		else if ("gezahlt".equals(k)) {
     			jsonObjectBuilder.add("gezahlt", BESTELLUNG_GEZAHLT);
     		}
     		else {

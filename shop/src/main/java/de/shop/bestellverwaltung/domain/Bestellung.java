@@ -371,7 +371,7 @@ public class Bestellung implements Serializable {
 			return false;
 		}
 
-		Bestellung other = (Bestellung) obj;
+		final Bestellung other = (Bestellung) obj;
 
 		if (aktualisiert == null) {
 			if (other.aktualisiert != null) {

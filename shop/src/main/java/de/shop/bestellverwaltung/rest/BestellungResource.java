@@ -127,7 +127,7 @@ public class BestellungResource {
 	@Wrapped(element = "bestellung")
 	public Bestellung findBestellungById(@PathParam("id") Long id) {
 		final Locale locale = localeHelper.getLocale(headers);
-		Bestellung bestellung = bs.findBestellungById(id, locale);
+		final Bestellung bestellung = bs.findBestellungById(id, locale);
 
 		if (bestellung == null) {
 			final String msg = "{object.notFound}";
@@ -145,8 +145,8 @@ public class BestellungResource {
 	@Wrapped(element = "bestellposition")
 	public Collection<Bestellposition> findBestellpositionenByBestellungId(@PathParam("id") Long id) {
 		final Locale locale = localeHelper.getLocale(headers);
-		Bestellung bestellung = bs.findBestellungById(id, locale);
-		Collection<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
+		final Bestellung bestellung = bs.findBestellungById(id, locale);
+		final Collection<Bestellposition> bestellpositionen = bs.findBestellpositionenByBestellung(bestellung);
 
 		if (bestellpositionen.isEmpty()) {
 			final String msg = "{object.notFound}";
@@ -165,15 +165,16 @@ public class BestellungResource {
 	@Wrapped(element = "kunde")
 	public Kunde findKundeByBestellungId(@PathParam("id") Long id) {
 		final Locale locale = localeHelper.getLocale(headers);
-		Bestellung bestellung = bs.findBestellungById(id, locale);
+		final Bestellung bestellung = bs.findBestellungById(id, locale);
 		if (bestellung != null) {
-			Kunde kunde = bestellung.getKunde();
+			final Kunde kunde = bestellung.getKunde();
 			if (kunde == null) {
 				final String msg = "Kein Kunde gefunden";
 				throw new NotFoundException(msg);
 			}
 			return kunde;
-		} else {
+		} 
+		else {
 			// TODO msg passend zu locale
 			final String msg = "Keine Bestellung gefunden mit der ID " + id;
 			throw new NotFoundException(msg);
@@ -202,7 +203,7 @@ public class BestellungResource {
 			throw new NotFoundException("kein Kunde vorhanden mit Id " + kundeId);
 		}
 
-		Collection<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
+		final Collection<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		final List<Bestellposition> neueBestellpositionen = new ArrayList<>(bestellpositionen.size());
 		// List<Long> produktIds = new ArrayList<>(bestellpositionen.size());
 
@@ -224,7 +225,7 @@ public class BestellungResource {
 				throw new NumberFormatException("Kein Produkt vorhanden mit ID " + produktIdStr);
 			}
 
-			Produkt produkt = ps.findProduktById(produktId, locale);
+			final Produkt produkt = ps.findProduktById(produktId, locale);
 			if (produkt == null) {
 				throw new Exception("Kein Produkt vorhanden mit ID " + produktId);
 			}
@@ -239,7 +240,7 @@ public class BestellungResource {
 			} catch (NumberFormatException e) {
 				throw new NumberFormatException("Keine Lieferung vorhanden mit ID " + lieferungIdStr);
 			}
-			Lieferung lieferung = bs.findLieferungById(lieferungId, locale);
+			final Lieferung lieferung = bs.findLieferungById(lieferungId, locale);
 			if (lieferung == null) {
 				throw new Exception("Keine Lieferung vorhanden mit ID " + lieferungId);
 			}

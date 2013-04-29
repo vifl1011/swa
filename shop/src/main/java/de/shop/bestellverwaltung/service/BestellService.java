@@ -477,14 +477,14 @@ public class BestellService implements Serializable {
 			return null;
 		}
 		
-		Bestellung orgBestellung = findBestellungById(bestellung.getId(), locale);
+		final Bestellung orgBestellung = findBestellungById(bestellung.getId(), locale);
 		
 		if (orgBestellung == null) {
-			String msg = "Bestellung nicht gefunden";
+			final String msg = "Bestellung nicht gefunden";
 			throw new NotFoundException(msg);
 		}
 		
-		List<Bestellposition> bestellpositionen = findBestellpositionenByBestellung(bestellung);
+		final List<Bestellposition> bestellpositionen = findBestellpositionenByBestellung(bestellung);
 		
 		if (bestellpositionen == null)
 			throw new NotFoundException("keine Bestellpositionen vorhanden!");

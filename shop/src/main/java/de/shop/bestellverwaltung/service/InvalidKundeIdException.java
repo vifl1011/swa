@@ -8,7 +8,7 @@ import javax.validation.ConstraintViolation;
 import de.shop.bestellverwaltung.domain.Bestellung;
 
 @ApplicationException(rollback = true)
-public class InvalidKundeIdException extends BestellServiceException {
+public class InvalidKundeIdException extends AbstractBestellServiceExceptionFactory {
 	private static final long serialVersionUID = -8973151010781329074L;
 
 	private final Long bestellungId;

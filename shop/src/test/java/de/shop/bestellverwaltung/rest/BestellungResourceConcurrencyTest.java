@@ -2,23 +2,14 @@ package de.shop.bestellverwaltung.rest;
 
 import static com.jayway.restassured.RestAssured.given;
 import static de.shop.util.TestConstants.ACCEPT;
-import static de.shop.util.TestConstants.KUNDEN_PATH;
-import static de.shop.util.TestConstants.PRODUKT_URI;
-import static de.shop.util.TestConstants.BESTELLUNGEN_ID_KUNDE_PATH;
 import static de.shop.util.TestConstants.BESTELLUNGEN_ID_PATH;
 import static de.shop.util.TestConstants.BESTELLUNGEN_ID_PATH_PARAM;
 import static de.shop.util.TestConstants.BESTELLUNGEN_PATH;
 import static de.shop.util.TestConstants.KUNDEN_URI;
-import static de.shop.util.TestConstants.LOCATION;
-import static de.shop.util.TestConstants.LIEFERUNG_URI;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
-import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
-import static java.net.HttpURLConnection.HTTP_OK;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
@@ -37,7 +28,6 @@ import javax.json.JsonReader;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -85,10 +75,10 @@ public class BestellungResourceConcurrencyTest extends AbstractResourceTest {
     		if ("kundeUri".equals(k)) {
     			jsonObjectBuilder.add("kundeUri", KUNDEN_URI + "/" + KUNDE_ID_VORHANDEN);
     		}
-    		else if ("bestellstatus".equals(k)){
+    		else if ("bestellstatus".equals(k)) {
     			jsonObjectBuilder.add("bestellstatus", BESTELLUNG_STATUS);
     		}
-    		else if ("gezahlt".equals(k)){
+    		else if ("gezahlt".equals(k)) {
     			jsonObjectBuilder.add("gezahlt", BESTELLUNG_UNGEZAHLT);
     		}
     		else {
@@ -110,10 +100,10 @@ public class BestellungResourceConcurrencyTest extends AbstractResourceTest {
     		if ("kundeUri".equals(k)) {
     			jsonObjectBuilder.add("kundeUri", KUNDEN_URI + "/" + KUNDE_ID_VORHANDEN);
     		}
-    		else if ("bestellstatus".equals(k)){
+    		else if ("bestellstatus".equals(k)) {
     			jsonObjectBuilder.add("bestellstatus", BESTELLUNG_STATUS_NEU);
     		}
-    		else if ("gezahlt".equals(k)){
+    		else if ("gezahlt".equals(k)) {
     			jsonObjectBuilder.add("gezahlt", BESTELLUNG_GEZAHLT);
     		}
     		else {
