@@ -279,21 +279,29 @@ public class BestellungResource {
 	public void updateBestellung(Bestellung bestellung) {
 		final Locale locale = localeHelper.getLocale(headers);
 		Bestellung orgBestellung = bs.findBestellungById(bestellung.getId(), locale);
+		
+		if (orgBestellung == null) {
+			String msg = "Bestellung nicht gefunden";
+			throw new NotFoundException(msg);
+		}
+		
 		List<Bestellposition> orgBestellpositionen = bs.findBestellpositionenByBestellung(orgBestellung);
-		List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
+		List<Bestellposition> bestellpositionen = orgBestellung.getBestellpositionen();
 		Bestellposition bestellposition = null;
-
+		
 		int count = 0;
-		for (Bestellposition bp : orgBestellpositionen) {
-			bestellposition = bestellpositionen.get(count++);
+		for (Bestellposition bp : bestellpositionen) {
+			bestellposition = orgBestellpositionen.get(count);
 			if (bestellposition == null)
 				continue;
-
+			
 			// Extrahiere Lieferung ID (Produkt erhält kein update)
 			final String lieferungUriStr = bestellposition.getLieferungUri().toString();
 			int startPos = lieferungUriStr.lastIndexOf('/') + 1;
 			final String lieferungIdStr = lieferungUriStr.substring(startPos);
-
+			
+			// TODO Produkt und Bestellung URI Updaten (ID extrahieren)
+			
 			Long lieferungId = null;
 
 			try {
@@ -306,23 +314,13 @@ public class BestellungResource {
 			bestellposition.setLieferung(lieferung);
 
 			bp.setValues(bestellposition);
+
+			count++;
 		}
-
-		if (orgBestellung == null) {
-			String msg = "Kunde nicht gefunden";
-			throw new NotFoundException(msg);
-		}
-
-		orgBestellung.setBestellpositionen(orgBestellpositionen);
-
-		LOGGER.log(FINEST, "Kunde vorher: %s", orgBestellung);
-		orgBestellung.setValues(bestellung);
-		LOGGER.log(FINEST, "Kunde nachher: %s", orgBestellung);
-
-		bestellung = bs.updateBestellung(orgBestellung, locale);
-		if (bestellung == null) {
-			final String msg = "Kein Kunde gefunden mit der ID " + orgBestellung.getId();
-			throw new NotFoundException(msg);
-		}
+		
+		bestellung.setBestellpositionen(bestellpositionen);
+		LOGGER.log(FINEST, "Bestellung: %s", orgBestellung);
+				
+		bs.updateBestellung(bestellung, locale);
 	}
 }

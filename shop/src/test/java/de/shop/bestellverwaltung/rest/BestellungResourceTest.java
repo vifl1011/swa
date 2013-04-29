@@ -46,18 +46,15 @@ public class BestellungResourceTest extends AbstractResourceTest {
 	private static final Long PRODUKT_ID_VORHANDEN_1 = Long.valueOf(502);
 	private static final Long PRODUKT_ID_VORHANDEN_2 = Long.valueOf(503);
 	private static final Long LIEFERUNG_ID_VORHANDEN = Long.valueOf(300);
+	
 	private static final Float BESTELLUNG_GESAMTPREIS = Float.valueOf(80);
 	private static final Byte BESTELLUNG_GEZAHLT = Byte.valueOf((byte) 0);
 	private static final String BESTELLUNG_STATUS = "offen";
-	
-	//TODO Test funktioniert @Ignore noch entfernen
 	
 	@Test
 	public void validate() {
 		assertThat(true, is(true));
 	}
-	
-	//TODO Test funktioniert @Ignore noch entfernen
 	
 	@Test
 	public void findBestellungById() {
@@ -84,8 +81,6 @@ public class BestellungResourceTest extends AbstractResourceTest {
 	}
 
 	//TODO Wirft nullpoint Exception
-	@Ignore
-	@Test
 	public void findKundeByBestellungId() {
 		LOGGER.finer("BEGINN");
 
@@ -109,8 +104,6 @@ public class BestellungResourceTest extends AbstractResourceTest {
 		LOGGER.finer("ENDE");
 	}
 
-	//TODO Test funktioniert @Ignore noch entfernen
-	
 	@Test
 	public void createBestellung() {
 		LOGGER.finer("BEGINN");
@@ -159,7 +152,10 @@ public class BestellungResourceTest extends AbstractResourceTest {
 	}
 	
 	public void updateBestellung() {
+		LOGGER.finer("BEGINN");
 		
-	
+		
+		
+		LOGGER.finer("ENDE");
 	}
 }
