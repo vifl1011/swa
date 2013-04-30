@@ -43,8 +43,6 @@ public class KundeResourceConcurrencyTest extends AbstractResourceTest {
 	private static final Long KUNDE_ID_UPDATE = Long.valueOf(207);
 	private static final String NEUER_NACHNAME = "Testname";
 	private static final String NEUER_NACHNAME_2 = "Neuername";
-	private static final Long KUNDE_ID_DELETE1 = Long.valueOf(208);
-	private static final Long KUNDE_ID_DELETE2 = Long.valueOf(209);
 
 	@Test
 	public void updateUpdate() throws InterruptedException, ExecutionException {
