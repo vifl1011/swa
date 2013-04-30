@@ -175,7 +175,6 @@ public class BestellungResource {
 			return kunde;
 		} 
 		else {
-			// TODO msg passend zu locale
 			final String msg = "Keine Bestellung gefunden mit der ID " + id;
 			throw new NotFoundException(msg);
 		}

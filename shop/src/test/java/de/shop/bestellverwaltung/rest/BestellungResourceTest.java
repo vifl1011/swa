@@ -82,7 +82,6 @@ public class BestellungResourceTest extends AbstractResourceTest {
 		LOGGER.finer("ENDE");
 	}
 
-	//TODO Wirft nullpoint Exception
 	public void findKundeByBestellungId() {
 		LOGGER.finer("BEGINN");
 
