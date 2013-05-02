@@ -1,0 +1,230 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			     xmlns:c="http://java.sun.com/jsp/jstl/core"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:a4j="http://richfaces.org/a4j">
+			    
+	<rich:tabPanel id="tabPanel" switchType="client">
+		<rich:tab id="stammdatenTab">
+			<f:facet name="header">
+				<h:panelGroup id="stammdatenLabel">
+					<h:graphicImage id="stammdatenGif"
+					                name="stammdaten.gif"
+					                library="images"/>
+					#{' '}
+					#{msgKv['viewKundePopup.kunde.stammdaten']}
+				</h:panelGroup>
+			</f:facet>
+			
+			<rich:panel id="stammdatenPanel">
+				<h:panelGrid id="stammdatenGrid" columns="2">
+					<h:outputText id="idLabel" value="#{msgKv['viewKundePopup.kundenr']}"/>
+					<h:outputText id="id" value="#{kunde.id}"/>
+			
+					<h:outputText id="nachnameLabel" value="#{msgKv['viewKundePopup.nachname']}"/>
+					<h:outputText id="nachname" value="#{kunde.nachname}"/>
+		
+					<h:outputText id="vornameLabel" value="#{msgKv['viewKundePopup.vorname']}"/>
+					<h:outputText id="vorname" value="#{kunde.vorname}"/>
+					
+					<h:outputText id="seitLabel" value="#{msgKv['viewKundePopup.seit']}"/>
+					<h:outputText id="seit" value="#{kunde.seit}">
+						<f:convertDateTime type="date" dateStyle="long"/>
+					</h:outputText>
+					
+					<h:outputText id="umsatzLabel" value="#{msgKv['viewKundePopup.umsatz']}"/>
+					<h:outputText id="umsatz" value="#{kunde.umsatz}">
+						<f:convertNumber type="currency"
+						                 currencyCode="EUR"/>
+					</h:outputText>
+		
+					<h:outputText id="emailLabel" value="#{msgKv['viewKundePopup.email']}"/>
+					<h:outputText id="email" value="#{kunde.email}"/>
+	
+					<h:outputText id="firmenkundeLabel" value="#{msgKv['viewKundePopup.kundenart']}" rendered="#{kunde.class.simpleName eq 'Firmenkunde'}"/>
+					<h:outputText id="firmenkunde" value="#{msgKv['viewKundePopup.firmenkunde']}" rendered="#{kunde.class.simpleName eq 'Firmenkunde'}"/>
+		
+					<h:outputText id="privatkundeLabel" value="#{msgKv['viewKundePopup.kundenart']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
+					<h:outputText id="privatkunde" value="#{msgKv['viewKundePopup.privatkunde']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
+					
+					<h:outputText id="rabattLabel" value="#{msgKv['viewKundePopup.rabatt']}"/>
+					<h:outputText id="rabatt" value="#{kunde.rabatt}">
+						<f:convertNumber type="percent" maxFractionDigits="2"/>
+					</h:outputText>
+					
+					<h:outputText id="familienstandLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'LEDIG'}"/>
+					<h:outputText id="familienstand" value="#{msgKv['viewKundePopup.familienstand.ledig']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'LEDIG'}"/>
+		
+					<h:outputText id="verheiratetLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERHEIRATET'}"/>
+					<h:outputText id="verheiratet" value="#{msgKv['viewKundePopup.familienstand.verheiratet']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERHEIRATET'}"/>
+		
+					<h:outputText id="geschiedenLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'GESCHIEDEN'}"/>
+					<h:outputText id="geschieden" value="#{msgKv['viewKundePopup.familienstand.geschieden']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'GESCHIEDEN'}"/>
+		
+					<h:outputText id="verwitwetLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERWITWET'}"/>
+					<h:outputText id="verwitwet" value="#{msgKv['viewKundePopup.familienstand.verwitwet']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERWITWET'}"/>
+		
+					<h:outputText id="weiblichLabel" value="#{msgKv['viewKundePopup.geschlecht']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
+					<h:outputText id="weiblich" value="#{msgKv['viewKundePopup.geschlecht.weiblich']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
+		
+					<h:outputText id="maennlichLabel" value="#{msgKv['viewKundePopup.geschlecht']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
+					<h:outputText id="maennlich" value="#{msgKv['viewKundePopup.geschlecht.maennlich']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
+	
+					<h:outputText id="newsletterLabel" value="#{msgKv['viewKundePopup.newsletter']}"/>
+					<h:selectBooleanCheckbox id="newsletter" value="#{kunde.newsletter}" disabled="true" readonly="true"/>
+	
+					<h:outputText id="hobbiesLabel" value="#{msgKv['viewKundePopup.hobbies']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
+					<h:selectManyCheckbox value="#{kunde.hobbies}"
+					                      layout="pageDirection"
+					                      disabled="true"
+					                      readonly="true"
+					                      rendered="#{kunde.class.simpleName eq 'Privatkunde'}">
+						<f:selectItem itemValue="SPORT"
+									  itemLabel="#{msgKv['viewKundePopup.hobbies.sport']}"/>
+						<f:selectItem itemValue="LESEN" 
+									  itemLabel="#{msgKv['viewKundePopup.hobbies.lesen']}"/>
+						<f:selectItem itemValue="REISEN" 
+									  itemLabel="#{msgKv['viewKundePopup.hobbies.reisen']}"/>
+					</h:selectManyCheckbox>
+				</h:panelGrid>
+			</rich:panel>
+		</rich:tab>
+		
+		<rich:tab id="multimediaTab" rendered="#{not empty kunde.file}">
+			<f:facet name="header">
+				<h:panelGroup id="multimediaLabel">
+					<h:graphicImage id="multimediaGif"
+					                name="bild.gif"
+					                library="images"/>
+					#{' '}
+					#{msgKv['viewKundePopup.kunde.bildVideoAudio']}
+				</h:panelGroup>
+			</f:facet>
+			
+			<c:set var="file" value="${kunde.file}" scope="view"/>
+			<c:set var="multimediaType" value="${file.multimediaType}" scope="view"/>
+			<c:set var="filename" value="#{kc.getFilename(file)}" scope="view"/>
+			<c:choose>
+				<c:when test="${multimediaType eq 'IMAGE'}">
+					<h:graphicImage id="bild"
+									name="#{filename}"
+									library="filesDb"
+									alt="#{msgKv['viewKunde.kunde.bild.alt']}"/>
+					<!--
+					<h:graphicImage id="bild"
+									value="data:#{file.mimeType};base64,#{kc.getBase64(file)}"
+									alt="#{msgKv['viewKunde.kunde.bild.alt']}"/>
+					-->
+				</c:when>
+					
+				<c:when test="${multimediaType eq 'VIDEO'}">
+					<!-- MediaElement von http://mediaelementjs.com -->
+					<!-- Alternativen siehe http://html5video.org/wiki/HTML5_Video_Player_Comparison -->
+					<h:outputScript id="jsVideo" library="js" name="mediaelement-and-player.min.js"/>
+					<h:outputStylesheet id="cssVideo" library="css" name="mediaelementplayer.css"/>
+					<video id="video"
+						   controls="controls"
+						   width="640"
+						   height="480">
+						<source src="#{request.contextPath}/resources/filesDb/#{filename}"
+						        type="#{file.mimeType.toString()}"/>
+					</video>
+				</c:when>
+
+				<c:when test="${multimediaType eq 'AUDIO'}">
+					TODO: AUDIO
+				</c:when>
+			</c:choose>
+		</rich:tab>
+		
+		<rich:tab id="bestellungenTab" rendered="#{not empty kunde.bestellungen}">
+			<f:facet name="header">
+				<h:panelGroup id="bestellungenLabel">
+					<h:graphicImage id="bestellungenGif"
+					                name="bestellungen.gif"
+					                library="images"/>
+					#{' '}
+					#{msgKv['viewKundePopup.kunde.bestellungen']}
+				</h:panelGroup>
+			</f:facet>
+			
+			<rich:dataTable id="bestellungenTabelle" value="#{kunde.bestellungen}" var="bestellung">
+				<f:facet name="header">
+					<rich:columnGroup id="positionenSpalten">
+						<rich:column id="artikelIdSpalte">
+							#{msgKv['viewKundePopup.artikel.id']}
+						</rich:column>
+						<rich:column id="bezeichnungSpalte">
+							#{msgKv['viewKundePopup.artikel.bezeichnung']}
+						</rich:column>
+						<rich:column id="anzahlSpalte">
+							#{msgKv['viewKundePopup.artikel.anzahl']}
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				
+				<rich:column id="togglerSpalte" colspan="3">
+					<rich:collapsibleSubTableToggler id="subTableToggler" for="positionenSubtable"
+					                                 collapsedLabel="#{msgKv['viewKundePopup.bestellung']} #{bestellung.id} : #{bestellung.getErzeugt('yyyy-MM-dd')}"
+					                                 expandedLabel="#{msgKv['viewKundePopup.bestellung']} #{bestellung.id} : #{bestellung.getErzeugt('yyyy-MM-dd')}"/>
+				</rich:column>
+				
+				<rich:collapsibleSubTable id="positionenSubtable"
+				                          value="#{bestellung.bestellpositionen}"
+				                          var="pos"
+				                          rowClasses="odd-row, even-row"
+					                      styleClass="tabelleMitZebrastil"
+				                          expandMode="client"
+				                          expanded="#{false}"> <!-- https://issues.jboss.org/browse/RF-10715 -->
+					<rich:column id="artikelIdSpalteSub">
+						#{pos.artikel.id}
+					</rich:column>
+		
+					<rich:column id="bezeichnungSpalteSub">
+						#{pos.artikel.bezeichnung}
+					</rich:column>
+		
+					<rich:column id="anzahlSpalteSub">
+						#{pos.anzahl}
+					</rich:column>
+				</rich:collapsibleSubTable>		
+			
+				<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+					<rich:jQuery id="odd"
+					             selector=".tabelleMitZebrastil tr:odd"
+					             query="addClass('odd-row')"
+					             timing="domready"/>
+					<rich:jQuery id="even"
+					             selector=".tabelleMitZebrastil tr:even"
+					             query="addClass('even-row')"
+					             timing="domready"/>
+					<rich:jQuery id="mouseover"
+					             selector=".tabelleMitZebrastil tr"
+					             event="mouseover"
+					             query="jQuery(this).addClass('active-row')"
+					             timing="domready"/>
+					<rich:jQuery id="mouseout"
+					             selector=".tabelleMitZebrastil tr"
+					             event="mouseout"
+					             query="jQuery(this).removeClass('active-row')"
+					             timing="domready"/>
+				</a4j:outputPanel>
+			</rich:dataTable>
+		</rich:tab>
+		
+		<rich:tab id="bemerkungenTab" rendered="#{not empty kunde.bemerkungen}">
+			<f:facet name="header">
+				<h:panelGroup id="bemerkungenLabel">
+					<h:graphicImage id="bemerkungenGif"
+					                name="text.gif"
+					                library="images"/>
+					#{' '}
+					#{msgKv['viewKundePopup.kunde.bemerkungen']}
+				</h:panelGroup>
+			</f:facet>
+					
+			<h:outputText id="bemerkungen" value="#{kunde.bemerkungen}" escape="false"/>
+		</rich:tab>
+	</rich:tabPanel>
+</ui:composition>

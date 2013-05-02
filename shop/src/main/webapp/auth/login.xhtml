@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msg['login.title']}"/>
+	
+		<ui:define name="article">
+			<rich:panel id="loginPanel" header="#{msg['login.heading']}" style="width:300px">
+				<form id="loginForm" action="j_security_check" method="post">
+					<h:panelGrid id="loginGrid" columns="3">
+						<h:outputLabel id="usernameLabel"
+						               value="#{msg['login.kundeId']}"
+						               for="username"/>
+						<h:inputText id="j_username"/>
+						<f:verbatim/>
+								
+						<h:outputLabel id="passwordLabel"
+						               value="#{msg['login.password']}"
+						               for="password"/>
+						<h:inputSecret id="j_password"/>
+						<h:commandButton id="loginButton" value="#{msg['login.submit']}"/>
+					</h:panelGrid>
+				</form>
+				
+				<h:panelGroup id="fehlermeldungGroup" rendered="#{param.error eq 'true'}">
+					<p id="abstandZuForm" class="rf-msg-err">
+						#{msg['login.error']}
+					</p>
+				</h:panelGroup>			</rich:panel>
+			
+<!--
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msg['login.title']}"/>
+	
+		<ui:define name="article">
+			<form id="loginForm" action="j_security_check" method="post">
+				Username
+				<input type="text" id="j_username" name="j_username"/>
+				Password
+				<input type="password" id="j_password" name="j_password"/>
+				<input type="submit" value="OK"/>
+			</form>
+		</ui:define>
+	</ui:composition>
+-->
+		</ui:define>
+	</ui:composition>
+</html>

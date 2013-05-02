@@ -1,42 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
- <display-name>shop</display-name>
- <context-param>
-  <description>Mapping fuer XML, JSON usw.</description>
-  <param-name>resteasy.use.builtin.providers</param-name>
-  <param-value>true</param-value>
- </context-param>
-  <env-entry>
-    <env-entry-name>absenderMail</env-entry-name>
-    <env-entry-type>java.lang.String</env-entry-type>
-    <env-entry-value>abcd0011@hs-karlsruhe.de</env-entry-value>
-  </env-entry>
-  <env-entry>
-    <env-entry-name>absenderName</env-entry-name>
-    <env-entry-type>java.lang.String</env-entry-type>
-    <env-entry-value>Joe Doe</env-entry-value>
-  </env-entry>
-  <env-entry>
-    <env-entry-name>empfaengerMail</env-entry-name>
-    <env-entry-type>java.lang.String</env-entry-type>
-    <env-entry-value>abcd0011@hs-karlsruhe.de</env-entry-value>
-  </env-entry>
-  <env-entry>
-    <env-entry-name>empfaengerName</env-entry-name>
-    <env-entry-type>java.lang.String</env-entry-type>
-    <env-entry-value>Joe Doe</env-entry-value>
-  </env-entry>
-  <env-entry>
-    <env-entry-name>locales</env-entry-name>
-    <env-entry-type>java.lang.String</env-entry-type>
-    <env-entry-value>de,en</env-entry-value>
-  </env-entry>
- <login-config> 
-  <auth-method>BASIC</auth-method>
-  <realm-name>Webshop</realm-name>
- </login-config>
- <security-constraint>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>shop</display-name>
+  <context-param>
+    <description>In Produktion: Javascript komprimieren, d.h. auf true setzen</description>
+    <param-name>com.sun.faces.compressJavaScript</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <description>In Produktion: serverseitige Statusinfo ueber Clients komprimieren, d.h. auf true setzen</description>
+    <param-name>com.sun.faces.compressViewState</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.displayConfiguration</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>In Produktion: Validierung der Tags mit f: abschalten, d.h. auf false setzen</description>
+    <param-name>com.sun.faces.enableCoreTagLibValidator</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.forceLoadConfiguration</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>In Produktion: hoeherer Wert (in Min.), wann ueberprueft wird, ob es z.B. neue Bilder oder CSS-Dateien gibt</description>
+    <param-name>com.sun.faces.resourceUpdateCheckPeriod</param-name>
+    <param-value>1</param-value>
+  </context-param>
+  <context-param>
+    <param-name>com.sun.faces.validateXml</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>In welchen Abstaenden prueft der Compiler bzgl. Aenderungen: Einheit = Sekunden, default = 2. In Produktion auf -1 setzen, d.h. keine Pruefung</description>
+    <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+    <param-value>1</param-value>
+  </context-param>
+  <context-param>
+    <description>damit Kommentare platziert werden koennen</description>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>Nicht-vorhandene Eingabe als null interpretieren und nicht als leerer String</description>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>In Produktion: auskommentieren. In Entwicklung nicht behandelte Fehlermeldungen anzeigen mit h:messages</description>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.atmosphere.useBlocking</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>RichFaces Push initialisieren</description>
+    <param-name>org.richfaces.push.initializeOnStartup</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>Dateien mit Javascript und CSS in wenigen, optimierten Dateien fuer mobile Web-Anwendungen. http://rik-ansikter.blogspot.com/2012/02/optimizing-resource-loading-with.html</description>
+    <param-name>org.richfaces.resourceOptimization.enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.resourceOptimization.packagingStages</param-name>
+    <param-value>Production</param-value>
+  </context-param>
+  <context-param>
+    <description>org.richfaces.fileUpload.tempFilesDirectory, um das Verzeichnis zu setzen. Default in Windows 7 und VISTA: %TEMP%, d.h. C:\Users\MYACCOUNT\AppData\Local\Temp  </description>
+    <param-name>org.richfaces.fileUpload.createTempFiles</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>Maximum: 2147483647 = 2 GB - 1. Siehe https://jira.jboss.org/jira/browse/RF-6590</description>
+    <param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
+    <param-value>5000000</param-value>
+  </context-param>
+  <context-param>
+    <description>Alternativen: blueSky, classic, deepMarine, emeraldTown, japanCherry, ruby, wine</description>
+    <param-name>org.richfaces.skin</param-name>
+    <param-value>blueSky</param-value>
+  </context-param>
+  <context-param>
+    <description>Mapping fuer XML, JSON usw.</description>
+    <param-name>resteasy.use.builtin.providers</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <description>Context fuer Datei-Upload</description>
+    <param-name>fileStoreContext</param-name>
+    <param-value>/../shopFiles</param-value>
+  </context-param>
+  <session-config>
+    <session-timeout>15</session-timeout>
+    <tracking-mode>COOKIE</tracking-mode>
+  </session-config>
+  <mime-mapping>
+    <extension>ico</extension>
+    <mime-type>image/x-icon</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>ecss</extension>
+    <mime-type>text/css</mime-type>
+  </mime-mapping>
+  <error-page>
+    <exception-type></exception-type>
+    <location>/error/defaultError.jsf</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/error/defaultError.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>javax.faces.el.EvaluationException</exception-type>
+    <location>/error/defaultError.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>javax.validation.ConstraintViolationException</exception-type>
+    <location>/error/defaultError.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>org.hibernate.LazyInitializationException</exception-type>
+    <location>/error/defaultError.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>de.shop.util.InternalError</exception-type>
+    <location>/error/defaultError.jsf</location>
+  </error-page>
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error/accessDenied.jsf</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/error/pageNotFound.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+    <location>/error/timeout.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
+    <location>/error/pageNotFound.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.io.FileNotFoundException</exception-type>
+    <location>/error/pageNotFound.jsf</location>
+  </error-page>
+  <error-page>
+    <exception-type>javax.ejb.EJBAccessException</exception-type>
+    <location>/error/accessDenied.jsf</location>
+  </error-page>
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Webshop</realm-name>
+  </login-config>
+  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Kunden erzeugen und modifizieren</web-resource-name>
    <url-pattern>/rest/kunden</url-pattern>

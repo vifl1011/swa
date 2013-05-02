@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msg['pageNotFound.title']}"/>
+	
+		<ui:define name="article">
+			<p class="rf-msg-err">
+				#{msg['pageNotFound.text']}
+			</p>
+		</ui:define>
+	</ui:composition>
+</html>

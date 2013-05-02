@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgKv['viewKunde.title']}"/>
+	
+		<ui:define name="article">
+			<h:form id="form">
+				<rich:focus id="formFocus"/>
+				
+				<rich:panel id="suchePanel" header="#{msgKv['viewKunde.sucheNeu']}">
+					<h:panelGrid id="suchePanelGrid" columns="4">
+						<h:outputLabel id="kundeIdInputLabel"
+						               value="#{msgKv['viewKunde.kundenr']}"
+						               for="kundeIdInput"/>
+						             
+						<rich:autocomplete id="kundeIdInput"
+						                   value="#{kc.kundeId}"
+						                   mode="ajax"
+						                   minChars="1"
+						                   autocompleteMethod="#{kc.findKundenByIdPrefix}"
+						                   var="kunde"
+						                   fetchValue="#{kunde.id}"
+						                   converter="javax.faces.Number"
+						                   converterMessage="#{msgKv['viewKunde.kundenr.converterError']}">
+							#{kunde.id} : #{kunde.nachname}, #{kunde.vorname}
+						</rich:autocomplete> 
+	
+						<a4j:commandButton id="findButton"
+						                   action="#{kc.findKundeById}"
+						                   value="#{msgKv['viewKunde.submit']}"
+						                   render="gesuchterKundePanel fehlermeldungKundeId"/>
+						
+						<a4j:status id="statusWaiting">
+							<f:facet name="start">
+								<h:panelGroup id="waitingGroup">
+									<h:graphicImage id="waitingGif"
+									                name="waiting.gif"
+									                library="images"/>
+									#{msgKv['viewKunde.inBearbeitung']}
+								</h:panelGroup>
+							</f:facet>
+						</a4j:status>
+					</h:panelGrid>
+					
+					<rich:messages id="fehlermeldungKundeId" for="kundeIdInput"/>
+				</rich:panel>
+	
+				<a4j:outputPanel id="gesuchterKundePanel">
+					<rich:tabPanel id="tabPanel" switchType="client" rendered="#{not empty kc.kunde}">
+						<rich:tab id="stammdatenTab">
+							<f:facet name="header">
+								<h:panelGroup id="stammdatenLabel">
+									<h:graphicImage id="stammdatenGif"
+									                name="stammdaten.gif"
+									                library="images"/>
+									#{' '}
+									#{msgKv['viewKunde.kunde.stammdaten']}
+								</h:panelGroup>
+							</f:facet>
+							
+							<rich:panel id="stammdatenPanel">
+								<h:panelGrid id="stammdatenGrid" columns="2">
+									<h:outputText id="kundeIdLabel" value="#{msgKv['viewKunde.kundenr']}"/>
+									<h:outputText id="kundeId" value="#{kc.kunde.id}"/>
+							
+									<h:outputText id="nachnameLabel" value="#{msgKv['viewKunde.nachname']}"/>
+									<h:outputText id="nachname" value="#{kc.kunde.nachname}"/>
+						
+									<h:outputText id="vornameLabel" value="#{msgKv['viewKunde.vorname']}"/>
+									<h:outputText id="vorname" value="#{kc.kunde.vorname}"/>
+									
+									<h:outputText id="seitLabel" value="#{msgKv['viewKunde.seit']}"/>
+									<h:outputText id="seit" value="#{kc.kunde.seit}">
+										<f:convertDateTime type="date" dateStyle="long"/>
+									</h:outputText>
+									
+									<h:outputText id="umsatzLabel" value="#{msgKv['viewKunde.umsatz']}"/>
+									<h:outputText id="umsatz" value="#{kc.kunde.umsatz}">
+										<f:convertNumber type="currency"
+										                 currencyCode="EUR"/>
+									</h:outputText>
+						
+									<h:outputText id="emailLabel" value="#{msgKv['viewKunde.email']}"/>
+									<h:outputText id="email" value="#{kc.kunde.email}"/>
+					
+									<h:outputText id="firmenkundeLabel" value="#{msgKv['viewKunde.kundenart']}" rendered="#{kc.kunde.class.simpleName eq 'Firmenkunde'}"/>
+									<h:outputText id="firmenkunde" value="#{msgKv['viewKunde.firmenkunde']}" rendered="#{kc.kunde.class.simpleName eq 'Firmenkunde'}"/>
+						
+									<h:outputText id="privatkundeLabel" value="#{msgKv['viewKunde.kundenart']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
+									<h:outputText id="privatkunde" value="#{msgKv['viewKunde.privatkunde']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
+									
+									<h:outputText id="rabattLabel" value="#{msgKv['viewKunde.rabatt']}"/>
+									<h:outputText id="rabatt" value="#{kc.kunde.rabatt}">
+										<f:convertNumber type="percent" maxFractionDigits="2"/>
+									</h:outputText>
+									
+									<h:outputText id="familienstandLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'LEDIG'}"/>
+									<h:outputText id="familienstand" value="#{msgKv['viewKunde.familienstand.ledig']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'LEDIG'}"/>
+						
+									<h:outputText id="verheiratetLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERHEIRATET'}"/>
+									<h:outputText id="verheiratet" value="#{msgKv['viewKunde.familienstand.verheiratet']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERHEIRATET'}"/>
+						
+									<h:outputText id="geschiedenLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'GESCHIEDEN'}"/>
+									<h:outputText id="geschieden" value="#{msgKv['viewKunde.familienstand.geschieden']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'GESCHIEDEN'}"/>
+						
+									<h:outputText id="verwitwetLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERWITWET'}"/>
+									<h:outputText id="verwitwet" value="#{msgKv['viewKunde.familienstand.verwitwet']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERWITWET'}"/>
+						
+									<h:outputText id="weiblichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'WEIBLICH'}"/>
+									<h:outputText id="weiblich" value="#{msgKv['viewKunde.geschlecht.weiblich']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'WEIBLICH'}"/>
+						
+									<h:outputText id="maennlichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'MAENNLICH'}"/>
+									<h:outputText id="maennlich" value="#{msgKv['viewKunde.geschlecht.maennlich']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'MAENNLICH'}"/>
+					
+									<h:outputText id="newsletterLabel" value="#{msgKv['viewKunde.newsletter']}"/>
+									<h:selectBooleanCheckbox id="newsletter" value="#{kc.kunde.newsletter}" disabled="true" readonly="true"/>
+					
+									<h:outputText id="hobbiesLabel" value="#{msgKv['viewKunde.hobbies']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
+									<h:selectManyCheckbox value="#{kc.kunde.hobbies}"
+									                      layout="pageDirection"
+									                      disabled="true"
+									                      readonly="true"
+									                      rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}">
+										<f:selectItem itemValue="SPORT"
+													  itemLabel="#{msgKv['viewKunde.sport']}"/>
+										<f:selectItem itemValue="LESEN" 
+													  itemLabel="#{msgKv['viewKunde.lesen']}"/>
+										<f:selectItem itemValue="REISEN" 
+													  itemLabel="#{msgKv['viewKunde.reisen']}"/>
+									</h:selectManyCheckbox>
+								</h:panelGrid>
+							</rich:panel>
+						</rich:tab>
+						
+						<rich:tab id="multimediaTab" rendered="#{not empty kc.kunde.file}">
+							<f:facet name="header">
+								<h:panelGroup id="multimediaLabel">
+									<h:graphicImage id="multimediaGif"
+									                name="bild.gif"
+									                library="images"/>
+									#{' '}
+									#{msgKv['viewKunde.kunde.bildVideoAudio']}
+								</h:panelGroup>
+							</f:facet>
+							
+							<c:set var="file" value="${kc.kunde.file}" scope="view"/>
+							<c:set var="multimediaType" value="${file.multimediaType}" scope="view"/>
+							<c:set var="filename" value="#{kc.getFilename(file)}" scope="view"/>
+							<c:choose>
+								<c:when test="${multimediaType eq 'IMAGE'}">
+									<h:graphicImage id="bild"
+													name="#{filename}"
+													library="filesDb"
+													alt="#{msgKv['viewKunde.kunde.bild.alt']}"/>
+									<!--
+									<h:graphicImage id="bild"
+													value="data:#{file.mimeType};base64,#{kc.getBase64(file)}"
+													alt="#{msgKv['viewKunde.kunde.bild.alt']}"/>
+									-->
+								</c:when>
+									
+								<c:when test="${multimediaType eq 'VIDEO'}">
+									<!-- MediaElement von http://mediaelementjs.com und https://github.com/johndyer/mediaelement/tree/master/build -->
+									<!-- Alternativen siehe http://html5video.org/wiki/HTML5_Video_Player_Comparison -->
+									<!-- Funktioniert mit Chrome, aber nicht mit FF 19.0.2 -->
+									<h:outputScript id="jsVideo" library="js" name="mediaelement-and-player.min.js"/>
+									<h:outputStylesheet id="cssVideo" library="css" name="mediaelementplayer.css"/>
+									<video id="video"
+										   controls="controls"
+										   width="640"
+										   height="480">
+										<source src="#{request.contextPath}/resources/filesDb/#{filename}"
+										        type="#{file.mimeType.toString()}"/>
+									</video>
+								</c:when>
+
+								<c:when test="${multimediaType eq 'AUDIO'}">
+									TODO: AUDIO
+								</c:when>
+							</c:choose>
+						</rich:tab>
+						
+						<rich:tab id="bestellungenTab" rendered="#{not empty kc.kunde.bestellungen}">
+							<f:facet name="header">
+								<h:panelGroup id="bestellungenLabel">
+									<h:graphicImage id="bestellungenGif"
+									                name="bestellungen.gif"
+									                library="images"/>
+									#{' '}
+									#{msgKv['viewKunde.kunde.bestellungen']}
+								</h:panelGroup>
+							</f:facet>
+							
+							<rich:dataTable id="bestellungenTabelle" value="#{kc.kunde.bestellungen}" var="bestellung">
+								<f:facet name="header">
+									<rich:columnGroup id="positionenSpalten">
+										<rich:column id="artikelIdSpalte">
+											#{msgKv['viewKunde.artikel.id']}
+										</rich:column>
+										<rich:column id="bezeichnungSpalte">
+											#{msgKv['viewKunde.artikel.bezeichnung']}
+										</rich:column>
+										<rich:column id="anzahlSpalte">
+											#{msgKv['viewKunde.artikel.anzahl']}
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								
+								<rich:column id="togglerSpalte" colspan="3">
+									<rich:collapsibleSubTableToggler id="subTableToggler"
+									                                 for="positionenSubtable"
+									                                 collapsedLabel="#{msgKv['viewKunde.bestellung']} #{bestellung.id} : #{bestellung.getErzeugt('yyyy-MM-dd')}"
+									                                 expandedLabel="#{msgKv['viewKunde.bestellung']} #{bestellung.id} : #{bestellung.getErzeugt('yyyy-MM-dd')}"/>
+								</rich:column>
+								
+								<rich:collapsibleSubTable id="positionenSubtable"
+								                          value="#{bestellung.bestellpositionen}"
+								                          var="pos"
+								                          rowClasses="odd-row, even-row"
+									                      styleClass="tabelleMitZebrastil"
+								                          expandMode="client"
+								                          expanded="#{false}"> <!-- https://issues.jboss.org/browse/RF-10715 -->
+									<rich:column id="artikelIdSpalteSub">
+										#{pos.artikel.id}
+									</rich:column>
+						
+									<rich:column id="bezeichnungSpalteSub">
+										#{pos.artikel.bezeichnung}
+									</rich:column>
+						
+									<rich:column id="anzahlSpalteSub">
+										#{pos.anzahl}
+									</rich:column>
+								</rich:collapsibleSubTable>		
+							
+								<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+									<rich:jQuery id="odd"
+									             selector=".tabelleMitZebrastil tr:odd"
+									             query="addClass('odd-row')"
+									             timing="domready"/>
+									<rich:jQuery id="even"
+									             selector=".tabelleMitZebrastil tr:even"
+									             query="addClass('even-row')"
+									             timing="domready"/>
+									<rich:jQuery id="mouseover"
+									             selector=".tabelleMitZebrastil tr"
+									             event="mouseover"
+									             query="jQuery(this).addClass('active-row')"
+									             timing="domready"/>
+									<rich:jQuery id="mouseout"
+									             selector=".tabelleMitZebrastil tr"
+									             event="mouseout"
+									             query="jQuery(this).removeClass('active-row')"
+									             timing="domready"/>
+								</a4j:outputPanel>
+							</rich:dataTable>
+						</rich:tab>
+						
+						<rich:tab id="bemerkungenTab" rendered="#{not empty kc.kunde.bemerkungen}">
+							<f:facet name="header">
+								<h:panelGroup id="bemerkungenLabel">
+									<h:graphicImage id="bemerkungenGif"
+									                name="text.gif"
+									                library="images"/>
+									#{' '}
+									#{msgKv['viewKunde.kunde.bemerkungen']}
+								</h:panelGroup>
+							</f:facet>
+							
+							<h:outputText id="bemerkungen" value="#{kc.kunde.bemerkungen}" escape="false"/>
+						</rich:tab>
+					</rich:tabPanel>
+				
+					<p id="buttons">
+						<h:panelGroup id="buttonsGroup" rendered="#{not empty kc.kunde}">
+							<h:commandButton id="updateButtonPrivatkunde"
+							                 image="#{resource['images:edit.gif']}"
+							                 action="/kundenverwaltung/updatePrivatkunde"
+							                 alt="#{msgKv['viewKunde.update.alt']}"
+							                 rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
+							<h:commandButton id="updateButtonFirmenkunde"
+							                 image="#{resource['images/edit.gif']}"
+							                 action="/kundenverwaltung/updateFirmenkunde"
+							                 alt="#{msgKv['viewKunde.update.alt']}"
+							                 rendered="#{kc.kunde.class.simpleName eq 'Firmenkunde'}"/>
+							#{' '}
+							<h:commandButton id="deleteButton"
+											 image="#{resource['images:delete.gif']}"
+									         action="#{kc.deleteAngezeigtenKunden}"
+									         onclick="return confirm('#{msgKv['viewKunde.deleteKundeBestaetigung']}')"
+									         alt="#{msgKv['viewKunde.deleteButtonAlt']}"
+									         rendered="#{rich:isUserInRole('admin')}"/>
+							#{' '}
+							<rich:messages id="fehlermeldungDeleteButton" for="deleteButton"/>
+						</h:panelGroup>
+					</p>
+				</a4j:outputPanel>
+			</h:form>
+			
+			<!--
+			<a4j:log id="log"/>
+			-->
+		</ui:define>
+	</ui:composition>
+</html>

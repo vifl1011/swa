@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgAv['listArtikel.title']}"/>
+	
+		<ui:define name="article">
+			<h:form id="form">
+				<rich:focus id="sucheFocus"/>
+				
+				<rich:panel id="suchePanel" header="#{msgAv['listArtikel.sucheNeu']}">
+					<h:panelGrid id="sucheGrid" columns="4">
+						<h:outputLabel id="bezeichnungLabel"
+						               value="#{msgAv['listArtikel.bezeichnung']}"
+						               for="bezeichnung"/>
+		
+						<h:inputText id="bezeichnung" value="#{ac.bezeichnung}"/>
+		
+						<a4j:commandButton id="findButton"
+						                   action="#{ac.findArtikelByBezeichnung}"
+								           value="#{msgAv['listArtikel.submit']}"
+								           render="artikelPanel sucheForm:fehlermeldungBezeichnung"/>
+						
+						<a4j:status id="statusStart">
+							<f:facet name="start">
+								<h:panelGroup id="waitingGroup">
+									<h:graphicImage id="waitingGif"
+									                name="waiting.gif"
+									                library="images"/>
+									#{msgAv['listArtikel.inBearbeitung']}
+								</h:panelGroup>
+							</f:facet>
+						</a4j:status>
+					</h:panelGrid>
+				</rich:panel>
+			
+				<p id="abstand1"/>
+			
+				<a4j:outputPanel id="artikelPanel">
+					<c:if test="#{not empty flash.artikel or param.init ne 'true'}">
+						<c:set var="artikel" value="#{flash.artikel}" scope="view"/>
+						<c:set target="#{flash}" property="artikel" value="#{artikel}"/>
+						
+						<rich:dataTable id="artikelTabelle"
+						                value="#{artikel}"
+						                var="art"
+						                rows="5"
+						                noDataLabel="#{msgAv['listArtikel.keineDaten']}"
+						                rowClasses="odd-row, even-row"
+						                styleClass="tabelleMitZebrastil"
+						                cellspacing="10"
+						                rendered="#{not empty artikel or param.init ne 'true'}">
+							<rich:column id="idSpalte">
+								<f:facet name="header">
+									#{msgAv['listArtikel.id']}
+								</f:facet>
+								#{art.id}
+							</rich:column>
+							
+							<rich:column id="bezeichnungSpalte">
+								<f:facet name="header">
+									#{msgAv['listArtikel.bezeichnung']}
+								</f:facet>
+								#{art.bezeichnung}
+							</rich:column>
+							
+							<rich:column id="buttonSpalte"
+							             rendered="#{not empty artikel}">
+								<h:commandButton id="warenkorbButton"
+												 image="#{resource['images:warenkorb.gif']}"
+										         action="#{wk.add(art)}"
+										         alt="#{msgAv['listArtikel.alt.warenkorb']}"/>
+							</rich:column>
+						</rich:dataTable>
+						
+						<p id="abstand2"/>
+						<rich:dataScroller id="dataScroller"
+						                   for="artikelTabelle"
+						                   maxPages="10"
+						                   rendered="#{not empty artikel}"/>
+						
+						<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+							<rich:jQuery id="odd"
+							             selector=".tabelleMitZebrastil tr:odd"
+							             query="addClass('odd-row')"
+							             timing="domready"/>
+							<rich:jQuery id="even"
+							             selector=".tabelleMitZebrastil tr:even"
+							             query="addClass('even-row')"
+							             timing="domready"/>
+							<rich:jQuery id="mouseover"
+							             selector=".tabelleMitZebrastil tr"
+							             event="mouseover"
+							             query="jQuery(this).addClass('active-row')"
+							             timing="domready"/>
+							<rich:jQuery id="mouseout"
+							             selector=".tabelleMitZebrastil tr"
+							             event="mouseout"
+							             query="jQuery(this).removeClass('active-row')"
+							             timing="domready"/>
+						</a4j:outputPanel>
+					</c:if>
+				</a4j:outputPanel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

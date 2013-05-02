@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgKv['updateFirmenkunde.title']}"/>
+	
+		<ui:define name="article">
+			<h1>
+				<h:outputFormat id="headingFirmenkunde" value="#{msgKv['updateFirmenkunde.heading']}" rendered="#{not empty kc.kunde}">
+					<f:param id="idWert" value="#{kc.kunde.id}"/>
+				</h:outputFormat>
+			</h1>
+			
+			<h:outputText id="fehlerKeinKunde"
+			              value="#{msgKv['updateFirmenkunde.keinKunde']}"
+			              class="rf-msg-err"
+			              rendered="#{empty kc.kunde}"/>
+			              
+			<a4j:push id="updateEvent" address="updateKunde"
+		              ondataavailable="if (event.rf.data == '#{kc.kunde.id}') { $('#updateMessage').html('&lt;span class=rf-msg-err&gt;#{msgKv['updateFirmenkunde.concurrentUpdate']}&lt;/span&gt;') }"/>
+			<span id="updateMessage"></span>
+			
+			<rich:messages id="fehlermeldungGobal" globalOnly="true"/>
+			<h:form id="updateKundeForm" rendered="#{not empty kc.kunde}">
+				<rich:jQuery id="nachnameFocus" selector="#nachname" query="focus()"/>
+				<!--
+				<rich:focus id="formFocus"/>
+				-->
+				
+				<h:panelGrid id="updateKundeTabelle"
+				             columns="3">
+					<h:outputLabel id="nachnameLabel" for="nachname" value="#{msgKv['updateFirmenkunde.nachname']}"/>
+					<h:inputText id="nachname"
+					             value="#{kc.kunde.nachname}"
+					             valueChangeListener="#{kc.geaendert}">
+						<rich:validator oninvalid="$(#{rich:element('nachname')}).addClass('invalid')"
+                                        onvalid="$(#{rich:element('nachname')}).removeClass('invalid')"/>
+					</h:inputText>
+					<rich:messages id="fehlermeldungenNachname" for="nachname"/>
+		
+					<h:outputLabel id="vornameLabel" for="vorname" value="#{msgKv['updateFirmenkunde.vorname']}"/>
+					<h:inputText id="vorname" value="#{kc.kunde.vorname}" valueChangeListener="#{kc.geaendert}"/>
+					<f:verbatim/>
+					
+					<h:outputLabel id="kategorieLabel" value="#{msgKv['updateFirmenkunde.kategorie']}" for="kategorie"/>
+					<rich:inputNumberSpinner id="kategorie"
+					                         value="#{kc.kunde.kategorie}"
+					                         minValue="0" maxValue="5"
+					                         inputSize="1"
+					                         valueChangeListener="#{kc.geaendert}"/>
+					<f:verbatim/>
+					
+					<h:outputLabel id="seitLabel"
+					               for="seit"
+					               value="#{msgKv['updateFirmenkunde.seit']}"
+					               escape="false"/>
+					<rich:calendar id="seit"
+					               datePattern="#{msgKv['updateFirmenkunde.calendar.pattern']}"
+					               value="#{kc.kunde.seit}"
+					               timezone="CET">
+						<!--
+						<rich:validator/>
+						-->
+					</rich:calendar>
+					<rich:messages id="fehlermeldungSeit" for="seit"/>
+					
+					<h:outputLabel id="umsatzLabel" for="umsatz" value="#{msgKv['updateFirmenkunde.umsatz']}"/>
+					<h:inputText id="umsatz"
+					             value="#{kc.kunde.umsatz}"
+					             converterMessage="#{msgKv['updateFirmenkunde.umsatz.convert']}"
+					             valueChangeListener="#{kc.geaendert}">
+						<f:convertNumber type="currency"
+						                 currencyCode="EUR"
+						                 maxFractionDigits="2"/>
+						<f:ajax event="blur" render="updateKundeForm:fehlermeldungenUmsatz"/>
+					</h:inputText>
+					<rich:messages id="fehlermeldungenUmsatz" for="umsatz"/>
+	
+					<h:outputLabel id="rabattLabel" for="rabatt" value="#{msgKv['updateFirmenkunde.rabatt']}"/>
+					<h:inputText id="rabatt"
+					             value="#{kc.kunde.rabatt}"
+					             converterMessage="#{msgKv['updateFirmenkunde.rabatt.convert']}"
+					             valueChangeListener="#{kc.geaendert}">
+						<f:convertNumber type="percent"
+	                                     maxFractionDigits="2"
+	                                     maxIntegerDigits="2"/>
+						<f:ajax event="blur" render="updateKundeForm:fehlermeldungenRabatt"/>
+					</h:inputText>
+					<rich:messages id="fehlermeldungenRabatt" for="rabatt"/>
+	
+					<h:outputLabel id="emailLabel" for="email" value="#{msgKv['updateFirmenkunde.email']}"/>
+					<h:inputText id="email" value="#{kc.kunde.email}" valueChangeListener="#{kc.geaendert}">
+						<rich:validator oninvalid="$(#{rich:element('email')}).addClass('invalid')"
+                                        onvalid="$(#{rich:element('email')}).removeClass('invalid')"/>
+					</h:inputText>
+					<rich:messages id="fehlermeldungenEmail" for="email"/>
+					
+					<h:outputLabel id="newsletterLabel" value="#{msgKv['updateFirmenkunde.newsletter']}"/>
+					<h:selectBooleanCheckbox id="newsletter" value="#{kc.kunde.newsletter}" valueChangeListener="#{kc.geaendert}"/>
+					<f:verbatim/>
+				</h:panelGrid>
+				
+				<h:panelGrid id="bemerkungenGrid">
+					<h:outputLabel id="bemerkungenLabel" value="#{msgKv['updateFirmenkunde.bemerkungen']}"
+					               for="bemerkungen"
+					               class="kundendetailsBezeichner"/>
+					<rich:messages id="fehlermeldungBemerkungen" for="bemerkungen"/>
+					<rich:editor id="bemerkungen"
+					             value="#{kc.kunde.bemerkungen}"
+					             valueChangeListener="#{kc.geaendert}"
+						         toolbar="full"
+						         width="870"
+						         height="80"/>
+				</h:panelGrid>
+	
+				<p id="buttons">
+					<h:commandButton id="button" action="#{kc.update}" value="#{msgKv['updateFirmenkunde.submit']}"/>
+					#{' '}
+					<h:commandButton type="reset" value="#{msgKv['updateFirmenkunde.reset']}"/>
+				</p>
+				
+				<p id="hinweisPflichtfelder">
+					#{msgKv['updateFirmenkunde.required']}
+				</p>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

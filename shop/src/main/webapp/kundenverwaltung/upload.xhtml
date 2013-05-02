@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgKv['upload.title']}"/>
+	
+		<ui:define name="article">
+			<h1>#{msgKv['upload.heading']}</h1>
+			
+			<h:form id="uploadForm">
+				<rich:focus id="uploadFormFocus"/>
+				
+				<h:panelGrid id="uploadFormGrid" columns="2">
+					<h:outputLabel id="idLabel"
+					               value="#{msgKv['upload.id.prompt']}"
+					               for="kundeId"/>
+					<h:panelGroup id="kundeIdGroup">
+						<h:inputText id="kundeId" value="#{kc.kundeId}"/>
+						<rich:messages id="kundeIdMessages" for="kundeId"/>
+					</h:panelGroup>
+		
+					<h:outputLabel id="dateiLabel"
+					               value="#{msgKv['upload.datei.prompt']}"
+					               for="datei"/>
+					<rich:fileUpload id="datei"
+							         fileUploadListener="#{kc.uploadListener}" 
+							         maxFilesQuantity="1"
+							         acceptedTypes="#{mm.extensionen}"
+							         listHeight="63px"
+							         immediateUpload="true"
+							         ontyperejected="return confirm('#{msgKv['upload.datei.falscheExtension']}')"
+							         onsizerejected="return confirm('#{msgKv['upload.datei.zugross']}')"
+							         addLabel="#{msgKv['upload.datei.add']}"
+							         doneLabel="#{msgKv['upload.datei.done']}"
+							         sizeExceededLabel="#{msgKv['upload.datei.sizeExceeded']}"
+							         uploadLabel="#{msgKv['upload.datei.upload']}"
+							         clearLabel="#{msgKv['upload.datei.clear']}"
+							         clearAllLabel="#{msgKv['upload.datei.clearAll']}"
+							         cancelLabel="#{msgKv['upload.datei.cancel']}">
+						<f:facet name="progress">
+							<rich:progressBar id="progressBarUpload" style="width: 100%;"/>
+						</f:facet>
+						<f:facet name="label">
+							#{msgKv['upload.progressBar.label']}
+						</f:facet>
+					</rich:fileUpload>
+	
+					<rich:messages id="dateiMessages" for="datei"/>
+					<f:verbatim/>
+				</h:panelGrid>
+	
+				<p id="buttons">
+					<h:commandButton id="uploadSubmit" action="#{kc.upload}" value="#{msgKv['upload.submit']}"/>
+					#{' '}
+					<h:commandButton id="uploadReset" action="#{kc.resetUpload}" value="#{msgKv['upload.reset']}"/>
+				</p>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

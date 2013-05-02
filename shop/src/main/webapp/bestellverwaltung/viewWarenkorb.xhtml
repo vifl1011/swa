@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgBv['viewWarenkorb.title']}"/>
+	
+		<ui:define name="article">
+			<h1><h:outputText id="heading"
+			                  value="#{msgBv['viewWarenkorb.heading']}"
+			                  rendered="#{not empty wk.positionen}"/></h1>
+			
+			<h:form id="warenkorbForm"
+			        rendered="#{not empty wk.positionen}">
+				<rich:dataTable id="warenkorbTabelle"
+				                value="#{wk.positionen}"
+				                var="position"
+				                rowClasses="odd-row, even-row"
+				                styleClass="tabelleMitZebrastil">
+					<rich:column id="artikelIdSpalte">
+						<f:facet name="header">
+							#{msgBv['viewWarenkorb.artikel.id']}
+						</f:facet>
+						#{position.artikel.id}
+					</rich:column>
+					
+					<rich:column id="bezeichnungSpalte">
+						<f:facet name="header">
+							#{msgBv['viewWarenkorb.artikel.bezeichnung']}
+						</f:facet>
+						#{position.artikel.bezeichnung}
+					</rich:column>
+		
+					<rich:column id="anzahlSpalte">
+						<f:facet name="header">
+							#{msgBv['viewWarenkorb.anzahl']}
+						</f:facet>
+						<rich:inputNumberSpinner id="anzahl"
+					                             value="#{position.anzahl}"
+					                             minValue="0"
+					                             maxValue="99"
+					                             inputSize="2"/>
+					</rich:column>
+					
+					<rich:column id="deleteButton">
+						<h:commandButton image="#{resource['images:delete.gif']}"
+								         action="#{wk.remove(position)}"
+								         alt="#{msgBv['viewWarenkorb.deleteButtonAlt']}"
+								         onclick="return confirm('#{msgBv['viewWarenkorb.deletePositionBestaetigung']}')"/>
+					</rich:column>
+					
+					<f:facet name="footer">
+	    				<h:panelGroup id="buttons">
+							<h:commandButton id="updateButton"
+							                 action="/artikelverwaltung/listArtikel?init=true"
+									         value="#{msgBv['viewWarenkorb.update']}"/>
+							#{' '}
+							<h:commandButton type="reset" value="#{msgBv['viewWarenkorb.reset']}"/>
+							#{' '}
+							<h:commandButton id="bestellButton"
+											 action="/bestellverwaltung/confirmBestellung"
+									         value="#{msgBv['viewWarenkorb.bestellen']}"/>
+							<rich:message id="bestellButtonFehlermeldung" for="bestellButton" rendered="#{auth.loggedIn}"/>
+						</h:panelGroup>
+					</f:facet>
+					
+				</rich:dataTable>
+				
+				<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+					<rich:jQuery id="odd"
+					             selector=".tabelleMitZebrastil tr:odd"
+					             query="addClass('odd-row')"
+					             timing="domready"/>
+					<rich:jQuery id="even"
+					             selector=".tabelleMitZebrastil tr:even"
+					             query="addClass('even-row')"
+					             timing="domready"/>
+					<rich:jQuery id="mouseover"
+					             selector=".tabelleMitZebrastil tr"
+					             event="mouseover"
+					             query="jQuery(this).addClass('active-row')"
+					             timing="domready"/>
+					<rich:jQuery id="mouseout"
+					             selector=".tabelleMitZebrastil tr"
+					             event="mouseout"
+					             query="jQuery(this).removeClass('active-row')"
+					             timing="domready"/>
+				</a4j:outputPanel>
+			</h:form>
+			
+		</ui:define>
+	</ui:composition>
+</html>

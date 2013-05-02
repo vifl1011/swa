@@ -1,0 +1,63 @@
+/* # fuer Tag-ID und . fuer CSS-Klasse */
+
+#header {
+	/* clear: left; */
+	height: 75px;
+	/* width: 99%; */
+	background-color: #BED6F8;   /* blueSky */
+}
+
+#nav {
+	float: left;
+	width: 15%;
+	height: 550px;
+	padding: 5px;
+	background-color: #BED6F8;   /* blueSky */
+}
+
+#article {
+	margin-left: 15%;
+	/* width: 80%; */
+	/* width: calc(85% - 2px); */
+	overflow: auto;
+	padding: 5px;
+}
+
+#footer {
+	clear: left;    /* http://de.selfhtml.org/css/eigenschaften/positionierung.htm#clear */
+	padding: 10px;
+}
+
+img {
+	border: None;
+}
+
+h1 {
+	font-style: italic;
+}
+
+/*
+.error {
+	color: red;
+	font-style: bold;
+	list-style-type: none;
+}
+*/
+
+.invalid {
+	border-color: #D91C0D !important;
+}
+
+.tabelleMitZebrastil {
+}
+.odd-row {
+	background-color: #ECF3FE;
+}
+.even-row {
+	background-color: #FCFFFE;
+}
+.active-row {
+	background-color: #FFEBDA;
+	cursor: pointer;
+}
+

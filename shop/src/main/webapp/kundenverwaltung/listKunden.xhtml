@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+	<ui:param name="pageTitle" value="#{msgKv['listKunden.title']}"/>
+
+	<ui:define name="article">
+		<h:form id="form">
+			<rich:panel id="suchePanel" header="#{msgKv['listKunden.sucheNeu']}">
+				<h:panelGrid id="sucheGrid" columns="4">
+					<h:outputLabel id="nachnameLabel"
+					               value="#{msgKv['listKunden.nachname']}"
+					               for="nachname"/>
+					             
+					<rich:autocomplete id="nachname"
+					                   value="#{kc.nachname}"
+					                   mode="ajax"
+					                   minChars="1"
+					                   autocompleteMethod="#{kc.findNachnamenByPrefix}"/> 
+	
+					<a4j:commandButton id="sucheButton"
+					                   action="#{kc.findKundenByNachname}"
+									   value="#{msgKv['listKunden.submit']}"
+									   render="kundenPanel fehlermeldungNachname"/>
+									   
+					<a4j:status id="statusStart">
+						<f:facet name="start">
+							<h:panelGroup id="waitingGroup">
+								<h:graphicImage id="waitingGif"
+								                name="waiting.gif"
+								                library="images"/>
+								#{msgKv['listKunden.inBearbeitung']}
+							</h:panelGroup>
+						</f:facet>
+					</a4j:status>
+				</h:panelGrid>
+
+				<rich:messages id="fehlermeldungNachname" for="nachname"/>
+				<rich:jQuery id="focus" selector="#nachname" query="focus()"/>
+			</rich:panel>
+
+			<p id="abstandZuMeldungen">
+				<rich:messages id="globaleFehlermeldungen" globalOnly="true"/>
+			</p>
+		
+			<a4j:outputPanel id="kundenPanel">
+				<rich:dataTable id="kundenTabelle"
+				                value="#{kc.kunden}"
+				                var="kunde"
+				                rows="5"
+				                noDataLabel="#{msgKv['listKunden.keineDaten']}"
+				                rowClasses="odd-row, even-row"
+				                styleClass="tabelleMitZebrastil"
+				                cellspacing="10"
+				                rendered="#{not empty kc.kunden or param.init ne 'true'}">
+					
+					<rich:column id="idSpalte">
+						<f:facet name="header">
+			                 #{msgKv['listKunden.kundenr']}
+						</f:facet>
+						#{kunde.id}
+					</rich:column>
+					
+					<rich:column id="nachnameSpalte">
+						<f:facet name="header">
+							#{msgKv['listKunden.nachname']}
+						</f:facet>
+						<h:commandLink id="nachnamePopup" value="#{kunde.nachname}">
+							<rich:componentControl target="popup" operation="show"/>
+						</h:commandLink>
+	
+						<rich:popupPanel id="popup" modal="false" autosized="true" resizeable="false">
+							<f:facet name="header">
+								<h:outputFormat id="popupTitle" value="#{msgKv['viewKundePopup.title']}">
+									<f:param id="popupTitleId" value="#{kunde.id}"/>
+								</h:outputFormat>
+							</f:facet>
+							<f:facet name="controls">
+								<h:outputLink id="hideControl"
+								              value="#"
+								              onclick="#{rich:component('popup')}.hide(); return false;">
+									<h:graphicImage id="hideIcon"
+									                name="close.png"
+									                library="images"
+									                style="cursor:pointer"
+									                alt="#{msgKv['viewKundePopup.hide.button']}"/>
+								</h:outputLink>
+							</f:facet>
+							<ui:include src="viewKundePopup.xhtml"/>
+							
+							<h:outputLink id="closeLink"
+							              value="#"
+								          onclick="#{rich:component('popup')}.hide(); return false;">
+								#{msgKv['viewKundePopup.hide.button']}
+							</h:outputLink>
+						</rich:popupPanel>
+
+						<rich:contextMenu id="ctxmenu"
+						                  attachTo="nachnamePopup"
+						                  hideDelay="600"
+						                  jointPoint="bottomLeft"
+						                  direction="autoRight"
+						                  mode="server">
+							<rich:menuItem id="detailsContext"
+								           label="#{msgKv['listKunden.detailsButtonAlt']}"
+								           icon="#{resource['images:details.gif']}"
+								           action="#{kc.details(kunde)}"/>
+							<rich:menuItem id="updateContext"
+								           label="#{msgKv['listKunden.editButtonAlt']}"
+								           icon="#{resource['images:edit.gif']}"
+								           action="#{kc.selectForUpdate(kunde)}"/>
+							<rich:menuSeparator id="menuSeparatorDelete"
+							                    rendered="#{rich:isUserInRole('admin')}"/>
+							<rich:menuItem id="deleteContext"
+								           label="#{msgKv['listKunden.deleteButtonAlt']}"
+								           icon="#{resource['images:delete.gif']}"
+								           action="#{kc.delete(kunde)}"
+								           rendered="#{rich:isUserInRole('admin')}"/>
+						</rich:contextMenu>
+
+					</rich:column>
+					
+					<rich:column id="vornameSpalte"
+					             sortBy="#{kunde.vorname}"
+					             sortOrder="#{kc.vornameSortOrder}"
+					             sortMode="single"
+					             filterValue="#{kc.vornameFilter}"
+					             filterExpression="#{fn:containsIgnoreCase(kunde.vorname,kc.vornameFilter)}">
+						<f:facet name="header">
+							<h:panelGroup id="vornameHeader">
+								<h:panelGroup id="vornameHeaderNotEmpty" rendered="#{not empty kc.kunden}">
+									<a4j:commandLink id="vornameLink"
+									                 value="#{msgKv['listKunden.vorname']}"
+									                 render="kundenTabelle"
+									                 action="#{kc.sortByVorname}"/>
+									<br/>
+									<h:inputText id="vornameFilter"
+									             value="#{kc.vornameFilter}"
+									             size="3"
+									             maxlength="4">
+										<a4j:ajax event="keyup" render="kundenTabelle"/>
+									</h:inputText>
+								</h:panelGroup>
+								<h:outputText id="vornameHeaderEmpty" value="#{msgKv['listKunden.vorname']}" rendered="#{empty kc.kunden}"/>
+							</h:panelGroup>
+						</f:facet>
+						#{kunde.vorname}
+					</rich:column>
+	
+					<rich:column id="detailsSpalte" rendered="#{not empty kc.kunden}">
+						<h:commandButton id="detailsButton"
+							             image="#{resource['images:details.gif']}"
+							             action="#{kc.details(kunde)}"
+									     alt="#{msgKv['listKunden.detailsButtonAlt']}"/>
+					</rich:column>
+	
+					<rich:column id="getSpalte" rendered="#{not empty kc.kunden}">
+						<h:button id="detailsButtonGET"
+						          image="#{resource['images:details2.gif']}"
+								  outcome="/kundenverwaltung/viewKundeGET"
+								  alt="#{msgKv['listKunden.detailsButtonGETAlt']}">
+							<f:param id="idParam" name="kundeId" value="#{kunde.id}"/>
+						</h:button>
+					</rich:column>
+									
+					<rich:column id="editSpalte" rendered="#{not empty kc.kunden}">
+						<h:commandButton id="editButton"
+										 image="#{resource['images:edit.gif']}"
+								         action="#{kc.selectForUpdate(kunde)}"
+								         alt="#{msgKv['listKunden.editButtonAlt']}"/>
+					</rich:column>
+					
+					<rich:column id="deleteSpalte" rendered="#{not empty kc.kunden and rich:isUserInRole('admin')}">
+						<a4j:commandButton id="deleteButton"
+										   image="#{resource['images:delete.gif']}"
+								           action="#{kc.delete(kunde)}"
+								           alt="#{msgKv['listKunden.deleteButtonAlt']}"
+								           onclick="return confirm('#{msgKc['listKunden.deleteKundeBestaetigung']}')"
+								           render="@form :globaleFehlermeldungen"/>
+					</rich:column>
+				</rich:dataTable>
+				
+				<p id="abstandZuScroller">
+					<h:panelGroup id="scrollerGroup" rendered="#{not empty kc.kunden}">
+						<rich:dataScroller id="dataScroller"
+						                   for="kundenTabelle"
+						                   maxPages="10"/>
+						
+						<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+							<rich:jQuery id="odd"
+							             selector=".tabelleMitZebrastil tr:odd"
+							             query="addClass('odd-row')"
+							             timing="domready"/>
+							<rich:jQuery id="even"
+							             selector=".tabelleMitZebrastil tr:even"
+							             query="addClass('even-row')"
+							             timing="domready"/>
+							<rich:jQuery id="mouseover"
+							             selector=".tabelleMitZebrastil tr"
+							             event="mouseover"
+							             query="jQuery(this).addClass('active-row')"
+							             timing="domready"/>
+							<rich:jQuery id="mouseout"
+							             selector=".tabelleMitZebrastil tr"
+							             event="mouseout"
+							             query="jQuery(this).removeClass('active-row')"
+							             timing="domready"/>
+						</a4j:outputPanel>
+					</h:panelGroup>
+				</p>
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

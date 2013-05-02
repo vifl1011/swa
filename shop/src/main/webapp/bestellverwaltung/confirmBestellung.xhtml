@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+	<ui:param name="pageTitle" value="#{msgBv['confirmBestellung.title']}"/>
+
+	<ui:define name="article">
+		<h1>#{msgBv['confirmBestellung.header']}</h1>
+		
+		<h:form id="bestellungForm">
+			<rich:dataTable id="positionenTabelle"
+			                value="#{wk.positionen}"
+			                var="pos"
+			                rowClasses="odd-row, even-row"
+			                styleClass="tabelleMitZebrastil">
+				<rich:column id="artikelIdSpalte">
+					<f:facet name="header">
+						#{msgBv['confirmBestellung.artikel.id']}
+					</f:facet>
+					#{pos.artikel.id}
+				</rich:column>
+	
+				<rich:column id="bezeichnungSpalte">
+					<f:facet name="header">
+						#{msgBv['confirmBestellung.artikel.bezeichnung']}
+					</f:facet>
+					#{pos.artikel.bezeichnung}
+				</rich:column>
+	
+				<rich:column id="anzahlSpalte">
+					<f:facet name="header">
+						#{msgBv['confirmBestellung.artikel.anzahl']}
+					</f:facet>
+					#{pos.anzahl}
+				</rich:column>
+				
+				<f:facet name="footer">
+    				<h:panelGroup id="buttons">
+    					<h:commandButton id="bestellungButton"
+						                 value="#{msgBv['confirmBestellung.bestellen']}"
+						                 action="#{bc.bestellen}"/>
+    				</h:panelGroup>
+    			</f:facet>
+			</rich:dataTable>
+			
+			<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+				<rich:jQuery id="odd"
+				             selector=".tabelleMitZebrastil tr:odd"
+				             query="addClass('odd-row')"
+				             timing="domready"/>
+				<rich:jQuery id="even"
+				             selector=".tabelleMitZebrastil tr:even"
+				             query="addClass('even-row')"
+				             timing="domready"/>
+				<rich:jQuery id="mouseover"
+				             selector=".tabelleMitZebrastil tr"
+				             event="mouseover"
+				             query="jQuery(this).addClass('active-row')"
+				             timing="domready"/>
+				<rich:jQuery id="mouseout"
+				             selector=".tabelleMitZebrastil tr"
+				             event="mouseout"
+				             query="jQuery(this).removeClass('active-row')"
+				             timing="domready"/>
+			</a4j:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

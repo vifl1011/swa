@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+	<p id="index">
+		<h:outputLink id="menuIndex" value="#{request.contextPath}">
+			#{msg['nav.index']}
+		</h:outputLink>
+	</p>
+	<p id="viewKunde">
+		<h:outputLink id="menuViewKunde"
+		              value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
+			#{msg['nav.viewKunde']}
+		</h:outputLink>
+	</p>
+</ui:composition>

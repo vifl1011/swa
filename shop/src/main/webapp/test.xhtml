@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html">
+	<h:head>
+		<title>Test</title>
+		
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        
+        <!-- This allows the application to resize when rotated to landscape or portrait mode and zooms the content appropriately. -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+
+		<!-- enable full-screen mode -->
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<!-- controls the appearance of the status bar in full-screen mode -->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+		<h:outputStylesheet id="slidfastCSS" name="slidfast.css" library="css/mobile"/>
+		
+		<h:outputScript id="slidfastJS" name="slidfast.js" library="js/mobile"/>
+		<script type="text/javascript">
+			//initialize mobile RichFaces with slidfast
+			slidfast({
+				defaultPageID:'home-page',
+				defaultPageHash: 'home',
+				backButtonID: 'back-button'
+			});
+		</script>
+	</h:head>
+
+	<h:body>
+		<!--Include the css just after the body tag to ensure we overwrite dynamic styles-->
+		<h:outputStylesheet id="rf-mobile-skinCSS" name="rf-mobile-skin.css" library="css/mobile"/>
+
+		<div id="home-page">
+			userAgent.phone: #{userAgent.phone} <br/>
+			userAgent.tablet: #{userAgent.tablet}
+		</div>
+	</h:body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich"
+	  xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgAuth['updateRollen.title']}"/>
+	
+		<ui:define name="article">
+			<h:form id="rollenForm">
+				<rich:focus id="rollenFormFocus"/>
+				
+				<rich:panel id="suchePanel" header="#{msgAuth['updateRollen.headingUsername']}">
+					<h:panelGrid id="suchePanelGrid" columns="4">
+						<h:outputLabel id="usernameInputLabel"
+						               value="#{msgAuth['updateRollen.username']}"
+						               for="usernameInput"/>
+
+						<rich:autocomplete id="usernameInput"
+						                   value="#{auth.usernameUpdateRollen}"
+						                   mode="ajax"
+						                   minChars="1"
+						                   autocompleteMethod="#{auth.findUsernameListByUsernamePrefix}"/> 
+	
+						<a4j:commandButton id="findButton"
+						                   action="#{auth.findRollenByUsername}"
+						                   value="#{msgAuth['updateRollen.submit']}"
+						                   render="rollenPickListPanel fehlermeldungUsername"/>
+						
+						<a4j:status id="statusWaiting">
+							<f:facet name="start">
+								<h:panelGroup id="waitingGroup">
+									<h:graphicImage id="waitingGif"
+									                name="waiting.gif"
+									                library="images"/>
+									#{msgAuth['updateRollen.inBearbeitung']}
+								</h:panelGroup>
+							</f:facet>
+						</a4j:status>
+					</h:panelGrid>
+					
+					<rich:messages id="fehlermeldungUsername" for="usernameInput"/>
+				</rich:panel>
+
+				<a4j:outputPanel id="rollenPickListPanel">
+					<rich:pickList id="rollenPickList"
+					               value="#{auth.ausgewaehlteRollen}"
+					               var="rolle"
+					               sourceCaption="#{msgAuth['updateRollen.verfuegbareRollen']}"
+					               targetCaption="#{msgAuth['updateRollen.ausgewaehlteRollen']}"
+					               addAllText="#{msgAuth['updateRollen.addAllText']}"
+					               addText="#{msgAuth['updateRollen.addText']}"
+					               removeAllText="#{msgAuth['updateRollen.removeAllText']}"
+					               removeText="#{msgAuth['updateRollen.removeText']}"
+					               listHeight="100"
+					               rendered="#{not empty auth.ausgewaehlteRollen}">
+						<f:selectItems id="selectItems"
+						               value="#{auth.verfuegbareRollen}"/>
+						<f:converter converterId="RollenConverter"/>
+						<rich:column id="rollenSpalte">
+							<f:facet name="header">#{msgAuth['updateRollen.rolle']}</f:facet>
+							#{rolle}
+						</rich:column>
+						<rich:column id="rollenIdSpalte">
+							<f:facet name="header">#{msgAuth['updateRollen.rolleId']}</f:facet>
+							#{rolle.value}
+						</rich:column>
+					</rich:pickList>
+					
+					<p/>
+					
+					<h:commandButton id="updateButton"
+					                 action="#{auth.updateRollen}"
+						             value="#{msgAuth['updateRollen.submit']}"
+						             rendered="#{not empty auth.ausgewaehlteRollen}"/>
+				</a4j:outputPanel>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>
