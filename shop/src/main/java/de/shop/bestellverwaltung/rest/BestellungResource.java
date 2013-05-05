@@ -104,6 +104,7 @@ public class BestellungResource {
 	 * @return Objekt mit Kundendaten, falls die ID vorhanden ist
 	 */
 	@GET
+	@Path("")
 	@Wrapped(element = "bestellung")
 	public Collection<Bestellung> findBestellungen() {
 		final Locale locale = localeHelper.getLocale(headers);
