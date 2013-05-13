@@ -22,8 +22,8 @@
 			<title>#{empty pageTitle ? 'Webshop' : pageTitle}</title>
 			<h:outputStylesheet id="cssDatei" library="css" name="shop.css"/>
 			<link rel="shortcut icon" type="image/x-icon" href="#{resource['images:favicon.ico']}"/>
-			<meta name="author" content="J&#252;rgen Zimmermann"/>
-			<meta name="copyright" content="J&#252;rgen Zimmermann"/>
+			<meta name="author" content="Fantastischen F&#252;nf"/>
+			<meta name="copyright" content="Fantastischen F&#252;nf"/>
 			<meta name="keywords" content="Software Engineering,Beispiele,Java EE,JBoss,Eclipse,JBossTools,CDI,EJB,JAX-RS,JSON,JSF,EL,RichFaces,JPA,Bean Validation,JavaMail"/>
 		</h:head>
 		
