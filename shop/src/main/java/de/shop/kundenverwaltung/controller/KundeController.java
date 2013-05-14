@@ -1,6 +1,9 @@
 package de.shop.kundenverwaltung.controller;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.enterprise.context.RequestScoped;
@@ -40,6 +43,12 @@ public class KundeController implements Serializable {
 		return "KundeController [kundeId=" + kundeId + "]";
 	}
 
+	public Date getAktuellesDatum() {
+	   Date date = new Date();
+	   return date;
+
+	}
+	
 	public void setKundeId(Long kundeId) {
 		this.kundeId = kundeId;
 	}
