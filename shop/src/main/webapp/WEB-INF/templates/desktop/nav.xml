@@ -12,4 +12,13 @@
 			#{msg['nav.viewKunde']}
 		</h:outputLink>
 	</p>
+	
+	<p id="viewKunde">
+		<h:outputLink id="menuViewBestellung"
+		              value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
+			#{msg['nav.viewBestellung']}
+		</h:outputLink>
+	</p>
+	
+	
 </ui:composition>

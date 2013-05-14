@@ -9,8 +9,12 @@ import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import de.shop.auth.controller.KundeLoggedIn;
 import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.bestellverwaltung.service.BestellService;
+import de.shop.kundenverwaltung.domain.Kunde;
+import de.shop.kundenverwaltung.service.KundeService;
+import de.shop.util.Client;
 import de.shop.util.Transactional;
 
 @Named("bc")
@@ -27,7 +31,18 @@ public class BestellungController implements Serializable {
 	private BestellService bs;
 	
 	@Inject
+	private KundeService ks;
+	
+	@Inject
+	@KundeLoggedIn
+	private Kunde kunde;
+	
+	@Inject
 	private Flash flash;
+	
+	@Inject
+	@Client
+	private Locale locale;
 	
 	private Bestellung neueBestellung;
 	
@@ -53,13 +68,13 @@ public class BestellungController implements Serializable {
 	}
 	
 	/**
-	 * Action Methode, um einen Kunden zu gegebener ID zu suchen
-	 * @return URL fuer Anzeige des gefundenen Kunden; sonst null
+	 * Action Methode, um eine Bestellung zu gegebener ID zu suchen
+	 * @return URL fuer Anzeige der gefundenen Bestellung; sonst null
 	 */
 	//TODO Locale wird nicht richtig gesetzt
 	@Transactional
 	public String findBestellungById() {
-		final Bestellung bestellung = bs.findBestellungById(bestellungId, Locale.GERMAN);
+		final Bestellung bestellung = bs.findBestellungById(bestellungId, locale);
 		if (bestellung == null) {
 			flash.remove(FLASH_BESTELLUNG);
 			return null;
