@@ -23,7 +23,7 @@ public class BestellungController implements Serializable {
 	private static final long serialVersionUID = -3892465338743970807L;
 	
 	private static final String FLASH_BESTELLUNG = "bestellung";
-	private static final String JSF_VIEW_BESTELLUNG = "/bestellverwaltung/viewBestellung";
+	private static final String JSF_VIEW_BESTELLUNG = "/bestellverwaltung/viewBestellungGET";
 	
 	
 	@Inject

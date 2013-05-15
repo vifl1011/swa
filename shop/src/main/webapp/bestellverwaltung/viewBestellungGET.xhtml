@@ -40,21 +40,21 @@
 						<f:facet name="header">
 							#{msgBv['viewBestellungGET.artikel.id']}
 						</f:facet>
-						#{pos.artikel.id}
+						#{pos.produkt.id}
 					</rich:column>
 		
 					<rich:column id="bezeichnungSpalte">
 						<f:facet name="header">
 							#{msgBv['viewBestellungGET.artikel.bezeichnung']}
 						</f:facet>
-						#{pos.artikel.bezeichnung}
+						#{pos.produkt.bezeichnung}
 					</rich:column>
 		
 					<rich:column id="anzahlSpalte">
 						<f:facet name="header">
 							#{msgBv['viewBestellungGET.artikel.anzahl']}
 						</f:facet>
-						#{pos.anzahl}
+						#{pos.menge}
 					</rich:column>
 				</rich:dataTable>
 			</rich:panel>
