@@ -19,7 +19,6 @@ import de.shop.util.Transactional;
 
 @Named("bc")
 @RequestScoped
-@Stateful
 public class BestellungController implements Serializable {
 	private static final long serialVersionUID = -3892465338743970807L;
 	

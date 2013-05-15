@@ -1,63 +1,29 @@
 <?xml version="1.0"?>
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:c="http://java.sun.com/jsp/jstl/core"
-	  xmlns:rich="http://richfaces.org/rich">
-
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	
 	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
-		<ui:param name="pageTitle" value="#{msgBv['viewBestellung.title']}"/>
-	
+		<ui:param name="pageTitle" value="Bestellung"/>
 		<ui:define name="article">
-			<c:set var="bestellung" value="#{flash.bestellung}" scope="view"/>
-					
-			<rich:panel id="bestellungMainPanel" header="#{msgBv['viewBestellung.heading']}">  
-				<h:panelGrid id="bestellungGrid" columns="2">
-		
-					<h:outputText id="idLabel" value="#{msgBv['viewBestellung.id']}"/>
-					<h:outputText id="id" value="#{bestellung.id}"/>
-		
-					<h:outputText id="kundeIdLabel" value="#{msgBv['viewBestellung.kundeId']}"/>
-					<h:outputText id="kundeId" value="#{bestellung.kunde.id}"/>
-		
-					<h:outputText id="erzeugtLabel" value="#{msgBv['viewBestellung.zeitstempel']}"/>
-					<h:outputText id="erzeugt" value="#{bestellung.erzeugt}">
-						<f:convertDateTime type="date" style="full"/>
-					</h:outputText>
-				</h:panelGrid>
-			</rich:panel>
-			
-			<p id="abstand"/>
-	
-			<rich:panel id="positionen" header="#{msgBv['viewBestellung.positionen']}"> 
-				<rich:dataTable id="positionenTabelle"
-				                value="#{bestellung.bestellpositionen}"
-				                var="pos">
-					<rich:column id="artikelIdSpalte">
-						<f:facet name="header">
-							#{msgBv['viewBestellung.artikel.id']}
-						</f:facet>
-						#{pos.artikel.id}
-					</rich:column>
-		
-					<rich:column id="bezeichnungSpalte">
-						<f:facet name="header">
-							#{msgBv['viewBestellung.artikel.bezeichnung']}
-						</f:facet>
-						#{pos.artikel.bezeichnung}
-					</rich:column>
-		
-					<rich:column id="anzahlSpalte">
-						<f:facet name="header">
-							#{msgBv['viewBestellung.artikel.anzahl']}
-						</f:facet>
-						#{pos.anzahl}
-					</rich:column>
-				</rich:dataTable>
-			</rich:panel>
+			<h:form id="sucheForm">
+				<rich:panel id="suchePanel" header="Suche einer Bestellung">
+					<h:panelGrid id="suchePanelGrid" columns="3">
+					<h:outputLabel id="idInputLabel"
+						value="Bestellungnr."
+						for="idInput"/>
+					<h:inputText id="idInput" value="#{bc.bestellungId}"/>
+					<a4j:commandButton id="sucheButton"
+						action="#{bc.findBestellungById}"
+						value="OK"
+						render="gesuchteBestellung"/>
+					</h:panelGrid>
+				</rich:panel>
+			</h:form>
 		</ui:define>
 	</ui:composition>
 </html>

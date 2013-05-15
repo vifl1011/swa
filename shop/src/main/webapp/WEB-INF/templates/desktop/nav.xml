@@ -13,7 +13,7 @@
 		</h:outputLink>
 	</p>
 	
-	<p id="viewKunde">
+	<p id="viewBestellung">
 		<h:outputLink id="menuViewBestellung"
 		              value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
 			#{msg['nav.viewBestellung']}
