@@ -44,7 +44,13 @@ import static de.shop.util.Constants.ERSTE_VERSION;
             query = "SELECT p "
 			        + " FROM   Produkt as p"),
 	@NamedQuery(name = Produkt.FIND_PRODUKT_BY_ID, 
-			query = "SELECT   p"  + " FROM   Produkt as p" + " WHERE p.id = :" + Produkt.PARAM_ID) })
+			query = "SELECT   p"  + " FROM   Produkt as p" + " WHERE p.id = :" + Produkt.PARAM_ID),
+	@NamedQuery(name  = Produkt.FIND_LADENHUETER,
+            query = "SELECT    a"
+	           	    + " FROM   Produkt a"
+	           	    + " WHERE  a NOT IN (SELECT bp.produkt FROM Bestellposition bp)")
+})
+	
 
 @XmlRootElement
 public class Produkt implements Serializable {
@@ -52,6 +58,7 @@ public class Produkt implements Serializable {
 	private static final String PREFIX = "Produkt.";
 	public static final String FIND_PRODUKT_BY_ID = PREFIX + "findProduktById";
 	public static final String FIND_PRODUKTE = PREFIX + "findProdukte";
+	public static final String FIND_LADENHUETER = PREFIX + "findLadenhueter";
 	public static final String PARAM_ID = "id";
 
 	@Id

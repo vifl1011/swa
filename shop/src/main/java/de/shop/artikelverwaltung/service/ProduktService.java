@@ -47,6 +47,13 @@ public class ProduktService implements Serializable {
 	}	
 	
 	@Log
+	public List<Produkt> findProdukte() {
+		final List<Produkt> produkte = em.createNamedQuery(Produkt.FIND_PRODUKTE, Produkt.class)
+				                        .getResultList();
+		return produkte;
+	}
+	
+	@Log
 	public Produkt findProduktById(Long id, Locale locale) {
 		try {
 			final Produkt produkt = em.createNamedQuery(Produkt.FIND_PRODUKT_BY_ID, Produkt.class)
@@ -71,6 +78,7 @@ public class ProduktService implements Serializable {
 	public Produkt findProduktByIdEm(Long id) {
 		return em.find(Produkt.class, id);
 	}
+	
 	
 	@Log
 	private void validateBezeichnung(String bez, Locale locale) {
@@ -118,5 +126,11 @@ public class ProduktService implements Serializable {
 		return produkt;
 	}
 	
+	public List<Produkt> ladenhueter(int anzahl) {
+		final List<Produkt> produkt = em.createNamedQuery(Produkt.FIND_LADENHUETER, Produkt.class)
+				                        .setMaxResults(anzahl)
+				                        .getResultList();
+		return produkt;
+	}
 	
 }

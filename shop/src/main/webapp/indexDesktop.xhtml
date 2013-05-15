@@ -12,19 +12,42 @@
 			<!-- JSF 2.2:
 			<f:viewAction action="#{ac.loadLadenhueter}">
 			-->
+			<f:event type="preRenderView" listener="#{ac.loadLadenhueter}"/> 
 		</ui:define>
 		
 		<ui:param name="pageTitle" value="#{msg['index.title']}"/>
 	
 		<ui:define name="article">
 			<h1 id="heading">#{msg['index.welcome']}</h1>
-			
 			<p id="datum">
 				#{msg['index.heute']}
 				<h:outputText id="aktuellesDatum" value="#{kc.aktuellesDatum}">
 					<f:convertDateTime type="date" dateStyle="full"/>
 				</h:outputText>
 			</p>
+			<rich:dataTable id="ladenhueterTabelle"
+			                var="artikel"
+			                value="#{ac.ladenhueter}"
+			                rendered="#{not empty ac.ladenhueter}">
+			             
+			    <f:facet name="header">
+			    	#{msg['index.ladenhueter']}
+				</f:facet>
+					 
+				<rich:column id="idSpalte">
+					<f:facet name="header">
+						#{msg['index.artikelId']}
+					</f:facet>
+					#{artikel.id}
+				</rich:column>
+						
+				<rich:column id="bezeichnungSpalte">
+					<f:facet name="header">
+						#{msg['index.artikelBezeichnung']}
+					</f:facet>
+					#{artikel.bezeichnung}
+				</rich:column>
+			</rich:dataTable>
 		</ui:define>
 	</ui:composition>
 </html>
