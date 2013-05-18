@@ -13,16 +13,34 @@
 			<h:form id="sucheForm">
 				<rich:panel id="suchePanel" header="Suche einer Bestellung">
 					<h:panelGrid id="suchePanelGrid" columns="3">
-					<h:outputLabel id="idInputLabel"
+					<h:outputLabel id="bestellungIdInputLabel"
 						value="Bestellungnr."
-						for="idInput"/>
+						for="bestellungIdInput"/>
 					<h:inputText id="idInput" value="#{bc.bestellungId}"/>
 					<a4j:commandButton id="sucheButton"
 						action="#{bc.findBestellungById}"
 						value="OK"
-						render="viewBestellungGET"/>
+						render="gesuchteBestellungPanel fehlermeldungBestellungId"/>
 					</h:panelGrid>
+					<rich:messages id="fehlermeldungBestellungId" for="bestellungIdInput"/>
 				</rich:panel>
+				
+				<a4j:outputPanel id="gesuchteBestellungPanel">
+					<rich:tabPanel id="tabPanel" switchType="client" rendered="#{not empty bc.bestellung}">
+						<rich:panel id="stammdatenPanel">
+							<h:panelGrid id="stammdatenGrid" columns="2">
+								<h:outputText id="bestellungIdLabel" value="#{msgBv['viewBestellung.bestellnr']}"/>
+								<h:outputText id="bestellungId" value="#{bc.bestellung.id}"/>
+								
+								<h:outputText id="bestellungKundeNameLabel" value="#{msgBv['viewBestellung.bestellungKunde.name']}"/>
+								<h:outputText id="bestellungKundeName" value="#{bc.bestellung.kunde.name}"/>
+								
+								<h:outputText id="bestellungKundeVornameLabel" value="#{msgBv['viewBestellung.bestellungKunde.vorname']}"/>
+								<h:outputText id="bestellungKundeVorname" value="#{bc.bestellung.kunde.vorname}"/>
+							</h:panelGrid>
+						</rich:panel>
+					</rich:tabPanel>
+				</a4j:outputPanel>
 			</h:form>
 		</ui:define>
 	</ui:composition>

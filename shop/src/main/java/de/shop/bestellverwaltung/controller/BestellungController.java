@@ -23,7 +23,7 @@ public class BestellungController implements Serializable {
 	private static final long serialVersionUID = -3892465338743970807L;
 	
 	private static final String FLASH_BESTELLUNG = "bestellung";
-	private static final String JSF_VIEW_BESTELLUNG = "/bestellverwaltung/viewBestellungGET";
+	private static final String JSF_VIEW_BESTELLUNG = "/bestellverwaltung/viewBestellung";
 	
 	
 	@Inject
@@ -43,7 +43,7 @@ public class BestellungController implements Serializable {
 	@Client
 	private Locale locale;
 	
-	private Bestellung neueBestellung;
+	private Bestellung bestellung;
 	
 	private Long bestellungId;
 	
@@ -60,10 +60,14 @@ public class BestellungController implements Serializable {
 		return bestellungId;
 	}
 	
+	public Bestellung getBestellung() {
+		return bestellung;
+	}
+	
 	public void createEmptyBestellung() {
-		if (neueBestellung != null)
+		if (bestellung != null)
 			return;
-		neueBestellung = new Bestellung();
+		bestellung = new Bestellung();
 	}
 	
 	/**
@@ -73,7 +77,7 @@ public class BestellungController implements Serializable {
 	//TODO Locale wird nicht richtig gesetzt
 	@Transactional
 	public String findBestellungById() {
-		final Bestellung bestellung = bs.findBestellungById(bestellungId, locale);
+		bestellung = bs.findBestellungById(bestellungId, locale);
 		if (bestellung == null) {
 			flash.remove(FLASH_BESTELLUNG);
 			return null;
