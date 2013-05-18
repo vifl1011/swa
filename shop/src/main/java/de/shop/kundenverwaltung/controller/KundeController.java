@@ -265,7 +265,7 @@ public class KundeController implements Serializable {
 	 * F&uuml;r rich:autocomplete
 	 * @return Liste der potenziellen Kunden
 	 */
-	/*
+	
 	@TransactionAttribute(REQUIRED)
 	public List<Kunde> findKundenByIdPrefix(String idPrefix) {
 		List<Kunde> kundenPrefix = null;
@@ -289,7 +289,7 @@ public class KundeController implements Serializable {
 			return kundenPrefix.subList(0, MAX_AUTOCOMPLETE);
 		}
 		return kundenPrefix;
-	}
+	}/*
 	
 	@TransactionAttribute(REQUIRED)
 	public void loadKundeById() {

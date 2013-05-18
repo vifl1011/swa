@@ -19,6 +19,9 @@ import javax.validation.groups.Default;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 
+import com.google.common.base.Strings;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -101,6 +104,18 @@ public class KundeService implements Serializable {
 		catch (NoResultException e) {
 			return null;
 		}
+	}
+	@Log
+	public List<Kunde> findKundenByIdPrefix(Long id) {
+		if (id == null) {
+			return Collections.emptyList();
+		}
+		
+		final List<Kunde> kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_ID_PREFIX,
+				                                               Kunde.class)
+				                             .setParameter(Kunde.PARAM_KUNDE_ID_PREFIX, id.toString() + '%')
+				                             .getResultList();
+		return kunden;
 	}
 	
 	@Log

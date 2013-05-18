@@ -100,7 +100,17 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
     @NamedQuery(name  = Kunde.FIND_KUNDE_BY_ID_FETCH_ADRESSE,
             query = "SELECT k "
 			        + " FROM   Kunde as k LEFT JOIN FETCH k.adresse"
-			        + " WHERE k.id = :" + Kunde.PARAM_KUNDE_ID)                 			        
+			        + " WHERE k.id = :" + Kunde.PARAM_KUNDE_ID),
+	@NamedQuery(name  = Kunde.FIND_IDS_BY_PREFIX,
+		            query = "SELECT   k.id"
+					        + " FROM  Kunde k"
+					        + " WHERE CONCAT('', k.id) LIKE :" + Kunde.PARAM_KUNDE_ID_PREFIX
+					        + " ORDER BY k.id"),
+	@NamedQuery(name  = Kunde.FIND_KUNDEN_BY_ID_PREFIX,
+					        query = "SELECT   k"
+					                + " FROM  Kunde k"
+					                + " WHERE CONCAT('', k.id) LIKE :" + Kunde.PARAM_KUNDE_ID_PREFIX
+					                + " ORDER BY k.id")                 			        
 })
 
 @ScriptAssert(lang = "javascript",
@@ -127,6 +137,8 @@ public class Kunde implements Serializable, Cloneable {
 	public static final String FIND_KUNDEN_FETCH_BESTELLUNGEN = PREFIX + "findKundenFetchBestellungen";
 	public static final String FIND_KUNDEN_FETCH_ADRESSE = PREFIX + "findKundenFetchAdresse";
 	public static final String FIND_KUNDEN_BY_NACHNAME = PREFIX + "findKundenByNachname";
+	public static final String FIND_IDS_BY_PREFIX = PREFIX + "findIdsByIdPrefix";
+	public static final String FIND_KUNDEN_BY_ID_PREFIX = PREFIX + "findKundenByIdPrefix";
 	
 	//Parameter für Namedqueries
 	public static final String PARAM_KUNDE_ID = "kundeId";
@@ -134,6 +146,7 @@ public class Kunde implements Serializable, Cloneable {
 	public static final String PARAM_KUNDE_EMAIL = "email";
 	public static final String PARAM_KUNDE_LOGIN = "login";
 	public static final String PARAM_LOGIN_PREFIX = "login_prefix";
+	public static final String PARAM_KUNDE_ID_PREFIX = "idPrefix";
 
 	@Id
 	@GeneratedValue
