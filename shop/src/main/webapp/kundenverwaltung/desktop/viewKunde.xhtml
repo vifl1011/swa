@@ -97,7 +97,23 @@
 									<h:outputText id="weiblich" value="#{msgKv['viewKunde.geschlecht.weiblich']}" rendered="#{kc.kunde.geschlecht eq 'w'}"/>
 						
 									<h:outputText id="maennlichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.geschlecht eq 'm'}"/>
-									<h:outputText id="maennlich" value="#{msgKv['viewKunde.geschlecht.maennlich']}" rendered="#{kc.kunde.geschlecht eq 'm'}"/>					
+									<h:outputText id="maennlich" value="#{msgKv['viewKunde.geschlecht.maennlich']}" rendered="#{kc.kunde.geschlecht eq 'm'}"/>
+									
+									
+									
+									<h:outputLabel id="adresseLabel" value="#{msgKv['viewKunde.adresse']}" style="font-weight:bold"/>	
+									<h:outputLabel id="adresse" value=""/>	
+								
+									
+									<h:outputLabel id="strasseLabel" value="#{msgKv['viewKunde.adresse.strasse']}"/>	
+									<h:outputLabel id="strasse" value="#{kc.kunde.adresse.strasse} #{kc.kunde.adresse.hausnummer}"/>	
+										
+									<h:outputLabel id="plzLabel" value="#{msgKv['viewKunde.adresse.plz']}"/>	
+									<h:outputLabel id="plz" value="#{kc.kunde.adresse.plz}"/>										
+									
+									<h:outputLabel id="ortLabel" value="#{msgKv['viewKunde.adresse.ort']}"/>	
+									<h:outputLabel id="ort" value="#{kc.kunde.adresse.ort}"/>										
+													
 								</h:panelGrid>
 							</rich:panel>
 						</rich:tab>
