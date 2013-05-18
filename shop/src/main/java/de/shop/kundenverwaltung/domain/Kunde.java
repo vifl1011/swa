@@ -7,6 +7,7 @@ import java.net.URI;
 import static javax.persistence.CascadeType.PERSIST;
 import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 import static javax.persistence.TemporalType.TIMESTAMP;
 
 import javax.persistence.Basic;
@@ -44,6 +45,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.util.File;
 import de.shop.util.IdGroup;
 import de.shop.util.Constants;
 import de.shop.util.Log;
@@ -203,6 +205,11 @@ public class Kunde implements Serializable, Cloneable {
 	@Column(table = "kunde_rolle", name = "rolle_fk", nullable = false)
 	private Set<RolleType> rollen;
 	
+	@OneToOne(fetch = LAZY, cascade = { PERSIST, REMOVE })
+	@JoinColumn(name = "file_fk")
+	@JsonIgnore
+	private File file;
+	
 	@PrePersist
 	private void prePersist() {
 		this.erzeugt = new Date();
@@ -358,6 +365,16 @@ public class Kunde implements Serializable, Cloneable {
 	public List<Bestellung> getBestellungen() {
 		return (this.bestellungen == null ? null : Collections.unmodifiableList(this.bestellungen)); 
 	}
+	
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		if(file != null){
+			this.file = file;
+		}
+	}
 
 	public void setBestellungen(List<Bestellung> bestellungen) {
 		if (this.bestellungen == null) {
@@ -378,6 +395,7 @@ public class Kunde implements Serializable, Cloneable {
 		setLogin(k.getLogin());
 		setGeschlecht(k.geschlecht);
 		setVersion(k.getVersion());
+		setFile(k.getFile());
 		adresse.setValues(k.getAdresse());
 		
 	}

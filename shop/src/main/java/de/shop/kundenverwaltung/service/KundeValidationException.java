@@ -17,7 +17,12 @@ public class KundeValidationException extends KundeServiceException {
 	private final Kunde kunde;
 	private final Collection<ConstraintViolation<Kunde>> violations;
 	
-
+	public KundeValidationException(Collection<ConstraintViolation<Kunde>> violations) {
+		super("Violations: " + violations);
+		this.kunde=null;
+		this.violations = violations;
+	}
+	
 	public KundeValidationException(Kunde kunde,
 			                        Collection<ConstraintViolation<Kunde>> violations) {
 		super("Ungueltiger Kunde: " + kunde + ", Violations: " + violations);

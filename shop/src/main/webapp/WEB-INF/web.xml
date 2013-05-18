@@ -37,6 +37,11 @@
     <param-value>false</param-value>
   </context-param>
   <context-param>
+    <description>In Produktion: einschalten, d.h. auf true setzen</description>
+	<param-name>com.sun.faces.enableLazyBeanValidation</param-name>
+	<param-value>false</param-value>
+  </context-param>
+  <context-param>
     <param-name>com.sun.faces.displayConfiguration</param-name>
     <param-value>true</param-value>
   </context-param>
@@ -57,6 +62,11 @@
   <context-param>
     <param-name>com.sun.faces.validateXml</param-name>
     <param-value>false</param-value>
+  </context-param>
+  <context-param>
+	<description>Dateien fuer den Facelets-Compiler</description>
+	<param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>
+	<param-value>*.xhtml</param-value>
   </context-param>
   <context-param>
     <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
@@ -380,4 +390,7 @@
  <security-role>
   <role-name>abteilungsleiter</role-name>
  </security-role>
+ <welcome-file-list>
+<welcome-file>index.jsf</welcome-file>
+</welcome-file-list>
 </web-app>

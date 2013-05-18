@@ -23,6 +23,11 @@ public final class Constants {
 	public static final String BESTELLVERWALTUNG_NS = "urn:shop:bestellverwaltung";
 	public static final String KUNDENVERWALTUNG_NS = "urn:shop:kundenverwaltung";
 	
+	// JSF
+	public static final String JSF_INDEX = "/index";
+	public static final String JSF_DEFAULT_ERROR = "/error/defaultError";
+	public static final String JSF_REDIRECT_SUFFIX = "?faces-redirect=true";
+	
 	private Constants() {
 	}
 }

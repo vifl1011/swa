@@ -31,7 +31,7 @@
 						                   fetchValue="#{kunde.id}"
 						                   converter="javax.faces.Number"
 						                   converterMessage="#{msgKv['viewKunde.kundenr.converterError']}">
-							#{kunde.id} : #{kunde.nachname}, #{kunde.vorname}
+							#{kunde.id} : #{kunde.name}, #{kunde.vorname}
 						</rich:autocomplete> 
 	
 						<a4j:commandButton id="findButton"
@@ -72,71 +72,32 @@
 									<h:outputText id="kundeIdLabel" value="#{msgKv['viewKunde.kundenr']}"/>
 									<h:outputText id="kundeId" value="#{kc.kunde.id}"/>
 							
-									<h:outputText id="nachnameLabel" value="#{msgKv['viewKunde.nachname']}"/>
-									<h:outputText id="nachname" value="#{kc.kunde.nachname}"/>
+									<h:outputText id="nameLabel" value="#{msgKv['viewKunde.name']}"/>
+									<h:outputText id="name" value="#{kc.kunde.name}"/>
 						
 									<h:outputText id="vornameLabel" value="#{msgKv['viewKunde.vorname']}"/>
 									<h:outputText id="vorname" value="#{kc.kunde.vorname}"/>
 									
-									<h:outputText id="seitLabel" value="#{msgKv['viewKunde.seit']}"/>
-									<h:outputText id="seit" value="#{kc.kunde.seit}">
+									<h:outputText id="seitLabel" value="#{msgKv['viewKunde.erzeugt']}"/>
+									<h:outputText id="seit" value="#{kc.kunde.erzeugt}">
 										<f:convertDateTime type="date" dateStyle="long"/>
 									</h:outputText>
 									
-									<h:outputText id="umsatzLabel" value="#{msgKv['viewKunde.umsatz']}"/>
-									<h:outputText id="umsatz" value="#{kc.kunde.umsatz}">
-										<f:convertNumber type="currency"
-										                 currencyCode="EUR"/>
-									</h:outputText>
+	
 						
 									<h:outputText id="emailLabel" value="#{msgKv['viewKunde.email']}"/>
 									<h:outputText id="email" value="#{kc.kunde.email}"/>
 					
-									<h:outputText id="firmenkundeLabel" value="#{msgKv['viewKunde.kundenart']}" rendered="#{kc.kunde.class.simpleName eq 'Firmenkunde'}"/>
-									<h:outputText id="firmenkunde" value="#{msgKv['viewKunde.firmenkunde']}" rendered="#{kc.kunde.class.simpleName eq 'Firmenkunde'}"/>
-						
-									<h:outputText id="privatkundeLabel" value="#{msgKv['viewKunde.kundenart']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
-									<h:outputText id="privatkunde" value="#{msgKv['viewKunde.privatkunde']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
-									
 									<h:outputText id="rabattLabel" value="#{msgKv['viewKunde.rabatt']}"/>
 									<h:outputText id="rabatt" value="#{kc.kunde.rabatt}">
 										<f:convertNumber type="percent" maxFractionDigits="2"/>
 									</h:outputText>
-									
-									<h:outputText id="familienstandLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'LEDIG'}"/>
-									<h:outputText id="familienstand" value="#{msgKv['viewKunde.familienstand.ledig']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'LEDIG'}"/>
+															
+									<h:outputText id="weiblichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.geschlecht eq 'w'}"/>
+									<h:outputText id="weiblich" value="#{msgKv['viewKunde.geschlecht.weiblich']}" rendered="#{kc.kunde.geschlecht eq 'w'}"/>
 						
-									<h:outputText id="verheiratetLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERHEIRATET'}"/>
-									<h:outputText id="verheiratet" value="#{msgKv['viewKunde.familienstand.verheiratet']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERHEIRATET'}"/>
-						
-									<h:outputText id="geschiedenLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'GESCHIEDEN'}"/>
-									<h:outputText id="geschieden" value="#{msgKv['viewKunde.familienstand.geschieden']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'GESCHIEDEN'}"/>
-						
-									<h:outputText id="verwitwetLabel" value="#{msgKv['viewKunde.familienstand']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERWITWET'}"/>
-									<h:outputText id="verwitwet" value="#{msgKv['viewKunde.familienstand.verwitwet']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.familienstand eq 'VERWITWET'}"/>
-						
-									<h:outputText id="weiblichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'WEIBLICH'}"/>
-									<h:outputText id="weiblich" value="#{msgKv['viewKunde.geschlecht.weiblich']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'WEIBLICH'}"/>
-						
-									<h:outputText id="maennlichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'MAENNLICH'}"/>
-									<h:outputText id="maennlich" value="#{msgKv['viewKunde.geschlecht.maennlich']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde' and kc.kunde.geschlecht eq 'MAENNLICH'}"/>
-					
-									<h:outputText id="newsletterLabel" value="#{msgKv['viewKunde.newsletter']}"/>
-									<h:selectBooleanCheckbox id="newsletter" value="#{kc.kunde.newsletter}" disabled="true" readonly="true"/>
-					
-									<h:outputText id="hobbiesLabel" value="#{msgKv['viewKunde.hobbies']}" rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
-									<h:selectManyCheckbox value="#{kc.kunde.hobbies}"
-									                      layout="pageDirection"
-									                      disabled="true"
-									                      readonly="true"
-									                      rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}">
-										<f:selectItem itemValue="SPORT"
-													  itemLabel="#{msgKv['viewKunde.sport']}"/>
-										<f:selectItem itemValue="LESEN" 
-													  itemLabel="#{msgKv['viewKunde.lesen']}"/>
-										<f:selectItem itemValue="REISEN" 
-													  itemLabel="#{msgKv['viewKunde.reisen']}"/>
-									</h:selectManyCheckbox>
+									<h:outputText id="maennlichLabel" value="#{msgKv['viewKunde.geschlecht']}" rendered="#{kc.kunde.geschlecht eq 'm'}"/>
+									<h:outputText id="maennlich" value="#{msgKv['viewKunde.geschlecht.maennlich']}" rendered="#{kc.kunde.geschlecht eq 'm'}"/>					
 								</h:panelGrid>
 							</rich:panel>
 						</rich:tab>
@@ -230,15 +191,15 @@
 								                          expandMode="client"
 								                          expanded="#{false}"> <!-- https://issues.jboss.org/browse/RF-10715 -->
 									<rich:column id="artikelIdSpalteSub">
-										#{pos.artikel.id}
+										#{pos.produkt.id}
 									</rich:column>
 						
 									<rich:column id="bezeichnungSpalteSub">
-										#{pos.artikel.bezeichnung}
+										#{pos.produkt.bezeichnung}
 									</rich:column>
 						
 									<rich:column id="anzahlSpalteSub">
-										#{pos.anzahl}
+										#{pos.menge}
 									</rich:column>
 								</rich:collapsibleSubTable>		
 							
@@ -265,33 +226,14 @@
 							</rich:dataTable>
 						</rich:tab>
 						
-						<rich:tab id="bemerkungenTab" rendered="#{not empty kc.kunde.bemerkungen}">
-							<f:facet name="header">
-								<h:panelGroup id="bemerkungenLabel">
-									<h:graphicImage id="bemerkungenGif"
-									                name="text.gif"
-									                library="images"/>
-									#{' '}
-									#{msgKv['viewKunde.kunde.bemerkungen']}
-								</h:panelGroup>
-							</f:facet>
-							
-							<h:outputText id="bemerkungen" value="#{kc.kunde.bemerkungen}" escape="false"/>
-						</rich:tab>
 					</rich:tabPanel>
 				
 					<p id="buttons">
 						<h:panelGroup id="buttonsGroup" rendered="#{not empty kc.kunde}">
-							<h:commandButton id="updateButtonPrivatkunde"
+							<h:commandButton id="updateButtonKunde"
 							                 image="#{resource['images:edit.gif']}"
-							                 action="/kundenverwaltung/updatePrivatkunde"
-							                 alt="#{msgKv['viewKunde.update.alt']}"
-							                 rendered="#{kc.kunde.class.simpleName eq 'Privatkunde'}"/>
-							<h:commandButton id="updateButtonFirmenkunde"
-							                 image="#{resource['images/edit.gif']}"
-							                 action="/kundenverwaltung/updateFirmenkunde"
-							                 alt="#{msgKv['viewKunde.update.alt']}"
-							                 rendered="#{kc.kunde.class.simpleName eq 'Firmenkunde'}"/>
+							                 action="/kundenverwaltung/updateKunde"
+							                 alt="#{msgKv['viewKunde.update.alt']}"/>
 							#{' '}
 							<h:commandButton id="deleteButton"
 											 image="#{resource['images:delete.gif']}"
