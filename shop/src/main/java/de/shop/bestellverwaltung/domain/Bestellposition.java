@@ -149,6 +149,15 @@ public class Bestellposition implements Serializable {
 		// Verweise setzen
 		bestellung.addBestellposition(this);
 	}
+	
+	public Bestellposition(Produkt produkt, int me) {
+		this();
+		this.aktualisiert = null;
+		this.einzelpreis = produkt.getPreis();
+		this.id = null;
+		this.menge = me;
+		this.produkt = produkt;
+	}
 
 	public Bestellposition() {
 		super();
