@@ -390,7 +390,5 @@
  <security-role>
   <role-name>abteilungsleiter</role-name>
  </security-role>
- <welcome-file-list>
-<welcome-file>index.jsf</welcome-file>
-</welcome-file-list>
+
 </web-app>
