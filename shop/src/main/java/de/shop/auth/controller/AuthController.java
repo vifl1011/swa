@@ -28,11 +28,12 @@ import de.shop.auth.service.jboss.AuthService;
 import de.shop.auth.service.jboss.AuthService.RolleType;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.service.KundeService;
+import de.shop.util.Constants;
 import de.shop.util.InternalError;
 import de.shop.util.Log;
 import de.shop.util.Messages;
 import de.shop.util.Transactional;
-
+import de.shop.util.Constants.*;
 
 /**
  * Ein Managed Bean zur Abwicklung von Authentifizierung (Login und Logout) und erweiterbar f&uuml;r
@@ -177,22 +178,22 @@ public class AuthController implements Serializable {
 	 * Nachtraegliche Einloggen eines registrierten Kunden mit Benutzername und Password.
 	 */
 	//TODO funktioniert noch nicht
-//	@Transactional
-//	public void preserveLogin() {
-//		if (username != null && user != null) {
-//			return;
-//		}
-//		
-//		// Benutzername beim Login ermitteln
-//		username = request.getRemoteUser();
-//
-//		user = ks.findKundeByUserName(username);
-//		if (user == null) {
-//			// Darf nicht passieren, wenn unmittelbar zuvor das Login erfolgreich war
-//			logout();
-//			throw new InternalError("Kein Kunde mit dem Loginnamen \"" + username + "\" gefunden");
-//		}
-//	}
+	@Transactional
+	public void preserveLogin() {
+		if (username != null && user != null) {
+			return;
+		}
+		
+		// Benutzername beim Login ermitteln
+		username = request.getRemoteUser();
+
+		user = ks.findKundenByLogin(username);
+		if (user == null) {
+			// Darf nicht passieren, wenn unmittelbar zuvor das Login erfolgreich war
+			logout();
+			throw new InternalError("Kein Kunde mit dem Loginnamen \"" + username + "\" gefunden");
+		}
+	}
 
 
 	/**
@@ -208,20 +209,20 @@ public class AuthController implements Serializable {
 	 * Ausloggen und L&ouml;schen der gesamten Session-Daten.
 	 */
 	//TODO funktioniert noch nicht
-//	public String logout() {
-//		try {
-//			request.logout();  // Der Loginname wird zurueckgesetzt
-//		}
-//		catch (ServletException e) {
-//			return null;
-//		}
-//		
-//		reset();
-//		session.invalidate();
-//		
-//		// redirect bewirkt neuen Request, der *NACH* der Session ist
-//		return JSF_INDEX + JSF_REDIRECT_SUFFIX;
-//	}
+	public String logout() {
+		try {
+			request.logout();  // Der Loginname wird zurueckgesetzt
+		}
+		catch (ServletException e) {
+			return null;
+		}
+		
+		reset();
+		session.invalidate();
+		
+		// redirect bewirkt neuen Request, der *NACH* der Session ist
+		return Constants.JSF_INDEX + Constants.JSF_REDIRECT_SUFFIX;
+	}
 
 	/**
 	 * &Uuml;berpr&uuml;fen, ob Login-Informationen vorhanden sind.
