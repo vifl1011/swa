@@ -1,24 +1,52 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
-	<p id="index">
-		<h:outputLink id="menuIndex" value="#{request.contextPath}">
-			#{msg['nav.index']}
-		</h:outputLink>
-	</p>
-	<p id="viewKunde">
-		<h:outputLink id="menuViewKunde"
-		              value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
-			#{msg['nav.viewKunde']}
-		</h:outputLink>
-	</p>
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich">
+    <h:form id="navForm">
+		<p id="index">
+			<h:outputLink id="menuIndex" value="#{request.contextPath}">
+				#{msg['nav.index']}
+			</h:outputLink>
+		</p>
+		<p id="viewKunde">
+			<h:outputLink id="menuViewKunde"
+		   	    value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
+				#{msg['nav.viewKunde']}
+			</h:outputLink>
+		</p>
 	
-	<p id="viewBestellung">
-		<h:outputLink id="menuViewBestellung"
-		              value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
-			#{msg['nav.viewBestellung']}
-		</h:outputLink>
-	</p>
+		<p id="viewBestellung">
+			<h:outputLink id="menuViewBestellung"
+		        value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
+				#{msg['nav.viewBestellung']}
+			</h:outputLink>
+		</p>
+		
+		<rich:panelMenu id="panelMenu"
+		                itemMode="client"
+		                topGroupExpandedLeftIcon="chevronDown"
+		                topGroupCollapsedLeftIcon="chevron"
+		                itemLeftIcon="grid">
+			<rich:panelMenuGroup id="bestellverwaltung"
+			                     label="#{msg['nav.bestellverwaltung']}"
+			                     expanded="false">
+			                     
+				<rich:panelMenuItem id="bestellverwaltungFindBestellung">
+					<h:outputLink id="findBestellung"
+		        		value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
+		        		#{msg['nav.viewBestellung']}
+		        	</h:outputLink>
+		        	
+				</rich:panelMenuItem>
+				<rich:panelMenuItem id="bestellverwaltungViewWarenkorb">
+					<h:outputLink id="viewWarenkorb"
+		        		value="#{request.contextPath}/index.jsf">
+		        		"Warenkorb (noch nicht fertig!")"
+		        	</h:outputLink>
+				</rich:panelMenuItem>
+			</rich:panelMenuGroup>
+		</rich:panelMenu>
+	</h:form>
 	
 	
 </ui:composition>

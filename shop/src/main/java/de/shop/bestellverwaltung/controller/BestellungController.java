@@ -3,7 +3,6 @@ package de.shop.bestellverwaltung.controller;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
