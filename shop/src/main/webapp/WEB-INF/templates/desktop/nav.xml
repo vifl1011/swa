@@ -29,7 +29,7 @@
 		                itemLeftIcon="grid">
 			<rich:panelMenuGroup id="bestellverwaltung"
 			                     label="#{msg['nav.bestellverwaltung']}"
-			                     expanded="false">
+			                     expanded="true">
 			                     
 				<rich:panelMenuItem id="bestellverwaltungFindBestellung">
 					<h:outputLink id="findBestellung"

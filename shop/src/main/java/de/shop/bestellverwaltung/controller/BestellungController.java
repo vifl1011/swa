@@ -73,7 +73,6 @@ public class BestellungController implements Serializable {
 	 * Action Methode, um eine Bestellung zu gegebener ID zu suchen
 	 * @return URL fuer Anzeige der gefundenen Bestellung; sonst null
 	 */
-	//TODO Locale wird nicht richtig gesetzt
 	@Transactional
 	public String findBestellungById() {
 		bestellung = bs.findBestellungById(bestellungId, locale);

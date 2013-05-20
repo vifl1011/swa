@@ -79,11 +79,11 @@ public class ProduktController implements Serializable {
 	}
 
 	public void setProduktID(Long id) {
-		this.produktId = id;
+		produktId = id;
 	}
 	
 	public Long getProduktId() {
-		return this.produktId;
+		return produktId;
 	}
 	
 	public Produkt getProdukt() {
@@ -123,7 +123,6 @@ public class ProduktController implements Serializable {
 	 * Action Methode, um eine Bestellung zu gegebener ID zu suchen
 	 * @return URL fuer Anzeige der gefundenen Bestellung; sonst null
 	 */
-	//TODO Locale wird nicht richtig gesetzt
 	@Transactional
 	public String findProduktById() {
 		produkt = as.findProduktById(produktId, locale);
@@ -131,8 +130,7 @@ public class ProduktController implements Serializable {
 			flash.remove(FLASH_Produkt);
 			return null;
 		}
-		
 		flash.put(FLASH_Produkt, produkt);
-		return JSF_VIEW_PRODUKT;
+		return JSF_LIST_Produkt;
 	}
 }
