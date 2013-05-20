@@ -3,6 +3,7 @@ package de.shop.artikelverwaltung.controller;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -16,6 +17,8 @@ import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
+import de.shop.bestellverwaltung.domain.Bestellung;
+import de.shop.util.Client;
 import de.shop.util.Log;
 import de.shop.util.Transactional;
 
@@ -33,6 +36,9 @@ public class ProduktController implements Serializable {
 	
 	private static final String JSF_LIST_ARTIKEL = "/artikelverwaltung/listArtikel";
 	private static final String FLASH_ARTIKEL = "artikel";
+	private static final String JSF_LIST_Produkt = "/Produktverwaltung/listProdukt";
+	private static final String JSF_VIEW_PRODUKT = "/Produktverwaltung/viewProdukt";
+	private static final String FLASH_Produkt = "Produkt";
 	private static final int ANZAHL_LADENHUETER = 5;
 	
 	private static final String JSF_SELECT_ARTIKEL = "/artikelverwaltung/selectArtikel";
@@ -41,6 +47,10 @@ public class ProduktController implements Serializable {
 	private String bezeichnung;
 	
 	private List<Produkt> ladenhueter;
+	
+	private Produkt produkt;
+	
+	private Long produktId;
 
 	@Inject
 	private ProduktService as;
@@ -50,7 +60,10 @@ public class ProduktController implements Serializable {
 	
 	@Inject
 	private transient HttpSession session;
-
+	
+	@Inject
+	@Client
+	private Locale locale;
 	
 	@PostConstruct
 	private void postConstruct() {
@@ -67,6 +80,18 @@ public class ProduktController implements Serializable {
 		return "ArtikelController [bezeichnung=" + bezeichnung + "]";
 	}
 
+	public void setProduktID(Long id) {
+		produktId = id;
+	}
+	
+	public Long getProduktId() {
+		return produktId;
+	}
+	
+	public Produkt getProdukt() {
+		return produkt;
+	}
+	
 	public String getBezeichnung() {
 		return bezeichnung;
 	}
@@ -110,4 +135,20 @@ public class ProduktController implements Serializable {
 		session.setAttribute(SESSION_VERFUEGBARE_ARTIKEL, alleArtikel);
 		return JSF_SELECT_ARTIKEL;
 	}
+	
+	/**
+	 * Action Methode, um eine Bestellung zu gegebener ID zu suchen
+	 * @return URL fuer Anzeige der gefundenen Bestellung; sonst null
+	 */
+	@Transactional
+	public String findProduktById() {
+		produkt = as.findProduktById(produktId, locale);
+		if (produkt == null) {
+			flash.remove(FLASH_Produkt);
+			return null;
+		}
+		flash.put(FLASH_Produkt, produkt);
+		return JSF_LIST_Produkt;
+	}
+	
 }

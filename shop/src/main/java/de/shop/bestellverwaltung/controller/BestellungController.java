@@ -3,7 +3,6 @@ package de.shop.bestellverwaltung.controller;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -74,7 +73,6 @@ public class BestellungController implements Serializable {
 	 * Action Methode, um eine Bestellung zu gegebener ID zu suchen
 	 * @return URL fuer Anzeige der gefundenen Bestellung; sonst null
 	 */
-	//TODO Locale wird nicht richtig gesetzt
 	@Transactional
 	public String findBestellungById() {
 		bestellung = bs.findBestellungById(bestellungId, locale);

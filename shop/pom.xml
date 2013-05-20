@@ -139,7 +139,8 @@
 		<jpamodelgen.domainklassen>**/domain/*.java</jpamodelgen.domainklassen>
 		
 		<!-- Testklassen fuer JUnit -->
-		<testklassen>**/*Test.java</testklassen>
+  		<testklassen>**/*Test.java</testklassen> 
+
 		
 		<baseuri>http://localhost</baseuri>
 		<port>8080</port>
