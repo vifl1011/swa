@@ -44,13 +44,6 @@
 		        		"Warenkorb (noch nicht fertig!")"
 		        	</h:outputLink>
 				</rich:panelMenuItem>
-				
-				<rich:panelMenuItem id="bestellverwaltungFindProdukt">
-					<h:outputLink id="findProdukt"
-		        		value="#{request.contextPath}/bestellverwaltung/viewProdukt.jsf">
-		        		"Finde Produkt (nur zum testen des Warenkorbs!")"
-		        	</h:outputLink>
-				</rich:panelMenuItem>
 			</rich:panelMenuGroup>
 		</rich:panelMenu>
 	</h:form>

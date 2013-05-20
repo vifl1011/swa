@@ -80,7 +80,7 @@ public class ProduktController implements Serializable {
 		return "ArtikelController [bezeichnung=" + bezeichnung + "]";
 	}
 
-	public void setProduktID(Long id) {
+	public void setProduktId(Long id) {
 		produktId = id;
 	}
 	
