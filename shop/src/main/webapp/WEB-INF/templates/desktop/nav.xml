@@ -21,4 +21,13 @@
 	</p>
 	
 	
+	<p id="viewProdukt">
+			<h:outputLink id="artikelverwaltungListArtikel"
+					      value="#{request.contextPath}/artikelverwaltung/listArtikel.jsf">
+			#{msg['nav.artikelverwaltung.listArtikel']}
+		</h:outputLink>
+	</p>
+	
+	
+	
 </ui:composition>

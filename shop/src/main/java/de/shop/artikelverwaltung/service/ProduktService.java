@@ -15,6 +15,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.groups.Default;
 
+import com.google.common.base.Strings;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -131,6 +133,21 @@ public class ProduktService implements Serializable {
 				                        .setMaxResults(anzahl)
 				                        .getResultList();
 		return produkt;
+	}
+	
+	/**
+	 */
+	public List<Produkt> findArtikelByBezeichnung(String bezeichnung) {
+		if (Strings.isNullOrEmpty(bezeichnung)) {
+			final List<Produkt> artikelListe = findAlleProdukte();
+			return artikelListe;
+		}
+		
+		final List<Produkt> artikel = em.createNamedQuery(Produkt.FIND_PRODUKT_BY_BEZ, Produkt.class)
+				                        .setParameter(Produkt.PARAM_BEZEICHNUNG, "%" + bezeichnung + "%")
+				                        .getResultList();
+		
+		return artikel;
 	}
 	
 }

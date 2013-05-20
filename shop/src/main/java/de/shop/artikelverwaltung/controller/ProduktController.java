@@ -21,7 +21,7 @@ import de.shop.util.Transactional;
 
 
 /**
- * Dialogsteuerung fuer die ProduktService
+ * Dialogsteuerung fuer die ArtikelService
  */
 @Named("ac")
 @RequestScoped
@@ -31,12 +31,12 @@ public class ProduktController implements Serializable {
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	private static final String JSF_LIST_Produkt = "/Produktverwaltung/listProdukt";
-	private static final String FLASH_Produkt = "Produkt";
+	private static final String JSF_LIST_ARTIKEL = "/artikelverwaltung/listArtikel";
+	private static final String FLASH_ARTIKEL = "artikel";
 	private static final int ANZAHL_LADENHUETER = 5;
 	
-	private static final String JSF_SELECT_Produkt = "/Produktverwaltung/selectProdukt";
-	private static final String SESSION_VERFUEGBARE_Produkt = "verfuegbareProdukt";
+	private static final String JSF_SELECT_ARTIKEL = "/artikelverwaltung/selectArtikel";
+	private static final String SESSION_VERFUEGBARE_ARTIKEL = "verfuegbareArtikel";
 
 	private String bezeichnung;
 	
@@ -64,7 +64,7 @@ public class ProduktController implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "ProduktController [bezeichnung=" + bezeichnung + "]";
+		return "ArtikelController [bezeichnung=" + bezeichnung + "]";
 	}
 
 	public String getBezeichnung() {
@@ -81,18 +81,33 @@ public class ProduktController implements Serializable {
 	}
 
 	@Transactional
+	public String findArtikelByBezeichnung() {
+//		final List<Produkt> artikel = as.findArtikelByBezeichnung(bezeichnung);
+//		flash.put(FLASH_ARTIKEL, artikel);
+//
+//		return JSF_LIST_ARTIKEL;
+		
+		final Produkt artikel = as.findProduktByIdEm(Long.valueOf(bezeichnung));       //  joa so natürlich nicht
+		flash.put(FLASH_ARTIKEL, artikel);
+
+		return JSF_LIST_ARTIKEL;
+	
+	}
+	
+
+	@Transactional
 	public void loadLadenhueter() {
 		ladenhueter = as.ladenhueter(ANZAHL_LADENHUETER);
 	}
 	
 	@Transactional
-	public String selectProdukt() {
-		if (session.getAttribute(SESSION_VERFUEGBARE_Produkt) != null) {
-			return JSF_SELECT_Produkt;
+	public String selectArtikel() {
+		if (session.getAttribute(SESSION_VERFUEGBARE_ARTIKEL) != null) {
+			return JSF_SELECT_ARTIKEL;
 		}
 		
-		final List<Produkt> alleProdukt = as.findProdukte();
-		session.setAttribute(SESSION_VERFUEGBARE_Produkt, alleProdukt);
-		return JSF_SELECT_Produkt;
+		final List<Produkt> alleArtikel = as.findAlleProdukte();
+		session.setAttribute(SESSION_VERFUEGBARE_ARTIKEL, alleArtikel);
+		return JSF_SELECT_ARTIKEL;
 	}
 }

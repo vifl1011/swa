@@ -45,6 +45,10 @@ import static de.shop.util.Constants.ERSTE_VERSION;
 			        + " FROM   Produkt as p"),
 	@NamedQuery(name = Produkt.FIND_PRODUKT_BY_ID, 
 			query = "SELECT   p"  + " FROM   Produkt as p" + " WHERE p.id = :" + Produkt.PARAM_ID),
+	@NamedQuery(name  = Produkt.FIND_PRODUKT_BY_BEZ,
+			query = "SELECT      p"
+			        + " FROM     Produkt p"
+					+ " WHERE    p.bezeichnung LIKE :" + Produkt.PARAM_BEZEICHNUNG),
 	@NamedQuery(name  = Produkt.FIND_LADENHUETER,
             query = "SELECT    a"
 	           	    + " FROM   Produkt a"
@@ -60,6 +64,8 @@ public class Produkt implements Serializable {
 	public static final String FIND_PRODUKTE = PREFIX + "findProdukte";
 	public static final String FIND_LADENHUETER = PREFIX + "findLadenhueter";
 	public static final String PARAM_ID = "id";
+	public static final String FIND_PRODUKT_BY_BEZ = PREFIX + "findProduktByBez";
+	public static final String PARAM_BEZEICHNUNG = "bezeichnung";
 
 	@Id
 	@GeneratedValue
