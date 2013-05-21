@@ -17,7 +17,6 @@ import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
-import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.util.Client;
 import de.shop.util.Log;
 import de.shop.util.Transactional;
@@ -37,8 +36,6 @@ public class ProduktController implements Serializable {
 	private static final String JSF_LIST_ARTIKEL = "/artikelverwaltung/listArtikel";
 	private static final String FLASH_ARTIKEL = "artikel";
 	private static final String JSF_LIST_Produkt = "/Produktverwaltung/listProdukt";
-	private static final String JSF_VIEW_PRODUKT = "/Produktverwaltung/viewProdukt";
-	private static final String FLASH_Produkt = "Produkt";
 	private static final int ANZAHL_LADENHUETER = 5;
 	
 	private static final String JSF_SELECT_ARTIKEL = "/artikelverwaltung/selectArtikel";
@@ -144,10 +141,10 @@ public class ProduktController implements Serializable {
 	public String findProduktById() {
 		produkt = as.findProduktById(produktId, locale);
 		if (produkt == null) {
-			flash.remove(FLASH_Produkt);
+			flash.remove(FLASH_ARTIKEL);
 			return null;
 		}
-		flash.put(FLASH_Produkt, produkt);
+		flash.put(FLASH_ARTIKEL, produkt);
 		return JSF_LIST_Produkt;
 	}
 	
