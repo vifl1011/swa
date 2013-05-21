@@ -76,8 +76,11 @@
 							             rendered="#{not empty artikel}">
 								<h:commandButton id="warenkorbButton"
 												 image="#{resource['images:warenkorb.gif']}"
-										         action="#{wk.add(art)}"
-										         alt="#{msgAv['listArtikel.alt.warenkorb']}"/>
+										         action="#{wk.add(artikel, 1)}"
+										         alt="#{msgAv['listArtikel.alt.warenkorb']}">
+										         <f:param name="artikelVar" Value="#{artikel}" />
+										         <f:param name="artikelMenge" Value="1" />
+								</h:commandButton>
 							</rich:column>
 						</rich:dataTable>
 						

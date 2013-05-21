@@ -25,24 +25,24 @@
 				                styleClass="tabelleMitZebrastil">
 					<rich:column id="artikelIdSpalte">
 						<f:facet name="header">
-							#{msgBv['viewWarenkorb.artikel.id']}
+							#{msgBv['viewWarenkorb.produkt.id']}
 						</f:facet>
-						#{position.artikel.id}
+						#{position.produkt.id}
 					</rich:column>
 					
 					<rich:column id="bezeichnungSpalte">
 						<f:facet name="header">
-							#{msgBv['viewWarenkorb.artikel.bezeichnung']}
+							#{msgBv['viewWarenkorb.produkt.bezeichnung']}
 						</f:facet>
-						#{position.artikel.bezeichnung}
+						#{position.produkt.bezeichnung}
 					</rich:column>
 		
 					<rich:column id="anzahlSpalte">
 						<f:facet name="header">
-							#{msgBv['viewWarenkorb.anzahl']}
+							#{msgBv['viewWarenkorb.menge']}
 						</f:facet>
 						<rich:inputNumberSpinner id="anzahl"
-					                             value="#{position.anzahl}"
+					                             value="#{position.menge}"
 					                             minValue="0"
 					                             maxValue="99"
 					                             inputSize="2"/>

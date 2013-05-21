@@ -67,7 +67,11 @@ public class Warenkorb implements Serializable {
 	public Long getArtikelId() {
 		return artikelId;
 	}
-
+	
+	public int getMenge() {
+		return positionen.size();
+	}
+	
 	@Override
 	public String toString() {
 		return "Warenkorb " + positionen;
