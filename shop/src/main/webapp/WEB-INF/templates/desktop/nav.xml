@@ -52,17 +52,31 @@
 		        	</h:outputLink>
 				</rich:panelMenuItem>
 			</rich:panelMenuGroup>
+			
+			<rich:panelMenuGroup id="artikelverwaltung"
+			                     label="#{msg['nav.artikelverwaltung']}"
+			                     expanded="true">
+				<rich:panelMenuItem id="artikelverwaltungListArtikelItem">
+					<h:outputLink id="artikelverwaltungListArtikel"
+					              value="#{request.contextPath}/artikelverwaltung/listArtikel.jsf">
+						#{msg['nav.artikelverwaltung.listArtikel']}
+						<f:param id="initParamListArtikel" name="init" value="true"/>
+						<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+							<f:param id="listArtikelCid" name="cid" value="#{javax.enterprise.context.conversation.id}"/>
+						</c:if>
+					</h:outputLink>
+				</rich:panelMenuItem>
+				<rich:panelMenuItem id="artikelverwaltungSelectArtikelItem">
+					<h:commandLink id="artikelverwaltungSelectArtikel"
+					               action="#{ac.selectArtikel}">
+						#{msg['nav.artikelverwaltung.selectArtikel']}
+					</h:commandLink>
+				</rich:panelMenuItem>				
+			</rich:panelMenuGroup>			
+			
+			
 		</rich:panelMenu>
 	</h:form>
-	
-	
-	<p id="viewProdukt">
-			<h:outputLink id="artikelverwaltungListArtikel"
-					      value="#{request.contextPath}/artikelverwaltung/listArtikel.jsf">
-			#{msg['nav.artikelverwaltung.listArtikel']}
-		</h:outputLink>
-	</p>
-	
 	
 	
 </ui:composition>

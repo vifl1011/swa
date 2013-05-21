@@ -105,20 +105,27 @@ public class ProduktController implements Serializable {
 		return ladenhueter;
 	}
 
-	@Transactional
-	public String findArtikelByBezeichnung() {
-//		final List<Produkt> artikel = as.findArtikelByBezeichnung(bezeichnung);
+//	@Transactional
+//	public String findArtikelByBezeichnung() {
+////		final List<Produkt> artikel = as.findArtikelByBezeichnung(bezeichnung);
+////		flash.put(FLASH_ARTIKEL, artikel);
+////
+////		return JSF_LIST_ARTIKEL;
+//		
+//		final Produkt artikel = as.findProduktByIdEm(Long.valueOf(bezeichnung));       //  joa so natürlich nicht
 //		flash.put(FLASH_ARTIKEL, artikel);
 //
 //		return JSF_LIST_ARTIKEL;
-		
-		final Produkt artikel = as.findProduktByIdEm(Long.valueOf(bezeichnung));       //  joa so natürlich nicht
+//	
+//	}
+	
+	@Transactional
+	public String findArtikelByBezeichnung() {
+		final List<Produkt> artikel = as.findArtikelByBezeichnung(bezeichnung);
 		flash.put(FLASH_ARTIKEL, artikel);
 
 		return JSF_LIST_ARTIKEL;
-	
 	}
-	
 
 	@Transactional
 	public void loadLadenhueter() {
