@@ -77,6 +77,11 @@ public class Warenkorb implements Serializable {
 		return "Warenkorb " + positionen;
 	}
 	
+	
+	public Warenkorb() {
+		beginConversation();		
+	}
+	
 	/**
 	 */
 	public String add(Produkt produkt, int anz) {
@@ -113,13 +118,13 @@ public class Warenkorb implements Serializable {
 		}
 		conversation.begin();
 		conversation.setTimeout(MINUTES.toMillis(TIMEOUT));
-		LOGGER.trace("Conversation beginnt");
+		LOGGER.debugf("Conversation beginnt");
 	}
 	
 	/**
 	 */
 	public void endConversation() {
 		conversation.end();
-		LOGGER.trace("Conversation beendet");
+		LOGGER.debugf("Conversation beendet");
 	}
 }

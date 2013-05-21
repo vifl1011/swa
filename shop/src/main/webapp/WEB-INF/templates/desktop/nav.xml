@@ -1,6 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:rich="http://richfaces.org/rich">
     <h:form id="navForm">
 		<p id="index">
@@ -40,8 +42,13 @@
 				</rich:panelMenuItem>
 				<rich:panelMenuItem id="bestellverwaltungViewWarenkorb">
 					<h:outputLink id="viewWarenkorb"
-		        		value="#{request.contextPath}/index.jsf">
-		        		"Warenkorb (noch nicht fertig!")"
+		        		value="#{request.contextPath}/bestellverwaltung/viewWarenkorb.jsf">
+		        		"Warenkorb"
+		        		<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+							<f:param id="viewWarenkorbCid"
+							name="cid"
+							value="#{javax.enterprise.context.conversation.id}"/>
+						</c:if>
 		        	</h:outputLink>
 				</rich:panelMenuItem>
 			</rich:panelMenuGroup>
