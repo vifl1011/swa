@@ -43,6 +43,8 @@ public class ProduktController implements Serializable {
 	
 	private static final String JSF_SELECT_ARTIKEL = "/artikelverwaltung/selectArtikel";
 	private static final String SESSION_VERFUEGBARE_ARTIKEL = "verfuegbareArtikel";
+	
+
 
 	private String bezeichnung;
 	
