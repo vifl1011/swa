@@ -150,12 +150,12 @@ public class Bestellposition implements Serializable {
 		bestellung.addBestellposition(this);
 	}
 	
-	public Bestellposition(Produkt produkt, int me) {
+	public Bestellposition(Produkt produkt) {
 		this();
 		this.aktualisiert = null;
 		this.einzelpreis = produkt.getPreis();
 		this.id = null;
-		this.menge = me;
+		this.menge = 1;
 		this.produkt = produkt;
 	}
 

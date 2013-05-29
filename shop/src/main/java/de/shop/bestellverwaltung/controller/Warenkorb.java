@@ -78,13 +78,13 @@ public class Warenkorb implements Serializable {
 	}
 	
 	
-	public Warenkorb() {
-		beginConversation();		
-	}
+//	public Warenkorb() {
+//		//beginConversation();		
+//	}
 	
 	/**
 	 */
-	public String add(Produkt produkt, int anz) {
+	public String add(Produkt produkt) {
 		beginConversation();
 		
 		for (Bestellposition bp : positionen) {
@@ -96,7 +96,7 @@ public class Warenkorb implements Serializable {
 			}
 		}
 		
-		final Bestellposition neu = new Bestellposition(produkt, anz);
+		final Bestellposition neu = new Bestellposition(produkt);
 		positionen.add(neu);
 		return JSF_VIEW_WARENKORB;
 	}
