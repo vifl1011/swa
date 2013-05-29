@@ -7,4 +7,4 @@ insert into bestellung (id,version,kunde_id,bestellzeitpunkt,bestellstatus,gesam
 insert into bestellung (id,version,kunde_id,bestellzeitpunkt,bestellstatus,gesamtpreis,gezahlt,erzeugt,aktualisiert,idx) values (606,0,206,'19.10.12 00:00','bestellt',173,0,'19.10.12 00:00','19.10.12 00:00',0);
 insert into bestellung (id,version,kunde_id,bestellzeitpunkt,bestellstatus,gesamtpreis,gezahlt,erzeugt,aktualisiert,idx) values (607,0,207,'17.10.12 00:00','versand',192,1,'19.10.12 00:00','19.10.12 00:00',0);
 insert into bestellung (id,version,kunde_id,bestellzeitpunkt,bestellstatus,gesamtpreis,gezahlt,erzeugt,aktualisiert,idx) values (608,0,208,'11.10.12 00:00','geliefert',185,1,'19.10.12 00:00','19.10.12 00:00',0);
-insert into bestellung (id,version,kunde_id,bestellzeitpunkt,bestellstatus,gesamtpreis,gezahlt,erzeugt,aktualisiert,idx) values (609,0,209,'16.10.12 00:00','versand',81,1,'19.10.12 00:00','19.10.12 00:00',0);
+insert into bestellung (id,version,kunde_id,bestellzeitpunkt,bestellstatus,gesamtpreis,gezahlt,erzeugt,aktualisiert,idx) values (609,0,208,'16.10.12 00:00','versand',81,1,'19.10.12 00:00','19.10.12 00:00',0);

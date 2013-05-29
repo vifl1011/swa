@@ -521,7 +521,7 @@ public class KundeController implements Serializable {
 	 * Action Methode, um einen zuvor gesuchten Kunden zu l&ouml;schen
 	 * @return URL fuer Startseite im Erfolgsfall, sonst wieder die gleiche Seite
 	 */
-	/*
+	
 	@TransactionAttribute(REQUIRED)
 	public String deleteAngezeigtenKunden() {
 		if (kunde == null) {
@@ -580,7 +580,7 @@ public class KundeController implements Serializable {
 		contentType = uploadedFile.getContentType();
 		bytes = uploadedFile.getData();
 	}
-
+/*
 	@TransactionAttribute(REQUIRED)
 	public String upload() {
 		kunde = ks.findKundeById(kundeId, FetchType.NUR_KUNDE, locale);
