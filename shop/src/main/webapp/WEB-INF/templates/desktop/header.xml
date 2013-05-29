@@ -11,8 +11,35 @@
 							alt="#{msg['header.logo.alt']}"/>
 		</h:outputLink>
 		<rich:toolbarGroup id="headerToolbarContainer" location="right">
-		
+				<h:form id="loginForm"  rendered="#{not auth.loggedIn}">
+					<h:panelGrid id="loginGrid" columns="3">
+						<h:outputLabel id="usernameLabel"
+						               value="#{msg['login.kundeId']}"
+						               for="username"/>
+						<h:inputText id="username"  value="#{auth.username}"/>
+						<f:verbatim/>
+								
+						<h:outputLabel id="passwordLabel"
+						               value="#{msg['login.password']}"
+						               for="password"/>
+						<h:inputSecret id="password" value="#{auth.password}"/>
+						<h:commandButton id="loginButton" action="#{auth.login}" value="#{msg['login.submit']}"/>
+					</h:panelGrid>
+				
+				</h:form>
+				<h:panelGroup id="fehlermeldungGroup" rendered="#{param.error eq 'true'}">
+					<p id="abstandZuForm" class="rf-msg-err">
+						#{msg['login.error']}
+					</p>
+				</h:panelGroup>	
 			
+			<h:form id="logoutForm" rendered="#{auth.loggedIn}">
+				<h:commandLink id="logoutCommand" action="#{auth.logout}" >
+						<h:outputFormat id="logout" value="#{msg['header.logout']}">
+						<f:param value="#{auth.username}"/>
+					</h:outputFormat>
+				</h:commandLink>		
+			</h:form>
 			<h:form id="spracheForm">
 				<rich:dropDownMenu id="headerChangeLang">
 					<f:facet name="label">
@@ -23,10 +50,7 @@
 				</rich:dropDownMenu>
 			</h:form>
 			
-		<h:outputLink id="headerlogin" location="right"
-		              value="#{request.contextPath}/auth/login.jsf">
-			#{msg['header.login']}
-		</h:outputLink>
+
 		</rich:toolbarGroup>
 
 	</rich:toolbar>

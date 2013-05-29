@@ -70,7 +70,7 @@ import de.shop.util.Transactional;
 @SessionScoped
 @Stateful // Hab das auskommentiert weil ansonsten immer "
 @TransactionAttribute(SUPPORTS)
-@PermitAll
+@PermitAll 
 public class KundeController implements Serializable {
 	private static final long serialVersionUID = -8817180909526894740L;
 	

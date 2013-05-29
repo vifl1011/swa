@@ -12,27 +12,28 @@
 	
 		<ui:define name="article">
 			<rich:panel id="loginPanel" header="#{msg['login.heading']}" style="width:300px">
-				<form id="loginForm" action="j_security_check" method="post">
+				<h:form id="loginForm" >
 					<h:panelGrid id="loginGrid" columns="3">
 						<h:outputLabel id="usernameLabel"
 						               value="#{msg['login.kundeId']}"
 						               for="username"/>
-						<h:inputText id="j_username"/>
+						<h:inputText id="username"  value="#{auth.username}"/>
 						<f:verbatim/>
 								
 						<h:outputLabel id="passwordLabel"
 						               value="#{msg['login.password']}"
 						               for="password"/>
-						<h:inputSecret id="j_password"/>
-						<h:commandButton id="loginButton" value="#{msg['login.submit']}"/>
+						<h:inputSecret id="password" value="#{auth.password}"/>
+						<h:commandButton id="loginButton" action="#{auth.login}" value="#{msg['login.submit']}"/>
 					</h:panelGrid>
-				</form>
 				
+				</h:form>
 				<h:panelGroup id="fehlermeldungGroup" rendered="#{param.error eq 'true'}">
 					<p id="abstandZuForm" class="rf-msg-err">
 						#{msg['login.error']}
 					</p>
-				</h:panelGroup>			</rich:panel>
+				</h:panelGroup>	
+			</rich:panel>
 			
 <!--
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"

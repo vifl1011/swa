@@ -145,34 +145,34 @@ public class AuthController implements Serializable {
 	 * Einloggen eines registrierten Kunden mit Benutzername und Password.
 	 */
 	//TODO funktioniert noch nicht
-//	@Transactional
-//	public String login() {
-//		if (username == null || "".equals(username)) {
-//			reset();
-//			messages.error(SHOP, MSG_KEY_LOGIN_ERROR, CLIENT_ID_USERNAME);
-//			return null;   // Gleiche Seite nochmals aufrufen: mit den fehlerhaften Werten
-//		}
-//		
-//		try {
-//			request.login(username, password);
-//		}
-//		catch (ServletException e) {
-//			LOGGER.tracef("username=%s, password=%s", username, password);
-//			reset();
-//			messages.error(SHOP, MSG_KEY_LOGIN_ERROR, CLIENT_ID_USERNAME);
-//			return null;   // Gleiche Seite nochmals aufrufen: mit den fehlerhaften Werten
-//		}
-//		
-//		user = ks.findKundeByUserName(username);
-//		if (user == null) {
-//			logout();
-//			throw new InternalError("Kein Kunde mit dem Loginnamen \"" + username + "\" gefunden");
-//		}
-//		
-//		// Gleiche JSF-Seite erneut aufrufen: Re-Render fuer das Navigationsmenue stattfindet
-//		final String path = ctx.getViewRoot().getViewId();
-//		return path;
-//	}
+	@Transactional
+	public String login() {
+		if (username == null || "".equals(username)) {
+			reset();
+			messages.error(SHOP, MSG_KEY_LOGIN_ERROR, CLIENT_ID_USERNAME);
+			return null;   // Gleiche Seite nochmals aufrufen: mit den fehlerhaften Werten
+		}
+		Kunde tmp = ks.findKundenByLogin(username);
+		try {
+			request.login(tmp.getId().toString(), password);
+		}
+		catch (ServletException e) {
+			LOGGER.tracef("username=%s, password=%s", username, password);
+			reset();
+			messages.error(SHOP, MSG_KEY_LOGIN_ERROR, CLIENT_ID_USERNAME);
+			return null;   // Gleiche Seite nochmals aufrufen: mit den fehlerhaften Werten
+		}
+		
+		user = tmp;
+		if (user == null) {
+			logout();
+			throw new InternalError("Kein Kunde mit dem Loginnamen \"" + username + "\" gefunden");
+		}
+		
+		// Gleiche JSF-Seite erneut aufrufen: Re-Render fuer das Navigationsmenue stattfindet
+		final String path = ctx.getViewRoot().getViewId();
+		return path;
+	}
 	
 	/**
 	 * Nachtraegliche Einloggen eines registrierten Kunden mit Benutzername und Password.

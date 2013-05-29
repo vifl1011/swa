@@ -117,6 +117,8 @@ public class KundeService implements Serializable {
 				                             .getResultList();
 		return kunden;
 	}
+	
+	@Log
 	public Kunde findKundenByLogin(String login) {
 		if (login == null) {
 			return null;
