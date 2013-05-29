@@ -1,12 +1,33 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
-	<p>
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:rich="http://richfaces.org/rich">
+	<rich:toolbar header="123px">
 		<h:outputLink id="hsLink" value="#{request.contextPath}">
 			<h:graphicImage id="hsLogoImage"
 			                name="hs-logo.gif"
 			                library="images"
 							alt="#{msg['header.logo.alt']}"/>
 		</h:outputLink>
-	</p>
+		<rich:toolbarGroup id="headerToolbarContainer" location="right">
+		
+			
+			<h:form id="spracheForm">
+				<rich:dropDownMenu id="headerChangeLang">
+					<f:facet name="label">
+						#{msg['header.sprache']}
+					</f:facet>
+					<rich:menuItem id="headerChangeLangEn" label="#{msg['header.sprache.englisch']}"	actionListener="#{sprache.change('en')}"/>
+					<rich:menuItem id="headerChangeLangDe" label="#{msg['header.sprache.deutsch']}" actionListener="#{sprache.change('de')}"/>
+				</rich:dropDownMenu>
+			</h:form>
+			
+		<h:outputLink id="headerlogin" location="right"
+		              value="#{request.contextPath}/auth/login.jsf">
+			#{msg['header.login']}
+		</h:outputLink>
+		</rich:toolbarGroup>
+
+	</rich:toolbar>
 </ui:composition>
