@@ -38,7 +38,10 @@
 								</h:panelGroup>
 							</f:facet>
 							<rich:panel id="stammdatenPanel">
-								<h:panelGrid id="stammdatenGrid" columns="2">
+								<h:panelGrid id="stammdatenGrid" columns="2"
+											rowClasses="odd-row, even-row"
+						                	styleClass="tabelleMitZebrastil"
+						                	cellspacing="5">
 									<h:outputText id="bestellungIdLabel" value="#{msgBv['viewBestellung.bestellnr']}"/>
 									<h:outputText id="bestellungId" value="#{bc.bestellung.id}"/>
 								
@@ -50,6 +53,9 @@
 								
 									<h:outputText id="bestellungGezahltLabel" value="#{msgBv['viewBestellung.gezahlt']}"/>
 									<h:outputText id="bestellungGezahlt" value="#{bc.bestellung.gezahlt}"/>
+									
+									<h:outputText id="bestellungStatusLabel" value="#{msgBv['viewBestellung.status']}"/>
+									<h:outputText id="bestellungStatus" value="#{bc.bestellung.bestellstatus}"/>
 								
 									<h:outputText id="bestellungBestellzeitpunktLabel" value="#{msgBv['viewBestellung.bestellzeitpunkt']}"/>
 									<h:outputText id="bestellungBestellzeitpunkt" value="#{bc.bestellung.bestellzeitpunktStr}"/>
@@ -60,7 +66,7 @@
 							<f:facet name="header">
 								<h:panelGroup id="bestellpositionenLabel">
 									<h:graphicImage id="PositionenGif"
-									                name="text.gif"
+									                name="warenkorb.gif"
 									                library="images"/>
 									#{' '}
 									#{msgBv['viewBestellung.bestellung.bestellpositionen']}
@@ -133,6 +139,17 @@
 							</a4j:outputPanel>
 						</rich:tab>
 					</rich:tabPanel>
+					
+					<p id="buttons">
+						<h:panelGroup id="buttonsGroup" rendered="#{not empty bc.bestellung}">
+							<h:commandButton id="updateButtonBestellung"
+							                 image="#{resource['images:edit.gif']}"
+							                 action="/bestellverwaltung/updateBestellung"		
+							                 alt="#{msgBv['viewBestellung.updateButtonAlt']}"/>
+							#{' '}
+							<rich:messages id="fehlermeldungDeleteButton" for="deleteButton"/>
+						</h:panelGroup>
+					</p>
 				</a4j:outputPanel>
 			</h:form>
 		</ui:define>
