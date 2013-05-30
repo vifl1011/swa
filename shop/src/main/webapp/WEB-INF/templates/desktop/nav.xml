@@ -56,7 +56,7 @@
 			                     label="#{msg['nav.bestellverwaltung']}"
 			                     expanded="true">
 			                     
-				<rich:panelMenuItem id="bestellverwaltungFindBestellung">
+				<rich:panelMenuItem id="bestellverwaltungFindBestellung"  rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter')} or rich:isUserInRole('abteilungsleiter')}">
 					<h:outputLink id="findBestellung"
 		        		value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
 		        		#{msg['nav.viewBestellung']}
