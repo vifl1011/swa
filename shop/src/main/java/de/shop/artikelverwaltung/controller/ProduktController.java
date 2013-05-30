@@ -1,5 +1,7 @@
 package de.shop.artikelverwaltung.controller;
 
+import static de.shop.util.Messages.MessagesType.KUNDENVERWALTUNG;
+
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
@@ -17,10 +19,10 @@ import org.jboss.logging.Logger;
 
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
-import de.shop.bestellverwaltung.domain.Bestellung;
 import de.shop.util.Client;
 import de.shop.util.Log;
 import de.shop.util.Transactional;
+import static de.shop.util.Constants.JSF_REDIRECT_SUFFIX;
 
 
 /**
@@ -34,11 +36,9 @@ public class ProduktController implements Serializable {
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
-	private static final String JSF_LIST_ARTIKEL = "/artikelverwaltung/listArtikel";
+	private static final String JSF_PRODUKTVERWALTUNG = "/artikelverwaltung";
+	private static final String JSF_LIST_ARTIKEL = JSF_PRODUKTVERWALTUNG + "/listArtikel";
 	private static final String FLASH_ARTIKEL = "artikel";
-	private static final String JSF_LIST_Produkt = "/Produktverwaltung/listProdukt";
-	private static final String JSF_VIEW_PRODUKT = "/Produktverwaltung/viewProdukt";
-	private static final String FLASH_Produkt = "Produkt";
 	private static final int ANZAHL_LADENHUETER = 5;
 	
 	private static final String JSF_SELECT_ARTIKEL = "/artikelverwaltung/selectArtikel";
@@ -52,6 +52,12 @@ public class ProduktController implements Serializable {
 	
 	private Produkt produkt;
 	
+	private Produkt neuesProdukt;
+	
+	public Produkt getNeuesProdukt() {
+		return neuesProdukt;
+	}
+
 	private Long produktId;
 
 	@Inject
@@ -69,6 +75,7 @@ public class ProduktController implements Serializable {
 	
 	@PostConstruct
 	private void postConstruct() {
+		createEmptyProdukt();
 		LOGGER.debugf("CDI-faehiges Bean %s wurde erzeugt", this);
 	}
 
@@ -153,11 +160,36 @@ public class ProduktController implements Serializable {
 	public String findProduktById() {
 		produkt = as.findProduktById(produktId, locale);
 		if (produkt == null) {
-			flash.remove(FLASH_Produkt);
+			flash.remove(FLASH_ARTIKEL);
 			return null;
 		}
-		flash.put(FLASH_Produkt, produkt);
-		return JSF_LIST_Produkt;
+		flash.put(FLASH_ARTIKEL, produkt);
+		return JSF_LIST_ARTIKEL;
 	}
 	
+	public void createEmptyProdukt() {
+		if (neuesProdukt != null) {
+			return;
+		}
+		
+		this.neuesProdukt = new Produkt();
+		LOGGER.debugf("leeres Produkt erstell :D");
+	}
+	
+	/*
+	 * legt ein neues Produkt an
+	 */
+	@Transactional
+	public String createProdukt() {
+		try {
+			as.createProdukt(neuesProdukt, locale);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+		
+		produktId = neuesProdukt.getId();
+		produkt = neuesProdukt;
+		
+		return JSF_LIST_ARTIKEL + JSF_REDIRECT_SUFFIX;
+	}
 }
