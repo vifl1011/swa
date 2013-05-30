@@ -89,6 +89,11 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
             query = "SELECT k"
 			        + " FROM   Kunde k"
             		+ " WHERE  UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NACHNAME + ")"),
+    @NamedQuery(name  = Kunde.FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN,
+            query = "SELECT      DISTINCT k"
+            		+ " FROM     Kunde k LEFT JOIN FETCH k.bestellungen"
+    			    + " WHERE    UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NACHNAME + ")"
+    			    + " ORDER BY k.id"),
     @NamedQuery(name  = Kunde.FIND_KUNDE_BY_ID,
             query = "SELECT k "
 			        + " FROM   Kunde as k"
@@ -137,6 +142,7 @@ public class Kunde implements Serializable, Cloneable {
 	public static final String FIND_KUNDEN_FETCH_BESTELLUNGEN = PREFIX + "findKundenFetchBestellungen";
 	public static final String FIND_KUNDEN_FETCH_ADRESSE = PREFIX + "findKundenFetchAdresse";
 	public static final String FIND_KUNDEN_BY_NACHNAME = PREFIX + "findKundenByNachname";
+	public static final String FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN = PREFIX + "findKundenByNachnameFetchBestellungen";
 	public static final String FIND_IDS_BY_PREFIX = PREFIX + "findIdsByIdPrefix";
 	public static final String FIND_KUNDEN_BY_ID_PREFIX = PREFIX + "findKundenByIdPrefix";
 	
