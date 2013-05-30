@@ -35,12 +35,6 @@
 			                     label="#{msg['nav.bestellverwaltung']}"
 			                     expanded="true">
 			                     
-			    <rich:panelMenuItem id="viewBestellung">
-					<h:outputLink id="menuViewBestellung"
-				        value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
-						#{msg['nav.viewBestellung']}
-					</h:outputLink>
-				</rich:panelMenuItem>
 				<rich:panelMenuItem id="bestellverwaltungFindBestellung">
 					<h:outputLink id="findBestellung"
 		        		value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">

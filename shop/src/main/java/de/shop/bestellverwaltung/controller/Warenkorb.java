@@ -77,11 +77,6 @@ public class Warenkorb implements Serializable {
 		return "Warenkorb " + positionen;
 	}
 	
-	
-//	public Warenkorb() {
-//		//beginConversation();		
-//	}
-	
 	/**
 	 */
 	public String add(Produkt produkt) {
