@@ -78,9 +78,30 @@
 						                
 						    	<rich:column id="idSpalte">
 									<f:facet name="header">
-										#{msgBv['bestellung.bestellpositionen.id']}
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.id']}
 									</f:facet>
 									#{bp.id}
+								</rich:column>
+								
+								<rich:column id="produktNameSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.produkt.bezeichnung']}
+									</f:facet>
+									#{bp.produkt.bezeichnung}
+								</rich:column>
+								
+								<rich:column id="mengeSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.produkt.menge']}
+									</f:facet>
+									#{bp.menge}
+								</rich:column>
+								
+								<rich:column id="preisSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.produkt.preis']}
+									</f:facet>
+									#{bp.einzelpreis}
 								</rich:column>
 								
 							</rich:dataTable>
