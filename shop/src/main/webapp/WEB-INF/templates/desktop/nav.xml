@@ -24,6 +24,15 @@
 						#{msg['nav.viewKunde']}
 					</h:outputLink>
 				</rich:panelMenuItem>
+				<rich:panelMenuItem id="kundenverwaltungCreateKundeItem" rendered="#{rich:isUserInRole('admin')}">
+					<h:outputLink id="kundenverwaltungCreateKunde"
+					              value="#{request.contextPath}/kundenverwaltung/createKunde.jsf">
+						#{msg['nav.kundenverwaltung.createKunde']}
+						<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+							<f:param id="createKundeCid" name="cid" value="#{javax.enterprise.context.conversation.id}"/>
+						</c:if>
+					</h:outputLink>
+				</rich:panelMenuItem>
 				<rich:panelMenuItem id="upload">
 					<h:outputLink id="menuUpload"
 				   	    value="#{request.contextPath}/kundenverwaltung/upload.jsf">
