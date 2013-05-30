@@ -51,7 +51,7 @@ import static de.shop.util.Constants.ERSTE_VERSION;
 					+ " WHERE    p.bezeichnung LIKE :" + Produkt.PARAM_BEZEICHNUNG),
 	@NamedQuery(name  = Produkt.FIND_LADENHUETER,
             query = "SELECT    a"
-	           	    + " FROM   Produkt a"
+	           	    + " FROM   Produkt as a"
 	           	    + " WHERE  a NOT IN (SELECT bp.produkt FROM Bestellposition bp)")
 })
 	
