@@ -34,7 +34,7 @@ import static de.shop.util.Constants.ERSTE_VERSION;
 
 
 /**
- * The persistent class for the produkt database table.
+ * The persistent class for the produkt database table
  * 
  */
 @Entity
