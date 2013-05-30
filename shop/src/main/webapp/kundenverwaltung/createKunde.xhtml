@@ -35,64 +35,15 @@
 					<h:panelGrid id="createKundeTabelle"
 					             columns="3">
 			
-						<h:outputLabel id="nachnameLabel" for="nachname" value="#{msgKv['createKunde.nachname']}"/>
-						<h:inputText id="nachname" value="#{kc.neuerKunde.nachname}">
-							<rich:validator oninvalid="$(#{rich:element('nachname')}).addClass('invalid')"
-                                            onvalid="$(#{rich:element('nachname')}).removeClass('invalid')"/>
+						<h:outputLabel id="nameLabel" for="name" value="#{msgKv['createKunde.name']}"/>
+						<h:inputText id="name" value="#{kc.neuerKunde.name}">
+							<rich:validator oninvalid="$(#{rich:element('name')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('name')}).removeClass('invalid')"/>
 						</h:inputText>
-						<rich:messages id="fehlermeldungenNachname" for="nachname"/>
+						<rich:messages id="fehlermeldungenName" for="name"/>
 			
 						<h:outputLabel id="vornameLabel" for="vorname" value="#{msgKv['createKunde.vorname']}"/>
 						<h:inputText id="vorname" value="#{kc.neuerKunde.vorname}"/>
-						<f:verbatim/>
-						
-						<h:outputLabel id="kategorieLabel" value="#{msgKv['createKunde.kategorie']}" for="kategorie"/>
-						<rich:inputNumberSlider id="kategorie"
-						                        value="#{kc.neuerKunde.kategorie}"
-						                        minValue="0"
-						                        maxValue="5"
-						                        inputSize="1"
-						                        width="100"/>
-						<f:verbatim/>
-						
-						<h:outputLabel id="seitLabel"
-						               for="seit"
-						               value="#{msgKv['createKunde.seit']}"/>
-						<rich:calendar id="seit"
-						               datePattern="#{msgKv['createKunde.calendar.pattern']}"
-						               value="#{kc.neuerKunde.seit}"
-						               timezone="CET">
-						    <!-- https://issues.jboss.org/browse/RF-10224
-							<rich:validator/>
-							-->
-							<rich:placeholder id="seitPlaceholder" value="#{msgKv['createKunde.seit.placeholder']}" />
-						</rich:calendar>
-						<rich:messages id="fehlermeldungenSeit" for="seit"/>
-						
-						<h:outputLabel id="umsatzLabel" for="umsatz" value="#{msgKv['createKunde.umsatz']}"/>
-						<h:inputText id="umsatz"
-						             value="#{kc.neuerKunde.umsatz}"
-						             converterMessage="#{msgKv['createKunde.umsatz.convert']}">
-						    <f:convertNumber type="currency"
-							                 currencyCode="EUR"
-							                 maxFractionDigits="2"/>
-							<f:ajax event="blur" render="fehlermeldungenUmsatz"/>
-							<!-- https://issues.jboss.org/browse/RF-10224
-							<rich:validator/>
-							-->
-						</h:inputText>
-						<rich:messages id="fehlermeldungenUmsatz" for="umsatz"/>
-			
-						<h:outputLabel id="familienstandLabel" for="familienstand" value="#{msgKv['createKunde.familienstand']}"/>
-						<rich:select id="familienstand"
-						             enableManualInput="true"
-						             defaultLabel="#{msgKv['createKunde.familienstand']}"
-						             value="#{kc.neuerKunde.familienstand}">
-							<f:selectItem id="ledig" itemValue="LEDIG" itemLabel="#{msgKv['createKunde.familienstand.ledig']}"/>
-							<f:selectItem id="verheiratet" itemValue="VERHEIRATET" itemLabel="#{msgKv['createKunde.familienstand.verheiratet']}"/>
-							<f:selectItem id="geschieden" itemValue="GESCHIEDEN" itemLabel="#{msgKv['createKunde.familienstand.geschieden']}"/>
-							<f:selectItem id="verwitwet" itemValue="VERWITWET" itemLabel="#{msgKv['createKunde.familienstand.verwitwet']}"/>
-						</rich:select>
 						<f:verbatim/>
 						
 						<h:outputText id="geschlechtLabel" value="#{msgKv['createKunde.geschlecht']}"/>
@@ -101,23 +52,7 @@
 							<f:selectItem id="maennlich" itemValue="MAENNLICH" itemLabel="#{msgKv['createKunde.geschlecht.maennlich']}"/>
 						</h:selectOneRadio>
 						<f:verbatim/>
-						
-						<h:outputLabel id="newsletterLabel" value="#{msgKv['createKunde.newsletter']}"/>
-						<h:selectBooleanCheckbox id="newsletter" value="#{kc.neuerKunde.newsletter}"/>
-						<f:verbatim/>
-		
-						
-						<h:outputText id="hobbiesLabel" value="#{msgKv['createKunde.hobbies']}"/>
-						<h:selectManyCheckbox id="hobbies" value="#{kc.hobbies}"
-						                      layout="pageDirection">
-							<f:selectItem id="sport" itemValue="SPORT"
-										  itemLabel="#{msgKv['createKunde.sport']}"/>
-							<f:selectItem id="lesen" itemValue="LESEN" 
-										  itemLabel="#{msgKv['createKunde.lesen']}"/>
-							<f:selectItem id="reisen" itemValue="REISEN" 
-										  itemLabel="#{msgKv['createKunde.reisen']}"/>
-						</h:selectManyCheckbox>
-						<f:verbatim/>
+							
 										
 						<h:outputLabel id="emailLabel" for="email" value="#{msgKv['createKunde.email']}"/>
 						<h:inputText id="email" value="#{kc.neuerKunde.email}">
@@ -126,19 +61,19 @@
 						</h:inputText>
 						<rich:messages id="fehlermeldungEmail" for="email"/>
 		
-						<h:outputLabel id="passwordLabel"
-						               for="password"
+						<h:outputLabel id="passwortLabel"
+						               for="passwort"
 						               value="#{msgKv['createKunde.password']}"/>
-						<h:inputSecret id="password"
-						               value="#{kc.neuerKunde.password}"
+						<h:inputSecret id="passwort"
+						               value="#{kc.neuerKunde.passwort}"
 						               redisplay="true"/>
 						<f:verbatim/>
 						
-						<h:outputLabel id="passwordWdhLabel"
-						               for="passwordWdh"
+						<h:outputLabel id="passwortWdhLabel"
+						               for="passwortWdh"
 						               value="#{msgKv['createKunde.passwordWdh']}"/>
-						<h:inputSecret id="passwordWdh"
-						               value="#{kc.neuerKunde.passwordWdh}"
+						<h:inputSecret id="passwortWdh"
+						               value="#{kc.neuerKunde.passwortWdh}"				
 						               redisplay="true"/>
 						<f:verbatim/>
 		
@@ -167,7 +102,7 @@
 						<rich:messages id="fehlermeldungStrasse" for="strasse"/>
 						
 						<h:outputLabel id="hausnrLabel" for="hausnr" value="#{msgKv['createKunde.hausnr']}"/>
-						<h:inputText id="hausnr" value="#{kc.neuerKunde.adresse.hausnr}"/>
+						<h:inputText id="hausnr" value="#{kc.neuerKunde.adresse.hausnummer}"/>
 						<f:verbatim/>
 						
 						<h:outputLabel id="agbLabel" for="agb" value="#{msgKv['createKunde.agb']}"/>

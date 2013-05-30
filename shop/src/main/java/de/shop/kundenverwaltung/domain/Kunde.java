@@ -30,6 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Min;
 import javax.persistence.UniqueConstraint;
 
@@ -192,6 +193,14 @@ public class Kunde implements Serializable, Cloneable {
 
 	@Column(name = "PASSWORT", length = 255, nullable = false)
 	private String passwort;
+	
+	@Transient
+	@JsonIgnore
+	private String passwortWdh;
+	
+	@Transient
+	@AssertTrue(message = "{kundenverwaltung.kunde.agb}")
+	private boolean agbAkzeptiert;
 
 	@Column(name = "RABATT", nullable = false)
 	private float rabatt;
@@ -274,6 +283,22 @@ public class Kunde implements Serializable, Cloneable {
 	public void addBestellung(Bestellung bestellung) {
 		if (bestellung != null)
 			bestellungen.add(bestellung);
+	}
+	
+	public String getPasswortWdh() {
+		return passwortWdh;
+	}
+
+	public void setPasswortWdh(String passwortWdh) {
+		this.passwortWdh = passwortWdh;
+	}
+	
+	public void setAgbAkzeptiert(boolean agbAkzeptiert) {
+		this.agbAkzeptiert = agbAkzeptiert;
+	}
+
+	public boolean isAgbAkzeptiert() {
+		return agbAkzeptiert;
 	}
 	
 	public Adresse getAdresse() {
@@ -411,6 +436,8 @@ public class Kunde implements Serializable, Cloneable {
 		setRabatt(k.getRabatt());
 		setEmail(k.getEmail());
 		setPasswort(k.getPasswort());
+		passwortWdh = k.passwort;
+		agbAkzeptiert = k.agbAkzeptiert;
 		setLogin(k.getLogin());
 		setGeschlecht(k.geschlecht);
 		setVersion(k.getVersion());
