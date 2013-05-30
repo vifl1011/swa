@@ -6,8 +6,12 @@
                 xmlns:rich="http://richfaces.org/rich">
     <h:form id="navForm">
 		<p id="index">
-			<h:outputLink id="menuIndex" value="#{request.contextPath}">
+			<h:outputLink id="menuIndex" value="#{request.contextPath}/index.jsf">
 				#{msg['nav.index']}
+				<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		       		<f:param id="indexCid" name="cid"
+						value="#{javax.enterprise.context.conversation.id}"/>
+		    </c:if>
 			</h:outputLink>
 		</p>
 		<rich:panelMenu id="panelMenu"
@@ -22,6 +26,10 @@
 					<h:outputLink id="menuViewKunde"
 					   	value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
 						#{msg['nav.viewKunde']}
+						<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		        			<f:param id="viewKundeCid" name="cid"
+									value="#{javax.enterprise.context.conversation.id}"/>
+		        		</c:if>
 					</h:outputLink>
 				</rich:panelMenuItem>
 				<rich:panelMenuItem id="kundenverwaltungCreateKundeItem" rendered="#{rich:isUserInRole('admin')}">
@@ -37,6 +45,10 @@
 					<h:outputLink id="menuUpload"
 				   	    value="#{request.contextPath}/kundenverwaltung/upload.jsf">
 						#{msg['nav.kundenverwaltung.upload']}
+						<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		        			<f:param id="kundeUploadCid" name="cid"
+									value="#{javax.enterprise.context.conversation.id}"/>
+		        		</c:if>
 					</h:outputLink>
 				</rich:panelMenuItem>
 			</rich:panelMenuGroup>
@@ -48,6 +60,10 @@
 					<h:outputLink id="findBestellung"
 		        		value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
 		        		#{msg['nav.viewBestellung']}
+		        		<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		        			<f:param id="viewBestellungCid"	name="cid"
+									value="#{javax.enterprise.context.conversation.id}"/>
+		        		</c:if>
 		        	</h:outputLink>
 		        	
 				</rich:panelMenuItem>
