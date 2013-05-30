@@ -29,11 +29,16 @@ import java.util.logging.Logger;
 
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.domain.PasswordGroup;
+import de.shop.util.File;
+import de.shop.util.FileHelper.MimeType;
 import de.shop.util.IdGroup;
 import de.shop.util.Log;
 import de.shop.util.Constants;
+import de.shop.util.NoMimeTypeException;
 import de.shop.util.Transactional;
 import de.shop.util.ValidatorProvider;
+import de.shop.util.FileHelper;
+import de.shop.util.FileHelper.MimeType;
 
 /**
  * Anwendungslogik fuer die KundeService
@@ -59,6 +64,9 @@ public class KundeService implements Serializable {
 	
 	@Inject
 	private ValidatorProvider validatorProvider;
+	
+	@Inject
+	private FileHelper fileHelper;
 	
 	@PostConstruct
 	private void postConstruct() {
@@ -276,4 +284,45 @@ public class KundeService implements Serializable {
 		
 		em.remove(kunde);
 	}
+	
+	/**
+	 * Ohne MIME Type fuer Upload bei RESTful WS
+	 */
+	public void setFile(Long kundeId, byte[] bytes, Locale locale) {
+		final Kunde kunde = findKundeById(kundeId, FetchType.NUR_KUNDE, locale);
+		if (kunde == null) {
+			return;
+		}
+		final MimeType mimeType = fileHelper.getMimeType(bytes);
+		setFile(kunde, bytes, mimeType);
+	}
+	
+	/**
+	 * Mit MIME-Type fuer Upload bei Webseiten
+	 */
+	public void setFile(Kunde kunde, byte[] bytes, String mimeTypeStr) {
+		final MimeType mimeType = MimeType.get(mimeTypeStr);
+		setFile(kunde, bytes, mimeType);
+	}
+	
+	private void setFile(Kunde kunde, byte[] bytes, MimeType mimeType) {
+		if (mimeType == null) {
+			throw new NoMimeTypeException();
+		}
+		
+		final String filename = fileHelper.getFilename(kunde.getClass(), kunde.getId(), mimeType);
+		
+		// Gibt es noch kein (Multimedia-) File
+		File file = kunde.getFile();
+		if (file == null) {
+			file = new File(bytes, filename, mimeType);
+			kunde.setFile(file);
+			em.persist(file);
+		}
+		else {
+			file.set(bytes, filename, mimeType);
+			em.merge(file);
+		}
+	}
+	
 }

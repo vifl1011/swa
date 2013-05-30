@@ -10,29 +10,37 @@
 				#{msg['nav.index']}
 			</h:outputLink>
 		</p>
-		<p id="viewKunde">
-			<h:outputLink id="menuViewKunde"
-		   	    value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
-				#{msg['nav.viewKunde']}
-			</h:outputLink>
-		</p>
-	
-		<p id="viewBestellung">
-			<h:outputLink id="menuViewBestellung"
-		        value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
-				#{msg['nav.viewBestellung']}
-			</h:outputLink>
-		</p>
-		
 		<rich:panelMenu id="panelMenu"
-		                itemMode="client"
-		                topGroupExpandedLeftIcon="chevronDown"
-		                topGroupCollapsedLeftIcon="chevron"
-		                itemLeftIcon="grid">
+		               itemMode="client"
+		               topGroupExpandedLeftIcon="chevronDown"
+		               topGroupCollapsedLeftIcon="chevron"
+		               itemLeftIcon="grid">
+			<rich:panelMenuGroup id="kundenverwaltung"
+				                     label="#{msg['nav.kundenverwaltung']}"
+				                     expanded="true">
+				<rich:panelMenuItem id="viewKunde">
+					<h:outputLink id="menuViewKunde"
+					   	value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
+						#{msg['nav.viewKunde']}
+					</h:outputLink>
+				</rich:panelMenuItem>
+				<rich:panelMenuItem id="upload">
+					<h:outputLink id="menuUpload"
+				   	    value="#{request.contextPath}/kundenverwaltung/upload.jsf">
+						#{msg['nav.kundenverwaltung.upload']}
+					</h:outputLink>
+				</rich:panelMenuItem>
+			</rich:panelMenuGroup>
 			<rich:panelMenuGroup id="bestellverwaltung"
 			                     label="#{msg['nav.bestellverwaltung']}"
 			                     expanded="true">
 			                     
+			    <rich:panelMenuItem id="viewBestellung">
+					<h:outputLink id="menuViewBestellung"
+				        value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
+						#{msg['nav.viewBestellung']}
+					</h:outputLink>
+				</rich:panelMenuItem>
 				<rich:panelMenuItem id="bestellverwaltungFindBestellung">
 					<h:outputLink id="findBestellung"
 		        		value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">

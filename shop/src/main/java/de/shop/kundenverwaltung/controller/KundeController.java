@@ -580,7 +580,7 @@ public class KundeController implements Serializable {
 		contentType = uploadedFile.getContentType();
 		bytes = uploadedFile.getData();
 	}
-/*
+
 	@TransactionAttribute(REQUIRED)
 	public String upload() {
 		kunde = ks.findKundeById(kundeId, FetchType.NUR_KUNDE, locale);
@@ -596,7 +596,7 @@ public class KundeController implements Serializable {
 
 		return JSF_INDEX;
 	}
-	*/
+	
 	public String getFilename(File file) {
 		if (file == null) {
 			return "";
