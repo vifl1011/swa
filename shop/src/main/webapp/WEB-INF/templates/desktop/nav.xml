@@ -79,7 +79,15 @@
 					               action="#{ac.selectArtikel}">
 						#{msg['nav.artikelverwaltung.selectArtikel']}
 					</h:commandLink>
-				</rich:panelMenuItem>				
+				</rich:panelMenuItem>	
+				
+				<rich:panelMenuItem id="bearb">
+					<h:outputLink id="bearblink"
+					              value="#{request.contextPath}/artikelverwaltung/bearb.jsf">
+						#{msg['hi']}
+					</h:outputLink>
+				</rich:panelMenuItem>	
+						
 			</rich:panelMenuGroup>			
 			
 			
