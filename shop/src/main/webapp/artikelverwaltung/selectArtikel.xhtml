@@ -14,22 +14,95 @@
 	
 		<ui:define name="article">
 			<h:form id="selectForm">
-				<h:panelGrid id="selectGrid" columns="2">
-					<rich:select id="artikelBezeichnung"
-					             defaultLabel="#{msgAv['selectArtikel.auswahl']}"
-					             value="#{wk.artikelId}">
-						<!--
-						<f:selectItems id="artikelItems" values="#{verfuegbareArtikel}"/>
-						-->
-						<c:forEach var="artikel" items="#{verfuegbareArtikel}">
-							<f:selectItem id="artikelItem#{artikel.id}" itemLabel="#{artikel.bezeichnung}" itemValue="#{artikel.id}"/>
-						</c:forEach>
-					</rich:select>
-		
-					<h:commandButton id="selectButton"
-					                 action="#{wk.add}"
-					                 value="#{msgAv['selectArtikel.select']}"/>
-				</h:panelGrid>
+			
+			<rich:dataTable id="produktTabelle"
+						                value="#{verfuegbareArtikel}"
+						                var="art"
+						                rows="5"
+						                noDataLabel="#{msgAv['selectArtikel.noData']}"
+						                rowClasses="odd-row, even-row"
+						                styleClass="tabelleMitZebrastil"
+						                cellspacing="10"
+						                rendered="#{not empty verfuegbareArtikel}">
+						                
+					<rich:column id="idSpalte">
+						<f:facet name="header">
+							#{msgAv['selectArtikel.artikel.id']}
+						</f:facet>
+						#{art.id}
+					</rich:column>
+				
+					<rich:column id="bezeichnungSpalte">
+						<f:facet name="header">
+							#{msgAv['selectArtikel.artikel.bezeichnung']}
+						</f:facet>
+						#{art.bezeichnung}
+					</rich:column>
+				
+					<rich:column id="farbeSpalte">
+						<f:facet name="header">
+							#{msgAv['selectArtikel.artikel.farbe']}
+						</f:facet>
+						#{art.farbe}
+					</rich:column>
+				
+					<rich:column id="groesseSpalte">
+						<f:facet name="header">
+							#{msgAv['selectArtikel.artikel.groesse']}
+						</f:facet>
+						#{art.groesse}
+					</rich:column>
+				
+					<rich:column id="preisSpalte">
+						<f:facet name="header">
+							#{msgAv['selectArtikel.artikel.preis']}
+						</f:facet>
+						#{art.preis}
+					</rich:column>
+				
+					<rich:column id="vorratSpalte">
+						<f:facet name="header">
+							#{msgAv['selectArtikel.artikel.vorrat']}
+						</f:facet>
+						#{art.vorrat}
+					</rich:column>
+				
+					<rich:column id="buttonSpalte">
+						<h:commandButton id="selectButton"
+					                 image="#{resource['images:warenkorb.gif']}"
+					                 action="#{wk.add(art)}"
+					                 alt="#{msgAv['selectArtikel.select']}"/>
+					                 
+					</rich:column>
+				
+			</rich:dataTable>
+			
+			<p id="abstand2"/>
+			
+			<rich:dataScroller id="dataScroller"
+						                   for="produktTabelle"
+						                   maxPages="20"
+						                   rendered="#{not empty verfuegbareArtikel}"/>
+			<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+				<rich:jQuery id="odd"
+							      selector=".tabelleMitZebrastil tr:odd"
+							      query="addClass('odd-row')"
+							      timing="domready"/>
+				<rich:jQuery id="even"
+							      selector=".tabelleMitZebrastil tr:even"
+							      query="addClass('even-row')"
+							      timing="domready"/>
+				<rich:jQuery id="mouseover"
+							      selector=".tabelleMitZebrastil tr"
+							      event="mouseover"
+							      query="jQuery(this).addClass('active-row')"
+							      timing="domready"/>
+				<rich:jQuery id="mouseout"
+							      selector=".tabelleMitZebrastil tr"
+							      event="mouseout"
+							      query="jQuery(this).removeClass('active-row')"
+							      timing="domready"/>
+			</a4j:outputPanel>
 			</h:form>
 		</ui:define>
 	</ui:composition>
