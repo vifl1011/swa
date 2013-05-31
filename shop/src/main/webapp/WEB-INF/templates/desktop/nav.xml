@@ -56,7 +56,7 @@
 			                     label="#{msg['nav.bestellverwaltung']}"
 			                     expanded="true">
 			                     
-				<rich:panelMenuItem id="bestellverwaltungFindBestellung"  rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter')} or rich:isUserInRole('abteilungsleiter')}">
+				<rich:panelMenuItem id="bestellverwaltungFindBestellung"  rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter') or rich:isUserInRole('abteilungsleiter')}">
 					<h:outputLink id="findBestellung"
 		        		value="#{request.contextPath}/bestellverwaltung/viewBestellung.jsf">
 		        		#{msg['nav.viewBestellung']}
@@ -64,9 +64,9 @@
 		        			<f:param id="viewBestellungCid"	name="cid"
 									value="#{javax.enterprise.context.conversation.id}"/>
 		        		</c:if>
-		        	</h:outputLink>
-		        	
+		        	</h:outputLink>		        	
 				</rich:panelMenuItem>
+				
 				<rich:panelMenuItem id="bestellverwaltungViewWarenkorb">
 					<h:outputLink id="viewWarenkorb"
 		        		value="#{request.contextPath}/bestellverwaltung/viewWarenkorb.jsf">
@@ -83,6 +83,18 @@
 			<rich:panelMenuGroup id="artikelverwaltung"
 			                     label="#{msg['nav.artikelverwaltung']}"
 			                     expanded="true">
+			                     
+			    <rich:panelMenuItem id="artikelverwaltungCreateArtikel"  rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter') or rich:isUserInRole('abteilungsleiter')}">
+					<h:outputLink id="createArtikel"
+		        		value="#{request.contextPath}/artikelverwaltung/createProdukt.jsf">
+		        		#{msg['nav.artikelverwaltung.createProdukt']}
+		        		<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		        			<f:param id="createProduktCid"	name="cid"
+									value="#{javax.enterprise.context.conversation.id}"/>
+		        		</c:if>
+		        	</h:outputLink>		        	
+				</rich:panelMenuItem>
+				
 				<rich:panelMenuItem id="artikelverwaltungListArtikelItem">
 					<h:outputLink id="artikelverwaltungListArtikel"
 					              value="#{request.contextPath}/artikelverwaltung/listArtikel.jsf">

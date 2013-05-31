@@ -82,12 +82,14 @@ public class Warenkorb implements Serializable {
 	public String add(Produkt produkt) {
 		beginConversation();
 		
-		for (Bestellposition bp : positionen) {
-			if (bp.getProdukt().equals(produkt)) {
-				// bereits im Warenkorb
-				final int vorhandeneAnzahl = bp.getMenge();
-				bp.setMenge((short) (vorhandeneAnzahl + 1));
-				return JSF_VIEW_WARENKORB;
+		if (positionen != null) {
+			for (Bestellposition bp : positionen) {
+				if (bp.getProdukt().equals(produkt)) {
+					// bereits im Warenkorb
+					final int vorhandeneAnzahl = bp.getMenge();
+					bp.setMenge((short) (vorhandeneAnzahl + 1));
+					return JSF_VIEW_WARENKORB;
+				}
 			}
 		}
 		
