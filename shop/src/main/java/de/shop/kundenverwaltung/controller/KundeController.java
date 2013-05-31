@@ -406,11 +406,12 @@ public class KundeController implements Serializable {
 		if (neuerKunde != null) {
 			return;
 		}
-
+		LOGGER.tracef("BEGIN createEmptyKunde()");
 		neuerKunde = new Kunde();
-		final Adresse adresse = new Adresse();
-		adresse.setKunde(neuerKunde);
+		Adresse adresse = new Adresse();
 		neuerKunde.setAdresse(adresse);
+		adresse.setKunde(neuerKunde);
+		LOGGER.tracef("END createEmptyKunde() %s", neuerKunde.getAdresse().toString());
 	}
 	
 	/**

@@ -9,7 +9,9 @@
 
 	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
 		<ui:param name="pageTitle" value="#{msgKv['createKunde.title']}"/>
-	
+		<ui:define name="metadata">
+			<f:event type="preRenderView" listener="#{kc.createEmptyKunde}"></f:event>
+		</ui:define>
 		<ui:define name="article">
 			<h1>
 				#{msgKv['createKunde.heading']}
@@ -48,8 +50,8 @@
 						
 						<h:outputText id="geschlechtLabel" value="#{msgKv['createKunde.geschlecht']}"/>
 						<h:selectOneRadio id="geschlecht" value="#{kc.neuerKunde.geschlecht}">
-							<f:selectItem id="weiblich" itemValue="WEIBLICH" itemLabel="#{msgKv['createKunde.geschlecht.weiblich']}"/>
-							<f:selectItem id="maennlich" itemValue="MAENNLICH" itemLabel="#{msgKv['createKunde.geschlecht.maennlich']}"/>
+							<f:selectItem id="weiblich" itemValue="w" itemLabel="#{msgKv['createKunde.geschlecht.weiblich']}"/>
+							<f:selectItem id="maennlich" itemValue="m" itemLabel="#{msgKv['createKunde.geschlecht.maennlich']}"/>
 						</h:selectOneRadio>
 						<f:verbatim/>
 							
