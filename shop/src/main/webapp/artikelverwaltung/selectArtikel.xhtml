@@ -72,7 +72,7 @@
 					<rich:column id="buttonSpalte">
 						<h:commandButton id="selectButton"
 					                 image="#{resource['images:warenkorb.gif']}"
-					                 action="#{wk.add(art)}"
+					                 action="#{wk.add(art, view.viewId)}"
 					                 alt="#{msgAv['selectArtikel.select']}"/>
 					                 
 					</rich:column>

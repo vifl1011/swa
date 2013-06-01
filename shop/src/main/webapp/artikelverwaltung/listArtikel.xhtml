@@ -45,7 +45,7 @@
 				<p id="abstand1"/>
 			
 				<a4j:outputPanel id="artikelPanel">
-					<c:if test="#{not empty flash.artikel or param.init ne 'true'}">
+					<c:if test="#{not empty flash.artikel}">
 						<c:set var="artikel" value="#{flash.artikel}" scope="view"/>
 						<c:set target="#{flash}" property="artikel" value="#{artikel}"/>
 						
@@ -76,7 +76,7 @@
 							             rendered="#{not empty artikel}">
 								<h:commandButton id="warenkorbButton"
 												 image="#{resource['images:warenkorb.gif']}"
-										         action="#{wk.add(art)}"
+										         action="#{wk.add(art, view.viewId)}"
 										         alt="#{msgAv['listArtikel.alt.warenkorb']}">
 								</h:commandButton>
 							</rich:column>

@@ -136,7 +136,7 @@
     <param-value>/../shopFiles</param-value>
   </context-param>
   <session-config>
-    <session-timeout>15</session-timeout>
+    <session-timeout>1</session-timeout>
     <tracking-mode>COOKIE</tracking-mode>
   </session-config>
   <mime-mapping>
@@ -183,6 +183,10 @@
     <exception-type>javax.faces.application.ViewExpiredException</exception-type>
     <location>/error/timeout.jsf</location>
   </error-page>
+   <error-page>  
+  <exception-type>org.jboss.weld.context.NonexistentConversationException</exception-type>  
+  <location>/error/expired.jsf?nocid=true</location>  
+ </error-page>
   <error-page>
     <exception-type>com.sun.faces.context.FacesFileNotFoundException</exception-type>
     <location>/error/pageNotFound.jsf</location>
