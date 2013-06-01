@@ -252,7 +252,8 @@ public class Produkt implements Serializable {
 				+ ", bezeichnung " + getBezeichnung() + ",preis: " + getPreis()
 				+ ", erzeugt=" + getErzeugt() + ", farbe=" + getFarbe()
 				+ ", groesse=" + getGroesse() + ", vorrat=" + getVorrat()
-				+ ", bestellpositionen=" + getBestellpositionen() + "]";
+				//+ ", bestellpositionen=" + getBestellpositionen()
+				+ "]";
 	}
 
 	@Override

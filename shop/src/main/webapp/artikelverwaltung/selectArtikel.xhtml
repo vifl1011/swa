@@ -15,6 +15,8 @@
 		<ui:define name="article">
 			<h:form id="selectForm">
 			
+			<c:set var="artikel" value="#{verfügbareArtikel}" scope="view"/>
+			
 			<rich:dataTable id="produktTabelle"
 						                value="#{verfuegbareArtikel}"
 						                var="art"

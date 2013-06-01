@@ -92,7 +92,6 @@ public class Warenkorb implements Serializable {
 				}
 			}
 		}
-		
 		final Bestellposition neu = new Bestellposition(produkt);
 		positionen.add(neu);
 		return JSF_VIEW_WARENKORB;
