@@ -20,8 +20,11 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.util.Constants;
 
@@ -116,7 +119,7 @@ public class Bestellposition implements Serializable {
 	// bi-directional many-to-one association to Lieferung
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "LIEFERUNG_ID", nullable = false)
-	@NotNull(message = "{bestellverwaltung.bestellposition.lieferung.notNull}")
+	@NotEmpty(message = "{bestellverwaltung.bestellposition.lieferung.notNull}")
 	@JsonIgnore
 	private Lieferung lieferung;
 	

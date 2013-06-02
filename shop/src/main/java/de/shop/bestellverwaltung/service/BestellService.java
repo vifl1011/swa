@@ -23,6 +23,7 @@ import javax.validation.groups.Default;
 
 import de.shop.util.IdGroup;
 import de.shop.util.NotFoundException;
+import de.shop.util.Transactional;
 import de.shop.util.ValidatorProvider;
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.ProduktService;
@@ -32,6 +33,7 @@ import de.shop.bestellverwaltung.domain.Lieferung;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.util.Log;
 
+@Transactional
 public class BestellService implements Serializable {
 
 	public enum FetchType {
