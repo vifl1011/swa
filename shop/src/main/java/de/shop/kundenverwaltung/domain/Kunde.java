@@ -23,6 +23,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
+import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -248,6 +249,13 @@ public class Kunde implements Serializable, Cloneable {
 	protected void preUpdate() {
 		aktualisiert = new Date();
 	}
+	
+	@PostLoad
+	protected void postLoad() {
+		passwortWdh = passwort;
+		agbAkzeptiert = true;
+	}
+	
 	
 	public Kunde() {
 		super();

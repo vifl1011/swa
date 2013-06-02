@@ -53,6 +53,13 @@
 					<h:inputText id="vorname" value="#{kc.kunde.vorname}" valueChangeListener="#{kc.geaendert}"/>
 					<f:verbatim/>
 
+					<h:outputLabel id="emailLabel" for="email" value="#{msgKv['updateKunde.email']}"/>
+					<h:inputText id="email" value="#{kc.kunde.email}" valueChangeListener="#{kc.geaendert}">
+						<rich:validator oninvalid="$(#{rich:element('email')}).addClass('invalid')"
+                                        onvalid="$(#{rich:element('email')}).removeClass('invalid')"/>
+					</h:inputText>
+					<rich:messages id="fehlermeldungenEmail" for="email"/>
+					
 					<h:outputLabel id="rabattLabel" for="rabatt" value="#{msgKv['updateKunde.rabatt']}"/>
 					<h:inputText id="rabatt"
 					             value="#{kc.kunde.rabatt}"
@@ -64,17 +71,6 @@
 						<f:ajax event="blur" render="updateKundeForm:fehlermeldungenRabatt"/>
 					</h:inputText>
 					<rich:messages id="fehlermeldungenRabatt" for="rabatt"/>
-		
-	
-					<h:outputLabel id="newsletterLabel" value="#{msgKv['updateKunde.newsletter']}"/>
-					<f:verbatim/>
-					
-					<h:outputLabel id="emailLabel" for="email" value="#{msgKv['updateKunde.email']}"/>
-					<h:inputText id="email" value="#{kc.kunde.email}" valueChangeListener="#{kc.geaendert}">
-						<rich:validator oninvalid="$(#{rich:element('email')}).addClass('invalid')"
-                                        onvalid="$(#{rich:element('email')}).removeClass('invalid')"/>
-					</h:inputText>
-					<rich:messages id="fehlermeldungenEmail" for="email"/>
 				</h:panelGrid>
 	
 				<p id="buttons">
