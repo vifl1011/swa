@@ -20,25 +20,25 @@
 			                var="pos"
 			                rowClasses="odd-row, even-row"
 			                styleClass="tabelleMitZebrastil">
-				<rich:column id="artikelIdSpalte">
+				<rich:column id="produktIdSpalte">
 					<f:facet name="header">
-						#{msgBv['confirmBestellung.artikel.id']}
+						#{msgBv['confirmBestellung.produkt.id']}
 					</f:facet>
-					#{pos.artikel.id}
+					#{pos.produkt.id}
 				</rich:column>
 	
 				<rich:column id="bezeichnungSpalte">
 					<f:facet name="header">
-						#{msgBv['confirmBestellung.artikel.bezeichnung']}
+						#{msgBv['confirmBestellung.produkt.bezeichnung']}
 					</f:facet>
-					#{pos.artikel.bezeichnung}
+					#{pos.produkt.bezeichnung}
 				</rich:column>
 	
-				<rich:column id="anzahlSpalte">
+				<rich:column id="mengeSpalte">
 					<f:facet name="header">
-						#{msgBv['confirmBestellung.artikel.anzahl']}
+						#{msgBv['confirmBestellung.produkt.menge']}
 					</f:facet>
-					#{pos.anzahl}
+					#{pos.menge}
 				</rich:column>
 				
 				<f:facet name="footer">

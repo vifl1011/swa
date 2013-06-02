@@ -431,12 +431,11 @@ public class BestellService implements Serializable {
 			if (produkt == null) {
 				throw new NotFoundException("Produkt nicht auffindbar");
 			}
-			
 			bp.setEinzelpreis(produkt.getPreis());
 			p += bp.getEinzelpreis();
 			bp.setBestellung(bestellung);
 		}
-		bestellung.setGesamtpreis(p);
+		bestellung.setGesamtpreis(p);		
 		//bestellung = em.find(Bestellung.class, bestellung.getId());
 		em.persist(bestellung);
 		LOGGER.finest("Bestellung wurde erfolgreich erstellt mit ID " + bestellung.getId());
