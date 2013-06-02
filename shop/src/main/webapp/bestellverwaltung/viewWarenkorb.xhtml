@@ -95,7 +95,8 @@
 								library="images"
 								alt="#{msgBv['viewWarenkorb.empty']}"
 								rendered="#{empty wk.positionen}"/>
-					<h:outputText id="emptyWKLabel" value="#{msgBv['viewWarenkorb.empty']}"/>
+					<h:outputText id="emptyWKLabel" value="#{msgBv['viewWarenkorb.empty']}"
+													rendered="#{empty wk.positionen}"/>
 				
 				<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
 					<rich:jQuery id="odd"
