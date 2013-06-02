@@ -87,14 +87,14 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
 	@NamedQuery(name = Kunde.FIND_KUNDEN_FETCH_ADRESSE,
 			query = "SELECT DISTINCT k"
 					+ " FROM Kunde k LEFT JOIN FETCH k.adresse"),
-	@NamedQuery(name  = Kunde.FIND_KUNDEN_BY_NACHNAME,
+	@NamedQuery(name  = Kunde.FIND_KUNDEN_BY_NAME,
             query = "SELECT k"
 			        + " FROM   Kunde k"
-            		+ " WHERE  UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NACHNAME + ")"),
-    @NamedQuery(name  = Kunde.FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN,
+            		+ " WHERE  UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NAME + ")"),
+    @NamedQuery(name  = Kunde.FIND_KUNDEN_BY_NAME_FETCH_BESTELLUNGEN,
             query = "SELECT      DISTINCT k"
             		+ " FROM     Kunde k LEFT JOIN FETCH k.bestellungen"
-    			    + " WHERE    UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NACHNAME + ")"
+    			    + " WHERE    UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NAME + ")"
     			    + " ORDER BY k.id"),
     @NamedQuery(name  = Kunde.FIND_KUNDE_BY_ID,
             query = "SELECT k "
@@ -117,7 +117,12 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
 					        query = "SELECT   k"
 					                + " FROM  Kunde k"
 					                + " WHERE CONCAT('', k.id) LIKE :" + Kunde.PARAM_KUNDE_ID_PREFIX
-					                + " ORDER BY k.id")                 			        
+					                + " ORDER BY k.id"),
+	@NamedQuery(name = Kunde.FIND_NAMEN_BY_PREFIX,
+							query = "SELECT DISTINCT k.name"
+									+ " FROM  Kunde k"
+									+ " WHERE UPPER(k.name) LIKE UPPER(:"
+			   	            		+ Kunde.PARAM_KUNDE_NAME_PREFIX + ")"),			                
 })
 
 @ScriptAssert(lang = "javascript",
@@ -143,19 +148,23 @@ public class Kunde implements Serializable, Cloneable {
 	public static final String FIND_KUNDE_BY_ID_FETCH_ADRESSE = PREFIX + "findKundeByIdFetchAdresse";	
 	public static final String FIND_KUNDEN_FETCH_BESTELLUNGEN = PREFIX + "findKundenFetchBestellungen";
 	public static final String FIND_KUNDEN_FETCH_ADRESSE = PREFIX + "findKundenFetchAdresse";
-	public static final String FIND_KUNDEN_BY_NACHNAME = PREFIX + "findKundenByNachname";
-	public static final String FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN = PREFIX + "findKundenByNachnameFetchBestellungen";
+	public static final String FIND_KUNDEN_BY_NAME = PREFIX + "findKundenByNname";
+	public static final String FIND_KUNDEN_BY_NAME_FETCH_BESTELLUNGEN = PREFIX + "findKundenByNameFetchBestellungen";
 	public static final String FIND_IDS_BY_PREFIX = PREFIX + "findIdsByIdPrefix";
 	public static final String FIND_KUNDEN_BY_ID_PREFIX = PREFIX + "findKundenByIdPrefix";
+	public static final String FIND_NAMEN_BY_PREFIX = PREFIX + "findNamenByPrefix";
+	
+	
 	
 	//Parameter für Namedqueries
 	public static final String PARAM_KUNDE_ID = "kundeId";
-	public static final String PARAM_KUNDE_NACHNAME = "nachname";
+	public static final String PARAM_KUNDE_NAME = "name";
 	public static final String PARAM_KUNDE_EMAIL = "email";
 	public static final String PARAM_KUNDE_LOGIN = "login";
 	public static final String PARAM_LOGIN_PREFIX = "login_prefix";
 	public static final String PARAM_KUNDE_ID_PREFIX = "idPrefix";
-
+	public static final String PARAM_KUNDE_NAME_PREFIX = "namePrefix";
+	
 	@Id
 	@GeneratedValue
 	@Column(name = "id", nullable = false, updatable = false)

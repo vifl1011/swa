@@ -32,6 +32,17 @@
 		        		</c:if>
 					</h:outputLink>
 				</rich:panelMenuItem>
+				<rich:panelMenuItem id="listKunde">
+					<h:outputLink id="menuListKunde"
+					   	value="#{request.contextPath}/kundenverwaltung/listKunden.jsf">
+						#{msg['nav.listKunde']}
+						<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		        			<f:param id="listKundeCid" name="cid"
+									value="#{javax.enterprise.context.conversation.id}"/>
+		        		</c:if>
+					</h:outputLink>
+				</rich:panelMenuItem>
+				
 				<rich:panelMenuItem id="kundenverwaltungCreateKundeItem" rendered="#{rich:isUserInRole('admin')}">
 					<h:outputLink id="kundenverwaltungCreateKunde"
 					              value="#{request.contextPath}/kundenverwaltung/createKunde.jsf">

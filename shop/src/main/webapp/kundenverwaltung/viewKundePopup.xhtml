@@ -1,4 +1,5 @@
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
 			    xmlns:h="http://java.sun.com/jsf/html"
 			    xmlns:f="http://java.sun.com/jsf/core"
 			     xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -22,71 +23,35 @@
 					<h:outputText id="idLabel" value="#{msgKv['viewKundePopup.kundenr']}"/>
 					<h:outputText id="id" value="#{kunde.id}"/>
 			
-					<h:outputText id="nachnameLabel" value="#{msgKv['viewKundePopup.nachname']}"/>
-					<h:outputText id="nachname" value="#{kunde.nachname}"/>
+					<h:outputText id="nameLabel" value="#{msgKv['viewKundePopup.name']}"/>
+					<h:outputText id="name" value="#{kunde.name}"/>
 		
 					<h:outputText id="vornameLabel" value="#{msgKv['viewKundePopup.vorname']}"/>
 					<h:outputText id="vorname" value="#{kunde.vorname}"/>
 					
 					<h:outputText id="seitLabel" value="#{msgKv['viewKundePopup.seit']}"/>
-					<h:outputText id="seit" value="#{kunde.seit}">
+					<h:outputText id="seit" value="#{kunde.erzeugt}">
 						<f:convertDateTime type="date" dateStyle="long"/>
-					</h:outputText>
-					
-					<h:outputText id="umsatzLabel" value="#{msgKv['viewKundePopup.umsatz']}"/>
-					<h:outputText id="umsatz" value="#{kunde.umsatz}">
-						<f:convertNumber type="currency"
-						                 currencyCode="EUR"/>
 					</h:outputText>
 		
 					<h:outputText id="emailLabel" value="#{msgKv['viewKundePopup.email']}"/>
 					<h:outputText id="email" value="#{kunde.email}"/>
-	
-					<h:outputText id="firmenkundeLabel" value="#{msgKv['viewKundePopup.kundenart']}" rendered="#{kunde.class.simpleName eq 'Firmenkunde'}"/>
-					<h:outputText id="firmenkunde" value="#{msgKv['viewKundePopup.firmenkunde']}" rendered="#{kunde.class.simpleName eq 'Firmenkunde'}"/>
+
 		
-					<h:outputText id="privatkundeLabel" value="#{msgKv['viewKundePopup.kundenart']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
-					<h:outputText id="privatkunde" value="#{msgKv['viewKundePopup.privatkunde']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
+					<h:outputText id="kundeLabel" value="#{msgKv['viewKundePopup.kundenart']}" />
+					<h:outputText id="kunde" value="#{msgKv['viewKundePopup.kunde']}" />
 					
 					<h:outputText id="rabattLabel" value="#{msgKv['viewKundePopup.rabatt']}"/>
 					<h:outputText id="rabatt" value="#{kunde.rabatt}">
 						<f:convertNumber type="percent" maxFractionDigits="2"/>
 					</h:outputText>
-					
-					<h:outputText id="familienstandLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'LEDIG'}"/>
-					<h:outputText id="familienstand" value="#{msgKv['viewKundePopup.familienstand.ledig']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'LEDIG'}"/>
 		
-					<h:outputText id="verheiratetLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERHEIRATET'}"/>
-					<h:outputText id="verheiratet" value="#{msgKv['viewKundePopup.familienstand.verheiratet']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERHEIRATET'}"/>
+					<h:outputText id="weiblichLabel" value="#{msgKv['viewKundePopup.geschlecht']}" rendered="#{kunde.class.simpleName eq 'Kunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
+					<h:outputText id="weiblich" value="#{msgKv['viewKundePopup.geschlecht.weiblich']}" rendered="#{kunde.class.simpleName eq 'Kunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
 		
-					<h:outputText id="geschiedenLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'GESCHIEDEN'}"/>
-					<h:outputText id="geschieden" value="#{msgKv['viewKundePopup.familienstand.geschieden']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'GESCHIEDEN'}"/>
-		
-					<h:outputText id="verwitwetLabel" value="#{msgKv['viewKundePopup.familienstand']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERWITWET'}"/>
-					<h:outputText id="verwitwet" value="#{msgKv['viewKundePopup.familienstand.verwitwet']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.familienstand eq 'VERWITWET'}"/>
-		
-					<h:outputText id="weiblichLabel" value="#{msgKv['viewKundePopup.geschlecht']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
-					<h:outputText id="weiblich" value="#{msgKv['viewKundePopup.geschlecht.weiblich']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'WEIBLICH'}"/>
-		
-					<h:outputText id="maennlichLabel" value="#{msgKv['viewKundePopup.geschlecht']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
-					<h:outputText id="maennlich" value="#{msgKv['viewKundePopup.geschlecht.maennlich']}" rendered="#{kunde.class.simpleName eq 'Privatkunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
-	
-					<h:outputText id="newsletterLabel" value="#{msgKv['viewKundePopup.newsletter']}"/>
-					<h:selectBooleanCheckbox id="newsletter" value="#{kunde.newsletter}" disabled="true" readonly="true"/>
-	
-					<h:outputText id="hobbiesLabel" value="#{msgKv['viewKundePopup.hobbies']}" rendered="#{kunde.class.simpleName eq 'Privatkunde'}"/>
-					<h:selectManyCheckbox value="#{kunde.hobbies}"
-					                      layout="pageDirection"
-					                      disabled="true"
-					                      readonly="true"
-					                      rendered="#{kunde.class.simpleName eq 'Privatkunde'}">
-						<f:selectItem itemValue="SPORT"
-									  itemLabel="#{msgKv['viewKundePopup.hobbies.sport']}"/>
-						<f:selectItem itemValue="LESEN" 
-									  itemLabel="#{msgKv['viewKundePopup.hobbies.lesen']}"/>
-						<f:selectItem itemValue="REISEN" 
-									  itemLabel="#{msgKv['viewKundePopup.hobbies.reisen']}"/>
-					</h:selectManyCheckbox>
+					<h:outputText id="maennlichLabel" value="#{msgKv['viewKundePopup.geschlecht']}" rendered="#{kunde.class.simpleName eq 'Kunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
+					<h:outputText id="maennlich" value="#{msgKv['viewKundePopup.geschlecht.maennlich']}" rendered="#{kunde.class.simpleName eq 'Kunde' and kunde.geschlecht eq 'MAENNLICH'}"/>
+
 				</h:panelGrid>
 			</rich:panel>
 		</rich:tab>
@@ -152,14 +117,14 @@
 			<rich:dataTable id="bestellungenTabelle" value="#{kunde.bestellungen}" var="bestellung">
 				<f:facet name="header">
 					<rich:columnGroup id="positionenSpalten">
-						<rich:column id="artikelIdSpalte">
-							#{msgKv['viewKundePopup.artikel.id']}
+						<rich:column id="produktIdSpalte">
+							#{msgKv['viewKundePopup.produkt.id']}
 						</rich:column>
 						<rich:column id="bezeichnungSpalte">
-							#{msgKv['viewKundePopup.artikel.bezeichnung']}
+							#{msgKv['viewKundePopup.produkt.bezeichnung']}
 						</rich:column>
-						<rich:column id="anzahlSpalte">
-							#{msgKv['viewKundePopup.artikel.anzahl']}
+						<rich:column id="vorratSpalte">
+							#{msgKv['viewKundePopup.produkt.vorrat']}
 						</rich:column>
 					</rich:columnGroup>
 				</f:facet>
@@ -177,16 +142,16 @@
 					                      styleClass="tabelleMitZebrastil"
 				                          expandMode="client"
 				                          expanded="#{false}"> <!-- https://issues.jboss.org/browse/RF-10715 -->
-					<rich:column id="artikelIdSpalteSub">
-						#{pos.artikel.id}
+					<rich:column id="produktIdSpalteSub">
+						#{pos.produkt.id}
 					</rich:column>
 		
 					<rich:column id="bezeichnungSpalteSub">
-						#{pos.artikel.bezeichnung}
+						#{pos.produkt.bezeichnung}
 					</rich:column>
 		
-					<rich:column id="anzahlSpalteSub">
-						#{pos.anzahl}
+					<rich:column id="mengeSpalteSub">
+						#{pos.menge}
 					</rich:column>
 				</rich:collapsibleSubTable>		
 			
@@ -213,18 +178,5 @@
 			</rich:dataTable>
 		</rich:tab>
 		
-		<rich:tab id="bemerkungenTab" rendered="#{not empty kunde.bemerkungen}">
-			<f:facet name="header">
-				<h:panelGroup id="bemerkungenLabel">
-					<h:graphicImage id="bemerkungenGif"
-					                name="text.gif"
-					                library="images"/>
-					#{' '}
-					#{msgKv['viewKundePopup.kunde.bemerkungen']}
-				</h:panelGroup>
-			</f:facet>
-					
-			<h:outputText id="bemerkungen" value="#{kunde.bemerkungen}" escape="false"/>
-		</rich:tab>
 	</rich:tabPanel>
 </ui:composition>

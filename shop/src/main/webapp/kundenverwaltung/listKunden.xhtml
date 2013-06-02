@@ -16,20 +16,20 @@
 		<h:form id="form">
 			<rich:panel id="suchePanel" header="#{msgKv['listKunden.sucheNeu']}">
 				<h:panelGrid id="sucheGrid" columns="4">
-					<h:outputLabel id="nachnameLabel"
-					               value="#{msgKv['listKunden.nachname']}"
-					               for="nachname"/>
+					<h:outputLabel id="nameLabel"
+					               value="#{msgKv['listKunden.name']}"
+					               for="name"/>
 					             
-					<rich:autocomplete id="nachname"
-					                   value="#{kc.nachname}"
+					<rich:autocomplete id="name"
+					                   value="#{kc.name}"
 					                   mode="ajax"
 					                   minChars="1"
-					                   autocompleteMethod="#{kc.findNachnamenByPrefix}"/> 
+					                   autocompleteMethod="#{kc.findNamenByPrefix}"/> 
 	
 					<a4j:commandButton id="sucheButton"
-					                   action="#{kc.findKundenByNachname}"
+					                   action="#{kc.findKundenByName}"
 									   value="#{msgKv['listKunden.submit']}"
-									   render="kundenPanel fehlermeldungNachname"/>
+									   render="kundenPanel fehlermeldungName"/>
 									   
 					<a4j:status id="statusStart">
 						<f:facet name="start">
@@ -43,8 +43,8 @@
 					</a4j:status>
 				</h:panelGrid>
 
-				<rich:messages id="fehlermeldungNachname" for="nachname"/>
-				<rich:jQuery id="focus" selector="#nachname" query="focus()"/>
+				<rich:messages id="fehlermeldungName" for="name"/>
+				<rich:jQuery id="focus" selector="#name" query="focus()"/>
 			</rich:panel>
 
 			<p id="abstandZuMeldungen">
@@ -69,11 +69,11 @@
 						#{kunde.id}
 					</rich:column>
 					
-					<rich:column id="nachnameSpalte">
+					<rich:column id="nameSpalte">
 						<f:facet name="header">
-							#{msgKv['listKunden.nachname']}
+							#{msgKv['listKunden.name']}
 						</f:facet>
-						<h:commandLink id="nachnamePopup" value="#{kunde.nachname}">
+						<h:commandLink id="namePopup" value="#{kunde.name}">
 							<rich:componentControl target="popup" operation="show"/>
 						</h:commandLink>
 	
@@ -104,7 +104,7 @@
 						</rich:popupPanel>
 
 						<rich:contextMenu id="ctxmenu"
-						                  attachTo="nachnamePopup"
+						                  attachTo="namePopup"
 						                  hideDelay="600"
 						                  jointPoint="bottomLeft"
 						                  direction="autoRight"

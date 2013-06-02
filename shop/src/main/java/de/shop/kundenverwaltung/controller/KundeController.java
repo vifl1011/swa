@@ -85,8 +85,8 @@ public class KundeController implements Serializable {
 	private static final String CLIENT_ID_KUNDEID = "form:kundeIdInput";
 	private static final String MSG_KEY_KUNDE_NOT_FOUND_BY_ID = "viewKunde.notFound";
 	
-	private static final String CLIENT_ID_KUNDEN_NACHNAME = "form:nachname";
-	private static final String MSG_KEY_KUNDEN_NOT_FOUND_BY_NACHNAME = "listKunden.notFound";
+	private static final String CLIENT_ID_KUNDEN_NAME = "form:name";
+	private static final String MSG_KEY_KUNDEN_NOT_FOUND_BY_NAME = "listKunden.notFound";
 
 	private static final String CLIENT_ID_CREATE_EMAIL = "createKundeForm:email";
 	private static final String MSG_KEY_CREATE_PRIVATKUNDE_EMAIL_EXISTS = "createKunde.emailExists";
@@ -305,50 +305,25 @@ public class KundeController implements Serializable {
 		}
 	}
 	
-	/**
-	 * Action Methode, um einen Kunden zu gegebener ID zu suchen
-	 * @return URL fuer Anzeige des gefundenen Kunden; sonst null
-	 */
-	
 	@TransactionAttribute(REQUIRED)
-	public String findKundenByNachname() {
+	public String findKundenByName() {
+		LOGGER.debugf("name:%s:",name);
 		if (name == null || name.isEmpty()) {
 			kunden = ks.findAllKunden(FetchType.MIT_BESTELLUNGEN);
 			return JSF_LIST_KUNDEN;
 		}
 
 		try {
-			kunden = ks.findKundenByNachname(name, FetchType.MIT_BESTELLUNGEN, locale);
+			kunden = ks.findKundenByName(name, FetchType.MIT_BESTELLUNGEN, locale);
 		}
 		catch (InvalidNachnameException e) {
 			final Collection<ConstraintViolation<Kunde>> violations = e.getViolations();
-			messages.error(violations, CLIENT_ID_KUNDEN_NACHNAME);
+			messages.error(violations, CLIENT_ID_KUNDEN_NAME);
 			return null;
 		}
 		return JSF_LIST_KUNDEN;
 	}
 	
-	/**
-	 * F&uuml;r rich:autocomplete
-	 * @return Liste der potenziellen Nachnamen
-	 */
-	/*
-	@TransactionAttribute(REQUIRED)
-	public List<String> findNachnamenByPrefix(String nachnamePrefix) {
-		// NICHT: Liste von Kunden. Sonst waeren gleiche Nachnamen mehrfach vorhanden.
-		final List<String> nachnamen = ks.findNachnamenByPrefix(nachnamePrefix);
-		if (nachnamen.isEmpty()) {
-			messages.error(KUNDENVERWALTUNG, MSG_KEY_KUNDEN_NOT_FOUND_BY_NACHNAME, CLIENT_ID_KUNDEN_NACHNAME, kundeId);
-			return nachnamen;
-		}
-
-		if (nachnamen.size() > MAX_AUTOCOMPLETE) {
-			return nachnamen.subList(0, MAX_AUTOCOMPLETE);
-		}
-
-		return nachnamen;
-	}
-	*/
 	@TransactionAttribute(REQUIRED)
 	public String details(Kunde ausgewaehlterKunde) {
 		if (ausgewaehlterKunde == null) {
@@ -594,5 +569,21 @@ public class KundeController implements Serializable {
 	
 	public String getBase64(File file) {
 		return DatatypeConverter.printBase64Binary(file.getBytes());
+	}
+	
+	@TransactionAttribute(REQUIRED)
+	public List<String> findNamenByPrefix(String namePrefix) {
+		// NICHT: Liste von Kunden. Sonst waeren gleiche Nachnamen mehrfach vorhanden.
+		final List<String> namen = ks.findNamenByPrefix(namePrefix);
+		if (namen.isEmpty()) {
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_KUNDEN_NOT_FOUND_BY_NAME, CLIENT_ID_KUNDEN_NAME, kundeId);
+			return namen;
+		}
+
+		if (namen.size() > MAX_AUTOCOMPLETE) {
+			return namen.subList(0, MAX_AUTOCOMPLETE);
+		}
+
+		return namen;
 	}
 }

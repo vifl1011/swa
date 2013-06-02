@@ -273,6 +273,14 @@ public class Bestellung implements Serializable {
 			bestellzeitpunkt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
 	}
 
+	public String getErzeugt(String format) {
+		try{
+		return new SimpleDateFormat(format).format(this.erzeugt);
+		} catch(Exception e) {
+			return null;
+		}
+	}
+	
 	public Date getErzeugt() {
 		return this.erzeugt;
 	}

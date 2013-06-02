@@ -101,26 +101,26 @@ public class KundeService implements Serializable {
 	}
 	
 	@Log
-	public List<Kunde> findKundenByNachname(String nachname, FetchType fetch, Locale locale) {
-		validateNachname(nachname, locale);
+	public List<Kunde> findKundenByName(String nachname, FetchType fetch, Locale locale) {
+		validateName(nachname, locale);
 		List<Kunde> kunden;
 		switch (fetch) {
 			case NUR_KUNDE:
-				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NACHNAME, Kunde.class)
-						   .setParameter(Kunde.PARAM_KUNDE_NACHNAME, nachname)
+				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NAME, Kunde.class)
+						   .setParameter(Kunde.PARAM_KUNDE_NAME, nachname)
                            .getResultList();
 				break;
 			
 			case MIT_BESTELLUNGEN:
-				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN,
+				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NAME_FETCH_BESTELLUNGEN,
 						                     Kunde.class)
-						   .setParameter(Kunde.PARAM_KUNDE_NACHNAME, nachname)
+						   .setParameter(Kunde.PARAM_KUNDE_NAME, nachname)
                            .getResultList();
 				break;
 
 			default:
-				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NACHNAME, Kunde.class)
-						   .setParameter(Kunde.PARAM_KUNDE_NACHNAME, nachname)
+				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NAME, Kunde.class)
+						   .setParameter(Kunde.PARAM_KUNDE_NAME, nachname)
                            .getResultList();
 				break;
 		}
@@ -128,14 +128,14 @@ public class KundeService implements Serializable {
 		return kunden;
 	}
 	
-	private void validateNachname(String nachname, Locale locale) {
+	private void validateName(String name, Locale locale) {
 		final Validator validator = validatorProvider.getValidator(locale);
 		final Set<ConstraintViolation<Kunde>> violations = validator.validateValue(Kunde.class,
-				                                                                           "nachname",
-				                                                                           nachname,
+				                                                                           "name",
+				                                                                           name,
 				                                                                           Default.class);
 		if (!violations.isEmpty())
-			throw new InvalidNachnameException(nachname, violations);
+			throw new InvalidNachnameException(name, violations);
 	}
 	
 	@Log
@@ -361,6 +361,23 @@ public class KundeService implements Serializable {
 			file.set(bytes, filename, mimeType);
 			em.merge(file);
 		}
+	}
+	
+	public List<Long> findIdsByPrefix(String idPrefix) {
+		if (Strings.isNullOrEmpty(idPrefix)) {
+			return Collections.emptyList();
+		}
+		final List<Long> ids = em.createNamedQuery(Kunde.FIND_IDS_BY_PREFIX, Long.class)
+				                 .setParameter(Kunde.PARAM_KUNDE_ID_PREFIX, idPrefix + '%')
+				                 .getResultList();
+		return ids;
+	}
+	
+	public List<String> findNamenByPrefix(String namePrefix) {
+		final List<String> namen = em.createNamedQuery(Kunde.FIND_NAMEN_BY_PREFIX, String.class)
+				                         .setParameter(Kunde.PARAM_KUNDE_NAME_PREFIX, namePrefix + '%')
+				                         .getResultList();
+		return namen;
 	}
 	
 }
