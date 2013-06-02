@@ -110,8 +110,15 @@ public class Warenkorb implements Serializable {
 		return lastPage + JSF_REDIRECT_SUFFIX;
 	}
 	
+	/*
+	 * Entfernt alle Positionen des Warenkorbs
+	 */
+	public void reset() {
+		positionen.clear();
+	}
 	
-	/**
+	/*
+	 *	Entfernt eine einzelne Bestellposition 
 	 */
 	public void remove(Bestellposition bestellposition) {
 		positionen.remove(bestellposition);

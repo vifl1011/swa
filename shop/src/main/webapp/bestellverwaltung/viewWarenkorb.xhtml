@@ -12,17 +12,17 @@
 		<ui:param name="pageTitle" value="#{msgBv['viewWarenkorb.title']}"/>
 	
 		<ui:define name="article">
-			<h1><h:outputText id="heading"
-			                  value="#{msgBv['viewWarenkorb.heading']}"
-			                  rendered="#{not empty wk.positionen}"/></h1>
+			<h1>
+				<h:outputText id="heading" value="#{msgBv['viewWarenkorb.heading']}"/>
+			</h1>
 			
-			<h:form id="warenkorbForm"
-			        rendered="#{not empty wk.positionen}">
+			<h:form id="warenkorbForm">
 				<rich:dataTable id="warenkorbTabelle"
 				                value="#{wk.positionen}"
 				                var="position"
 				                rowClasses="odd-row, even-row"
-				                styleClass="tabelleMitZebrastil">
+				                styleClass="tabelleMitZebrastil"
+				                rendered="#{not empty wk.positionen}">
 					<rich:column id="artikelIdSpalte">
 						<f:facet name="header">
 							#{msgBv['viewWarenkorb.produkt.id']}
@@ -35,6 +35,20 @@
 							#{msgBv['viewWarenkorb.produkt.bezeichnung']}
 						</f:facet>
 						#{position.produkt.bezeichnung}
+					</rich:column>
+					
+					<rich:column id="farbeSpalte">
+						<f:facet name="header">
+							#{msgBv['viewWarenkorb.produkt.farbe']}
+						</f:facet>
+						#{position.produkt.farbe}
+					</rich:column>
+					
+					<rich:column id="groesseSpalte">
+						<f:facet name="header">
+							#{msgBv['viewWarenkorb.produkt.groesse']}
+						</f:facet>
+						#{position.produkt.groesse}
 					</rich:column>
 		
 					<rich:column id="anzahlSpalte">
@@ -61,7 +75,9 @@
 							                 action="#{wk.redirect}"
 									         value="#{msgBv['viewWarenkorb.update']}"/>
 							#{' '}
-							<h:commandButton type="reset" value="#{msgBv['viewWarenkorb.reset']}"/>
+							<h:commandButton 	id="resetButton"
+												action ="#{wk.reset}"
+												value="#{msgBv['viewWarenkorb.reset']}"/>
 							#{' '}
 							<h:commandButton id="bestellButton"
 											 action="/bestellverwaltung/confirmBestellung"
@@ -71,6 +87,15 @@
 					</f:facet>
 					
 				</rich:dataTable>
+				
+					<h:graphicImage id="emptyWK"
+								width="500"
+								height="300"
+								name="WKEmpty.gif"
+								library="images"
+								alt="#{msgBv['viewWarenkorb.empty']}"
+								rendered="#{empty wk.positionen}"/>
+					<h:outputText id="emptyWKLabel" value="#{msgBv['viewWarenkorb.empty']}"/>
 				
 				<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
 					<rich:jQuery id="odd"
