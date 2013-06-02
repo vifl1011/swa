@@ -289,7 +289,7 @@ public class KundeController implements Serializable {
 			return kundenPrefix.subList(0, MAX_AUTOCOMPLETE);
 		}
 		return kundenPrefix;
-	}/*
+	}
 	
 	@TransactionAttribute(REQUIRED)
 	public void loadKundeById() {
@@ -314,16 +314,16 @@ public class KundeController implements Serializable {
 	 * Action Methode, um einen Kunden zu gegebener ID zu suchen
 	 * @return URL fuer Anzeige des gefundenen Kunden; sonst null
 	 */
-	/*
+	
 	@TransactionAttribute(REQUIRED)
 	public String findKundenByNachname() {
-		if (nachname == null || nachname.isEmpty()) {
+		if (name == null || name.isEmpty()) {
 			kunden = ks.findAllKunden(FetchType.MIT_BESTELLUNGEN);
 			return JSF_LIST_KUNDEN;
 		}
 
 		try {
-			kunden = ks.findKundenByNachname(nachname, FetchType.MIT_BESTELLUNGEN, locale);
+			kunden = ks.findKundenByNachname(name, FetchType.MIT_BESTELLUNGEN, locale);
 		}
 		catch (InvalidNachnameException e) {
 			final Collection<ConstraintViolation<Kunde>> violations = e.getViolations();
@@ -353,7 +353,7 @@ public class KundeController implements Serializable {
 
 		return nachnamen;
 	}
-	
+	*/
 	@TransactionAttribute(REQUIRED)
 	public String details(Kunde ausgewaehlterKunde) {
 		if (ausgewaehlterKunde == null) {
@@ -369,13 +369,7 @@ public class KundeController implements Serializable {
 	
 	@TransactionAttribute(REQUIRED)
 	public String createKunde() {
-		// Liste von Strings als Set von Enums konvertieren
-		final Set<HobbyType> hobbiesKunde = new HashSet<>();
-		for (String s : hobbies) {
-			hobbiesKunde.add(HobbyType.valueOf(s));
-		}
-		neuerKunde.setHobbies(hobbiesKunde);
-
+		
 		try {
 			neuerKunde = (Kunde) ks.createKunde(neuerKunde, locale);
 		}
@@ -391,7 +385,6 @@ public class KundeController implements Serializable {
 		kundeId = neuerKunde.getId();
 		kunde = neuerKunde;
 		neuerKunde = null;  // zuruecksetzen
-		hobbies = null;
 		
 		return JSF_VIEW_KUNDE + JSF_REDIRECT_SUFFIX;
 	}
@@ -413,14 +406,12 @@ public class KundeController implements Serializable {
 		if (neuerKunde != null) {
 			return;
 		}
-
+		LOGGER.tracef("BEGIN createEmptyKunde()");
 		neuerKunde = new Kunde();
-		final Adresse adresse = new Adresse();
-		adresse.setKunde(neuerKunde);
+		Adresse adresse = new Adresse();
 		neuerKunde.setAdresse(adresse);
-		
-		final int anzahlHobbies = HobbyType.values().length;
-		hobbies = new ArrayList<>(anzahlHobbies);
+		adresse.setKunde(neuerKunde);
+		LOGGER.tracef("END createEmptyKunde() %s", neuerKunde.getAdresse().toString());
 	}
 	
 	/**

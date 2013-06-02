@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+		<ui:param name="pageTitle" value="#{msgKv['createKunde.title']}"/>
+		<ui:define name="metadata">
+			<f:event type="preRenderView" listener="#{kc.createEmptyKunde}"></f:event>
+		</ui:define>
+		<ui:define name="article">
+			<h1>
+				#{msgKv['createKunde.heading']}
+			</h1>
+	
+			<h:form id="createKundeForm">
+				<rich:jQuery id="nachnameFocus" selector="#nachname" query="focus()"/>
+				<!-- fokussiert auf id="kategorie" statt auf id="nachname" WARUM?
+				<rich:focus id="createKundeFormFocus"/>
+				-->
+				
+				<!--
+					https://issues.jboss.org/browse/AS7-1348
+					http://community.jboss.org/thread/169487 
+				-->
+				<rich:graphValidator id="kundeValidator"
+				                     value="#{kc.neuerKunde}"
+				                     groups="#{kc.passwordGroup}">
+					<rich:messages for="kundeValidator"/>
+					<rich:messages id="fehlermeldungPassword" globalOnly="true"/>
+					<p id="abstand"/>
+					
+					<h:panelGrid id="createKundeTabelle"
+					             columns="3">
+			
+						<h:outputLabel id="nameLabel" for="name" value="#{msgKv['createKunde.name']}"/>
+						<h:inputText id="name" value="#{kc.neuerKunde.name}">
+							<rich:validator oninvalid="$(#{rich:element('name')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('name')}).removeClass('invalid')"/>
+						</h:inputText>
+						<rich:messages id="fehlermeldungenName" for="name"/>
+			
+						<h:outputLabel id="vornameLabel" for="vorname" value="#{msgKv['createKunde.vorname']}"/>
+						<h:inputText id="vorname" value="#{kc.neuerKunde.vorname}"/>
+						<f:verbatim/>
+						
+						<h:outputText id="geschlechtLabel" value="#{msgKv['createKunde.geschlecht']}"/>
+						<h:selectOneRadio id="geschlecht" value="#{kc.neuerKunde.geschlecht}">
+							<f:selectItem id="weiblich" itemValue="w" itemLabel="#{msgKv['createKunde.geschlecht.weiblich']}"/>
+							<f:selectItem id="maennlich" itemValue="m" itemLabel="#{msgKv['createKunde.geschlecht.maennlich']}"/>
+						</h:selectOneRadio>
+						<f:verbatim/>
+							
+										
+						<h:outputLabel id="emailLabel" for="email" value="#{msgKv['createKunde.email']}"/>
+						<h:inputText id="email" value="#{kc.neuerKunde.email}">
+							<rich:validator oninvalid="$(#{rich:element('email')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('email')}).removeClass('invalid')"/>
+						</h:inputText>
+						<rich:messages id="fehlermeldungEmail" for="email"/>
+		
+						<h:outputLabel id="passwortLabel"
+						               for="passwort"
+						               value="#{msgKv['createKunde.password']}"/>
+						<h:inputSecret id="passwort"
+						               value="#{kc.neuerKunde.passwort}"
+						               redisplay="true"/>
+						<f:verbatim/>
+						
+						<h:outputLabel id="passwortWdhLabel"
+						               for="passwortWdh"
+						               value="#{msgKv['createKunde.passwordWdh']}"/>
+						<h:inputSecret id="passwortWdh"
+						               value="#{kc.neuerKunde.passwortWdh}"				
+						               redisplay="true"/>
+						<f:verbatim/>
+		
+						<h:outputLabel id="plzLabel" for="plz" value="#{msgKv['createKunde.plz']}"/>
+						<h:inputText id="plz"
+						             value="#{kc.neuerKunde.adresse.plz}">
+							<rich:validator oninvalid="$(#{rich:element('plz')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('plz')}).removeClass('invalid')"/>
+						</h:inputText>
+						<rich:messages id="fehlermeldungPlz" for="plz"/>
+						
+						<h:outputLabel id="ortLabel" for="ort" value="#{msgKv['createKunde.ort']}"/>
+						<h:inputText id="ort"
+						             value="#{kc.neuerKunde.adresse.ort}">
+							<rich:validator oninvalid="$(#{rich:element('ort')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('ort')}).removeClass('invalid')"/>
+						</h:inputText>
+						<rich:messages id="fehlermeldungOrt" for="ort"/>
+						
+						<h:outputLabel id="strasseLabel" for="strasse" value="#{msgKv['createKunde.strasse']}"/>
+						<h:inputText id="strasse"
+						             value="#{kc.neuerKunde.adresse.strasse}">
+							<rich:validator oninvalid="$(#{rich:element('strasse')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('strasse')}).removeClass('invalid')"/>
+						</h:inputText>
+						<rich:messages id="fehlermeldungStrasse" for="strasse"/>
+						
+						<h:outputLabel id="hausnrLabel" for="hausnr" value="#{msgKv['createKunde.hausnr']}"/>
+						<h:inputText id="hausnr" value="#{kc.neuerKunde.adresse.hausnummer}"/>
+						<f:verbatim/>
+						
+						<h:outputLabel id="agbLabel" for="agb" value="#{msgKv['createKunde.agb']}"/>
+						<h:selectBooleanCheckbox id="agb" value="#{kc.neuerKunde.agbAkzeptiert}">
+							<rich:validator/>
+						</h:selectBooleanCheckbox>
+						<rich:message id="fehlermeldungAgb" for="agb"/>
+					</h:panelGrid>
+		
+					<p id="buttons">
+						<h:commandButton id="createSubmit" action="#{kc.createKunde}" value="#{msgKv['createKunde.submit']}"/>
+						#{' '}
+						<h:commandButton id="reset" type="reset" value="#{msgKv['createKunde.reset']}"/>
+					</p>
+				</rich:graphValidator>
+			</h:form>
+			
+			<p id="hinweisPflichtfelder">
+				#{msgKv['createKunde.required']}
+			</p>
+		</ui:define>
+	</ui:composition>
+</html>

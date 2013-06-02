@@ -27,19 +27,129 @@
 				
 				<a4j:outputPanel id="gesuchteBestellungPanel">
 					<rich:tabPanel id="tabPanel" switchType="client" rendered="#{not empty bc.bestellung}">
-						<rich:panel id="stammdatenPanel">
-							<h:panelGrid id="stammdatenGrid" columns="2">
-								<h:outputText id="bestellungIdLabel" value="#{msgBv['viewBestellung.bestellnr']}"/>
-								<h:outputText id="bestellungId" value="#{bc.bestellung.id}"/>
+						<rich:tab id="Bestellung">
+							<f:facet name="header">
+								<h:panelGroup id="stammdatenLabel">
+									<h:graphicImage id="stammdatenGif"
+									                name="text.gif"
+									                library="images"/>
+									#{' '}
+									#{msgBv['viewBestellung.bestellung.stammdaten']}
+								</h:panelGroup>
+							</f:facet>
+							<rich:panel id="stammdatenPanel">
+								<h:panelGrid id="stammdatenGrid" columns="2"
+											rowClasses="odd-row, even-row"
+						                	styleClass="tabelleMitZebrastil"
+						                	cellspacing="5">
+									<h:outputText id="bestellungIdLabel" value="#{msgBv['viewBestellung.bestellnr']}"/>
+									<h:outputText id="bestellungId" value="#{bc.bestellung.id}"/>
 								
-								<h:outputText id="bestellungKundeNameLabel" value="#{msgBv['viewBestellung.bestellungKunde.name']}"/>
-								<h:outputText id="bestellungKundeName" value="#{bc.bestellung.kunde.name}"/>
+									<h:outputText id="bestellungKundeNameLabel" value="#{msgBv['viewBestellung.bestellungKunde.name']}"/>
+									<h:outputText id="bestellungKundeName" value="#{bc.bestellung.kunde.name}"/>
 								
-								<h:outputText id="bestellungKundeVornameLabel" value="#{msgBv['viewBestellung.bestellungKunde.vorname']}"/>
-								<h:outputText id="bestellungKundeVorname" value="#{bc.bestellung.kunde.vorname}"/>
-							</h:panelGrid>
-						</rich:panel>
+									<h:outputText id="bestellungKundeVornameLabel" value="#{msgBv['viewBestellung.bestellungKunde.vorname']}"/>
+									<h:outputText id="bestellungKundeVorname" value="#{bc.bestellung.kunde.vorname}"/>
+								
+									<h:outputText id="bestellungGezahltLabel" value="#{msgBv['viewBestellung.gezahlt']}"/>
+									<h:outputText id="bestellungGezahlt" value="#{bc.bestellung.gezahlt}"/>
+									
+									<h:outputText id="bestellungStatusLabel" value="#{msgBv['viewBestellung.status']}"/>
+									<h:outputText id="bestellungStatus" value="#{bc.bestellung.bestellstatus}"/>
+								
+									<h:outputText id="bestellungBestellzeitpunktLabel" value="#{msgBv['viewBestellung.bestellzeitpunkt']}"/>
+									<h:outputText id="bestellungBestellzeitpunkt" value="#{bc.bestellung.bestellzeitpunktStr}"/>
+								</h:panelGrid>
+							</rich:panel>
+						</rich:tab>
+						<rich:tab id="Positionen">
+							<f:facet name="header">
+								<h:panelGroup id="bestellpositionenLabel">
+									<h:graphicImage id="PositionenGif"
+									                name="warenkorb.gif"
+									                library="images"/>
+									#{' '}
+									#{msgBv['viewBestellung.bestellung.bestellpositionen']}
+								</h:panelGroup>
+							</f:facet>
+							<rich:dataTable id="bestellpositionenTabelle"
+						                value="#{bc.bestellung.bestellpositionen}"
+						                var="bp"
+						                rows="5"
+						                noDataLabel="#{msgBv['bestellung.bestellpositionen.noData']}"
+						                rowClasses="odd-row, even-row"
+						                styleClass="tabelleMitZebrastil"
+						                cellspacing="10"
+						                rendered="#{not empty bc.bestellung.bestellpositionen or param.init ne 'true'}">
+						                
+						    	<rich:column id="idSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.id']}
+									</f:facet>
+									#{bp.id}
+								</rich:column>
+								
+								<rich:column id="produktNameSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.produkt.bezeichnung']}
+									</f:facet>
+									#{bp.produkt.bezeichnung}
+								</rich:column>
+								
+								<rich:column id="mengeSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.produkt.menge']}
+									</f:facet>
+									#{bp.menge}
+								</rich:column>
+								
+								<rich:column id="preisSpalte">
+									<f:facet name="header">
+										#{msgBv['viewBestellung.bestellung.bestellpositionen.produkt.preis']}
+									</f:facet>
+									#{bp.einzelpreis}
+								</rich:column>
+								
+							</rich:dataTable>
+						<p id="abstand2"/>
+						<rich:dataScroller id="dataScroller"
+						                   for="bestellpositionenTabelle"
+						                   maxPages="10"
+						                   rendered="#{not empty bc.bestellung.bestellpositionen}"/>
+						
+							<a4j:outputPanel id="outputPanelZebra" ajaxRendered="true">
+								<rich:jQuery id="odd"
+							             selector=".tabelleMitZebrastil tr:odd"
+							             query="addClass('odd-row')"
+							             timing="domready"/>
+								<rich:jQuery id="even"
+							             selector=".tabelleMitZebrastil tr:even"
+							             query="addClass('even-row')"
+							             timing="domready"/>
+								<rich:jQuery id="mouseover"
+							             selector=".tabelleMitZebrastil tr"
+							             event="mouseover"
+							             query="jQuery(this).addClass('active-row')"
+							             timing="domready"/>
+								<rich:jQuery id="mouseout"
+							             selector=".tabelleMitZebrastil tr"
+							             event="mouseout"
+							             query="jQuery(this).removeClass('active-row')"
+							             timing="domready"/>
+							</a4j:outputPanel>
+						</rich:tab>
 					</rich:tabPanel>
+					
+					<p id="buttons">
+						<h:panelGroup id="buttonsGroup" rendered="#{not empty bc.bestellung}">
+							<h:commandButton id="updateButtonBestellung"
+							                 image="#{resource['images:edit.gif']}"
+							                 action="/bestellverwaltung/updateBestellung"		
+							                 alt="#{msgBv['viewBestellung.updateButtonAlt']}"/>
+							#{' '}
+							<rich:messages id="fehlermeldungDeleteButton" for="deleteButton"/>
+						</h:panelGroup>
+					</p>
 				</a4j:outputPanel>
 			</h:form>
 		</ui:define>

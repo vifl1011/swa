@@ -30,6 +30,7 @@ import javax.persistence.Temporal;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.Valid;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Min;
 import javax.persistence.UniqueConstraint;
 
@@ -89,6 +90,11 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
             query = "SELECT k"
 			        + " FROM   Kunde k"
             		+ " WHERE  UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NACHNAME + ")"),
+    @NamedQuery(name  = Kunde.FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN,
+            query = "SELECT      DISTINCT k"
+            		+ " FROM     Kunde k LEFT JOIN FETCH k.bestellungen"
+    			    + " WHERE    UPPER(k.name) = UPPER(:" + Kunde.PARAM_KUNDE_NACHNAME + ")"
+    			    + " ORDER BY k.id"),
     @NamedQuery(name  = Kunde.FIND_KUNDE_BY_ID,
             query = "SELECT k "
 			        + " FROM   Kunde as k"
@@ -137,6 +143,7 @@ public class Kunde implements Serializable, Cloneable {
 	public static final String FIND_KUNDEN_FETCH_BESTELLUNGEN = PREFIX + "findKundenFetchBestellungen";
 	public static final String FIND_KUNDEN_FETCH_ADRESSE = PREFIX + "findKundenFetchAdresse";
 	public static final String FIND_KUNDEN_BY_NACHNAME = PREFIX + "findKundenByNachname";
+	public static final String FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN = PREFIX + "findKundenByNachnameFetchBestellungen";
 	public static final String FIND_IDS_BY_PREFIX = PREFIX + "findIdsByIdPrefix";
 	public static final String FIND_KUNDEN_BY_ID_PREFIX = PREFIX + "findKundenByIdPrefix";
 	
@@ -186,6 +193,14 @@ public class Kunde implements Serializable, Cloneable {
 
 	@Column(name = "PASSWORT", length = 255, nullable = false)
 	private String passwort;
+	
+	@Transient
+	@JsonIgnore
+	private String passwortWdh;
+	
+	@Transient
+	@AssertTrue(message = "{kundenverwaltung.kunde.agb}")
+	private boolean agbAkzeptiert;
 
 	@Column(name = "RABATT", nullable = false)
 	private float rabatt;
@@ -256,7 +271,7 @@ public class Kunde implements Serializable, Cloneable {
 		}
 	public Kunde(String email, String geschlecht, String login, String name, String vorname,
 			 String passwort, float rabatt) {
-		this(email,  GeschlechtType.valueOf(geschlecht),  login,  name,  vorname,  passwort,  rabatt);
+		this(email,  geschlecht == "m" ?  GeschlechtType.MAENNLICH  : GeschlechtType.WEIBLICH ,  login,  name,  vorname,  passwort,  rabatt);
 	}
 	public Kunde(String email, String geschlecht, String login, String name, String vorname,
 			 String passwort, float rabatt, Adresse adresse) {
@@ -268,6 +283,22 @@ public class Kunde implements Serializable, Cloneable {
 	public void addBestellung(Bestellung bestellung) {
 		if (bestellung != null)
 			bestellungen.add(bestellung);
+	}
+	
+	public String getPasswortWdh() {
+		return passwortWdh;
+	}
+
+	public void setPasswortWdh(String passwortWdh) {
+		this.passwortWdh = passwortWdh;
+	}
+	
+	public void setAgbAkzeptiert(boolean agbAkzeptiert) {
+		this.agbAkzeptiert = agbAkzeptiert;
+	}
+
+	public boolean isAgbAkzeptiert() {
+		return agbAkzeptiert;
 	}
 	
 	public Adresse getAdresse() {
@@ -405,6 +436,8 @@ public class Kunde implements Serializable, Cloneable {
 		setRabatt(k.getRabatt());
 		setEmail(k.getEmail());
 		setPasswort(k.getPasswort());
+		passwortWdh = k.passwort;
+		agbAkzeptiert = k.agbAkzeptiert;
 		setLogin(k.getLogin());
 		setGeschlecht(k.geschlecht);
 		setVersion(k.getVersion());

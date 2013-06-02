@@ -101,6 +101,44 @@ public class KundeService implements Serializable {
 	}
 	
 	@Log
+	public List<Kunde> findKundenByNachname(String nachname, FetchType fetch, Locale locale) {
+		validateNachname(nachname, locale);
+		List<Kunde> kunden;
+		switch (fetch) {
+			case NUR_KUNDE:
+				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NACHNAME, Kunde.class)
+						   .setParameter(Kunde.PARAM_KUNDE_NACHNAME, nachname)
+                           .getResultList();
+				break;
+			
+			case MIT_BESTELLUNGEN:
+				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NACHNAME_FETCH_BESTELLUNGEN,
+						                     Kunde.class)
+						   .setParameter(Kunde.PARAM_KUNDE_NACHNAME, nachname)
+                           .getResultList();
+				break;
+
+			default:
+				kunden = em.createNamedQuery(Kunde.FIND_KUNDEN_BY_NACHNAME, Kunde.class)
+						   .setParameter(Kunde.PARAM_KUNDE_NACHNAME, nachname)
+                           .getResultList();
+				break;
+		}
+
+		return kunden;
+	}
+	
+	private void validateNachname(String nachname, Locale locale) {
+		final Validator validator = validatorProvider.getValidator(locale);
+		final Set<ConstraintViolation<Kunde>> violations = validator.validateValue(Kunde.class,
+				                                                                           "nachname",
+				                                                                           nachname,
+				                                                                           Default.class);
+		if (!violations.isEmpty())
+			throw new InvalidNachnameException(nachname, violations);
+	}
+	
+	@Log
 	public Kunde findKundeByEmail(String email, Locale locale) {
 		validateEmail(email, locale);
 		try {

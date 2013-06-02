@@ -1,5 +1,6 @@
 package de.shop.bestellverwaltung.controller;
 
+import static de.shop.util.Constants.JSF_REDIRECT_SUFFIX;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
 import java.io.Serializable;
@@ -34,11 +35,13 @@ public class Warenkorb implements Serializable {
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	
-	private static final String JSF_VIEW_WARENKORB = "/bestellverwaltung/viewWarenkorb?init=true";
+	private static final String JSF_VIEW_WARENKORB = "/bestellverwaltung/viewWarenkorb";//?init=true";
 	private static final int TIMEOUT = 5;
 	
 	private final List<Bestellposition> positionen = new ArrayList<Bestellposition>();
 	private Long artikelId;  // fuer selectArtikel.xhtml
+	
+	private String lastPage = "/Index";
 	
 	@Inject
 	private transient Conversation conversation;
@@ -53,6 +56,7 @@ public class Warenkorb implements Serializable {
 	
 	@PreDestroy
 	private void preDestroy() {
+		endConversation();
 		LOGGER.debugf("CDI-faehiges Bean %s wird geloescht", this);
 	}
 	
@@ -77,29 +81,35 @@ public class Warenkorb implements Serializable {
 		return "Warenkorb " + positionen;
 	}
 	
-	
-//	public Warenkorb() {
-//		//beginConversation();		
-//	}
-	
 	/**
 	 */
-	public String add(Produkt produkt) {
+	public String add(Produkt produkt, String lp) {
 		beginConversation();
 		
-		for (Bestellposition bp : positionen) {
-			if (bp.getProdukt().equals(produkt)) {
-				// bereits im Warenkorb
-				final int vorhandeneAnzahl = bp.getMenge();
-				bp.setMenge((short) (vorhandeneAnzahl + 1));
-				return JSF_VIEW_WARENKORB;
+		lastPage = lp;
+		
+		if (positionen != null) {
+			for (Bestellposition bp : positionen) {
+				if (bp.getProdukt().equals(produkt)) {
+					// bereits im Warenkorb
+					final int vorhandeneAnzahl = bp.getMenge();
+					bp.setMenge((short) (vorhandeneAnzahl + 1));
+					return JSF_VIEW_WARENKORB;
+				}
 			}
 		}
-		
 		final Bestellposition neu = new Bestellposition(produkt);
 		positionen.add(neu);
-		return JSF_VIEW_WARENKORB;
+		return JSF_VIEW_WARENKORB + JSF_REDIRECT_SUFFIX;
 	}
+	
+	/*
+	 * 
+	 */
+	public String redirect() {
+		return lastPage + JSF_REDIRECT_SUFFIX;
+	}
+	
 	
 	/**
 	 */
