@@ -67,9 +67,12 @@
 						<h:inputText id="preis" value="#{ac.neuesProdukt.preis}">
 						</h:inputText>
 						<rich:messages id="fehlermeldungPreis" for="preis"/>
-						<f:verbatim/>
+						
+						
+						
 						<h:outputText id="vorratLabel" value="#{msgAv['createProdukt.vorrat']}"/>
 						<h:inputText id="vorrat" value="#{ac.neuesProdukt.vorrat}"/>	
+						
 					</h:panelGrid>
 					<p id="buttons">
 						<h:commandButton id="createSubmit" action="#{ac.createProdukt}" value="#{msgAv['createProdukt.submit']}"/>
