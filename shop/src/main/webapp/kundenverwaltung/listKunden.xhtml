@@ -161,15 +161,6 @@
 							             action="#{kc.details(kunde)}"
 									     alt="#{msgKv['listKunden.detailsButtonAlt']}"/>
 					</rich:column>
-	
-					<rich:column id="getSpalte" rendered="#{not empty kc.kunden}">
-						<h:button id="detailsButtonGET"
-						          image="#{resource['images:details2.gif']}"
-								  outcome="/kundenverwaltung/viewKundeGET"
-								  alt="#{msgKv['listKunden.detailsButtonGETAlt']}">
-							<f:param id="idParam" name="kundeId" value="#{kunde.id}"/>
-						</h:button>
-					</rich:column>
 									
 					<rich:column id="editSpalte" rendered="#{not empty kc.kunden}">
 						<h:commandButton id="editButton"

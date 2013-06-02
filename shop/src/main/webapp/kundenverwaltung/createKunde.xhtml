@@ -8,10 +8,10 @@
 	  xmlns:rich="http://richfaces.org/rich">
 
 	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
-		<ui:param name="pageTitle" value="#{msgKv['createKunde.title']}"/>
 		<ui:define name="metadata">
 			<f:event type="preRenderView" listener="#{kc.createEmptyKunde}"></f:event>
 		</ui:define>
+		<ui:param name="pageTitle" value="#{msgKv['createKunde.title']}"/>
 		<ui:define name="article">
 			<h1>
 				#{msgKv['createKunde.heading']}
@@ -78,7 +78,7 @@
 						               value="#{kc.neuerKunde.passwortWdh}"				
 						               redisplay="true"/>
 						<f:verbatim/>
-		
+				
 						<h:outputLabel id="plzLabel" for="plz" value="#{msgKv['createKunde.plz']}"/>
 						<h:inputText id="plz"
 						             value="#{kc.neuerKunde.adresse.plz}">
