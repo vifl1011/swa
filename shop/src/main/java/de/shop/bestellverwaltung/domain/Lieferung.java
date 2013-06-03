@@ -15,12 +15,15 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.jboss.resteasy.annotations.providers.jaxb.Formatted;
 
 import de.shop.util.Constants;
+import de.shop.util.IdGroup;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -57,13 +60,14 @@ public class Lieferung implements Serializable {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "id", unique = true, nullable = false, updatable = false, precision = Constants.LONG_ANZ_ZIFFERN)
+	@Column(name = "id", nullable = false, updatable = false, precision = Constants.LONG_ANZ_ZIFFERN)
+	@Min(value = Constants.MIN_ID, message = "{bestellverwaltung.lieferung.id.min", groups = IdGroup.class)
 	private Long id = Constants.KEINE_ID;
 
 	@Version
 	@Basic(optional = false)
 	@Column(name = "version")
-	private int version = 0;
+	private int version = Constants.ERSTE_VERSION;
 	
 	@JsonIgnore
 	private Date aktualisiert;

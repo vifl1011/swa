@@ -66,9 +66,6 @@ public class BestellungController implements Serializable {
 	
 	private Long bestellungId;
 	
-	@Named("bc")
-	@RequestScoped
-	@Log
 	@Transactional
 	public String bestellen() {
 		auth.preserveLogin();

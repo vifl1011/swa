@@ -117,9 +117,9 @@ public class Bestellposition implements Serializable {
 	private URI produktUri;
 
 	// bi-directional many-to-one association to Lieferung
-	@ManyToOne(optional = false)
-	@JoinColumn(name = "LIEFERUNG_ID", nullable = false)
-	@NotEmpty(message = "{bestellverwaltung.bestellposition.lieferung.notNull}")
+	@ManyToOne
+	@JoinColumn(name = "LIEFERUNG_ID", nullable = true)
+	//@NotEmpty(message = "{bestellverwaltung.bestellposition.lieferung.notNull}")
 	@JsonIgnore
 	private Lieferung lieferung;
 	
