@@ -3,6 +3,7 @@ package de.shop.kundenverwaltung.controller;
 import static de.shop.util.Constants.JSF_INDEX;
 import static de.shop.util.Constants.JSF_REDIRECT_SUFFIX;
 import static de.shop.util.Messages.MessagesType.KUNDENVERWALTUNG;
+import static java.util.logging.Level.CONFIG;
 import static javax.ejb.TransactionAttributeType.REQUIRED;
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 import static javax.persistence.PersistenceContextType.EXTENDED;
@@ -18,6 +19,7 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.SessionScoped;
@@ -40,6 +42,7 @@ import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
 import de.shop.auth.controller.AuthController;
+import de.shop.auth.controller.KundeLoggedIn;
 import de.shop.kundenverwaltung.domain.Adresse;
 import de.shop.kundenverwaltung.domain.Kunde;
 import de.shop.kundenverwaltung.domain.PasswordGroup;
@@ -56,6 +59,7 @@ import de.shop.util.File;
 import de.shop.util.FileHelper;
 import de.shop.util.Log;
 import de.shop.util.Messages;
+import static de.shop.auth.service.jboss.AuthService.*;
 
 /**
  * Dialogsteuerung fuer die Kundenverwaltung
@@ -63,9 +67,9 @@ import de.shop.util.Messages;
 @Named("kc")
 @Log
 @SessionScoped
-@Stateful // Hab das auskommentiert weil ansonsten immer "
+@Stateful
 @TransactionAttribute(SUPPORTS)
-@PermitAll 
+@RolesAllowed({ADMIN, KUNDE, MITARBEITER, ABTEILUNGSLEITER})
 public class KundeController implements Serializable {
 	private static final long serialVersionUID = -8817180909526894740L;
 	
@@ -76,8 +80,7 @@ public class KundeController implements Serializable {
 	private static final String JSF_KUNDENVERWALTUNG = "/kundenverwaltung/";
 	private static final String JSF_VIEW_KUNDE = JSF_KUNDENVERWALTUNG + "viewKunde";
 	private static final String JSF_LIST_KUNDEN = JSF_KUNDENVERWALTUNG + "/listKunden";
-	private static final String JSF_UPDATE_PRIVATKUNDE = JSF_KUNDENVERWALTUNG + "updateKunde";
-	private static final String JSF_UPDATE_FIRMENKUNDE = JSF_KUNDENVERWALTUNG + "updateFirmenkunde";
+	private static final String JSF_UPDATE_KUNDE = JSF_KUNDENVERWALTUNG + "updateKunde";
 	private static final String JSF_DELETE_OK = JSF_KUNDENVERWALTUNG + "okDelete";
 	
 	private static final String REQUEST_KUNDE_ID = "kundeId";
@@ -89,18 +92,15 @@ public class KundeController implements Serializable {
 	private static final String MSG_KEY_KUNDEN_NOT_FOUND_BY_NAME = "listKunden.notFound";
 
 	private static final String CLIENT_ID_CREATE_EMAIL = "createKundeForm:email";
-	private static final String MSG_KEY_CREATE_PRIVATKUNDE_EMAIL_EXISTS = "createKunde.emailExists";
+	private static final String MSG_KEY_CREATE_KUNDE_EMAIL_EXISTS = "createKunde.emailExists";
 	
 	private static final Class<?>[] PASSWORD_GROUP = { PasswordGroup.class };
 	
 	private static final String CLIENT_ID_UPDATE_PASSWORD = "updateKundeForm:password";
 	private static final String CLIENT_ID_UPDATE_EMAIL = "updateKundeForm:email";
-	private static final String MSG_KEY_UPDATE_PRIVATKUNDE_DUPLIKAT = "updateKunde.duplikat";
-	private static final String MSG_KEY_UPDATE_FIRMENKUNDE_DUPLIKAT = "updateFirmenkunde.duplikat";
-	private static final String MSG_KEY_UPDATE_PRIVATKUNDE_CONCURRENT_UPDATE = "updateKunde.concurrentUpdate";
-	private static final String MSG_KEY_UPDATE_FIRMENKUNDE_CONCURRENT_UPDATE = "updateFirmenkunde.concurrentUpdate";
-	private static final String MSG_KEY_UPDATE_PRIVATKUNDE_CONCURRENT_DELETE = "updateKunde.concurrentDelete";
-	private static final String MSG_KEY_UPDATE_FIRMENKUNDE_CONCURRENT_DELETE = "updateFirmenkunde.concurrentDelete";
+	private static final String MSG_KEY_UPDATE_KUNDE_DUPLIKAT = "updateKunde.duplikat";
+	private static final String MSG_KEY_UPDATE_KUNDE_CONCURRENT_UPDATE = "updateKunde.concurrentUpdate";
+	private static final String MSG_KEY_UPDATE_KUNDE_CONCURRENT_DELETE = "updateKunde.concurrentDelete";
 	
 	private static final String MSG_KEY_SELECT_DELETE_KUNDE_BESTELLUNG = "listKunden.deleteKundeBestellung";
 	
@@ -136,6 +136,10 @@ public class KundeController implements Serializable {
 	
 	@Inject
 	private FileHelper fileHelper;
+	
+	@Inject
+	@KundeLoggedIn
+	private Kunde user;
 
 	private Long kundeId;
 	private Kunde kunde;
@@ -228,6 +232,7 @@ public class KundeController implements Serializable {
 		return menuItemEmail;
 	}
 
+	@PermitAll
 	public Date getAktuellesDatum() {
 		final Date datum = new Date();
 		return datum;
@@ -238,6 +243,7 @@ public class KundeController implements Serializable {
 	 * @return URL fuer Anzeige des gefundenen Kunden; sonst null
 	 */
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public String findKundeById() {
 		// Bestellungen werden durch "Extended Persistence Context" nachgeladen
 		kunde = ks.findKundeById(kundeId, FetchType.NUR_KUNDE, locale);
@@ -250,7 +256,17 @@ public class KundeController implements Serializable {
 		return JSF_VIEW_KUNDE;
 	}
 	
+	@TransactionAttribute(REQUIRED)
+	public String findUser() {
+		kunde =ks.findKundeById(user.getId(), FetchType.NUR_KUNDE, locale);
+		if (kunde == null) {
+			// Kein Kunde zu gegebener ID gefunden
+			return findKundeByIdErrorMsg(kundeId.toString());
+		}
 
+		return JSF_VIEW_KUNDE;
+	}
+	
 	private String findKundeByIdErrorMsg(String id) {
 		messages.error(KUNDENVERWALTUNG, MSG_KEY_KUNDE_NOT_FOUND_BY_ID, CLIENT_ID_KUNDEID, id);
 		return null;
@@ -262,6 +278,7 @@ public class KundeController implements Serializable {
 	 */
 	
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public List<Kunde> findKundenByIdPrefix(String idPrefix) {
 		List<Kunde> kundenPrefix = null;
 		Long id = null; 
@@ -287,6 +304,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public void loadKundeById() {
 		// Request-Parameter "kundeId" fuer ID des gesuchten Kunden
 		final String idStr = request.getParameter("kundeId");
@@ -306,6 +324,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public String findKundenByName() {
 		LOGGER.debugf("name:%s:",name);
 		if (name == null || name.isEmpty()) {
@@ -325,6 +344,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public String details(Kunde ausgewaehlterKunde) {
 		if (ausgewaehlterKunde == null) {
 			return null;
@@ -338,6 +358,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public String createKunde() {
 		
 		try {
@@ -362,7 +383,7 @@ public class KundeController implements Serializable {
 	private String createKundeErrorMsg(AbstractShopException e) {
 		final Class<? extends AbstractShopException> exceptionClass = e.getClass();
 		if (exceptionClass.equals(EmailExistsException.class)) {
-			messages.error(KUNDENVERWALTUNG, MSG_KEY_CREATE_PRIVATKUNDE_EMAIL_EXISTS, CLIENT_ID_CREATE_EMAIL);
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_CREATE_KUNDE_EMAIL_EXISTS, CLIENT_ID_CREATE_EMAIL);
 		}
 		else if (exceptionClass.equals(InvalidKundeException.class)) {
 			final InvalidKundeException orig = (InvalidKundeException) e;
@@ -452,28 +473,14 @@ public class KundeController implements Serializable {
 			messages.error(violations, CLIENT_ID_UPDATE_PASSWORD);
 		}
 		else if (exceptionClass.equals(EmailExistsException.class)) {
-			if (kundeClass.equals(Kunde.class)) {
-				messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_PRIVATKUNDE_DUPLIKAT, CLIENT_ID_UPDATE_EMAIL);
-			}
-			else {
-				messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_FIRMENKUNDE_DUPLIKAT, CLIENT_ID_UPDATE_EMAIL);
-			}
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_KUNDE_DUPLIKAT, CLIENT_ID_UPDATE_EMAIL);
 		}
 		else if (exceptionClass.equals(OptimisticLockException.class)) {
-			if (kundeClass.equals(Kunde.class)) {
-				messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_PRIVATKUNDE_CONCURRENT_UPDATE, null);
-			}
-			else {
-				messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_FIRMENKUNDE_CONCURRENT_UPDATE, null);
-			}
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_KUNDE_CONCURRENT_UPDATE, null);
+
 		}
 		else if (exceptionClass.equals(ConcurrentDeletedException.class)) {
-			if (kundeClass.equals(Kunde.class)) {
-				messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_PRIVATKUNDE_CONCURRENT_DELETE, null);
-			}
-			else {
-				messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_FIRMENKUNDE_CONCURRENT_DELETE, null);
-			}
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_KUNDE_CONCURRENT_DELETE, null);
 		}
 		return null;
 	}
@@ -516,12 +523,11 @@ public class KundeController implements Serializable {
 		
 		kunde = ausgewaehlterKunde;
 		
-		return Kunde.class.equals(ausgewaehlterKunde.getClass())
-			   ? JSF_UPDATE_PRIVATKUNDE
-			   : JSF_UPDATE_FIRMENKUNDE;
+		return JSF_UPDATE_KUNDE;
 	}
 
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public String delete(Kunde ausgewaehlterKunde) {
 		try {
 			ks.deleteKunde(ausgewaehlterKunde);
@@ -572,6 +578,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
+	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
 	public List<String> findNamenByPrefix(String namePrefix) {
 		// NICHT: Liste von Kunden. Sonst waeren gleiche Nachnamen mehrfach vorhanden.
 		final List<String> namen = ks.findNamenByPrefix(namePrefix);

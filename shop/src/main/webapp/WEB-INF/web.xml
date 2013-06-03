@@ -253,6 +253,10 @@
       <web-resource-name>shopKundeTaetigkeiten</web-resource-name>
       <url-pattern>/bestellverwaltung/confirmBestellung.jsf</url-pattern>
       <url-pattern>/bestellverwaltung/confirmBestellung.faces</url-pattern>
+      <url-pattern>/kundenverwaltung/desktop/viewKunde.xhtml</url-pattern>
+      <url-pattern>/kundenverwaltung/updateKunde.jsf</url-pattern><!--zum aendern des eigenen Profils-->
+      <url-pattern>/indexDesktop.xhtml</url-pattern>
+      <url-pattern>/indexDesktop.jsf</url-pattern>
       <url-pattern>/faces/bestellverwaltung/confirmBestellung.xhtml</url-pattern>
       <http-method>GET</http-method>
       <http-method>POST</http-method>

@@ -2,6 +2,8 @@ package de.shop.auth.controller;
 
 import static de.shop.util.Messages.MessagesType.AUTH;
 import static de.shop.util.Messages.MessagesType.SHOP;
+import static de.shop.util.Constants.JSF_INDEX;
+import static de.shop.util.Constants.JSF_REDIRECT_SUFFIX;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -101,6 +103,10 @@ public class AuthController implements Serializable {
 		return "AuthController [username=" + username + ", password=" + password + ", user=" + user + "]";
 	}
 	
+	public Long getUserId(){
+		return user.getId();
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -144,7 +150,6 @@ public class AuthController implements Serializable {
 	/**
 	 * Einloggen eines registrierten Kunden mit Benutzername und Password.
 	 */
-	//TODO funktioniert noch nicht
 	@Transactional
 	public String login() {
 		if (username == null || "".equals(username)) {
@@ -177,7 +182,6 @@ public class AuthController implements Serializable {
 	/**
 	 * Nachtraegliche Einloggen eines registrierten Kunden mit Benutzername und Password.
 	 */
-	//TODO funktioniert noch nicht
 	@Transactional
 	public void preserveLogin() {
 		if (username != null && user != null) {
@@ -208,7 +212,6 @@ public class AuthController implements Serializable {
 	/**
 	 * Ausloggen und L&ouml;schen der gesamten Session-Daten.
 	 */
-	//TODO funktioniert noch nicht
 	public String logout() {
 		try {
 			request.logout();  // Der Loginname wird zurueckgesetzt
@@ -238,59 +241,57 @@ public class AuthController implements Serializable {
 		return usernameList;
 	}
 	
-	//TODO funktioniert noch nicht
-//	@Transactional
-//	public String findRollenByUsername() {
-//		// Gibt es den Usernamen ueberhaupt?
-//		final Kunde kunde = ks.findKundeByUserName(usernameUpdateRollen);
-//		if (kunde == null) {
-//			kundeId = null;
-//			ausgewaehlteRollenOrig = null;
-//			ausgewaehlteRollen = null;
-//			
-//			messages.error(AUTH, MSG_KEY_UPDATE_ROLLEN_KEIN_USER, CLIENT_ID_USERNAME_INPUT);
-//			return null;
-//		}
-//		
-//		ausgewaehlteRollenOrig = Lists.newArrayList(kunde.getRollen());
-//		ausgewaehlteRollen = Lists.newArrayList(kunde.getRollen());
-//		kundeId = kunde.getId();
-//		LOGGER.tracef("Rollen von %s: %s", usernameUpdateRollen, ausgewaehlteRollen);
-//
-//		if (verfuegbareRollen == null) {
-//			verfuegbareRollen = Arrays.asList(RolleType.values());
-//		}
-//		
-//		return null;
-//	}
+	@Transactional
+	public String findRollenByUsername() {
+		// Gibt es den Usernamen ueberhaupt?
+		final Kunde kunde = ks.findKundenByLogin(usernameUpdateRollen);
+		if (kunde == null) {
+			kundeId = null;
+			ausgewaehlteRollenOrig = null;
+			ausgewaehlteRollen = null;
+			
+			messages.error(AUTH, MSG_KEY_UPDATE_ROLLEN_KEIN_USER, CLIENT_ID_USERNAME_INPUT);
+			return null;
+		}
+		
+		ausgewaehlteRollenOrig = Lists.newArrayList(kunde.getRollen());
+		ausgewaehlteRollen = Lists.newArrayList(kunde.getRollen());
+		kundeId = kunde.getId();
+		LOGGER.tracef("Rollen von %s: %s", usernameUpdateRollen, ausgewaehlteRollen);
+
+		if (verfuegbareRollen == null) {
+			verfuegbareRollen = Arrays.asList(RolleType.values());
+		}
+		
+		return null;
+	}
 	
-	//TODO funktioniert noch nicht
-//	@Transactional
-//	public String updateRollen() {
-//		// Zusaetzliche Rollen?
-//		final List<RolleType> zusaetzlicheRollen = new ArrayList<>();
-//		for (RolleType rolle : ausgewaehlteRollen) {
-//			if (!ausgewaehlteRollenOrig.contains(rolle)) {
-//				zusaetzlicheRollen.add(rolle);
-//			}
-//		}
-//		authService.addRollen(kundeId, zusaetzlicheRollen);
-//		
-//		// Zu entfernende Rollen?
-//		final List<RolleType> zuEntfernendeRollen = new ArrayList<>();
-//		for (RolleType rolle : ausgewaehlteRollenOrig) {
-//			if (!ausgewaehlteRollen.contains(rolle)) {
-//				zuEntfernendeRollen.add(rolle);
-//			}
-//		}
-//		authService.removeRollen(kundeId, zuEntfernendeRollen);
-//		
-//		// zuruecksetzen
-//		usernameUpdateRollen = null;
-//		ausgewaehlteRollenOrig = null;
-//		ausgewaehlteRollen = null;
-//		kundeId = null;
-//
-//		return JSF_INDEX + JSF_REDIRECT_SUFFIX;
-//	}
+	@Transactional
+	public String updateRollen() {
+		// Zusaetzliche Rollen?
+		final List<RolleType> zusaetzlicheRollen = new ArrayList<>();
+		for (RolleType rolle : ausgewaehlteRollen) {
+			if (!ausgewaehlteRollenOrig.contains(rolle)) {
+				zusaetzlicheRollen.add(rolle);
+			}
+		}
+		authService.addRollen(kundeId, zusaetzlicheRollen);
+		
+		// Zu entfernende Rollen?
+		final List<RolleType> zuEntfernendeRollen = new ArrayList<>();
+		for (RolleType rolle : ausgewaehlteRollenOrig) {
+			if (!ausgewaehlteRollen.contains(rolle)) {
+				zuEntfernendeRollen.add(rolle);
+			}
+		}
+		authService.removeRollen(kundeId, zuEntfernendeRollen);
+		
+		// zuruecksetzen
+		usernameUpdateRollen = null;
+		ausgewaehlteRollenOrig = null;
+		ausgewaehlteRollen = null;
+		kundeId = null;
+
+		return JSF_INDEX + JSF_REDIRECT_SUFFIX;
+	}
 }

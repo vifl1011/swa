@@ -55,7 +55,11 @@ public class AuthService implements Serializable {
 	
 	private static final String LOCALHOST = "localhost";
 	private static final int MANAGEMENT_PORT = 9999;
-	
+
+	public static final String ADMIN="admin";
+	public static final String MITARBEITER="mitarbeiter";
+	public static final String ABTEILUNGSLEITER="abteilungsleiter";
+	public static final String KUNDE="kunde";
 	public enum RolleType {
 		ADMIN(0),
 		MITARBEITER(1),

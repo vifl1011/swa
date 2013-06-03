@@ -16,7 +16,7 @@
 			<h:form id="form">
 				<rich:focus id="formFocus"/>
 				
-				<rich:panel id="suchePanel" header="#{msgKv['viewKunde.sucheNeu']}">
+				<rich:panel id="suchePanel" header="#{msgKv['viewKunde.sucheNeu']}" rendered="#{rich:isUserInRole('admin')}">
 					<h:panelGrid id="suchePanelGrid" columns="4">
 						<h:outputLabel id="kundeIdInputLabel"
 						               value="#{msgKv['viewKunde.kundenr']}"

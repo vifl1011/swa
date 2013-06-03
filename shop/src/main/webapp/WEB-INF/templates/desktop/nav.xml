@@ -21,8 +21,8 @@
 		               itemLeftIcon="grid">
 			<rich:panelMenuGroup id="kundenverwaltung"
 				                     label="#{msg['nav.kundenverwaltung']}"
-				                     expanded="true">
-				<rich:panelMenuItem id="viewKunde">
+				                     expanded="true" rendered="#{auth.loggedIn}">
+				<rich:panelMenuItem id="viewKunde" rendered="#{rich:isUserInRole('admin')}">
 					<h:outputLink id="menuViewKunde"
 					   	value="#{request.contextPath}/kundenverwaltung/viewKunde.jsf">
 						#{msg['nav.viewKunde']}
@@ -32,7 +32,7 @@
 		        		</c:if>
 					</h:outputLink>
 				</rich:panelMenuItem>
-				<rich:panelMenuItem id="listKunde">
+				<rich:panelMenuItem id="listKunde" rendered="#{rich:isUserInRole('admin')}">
 					<h:outputLink id="menuListKunde"
 					   	value="#{request.contextPath}/kundenverwaltung/listKunden.jsf">
 						#{msg['nav.listKunde']}
@@ -52,7 +52,14 @@
 						</c:if>
 					</h:outputLink>
 				</rich:panelMenuItem>
-				<rich:panelMenuItem id="upload">
+				<rich:panelMenuItem id="updateKunde">
+					<h:commandLink id="menuUpdateKunde"
+						                   action="#{kc.findUser}">
+						#{msg['nav.kundenverwaltung.update']}
+					</h:commandLink>
+				</rich:panelMenuItem>
+				
+				<rich:panelMenuItem id="upload" rendered="#{rich:isUserInRole('admin')}">
 					<h:outputLink id="menuUpload"
 				   	    value="#{request.contextPath}/kundenverwaltung/upload.jsf">
 						#{msg['nav.kundenverwaltung.upload']}
