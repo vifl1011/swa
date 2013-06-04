@@ -112,6 +112,13 @@
 		        		</c:if>
 		        	</h:outputLink>		        	
 				</rich:panelMenuItem>
+
+			    <rich:panelMenuItem id="updateArtikel" rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter') or rich:isUserInRole('abteilungsleiter')}">
+					<h:commandLink id="menuUpdateArtikel"
+					    		   action="#{ac.findProduct}">
+						#{msg['nav.artikelverwaltung.update']}
+					</h:commandLink>
+				</rich:panelMenuItem>
 				
 				<rich:panelMenuItem id="artikelverwaltungListArtikelItem">
 					<h:outputLink id="artikelverwaltungListArtikel"
