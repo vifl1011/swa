@@ -27,10 +27,12 @@
 					https://issues.jboss.org/browse/AS7-1348
 					http://community.jboss.org/thread/169487 
 				-->
+<!--
 				<rich:graphValidator id="kundeValidator"
 				                     value="#{kc.neuerKunde}"
 				                     groups="#{kc.passwordGroup}">
 					<rich:messages for="kundeValidator"/>
+-->
 					<rich:messages id="fehlermeldungPassword" globalOnly="true"/>
 					<p id="abstand"/>
 					
@@ -54,7 +56,10 @@
 							<f:selectItem id="maennlich" itemValue="m" itemLabel="#{msgKv['createKunde.geschlecht.maennlich']}"/>
 						</h:selectOneRadio>
 						<f:verbatim/>
-							
+						
+						<h:outputLabel id="loginLabel" for="login" value="#{msgKv['createKunde.login']}"/>
+						<h:inputText id="login" value="#{kc.neuerKunde.login}"/>
+						<f:verbatim/>	
 										
 						<h:outputLabel id="emailLabel" for="email" value="#{msgKv['createKunde.email']}"/>
 						<h:inputText id="email" value="#{kc.neuerKunde.email}">
@@ -86,6 +91,7 @@
                                             onvalid="$(#{rich:element('plz')}).removeClass('invalid')"/>
 						</h:inputText>
 						<rich:messages id="fehlermeldungPlz" for="plz"/>
+						
 						
 						<h:outputLabel id="ortLabel" for="ort" value="#{msgKv['createKunde.ort']}"/>
 						<h:inputText id="ort"
@@ -119,7 +125,9 @@
 						#{' '}
 						<h:commandButton id="reset" type="reset" value="#{msgKv['createKunde.reset']}"/>
 					</p>
+<!--
 				</rich:graphValidator>
+-->
 			</h:form>
 			
 			<p id="hinweisPflichtfelder">

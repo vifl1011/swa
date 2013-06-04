@@ -8,7 +8,7 @@ public class KundeCreateAdresseException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	private final Kunde kunde;
 	public KundeCreateAdresseException(Kunde kunde) {
-		super("Kunde " + kunde + "hatkeine Adresse");
+		super("Kunde " + kunde + "hat keine Adresse");
 		this.kunde = kunde;
 	}
 	public Kunde getKunde() {

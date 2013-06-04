@@ -402,7 +402,7 @@ public class KundeController implements Serializable {
 		Adresse adresse = new Adresse();
 		neuerKunde.setAdresse(adresse);
 		adresse.setKunde(neuerKunde);
-		LOGGER.tracef("END createEmptyKunde() %s", neuerKunde.getAdresse().toString());
+		LOGGER.errorf("END createEmptyKunde() %s", neuerKunde.getAdresse().toString());
 	}
 	
 	/**
@@ -564,6 +564,7 @@ public class KundeController implements Serializable {
 		return JSF_INDEX;
 	}
 	
+	@PermitAll
 	public String getFilename(File file) {
 		if (file == null) {
 			return "";

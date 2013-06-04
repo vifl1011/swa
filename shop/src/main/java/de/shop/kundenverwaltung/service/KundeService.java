@@ -316,7 +316,7 @@ public class KundeService implements Serializable {
 			return;
 		}
 		// Gibt es Bestellungen?
-		if (!kunde.getBestellungen().isEmpty()) {
+		if ( ! (kunde.getBestellungen()==null) && !kunde.getBestellungen().isEmpty()) {
 			throw new KundeDeleteBestellungException(kunde);
 		}
 		
