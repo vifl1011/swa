@@ -35,7 +35,6 @@ import de.shop.util.InternalError;
 import de.shop.util.Log;
 import de.shop.util.Messages;
 import de.shop.util.Transactional;
-import de.shop.util.Constants.*;
 
 /**
  * Ein Managed Bean zur Abwicklung von Authentifizierung (Login und Logout) und erweiterbar f&uuml;r
