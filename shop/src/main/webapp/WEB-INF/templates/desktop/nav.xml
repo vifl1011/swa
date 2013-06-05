@@ -69,6 +69,19 @@
 		        		</c:if>
 					</h:outputLink>
 				</rich:panelMenuItem>
+				
+				<rich:panelMenuItem id="roles" rendered="#{rich:isUserInRole('admin')}">
+					<h:outputLink id="menuRoles"
+				   	    value="#{request.contextPath}/auth/updateRollen.jsf">
+						#{msg['nav.auth.updateRollen']}
+						<c:if test="#{not empty javax.enterprise.context.conversation.id}">
+		        			<f:param id="kundeRolesCid" name="cid"
+									value="#{javax.enterprise.context.conversation.id}"/>
+		        		</c:if>
+					</h:outputLink>
+				</rich:panelMenuItem>
+				
+				
 			</rich:panelMenuGroup>
 			<rich:panelMenuGroup id="bestellverwaltung"
 			                     label="#{msg['nav.bestellverwaltung']}"
