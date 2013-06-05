@@ -43,6 +43,7 @@ import static javax.ejb.TransactionAttributeType.REQUIRED;
 
 
 /**
+ * 
  * Dialogsteuerung fuer die ArtikelService
  */
 @Named("ac")
