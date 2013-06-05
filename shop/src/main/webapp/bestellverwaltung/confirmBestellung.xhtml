@@ -13,8 +13,6 @@
 	<ui:param name="pageTitle" value="#{msgBv['confirmBestellung.title']}" />
 
 	<ui:define name="article">
-		<h1>#{msgBv['confirmBestellung.header']}</h1>
-		
 		<h:form id="bestellungForm">
 			<c:if test="#{not empty flash.lieferung}">
 						<c:set var="lieferung" value="#{flash.lieferung}" scope="view"/>
