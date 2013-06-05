@@ -74,9 +74,9 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
 			    			        + " FROM   Kunde as k"
 			    	   			    + " WHERE  k.login = :" + Kunde.PARAM_KUNDE_LOGIN),
 	@NamedQuery(name  = Kunde.FIND_LOGIN_BY_LOGIN_PREFIX,
-			query = "SELECT   CONCAT('', k.id)"
+			query = "SELECT   CONCAT('', k.login)"
 			    	+ " FROM  Kunde k"
-			    	+ " WHERE CONCAT('', k.id) LIKE :" + Kunde.PARAM_LOGIN_PREFIX),
+			    	+ " WHERE CONCAT('', k.login) LIKE :" + Kunde.PARAM_LOGIN_PREFIX),
 	@NamedQuery(name  = Kunde.FIND_KUNDE_BY_EMAIL,
 	   	    query = "SELECT DISTINCT k"
 	   			    + " FROM   Kunde k"
