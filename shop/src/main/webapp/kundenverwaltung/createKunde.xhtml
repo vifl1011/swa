@@ -73,8 +73,11 @@
 						               value="#{msgKv['createKunde.password']}"/>
 						<h:inputSecret id="passwort"
 						               value="#{kc.neuerKunde.passwort}"
-						               redisplay="true"/>
-						<f:verbatim/>
+						               redisplay="true">
+						               <rich:validator oninvalid="$(#{rich:element('passwort')}).addClass('invalid')"
+                                            onvalid="$(#{rich:element('passwort')}).removeClass('invalid')"/>
+                        </h:inputSecret>
+						<rich:messages id="fehlermeldungPasswort" for="Passwort"/>
 						
 						<h:outputLabel id="passwortWdhLabel"
 						               for="passwortWdh"
