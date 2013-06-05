@@ -126,11 +126,10 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
 })
 
 @ScriptAssert(lang = "javascript",
-script = "(_this.password == null && _this.passwordWdh == null)"
-         + "|| (_this.password != null && _this.password.equals(_this.passwordWdh))",
-message = "{kundenverwaltung.kunde.password.notEqual}",
+script = "(_this.passwort == null && _this.passwortWdh == null)"
+         + "|| (_this.passwort != null && _this.passwort.equals(_this.passwortWdh))",
+message = "{kundenverwaltung.kunde.passwort.notEqual}",
 groups = PasswordGroup.class)
-
 @XmlRootElement
 //@Formatted
 @Entity

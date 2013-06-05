@@ -3,7 +3,7 @@ package de.shop.artikelverwaltung.service;
 import javax.ejb.ApplicationException;
 
 @ApplicationException(rollback = true)
-public class BezeichnungExistsException extends ProduktServiceException {
+public class BezeichnungExistsException extends AbstractProduktServiceExceptionFactory {
 	private static final long serialVersionUID = -8746809017779123646L;
 	private final String bezeichnung;
 	

@@ -102,7 +102,7 @@ public class AuthController implements Serializable {
 		return "AuthController [username=" + username + ", password=" + password + ", user=" + user + "]";
 	}
 	
-	public Long getUserId(){
+	public Long getUserId() {
 		return user.getId();
 	}
 	
@@ -156,7 +156,7 @@ public class AuthController implements Serializable {
 			messages.error(SHOP, MSG_KEY_LOGIN_ERROR, CLIENT_ID_USERNAME);
 			return null;   // Gleiche Seite nochmals aufrufen: mit den fehlerhaften Werten
 		}
-		Kunde tmp = ks.findKundenByLogin(username);
+		final Kunde tmp = ks.findKundenByLogin(username);
 		try {
 			request.login(tmp.getId().toString(), password);
 		}

@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.faces.context.Flash;
 import javax.faces.event.ValueChangeEvent;
@@ -42,6 +43,7 @@ import static javax.ejb.TransactionAttributeType.REQUIRED;
 
 
 /**
+ * 
  * Dialogsteuerung fuer die ArtikelService
  */
 @Named("ac")
