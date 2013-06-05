@@ -8,7 +8,6 @@ import static de.shop.util.Messages.MessagesType.ARTIKELVERWALTUNG;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,7 +16,6 @@ import javax.annotation.PreDestroy;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
 import javax.faces.context.Flash;
@@ -26,7 +24,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.OptimisticLockException;
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintViolation;
 
 import org.jboss.logging.Logger;
 import org.richfaces.cdi.push.Push;
@@ -35,9 +32,6 @@ import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.artikelverwaltung.service.BezeichnungExistsException;
 import de.shop.artikelverwaltung.service.ProduktService;
 import de.shop.auth.controller.AuthController;
-import de.shop.kundenverwaltung.domain.Kunde;
-import de.shop.kundenverwaltung.service.EmailExistsException;
-import de.shop.kundenverwaltung.service.InvalidKundeException;
 import de.shop.util.Client;
 import de.shop.util.ConcurrentDeletedException;
 import de.shop.util.Log;
@@ -222,7 +216,7 @@ public class ProduktController implements Serializable {
 	
 	@Transactional
 	public String findProduct() {
-		produkt =as.findProduktById(produkt.getId(),locale);
+		produkt = as.findProduktById(produkt.getId(), locale);
 		if (produkt == null) {
 			// Kein Produkt zu gegebener ID gefunden
 			return findProduktByIdErrorMsg(produktId.toString());
