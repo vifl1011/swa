@@ -40,7 +40,7 @@ public class BestellungController implements Serializable {
 	private static final String FLASH_BESTELLUNG = "bestellung";
 	private static final String FLASH_LIEFERUNG = "lieferung";
 	private static final String JSF_VIEW_BESTELLUNG = "/bestellverwaltung/viewBestellung";
-	private static final String JSF_VIEW_BESTELLUNG_GET = "/bestellverwaltung/viewBestellungGET";
+	private static final String JSF_VIEW_BESTELLUNG_FLASH = "/bestellverwaltung/viewBestellungFlash";
 	public static final String JSF_CONFIRM_BESTELLUNG = "/bestellverwaltung/confirmBestellung";
 	public static final String JSF_CHOOSE_LIEFERUNG = "/bestellverwaltung/chooseLieferung";
 	public static final String JSF_VIEW_WARENKORB = "/bestellverwaltung/viewWarenkorb";
@@ -127,7 +127,12 @@ public class BestellungController implements Serializable {
 		
 		warenkorb.reset();
 		
-		return JSF_VIEW_BESTELLUNG_GET;
+//		return JSF_VIEW_BESTELLUNG_GET;
+		return JSF_VIEW_BESTELLUNG_FLASH;
+	}
+	
+	public int getAnzahlBp() {
+		return this.bestellung.getBestellpositionen().size();
 	}
 	
 	public String chooseLieferung() {
