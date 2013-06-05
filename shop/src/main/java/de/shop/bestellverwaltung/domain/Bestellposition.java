@@ -1,5 +1,8 @@
 package de.shop.bestellverwaltung.domain;
 
+import static javax.persistence.CascadeType.PERSIST;
+import static javax.persistence.CascadeType.REMOVE;
+
 import java.io.Serializable;
 import java.net.URI;
 
@@ -116,7 +119,7 @@ public class Bestellposition implements Serializable {
 	private URI produktUri;
 
 	// bi-directional many-to-one association to Lieferung
-	@ManyToOne
+	@ManyToOne(cascade = PERSIST)
 	@JoinColumn(name = "LIEFERUNG_ID", nullable = true)
 	//@NotEmpty(message = "{bestellverwaltung.bestellposition.lieferung.notNull}")
 	@JsonIgnore

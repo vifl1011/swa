@@ -80,7 +80,7 @@
 												value="#{msgBv['viewWarenkorb.reset']}"/>
 							#{' '}
 							<h:commandButton id="bestellButton"
-											 action="/bestellverwaltung/confirmBestellung"
+											 action="/bestellverwaltung/chooseLieferung"
 									         value="#{msgBv['viewWarenkorb.bestellen']}"/>
 							<rich:message id="bestellButtonFehlermeldung" for="bestellButton" rendered="#{auth.loggedIn}"/>
 						</h:panelGroup>

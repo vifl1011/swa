@@ -42,7 +42,7 @@ public class Warenkorb implements Serializable {
 	private Long artikelId;  // fuer selectArtikel.xhtml
 	
 	private String lastPage = "/Index";
-	
+
 	@Inject
 	private transient Conversation conversation;
 	

@@ -5,6 +5,7 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:c="http://java.sun.com/jsp/jstl/core"
 	  xmlns:rich="http://richfaces.org/rich"
 	  xmlns:a4j="http://richfaces.org/a4j">
 
@@ -15,6 +16,10 @@
 		<h1>#{msgBv['confirmBestellung.header']}</h1>
 		
 		<h:form id="bestellungForm">
+			<c:if test="#{not empty flash.lieferung}">
+						<c:set var="lieferung" value="#{flash.lieferung}" scope="view"/>
+						<c:set target="#{flash}" property="lieferung" value="#{lieferung}"/>
+			</c:if>
 			<rich:dataTable id="positionenTabelle"
 			                value="#{wk.positionen}"
 			                var="pos"
