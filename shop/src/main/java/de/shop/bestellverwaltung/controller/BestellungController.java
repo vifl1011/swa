@@ -38,6 +38,7 @@ public class BestellungController implements Serializable {
 	
 	private static final String FLASH_BESTELLUNG = "bestellung";
 	private static final String JSF_VIEW_BESTELLUNG = "/bestellverwaltung/viewBestellung";
+	private static final String JSF_VIEW_BESTELLUNG_GET = "/bestellverwaltung/viewBestellungGET";
 		
 	@Inject
 	private BestellService bs;
@@ -106,7 +107,7 @@ public class BestellungController implements Serializable {
 		// Bestellung im Flash speichern wegen anschliessendem Redirect
 		flash.put("bestellung", bestellung);
 		
-		return JSF_VIEW_BESTELLUNG;
+		return JSF_VIEW_BESTELLUNG_GET;
 	}
 	
 	@Override
