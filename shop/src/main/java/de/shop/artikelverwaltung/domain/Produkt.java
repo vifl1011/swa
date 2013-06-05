@@ -179,7 +179,7 @@ public class Produkt implements Serializable {
 	}
 
 	public Date getAktualisiert() {
-		return this.aktualisiert;
+		return (Date) this.aktualisiert.clone();
 	}
 
 	public void setAktualisiert(Date aktualisiert) {
@@ -187,11 +187,11 @@ public class Produkt implements Serializable {
 	}
 
 	public Date getErzeugt() {
-		return this.erzeugt;
+		return (Date) this.erzeugt.clone();
 	}
 
 	public void setErzeugt(Date erzeugt) {
-		this.erzeugt = erzeugt;
+		this.erzeugt = erzeugt == null ? null : (Date) erzeugt.clone();
 	}
 
 	public String getFarbe() {
