@@ -274,7 +274,7 @@ public class Bestellung implements Serializable {
 	}
 
 	public String getErzeugt(String format) {
-		if(this.erzeugt == null)
+		if (this.erzeugt == null)
 			return null;
 		
 		return new SimpleDateFormat(format).format(this.erzeugt);

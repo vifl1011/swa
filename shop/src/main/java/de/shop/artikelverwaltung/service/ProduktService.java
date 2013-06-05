@@ -117,7 +117,7 @@ public class ProduktService implements Serializable {
 		this.validateBezeichnung(produkt.getBezeichnung(), locale);
 		
 		em.detach(produkt);
-		Produkt aProdukt = findProduktById(produkt.getId(), locale);
+		final Produkt aProdukt = findProduktById(produkt.getId(), locale);
 		em.detach(aProdukt);
 		
 		if (produkt.getBezeichnung().matches("[0-9]+")) {
