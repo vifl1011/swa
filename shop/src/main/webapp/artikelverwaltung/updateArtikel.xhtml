@@ -49,7 +49,8 @@
 					<f:verbatim/>
 					
 					<h:outputLabel id="groesseLabel" for="groesse" value="#{msgAv['updateArtikel.groesse']}"/>
-					<h:outputText id="groesse" value="#{ac.produkt.erzeugt}"/>
+					<h:inputText id="groesse" value="#{ac.produkt.groesse}" valueChangeListener="#{ac.geaendert}">
+					</h:inputText>
 					<f:verbatim/>
 
 					<h:outputLabel id="vorratLabel" for="vorrat" value="#{msgAv['updateArtikel.vorrat']}"/>
@@ -61,8 +62,6 @@
 					
 					<h:outputLabel id="preisLabel" for="preis" value="#{msgAv['updateArtikel.preis']}"/>
 					<h:inputText id="preis" value="#{ac.produkt.preis}" valueChangeListener="#{ac.geaendert}">
-						<f:convertNumber type="percent" maxFractionDigits="2" maxIntegerDigits="2"/>
-						<f:ajax event="blur" render="updateArtikelForm:fehlermeldungenpreis"/>
 					</h:inputText>
 					<rich:messages id="fehlermeldungenPreis" for="preis"/>
 		

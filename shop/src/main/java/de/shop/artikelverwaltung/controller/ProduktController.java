@@ -1,5 +1,9 @@
 package de.shop.artikelverwaltung.controller;
 
+import static de.shop.auth.service.jboss.AuthService.ABTEILUNGSLEITER;
+import static de.shop.auth.service.jboss.AuthService.ADMIN;
+import static de.shop.auth.service.jboss.AuthService.KUNDE;
+import static de.shop.auth.service.jboss.AuthService.MITARBEITER;
 import static de.shop.util.Messages.MessagesType.ARTIKELVERWALTUNG;
 
 import java.io.Serializable;
@@ -10,6 +14,8 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -40,14 +46,18 @@ import de.shop.util.Transactional;
 import static de.shop.util.Constants.JSF_INDEX;
 import static de.shop.util.Constants.JSF_REDIRECT_SUFFIX;
 import static javax.ejb.TransactionAttributeType.REQUIRED;
+import static javax.ejb.TransactionAttributeType.SUPPORTS;
 
 
 /**
  * Dialogsteuerung fuer die ArtikelService
  */
 @Named("ac")
-@RequestScoped
+@SessionScoped
 @Log
+@Stateful
+@TransactionAttribute(SUPPORTS)
+@RolesAllowed({ ADMIN, KUNDE, MITARBEITER, ABTEILUNGSLEITER })
 public class ProduktController implements Serializable {
 	private static final long serialVersionUID = 1564024850446471639L;
 
@@ -55,6 +65,7 @@ public class ProduktController implements Serializable {
 	
 	private static final String JSF_PRODUKTVERWALTUNG = "/artikelverwaltung";
 	private static final String JSF_LIST_ARTIKEL = JSF_PRODUKTVERWALTUNG + "/listArtikel";
+	private static final String JSF_UPDATE_PRODUKT = JSF_PRODUKTVERWALTUNG + "/updateArtikel";
 	private static final String FLASH_ARTIKEL = "artikel";
 	private static final int ANZAHL_LADENHUETER = 5;
 	
@@ -197,6 +208,7 @@ public class ProduktController implements Serializable {
 	 * Action Methode, um eine Bestellung zu gegebener ID zu suchen
 	 * @return URL fuer Anzeige der gefundenen Bestellung; sonst null
 	 */
+	
 	@Transactional
 	public String findProduktById() {
 		produkt = as.findProduktById(produktId, locale);
@@ -205,10 +217,10 @@ public class ProduktController implements Serializable {
 			return null;
 		}
 		flash.put(FLASH_ARTIKEL, produkt);
-		//TODO JSF_VIEW_ARTIKEL anlegen
 		return JSF_LIST_ARTIKEL;
 	}
 	
+	@Transactional
 	public String findProduct() {
 		produkt =as.findProduktById(produkt.getId(),locale);
 		if (produkt == null) {
@@ -263,7 +275,7 @@ public class ProduktController implements Serializable {
 		try {
 			produkt = as.updateProdukt(produkt, locale);
 		}
-		catch (BezeichnungExistsException e) {
+		catch (OptimisticLockException | ConcurrentDeletedException e) {
 			final String outcome = updateErrorMsg(e, produkt.getClass());
 			return outcome;
 		}
@@ -273,6 +285,9 @@ public class ProduktController implements Serializable {
 		
 		// ValueChangeListener zuruecksetzen
 		geaendertProdukt = false;
+		
+		// Aufbereitung fuer listArtikel.xhtml
+		produktId = produkt.getId();
 		
 		return JSF_LIST_ARTIKEL + JSF_REDIRECT_SUFFIX;
 	}
@@ -300,5 +315,15 @@ public class ProduktController implements Serializable {
 		if (!e.getOldValue().equals(e.getNewValue())) {
 			geaendertProdukt = true;				
 		}
+	}
+	
+	public String selectForUpdate(Produkt ausgewaehltesProdukt) {
+		if (ausgewaehltesProdukt == null) {
+			return null;
+		}
+		
+		produkt = ausgewaehltesProdukt;
+		
+		return JSF_UPDATE_PRODUKT;
 	}
 }

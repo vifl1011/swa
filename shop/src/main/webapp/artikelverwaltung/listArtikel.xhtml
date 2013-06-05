@@ -81,6 +81,14 @@
 										         alt="#{msgAv['listArtikel.alt.warenkorb']}">
 								</h:commandButton>
 							</rich:column>
+							
+							<rich:column id="editSpalte" rendered="#{not empty artikel}">
+								<h:commandButton id="editButton"
+										 image="#{resource['images:edit.gif']}"
+								         action="#{ac.selectForUpdate(art)}"
+								         alt="#{msgAv['listArtikel.editButtonAlt']}">
+								</h:commandButton>
+							</rich:column>
 						</rich:dataTable>
 						
 						<p id="abstand2"/>

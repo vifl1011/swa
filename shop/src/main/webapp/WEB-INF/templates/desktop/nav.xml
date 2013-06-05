@@ -113,10 +113,11 @@
 		        	</h:outputLink>		        	
 				</rich:panelMenuItem>
 
-			    <rich:panelMenuItem id="updateArtikel" rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter') or rich:isUserInRole('abteilungsleiter')}">
+			    <rich:panelMenuItem id="artikelverwaltungUpdateArtikel" rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter') or rich:isUserInRole('abteilungsleiter')}">
 					<h:commandLink id="menuUpdateArtikel"
-					    		   action="#{ac.findProduct}">
+						                   action="#{ac.findArtikelByBezeichnung}">
 						#{msg['nav.artikelverwaltung.update']}
+						
 					</h:commandLink>
 				</rich:panelMenuItem>
 				
@@ -135,7 +136,8 @@
 					               action="#{ac.selectArtikel}">
 						#{msg['nav.artikelverwaltung.selectArtikel']}
 					</h:commandLink>
-				</rich:panelMenuItem>							
+				</rich:panelMenuItem>
+											
 			</rich:panelMenuGroup>			
 			
 			
