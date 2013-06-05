@@ -285,7 +285,7 @@ public class Produkt implements Serializable {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Produkt other = (Produkt) obj;
+		final Produkt other = (Produkt) obj;
 		if (aktualisiert == null) {
 			if (other.aktualisiert != null) {
 				return false;

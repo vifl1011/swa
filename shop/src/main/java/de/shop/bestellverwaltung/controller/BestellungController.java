@@ -44,8 +44,7 @@ public class BestellungController implements Serializable {
 	public static final String JSF_CONFIRM_BESTELLUNG = "/bestellverwaltung/confirmBestellung";
 	public static final String JSF_CHOOSE_LIEFERUNG = "/bestellverwaltung/chooseLieferung";
 	public static final String JSF_VIEW_WARENKORB = "/bestellverwaltung/viewWarenkorb";
-	private String lieferArt = "Standardversand";	//zu Beginn den Dault wert setzen
-	
+	private String lieferArt = "Standardversand";
 
 	@Inject
 	private BestellService bs;
@@ -78,7 +77,7 @@ public class BestellungController implements Serializable {
 	public String bestellen() throws Exception {
 		auth.preserveLogin();
 		
-		String liefArt = (String) flash.get(FLASH_LIEFERUNG);
+		final String liefArt = (String) flash.get(FLASH_LIEFERUNG);
 		
 		if (liefArt == null || liefArt.isEmpty()) {
 			throw new Exception("Liefer Art wurde nicht gesetzt");
@@ -99,11 +98,8 @@ public class BestellungController implements Serializable {
 			if (bp.getMenge() > 0) {
 				neuePositionen.add(bp);				
 				bp.setLieferung(lief);
-				//lief.addBestellposition(bp);
 			}
 		}
-		
-		
 		
 		// Neue Bestellung mit neuen Bestellpositionen erstellen
 		Bestellung bestellung = new Bestellung();
@@ -127,7 +123,6 @@ public class BestellungController implements Serializable {
 		
 		warenkorb.reset();
 		
-//		return JSF_VIEW_BESTELLUNG_GET;
 		return JSF_VIEW_BESTELLUNG_FLASH;
 	}
 	
@@ -136,7 +131,7 @@ public class BestellungController implements Serializable {
 	}
 	
 	public String chooseLieferung() {
-		if(lieferArt == null || lieferArt.isEmpty()) {
+		if (lieferArt == null || lieferArt.isEmpty()) {
 			return JSF_CHOOSE_LIEFERUNG;
 		}
 		

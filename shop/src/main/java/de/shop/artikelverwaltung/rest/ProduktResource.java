@@ -152,7 +152,7 @@ public class ProduktResource {
 	 final Locale locale = locales.isEmpty() ? Locale.getDefault() 
 			 : locales.get(0);
 	 
-	 Produkt orgProdukt = ps.findProduktById(produkt.getId(), locale);
+	 final Produkt orgProdukt = ps.findProduktById(produkt.getId(), locale);
 	
 	 if (orgProdukt == null) {
 	 final String msg = "Kein Produkt gefunden! ";

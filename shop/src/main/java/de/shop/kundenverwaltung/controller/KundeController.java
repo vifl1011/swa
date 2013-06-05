@@ -385,11 +385,11 @@ public class KundeController implements Serializable {
 		final Class<? extends AbstractShopException> exceptionClass = e.getClass();
 		if (exceptionClass.equals(EmailExistsException.class)) {
 			messages.error(KUNDENVERWALTUNG, MSG_KEY_CREATE_KUNDE_EMAIL_EXISTS, CLIENT_ID_CREATE_EMAIL);
-		} else if (exceptionClass.equals(InvalidKundeException.class)) {
+		} 
+		else if (exceptionClass.equals(InvalidKundeException.class)) {
 			final InvalidKundeException orig = (InvalidKundeException) e;
 			messages.error(orig.getViolations(), null);
 		}
-
 		return null;
 	}
 
@@ -446,7 +446,8 @@ public class KundeController implements Serializable {
 		LOGGER.tracef("Aktualisierter Kunde: %s", kunde);
 		try {
 			kunde = ks.updateKunde(kunde, locale);
-		} catch (EmailExistsException | InvalidKundeException | OptimisticLockException | ConcurrentDeletedException e) {
+		} catch (EmailExistsException | InvalidKundeException 
+				| OptimisticLockException | ConcurrentDeletedException e) {
 			final String outcome = updateErrorMsg(e, kunde.getClass());
 			return outcome;
 		}
@@ -470,12 +471,14 @@ public class KundeController implements Serializable {
 			final InvalidKundeException orig = (InvalidKundeException) e;
 			final Collection<ConstraintViolation<Kunde>> violations = orig.getViolations();
 			messages.error(violations, CLIENT_ID_UPDATE_PASSWORD);
-		} else if (exceptionClass.equals(EmailExistsException.class)) {
+		} 
+		else if (exceptionClass.equals(EmailExistsException.class)) {
 			messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_KUNDE_DUPLIKAT, CLIENT_ID_UPDATE_EMAIL);
-		} else if (exceptionClass.equals(OptimisticLockException.class)) {
+		} 
+		else if (exceptionClass.equals(OptimisticLockException.class)) {
 			messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_KUNDE_CONCURRENT_UPDATE, null);
-
-		} else if (exceptionClass.equals(ConcurrentDeletedException.class)) {
+		} 
+		else if (exceptionClass.equals(ConcurrentDeletedException.class)) {
 			messages.error(KUNDENVERWALTUNG, MSG_KEY_UPDATE_KUNDE_CONCURRENT_DELETE, null);
 		}
 		return null;
@@ -498,8 +501,8 @@ public class KundeController implements Serializable {
 		try {
 			ks.deleteKunde(kunde);
 		} catch (KundeDeleteBestellungException e) {
-			messages.error(KUNDENVERWALTUNG, MSG_KEY_DELETE_KUNDE_BESTELLUNG, 
-					CLIENT_ID_DELETE_BUTTON, e.getKundeId(), e.getAnzahlBestellungen());
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_DELETE_KUNDE_BESTELLUNG, CLIENT_ID_DELETE_BUTTON, e.getKundeId(),
+					e.getAnzahlBestellungen());
 			return null;
 		}
 
@@ -529,8 +532,8 @@ public class KundeController implements Serializable {
 		try {
 			ks.deleteKunde(ausgewaehlterKunde);
 		} catch (KundeDeleteBestellungException e) {
-			messages.error(KUNDENVERWALTUNG, MSG_KEY_SELECT_DELETE_KUNDE_BESTELLUNG,
-					null, e.getKundeId(), e.getAnzahlBestellungen());
+			messages.error(KUNDENVERWALTUNG, MSG_KEY_SELECT_DELETE_KUNDE_BESTELLUNG, null, e.getKundeId(),
+					e.getAnzahlBestellungen());
 			return null;
 		}
 
@@ -565,7 +568,6 @@ public class KundeController implements Serializable {
 		if (file == null) {
 			return "";
 		}
-
 		fileHelper.store(file);
 		return file.getFilename();
 	}
@@ -584,11 +586,9 @@ public class KundeController implements Serializable {
 			messages.error(KUNDENVERWALTUNG, MSG_KEY_KUNDEN_NOT_FOUND_BY_NAME, CLIENT_ID_KUNDEN_NAME, kundeId);
 			return namen;
 		}
-
 		if (namen.size() > MAX_AUTOCOMPLETE) {
 			return namen.subList(0, MAX_AUTOCOMPLETE);
 		}
-
 		return namen;
 	}
 }

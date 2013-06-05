@@ -1,7 +1,6 @@
 package de.shop.bestellverwaltung.domain;
 
 import static javax.persistence.CascadeType.PERSIST;
-import static javax.persistence.CascadeType.REMOVE;
 
 import java.io.Serializable;
 import java.net.URI;
