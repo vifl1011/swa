@@ -48,6 +48,7 @@
 					<c:if test="#{not empty flash.artikel}">
 						<c:set var="artikel" value="#{flash.artikel}" scope="view"/>
 						<c:set target="#{flash}" property="artikel" value="#{artikel}"/>
+					</c:if>
 						
 						<rich:dataTable id="artikelTabelle"
 						                value="#{artikel}"
@@ -108,7 +109,6 @@
 							             query="jQuery(this).removeClass('active-row')"
 							             timing="domready"/>
 						</a4j:outputPanel>
-					</c:if>
 				</a4j:outputPanel>
 			</h:form>
 		</ui:define>

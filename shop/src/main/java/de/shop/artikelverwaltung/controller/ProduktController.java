@@ -185,7 +185,8 @@ public class ProduktController implements Serializable {
 	@Transactional
 	public String selectArtikel() {
 		if (session.getAttribute(SESSION_VERFUEGBARE_ARTIKEL) != null) {
-			return JSF_SELECT_ARTIKEL;
+			session.removeAttribute(SESSION_VERFUEGBARE_ARTIKEL);
+
 		}
 		
 		final List<Produkt> alleArtikel = as.findAlleProdukte();
