@@ -25,9 +25,9 @@
 					<f:convertDateTime type="date" dateStyle="full"/>
 				</h:outputText>
 			</p>
-			<!--  
+			
 			<rich:dataTable id="ladenhueterTabelle"
-			                var="artikel"
+			                var="produkt"
 			                value="#{ac.ladenhueter}"
 			                rendered="#{not empty ac.ladenhueter}">
 			             
@@ -39,17 +39,16 @@
 					<f:facet name="header">
 						#{msg['index.artikelId']}
 					</f:facet>
-					#{artikel.id}
+					#{produkt.id}
 				</rich:column>
 						
 				<rich:column id="bezeichnungSpalte">
 					<f:facet name="header">
 						#{msg['index.artikelBezeichnung']}
 					</f:facet>
-					#{artikel.bezeichnung}
+					#{produkt.bezeichnung}
 				</rich:column>
 			</rich:dataTable>
-			-->
 		</ui:define>
 	</ui:composition>
 </html>

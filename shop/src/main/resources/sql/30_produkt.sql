@@ -4,4 +4,9 @@ INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, er
 INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (503, 0, 'hose', 20, '40', 'blau', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
 INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (504, 0, 'weste', 130, '26', 'blau', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
 INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (505, 0, 'jacke', 230, '38', 'gruen', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
-INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (506, 0, 'jacke', 330, '40', 'schwarz', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
+INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (506, 0, 'bluse', 330, '40', 'schwarz', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
+INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (507, 0, 'bh', 330, '40', 'pink', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
+INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (508, 0, 'socke', 330, '40', 'gelb', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
+INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (509, 0, 'longsleeve', 330, '40', 'rosa', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
+INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (510, 0, 'hemd', 330, '40', 'weiss', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');
+INSERT INTO produkt (id, version, bezeichnung, preis, groesse, farbe, vorrat, erzeugt, aktualisiert) VALUES (511, 0, 'jacke', 330, '40', 'schwarz', 10,'01.01.2013 02:00:00','01.01.2013 02:00:00');

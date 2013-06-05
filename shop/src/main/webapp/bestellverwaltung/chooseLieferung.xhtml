@@ -2,46 +2,44 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:f="http://java.sun.com/jsf/core"
-	  xmlns:rich="http://richfaces.org/rich"
-	  xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
 
-	<ui:composition template="/WEB-INF/templates/desktop/main.xml">
-		<ui:param name="pageTitle" value="Lieferart wählen"/>
-	
-		<ui:define name="article">
-			<h1>
-				<h:outputText id="heading" value="Lieferart wählen"/>
-			</h1>
-			
-			<h:form id="warenkorbForm">
-				<h:selectOneRadio id="chooseLieferungRadio" 
-									value="#{bc.lieferArt}"
-									layout="pageDirection"
-									borders="1">
+<ui:composition template="/WEB-INF/templates/desktop/main.xml">
+	<ui:param name="pageTitle" value="Lieferart wählen" />
+
+	<ui:define name="article">
+
+		<h:form id="form">
+
+			<rich:panel id="heading" header="#{msgBv['chooseLieferung.header']}">
+
+				<h:form id="warenkorbForm">
+					<h:selectOneRadio id="chooseLieferungRadio" value="#{bc.lieferArt}"
+						layout="pageDirection" borders="1">
 						<f:selectItem id="selectStandardVersand"
-									itemLabel="#{msgBv['chooseLieferung.standard']}"
-									itemValue="Standardversand"/>
+							itemLabel="#{msgBv['chooseLieferung.standard']}"
+							itemValue="Standardversand" />
 						<f:selectItem id="selectExpressVersand"
-									itemLabel="#{msgBv['chooseLieferung.express']}"
-									itemValue="Expressversand"/>
+							itemLabel="#{msgBv['chooseLieferung.express']}"
+							itemValue="Expressversand" />
 						<f:selectItem id="selectSpecialVersand"
-									itemLabel="#{msgBv['chooseLieferung.versand3']}"
-									itemValue="Specialversand"/>									
-				</h:selectOneRadio>
-				
-				
-				<h:commandButton id="cancelButton" 
-									action="/bestellverwaltung/viewWarenkorb"
-									value="#{msgBv['chooseLieferung.button.cancel']}"/>
-				<h:commandButton id="goOnButton" 
-									action="#{bc.chooseLieferung}"
-									value="#{msgBv['chooseLieferung.button.next']}"/>
-				
-			</h:form>
-			
-		</ui:define>
-	</ui:composition>
+							itemLabel="#{msgBv['chooseLieferung.versand3']}"
+							itemValue="Specialversand" />
+					</h:selectOneRadio>
+					<p id="abstand2"/>
+					<h:commandButton id="cancelButton"
+						action="/bestellverwaltung/viewWarenkorb"
+						value="#{msgBv['chooseLieferung.button.cancel']}" />
+					<h:commandButton id="goOnButton" action="#{bc.chooseLieferung}"
+						value="#{msgBv['chooseLieferung.button.next']}" />
+
+				</h:form>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
 </html>

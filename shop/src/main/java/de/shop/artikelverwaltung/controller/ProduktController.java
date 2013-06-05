@@ -14,6 +14,7 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.security.RolesAllowed;
+import javax.annotation.security.PermitAll;
 import javax.ejb.Stateful;
 import javax.ejb.TransactionAttribute;
 import javax.enterprise.context.SessionScoped;
@@ -154,7 +155,7 @@ public class ProduktController implements Serializable {
 		this.bezeichnung = bezeichnung;
 	}
 
-
+	@PermitAll
 	public List<Produkt> getLadenhueter() {
 		return ladenhueter;
 	}
@@ -182,6 +183,7 @@ public class ProduktController implements Serializable {
 	}
 
 	@Transactional
+	@PermitAll
 	public void loadLadenhueter() {
 		ladenhueter = as.ladenhueter(ANZAHL_LADENHUETER);
 	}
