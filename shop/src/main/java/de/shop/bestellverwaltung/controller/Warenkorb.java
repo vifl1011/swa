@@ -35,7 +35,7 @@ public class Warenkorb implements Serializable {
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 	
-	private static final String JSF_VIEW_WARENKORB = "/bestellverwaltung/viewWarenkorb";//?init=true";
+	private static final String JSF_VIEW_WARENKORB = "/bestellverwaltung/viewWarenkorb"; //?init=true";
 	private static final int TIMEOUT = 5;
 	
 	private final List<Bestellposition> positionen = new ArrayList<Bestellposition>();

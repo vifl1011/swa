@@ -39,21 +39,21 @@ public class UriHelperBestellposition {
 	public void updateUriBestellposition(Bestellposition bestellposition, UriInfo uriInfo) {
 		// URL fuer Produkt setzen
 		final Produkt produkt = bestellposition.getProdukt();
-		if(produkt != null) {
+		if (produkt != null) {
 			final URI produktUri = uriHelperProdukt.getUriProdukt(produkt, uriInfo);
 			bestellposition.setProduktUri(produktUri);
 		}
 		
 		// URL fuer Lieferung setzen
 		final Lieferung lieferung = bestellposition.getLieferung();
-		if(lieferung != null) {
+		if (lieferung != null) {
 			final URI lieferungUri = uriHelperLieferung.getUriLieferung(lieferung, uriInfo);
 			bestellposition.setLieferungUri(lieferungUri);
 		}
 		
 		// URL fuer Bestellung setzen		
 		final Bestellung bestellung = bestellposition.getBestellung();
-		if(bestellposition != null) {
+		if (bestellposition != null) {
 			final URI bestellungURI = uriHelperBestellung.getUriBestellung(bestellung, uriInfo);
 			bestellposition.setBestellungUri(bestellungURI);
 		}

@@ -23,7 +23,6 @@ import javax.validation.constraints.NotNull;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import de.shop.artikelverwaltung.domain.Produkt;
 import de.shop.util.Constants;

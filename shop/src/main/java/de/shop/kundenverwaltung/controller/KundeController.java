@@ -3,7 +3,6 @@ package de.shop.kundenverwaltung.controller;
 import static de.shop.util.Constants.JSF_INDEX;
 import static de.shop.util.Constants.JSF_REDIRECT_SUFFIX;
 import static de.shop.util.Messages.MessagesType.KUNDENVERWALTUNG;
-import static java.util.logging.Level.CONFIG;
 import static javax.ejb.TransactionAttributeType.REQUIRED;
 import static javax.ejb.TransactionAttributeType.SUPPORTS;
 import static javax.persistence.PersistenceContextType.EXTENDED;
@@ -59,7 +58,10 @@ import de.shop.util.File;
 import de.shop.util.FileHelper;
 import de.shop.util.Log;
 import de.shop.util.Messages;
-import static de.shop.auth.service.jboss.AuthService.*;
+import static de.shop.auth.service.jboss.AuthService.ABTEILUNGSLEITER;
+import static de.shop.auth.service.jboss.AuthService.ADMIN;
+import static de.shop.auth.service.jboss.AuthService.KUNDE;
+import static de.shop.auth.service.jboss.AuthService.MITARBEITER;
 
 /**
  * Dialogsteuerung fuer die Kundenverwaltung
@@ -69,7 +71,7 @@ import static de.shop.auth.service.jboss.AuthService.*;
 @SessionScoped
 @Stateful
 @TransactionAttribute(SUPPORTS)
-@RolesAllowed({ADMIN, KUNDE, MITARBEITER, ABTEILUNGSLEITER})
+@RolesAllowed( {ADMIN, KUNDE, MITARBEITER, ABTEILUNGSLEITER} )
 public class KundeController implements Serializable {
 	private static final long serialVersionUID = -8817180909526894740L;
 	
@@ -243,7 +245,7 @@ public class KundeController implements Serializable {
 	 * @return URL fuer Anzeige des gefundenen Kunden; sonst null
 	 */
 	@TransactionAttribute(REQUIRED)
-	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
+	@RolesAllowed( {MITARBEITER, ABTEILUNGSLEITER, ADMIN} )
 	public String findKundeById() {
 		// Bestellungen werden durch "Extended Persistence Context" nachgeladen
 		kunde = ks.findKundeById(kundeId, FetchType.NUR_KUNDE, locale);
@@ -258,7 +260,7 @@ public class KundeController implements Serializable {
 	
 	@TransactionAttribute(REQUIRED)
 	public String findUser() {
-		kunde =ks.findKundeById(user.getId(), FetchType.NUR_KUNDE, locale);
+		kunde = ks.findKundeById(user.getId(), FetchType.NUR_KUNDE, locale);
 		if (kunde == null) {
 			// Kein Kunde zu gegebener ID gefunden
 			return findKundeByIdErrorMsg(kundeId.toString());
@@ -324,9 +326,9 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
-	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
+	@RolesAllowed( {MITARBEITER, ABTEILUNGSLEITER, ADMIN} )
 	public String findKundenByName() {
-		LOGGER.debugf("name:%s:",name);
+		LOGGER.debugf("name:%s:", name);
 		if (name == null || name.isEmpty()) {
 			kunden = ks.findAllKunden(FetchType.MIT_BESTELLUNGEN);
 			return JSF_LIST_KUNDEN;
@@ -344,7 +346,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
-	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
+	@RolesAllowed( {MITARBEITER, ABTEILUNGSLEITER, ADMIN} )
 	public String details(Kunde ausgewaehlterKunde) {
 		if (ausgewaehlterKunde == null) {
 			return null;
@@ -358,7 +360,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
-	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
+	@RolesAllowed( {MITARBEITER, ABTEILUNGSLEITER, ADMIN} )
 	public String createKunde() {
 		
 		try {
@@ -399,7 +401,7 @@ public class KundeController implements Serializable {
 		}
 		LOGGER.tracef("BEGIN createEmptyKunde()");
 		neuerKunde = new Kunde();
-		Adresse adresse = new Adresse();
+		final Adresse adresse = new Adresse();
 		neuerKunde.setAdresse(adresse);
 		adresse.setKunde(neuerKunde);
 		LOGGER.errorf("END createEmptyKunde() %s", neuerKunde.getAdresse().toString());
@@ -527,7 +529,7 @@ public class KundeController implements Serializable {
 	}
 
 	@TransactionAttribute(REQUIRED)
-	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
+	@RolesAllowed( {MITARBEITER, ABTEILUNGSLEITER, ADMIN} )
 	public String delete(Kunde ausgewaehlterKunde) {
 		try {
 			ks.deleteKunde(ausgewaehlterKunde);
@@ -579,7 +581,7 @@ public class KundeController implements Serializable {
 	}
 	
 	@TransactionAttribute(REQUIRED)
-	@RolesAllowed({MITARBEITER, ABTEILUNGSLEITER, ADMIN})
+	@RolesAllowed( {MITARBEITER, ABTEILUNGSLEITER, ADMIN} )
 	public List<String> findNamenByPrefix(String namePrefix) {
 		// NICHT: Liste von Kunden. Sonst waeren gleiche Nachnamen mehrfach vorhanden.
 		final List<String> namen = ks.findNamenByPrefix(namePrefix);

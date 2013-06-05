@@ -122,7 +122,7 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
 							query = "SELECT DISTINCT k.name"
 									+ " FROM  Kunde k"
 									+ " WHERE UPPER(k.name) LIKE UPPER(:"
-			   	            		+ Kunde.PARAM_KUNDE_NAME_PREFIX + ")"),			                
+			   	            		+ Kunde.PARAM_KUNDE_NAME_PREFIX + ")")			                
 })
 
 @ScriptAssert(lang = "javascript",
@@ -286,10 +286,13 @@ public class Kunde implements Serializable, Cloneable {
 		this.rabatt = rabatt;
 		this.adresse = null;
 		}
-	public Kunde(String email, String geschlecht, String login, String name, String vorname,
-			 String passwort, float rabatt) {
-		this(email,  geschlecht == "m" ?  GeschlechtType.MAENNLICH  : GeschlechtType.WEIBLICH ,  login,  name,  vorname,  passwort,  rabatt);
+
+	public Kunde(String email, String geschlecht, String login, 
+			String name, String vorname, String passwort, float rabatt) {
+		this(email, geschlecht.equals("m") ? GeschlechtType.MAENNLICH : GeschlechtType.WEIBLICH, 
+				login, name, vorname, passwort, rabatt);
 	}
+	
 	public Kunde(String email, String geschlecht, String login, String name, String vorname,
 			 String passwort, float rabatt, Adresse adresse) {
 		this(email,  GeschlechtType.valueOf(geschlecht),  login,  name,  vorname,  passwort,  rabatt);
@@ -432,7 +435,7 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setFile(File file) {
-		if(file != null){
+		if (file != null) {
 			this.file = file;
 		}
 	}

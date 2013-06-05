@@ -6,10 +6,10 @@ import javax.ejb.ApplicationException;
 import javax.validation.ConstraintViolation;
 
 import de.shop.artikelverwaltung.domain.Produkt;
-import de.shop.util.ShopException;
+import de.shop.util.AbstractShopExceptionFactory;
 
 @ApplicationException(rollback = true)
-public class InvalidProduktBezeichnungException extends ShopException {
+public class InvalidProduktBezeichnungException extends AbstractShopExceptionFactory {
 
 	private static final long serialVersionUID = -1807312604250425008L;
 	private final String bez;

@@ -8,7 +8,7 @@ import javax.validation.ConstraintViolation;
 import de.shop.kundenverwaltung.domain.Kunde;
 
 @ApplicationException(rollback = true)
-public class InvalidKundeEmailException extends KundeServiceException {
+public class InvalidKundeEmailException extends AbstractKundeServiceExceptionFactory {
 	private static final long serialVersionUID = -8973151010781329074L;
 	
 	private final String email;

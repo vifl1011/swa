@@ -38,7 +38,6 @@ import de.shop.util.NoMimeTypeException;
 import de.shop.util.Transactional;
 import de.shop.util.ValidatorProvider;
 import de.shop.util.FileHelper;
-import de.shop.util.FileHelper.MimeType;
 
 /**
  * Anwendungslogik fuer die KundeService
@@ -316,7 +315,7 @@ public class KundeService implements Serializable {
 			return;
 		}
 		// Gibt es Bestellungen?
-		if ( ! (kunde.getBestellungen()==null) && !kunde.getBestellungen().isEmpty()) {
+		if (!(kunde.getBestellungen() == null) && !kunde.getBestellungen().isEmpty()) {
 			throw new KundeDeleteBestellungException(kunde);
 		}
 		

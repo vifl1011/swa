@@ -21,7 +21,7 @@ import org.jboss.logging.Logger;
 public class SpracheListener implements Serializable {
 	private static final long serialVersionUID = 1986565724093259408L;
 
-	private static final Logger LOGGER=Logger.getLogger(MethodHandles.lookup().lookupClass());
+	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	
 	@Produces
 	@Named
