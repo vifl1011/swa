@@ -71,8 +71,8 @@ import de.shop.auth.service.jboss.AuthService.RolleType;
 			        + " FROM   Kunde as k"),
 	@NamedQuery(name  = Kunde.FIND_KUNDE_BY_LOGIN,
 			query = "SELECT k "
-			    			        + " FROM   Kunde as k"
-			    	   			    + " WHERE  k.login = :" + Kunde.PARAM_KUNDE_LOGIN),
+			    	+ " FROM   Kunde as k"
+			    	+ " WHERE  k.login = :" + Kunde.PARAM_KUNDE_LOGIN),
 	@NamedQuery(name  = Kunde.FIND_LOGIN_BY_LOGIN_PREFIX,
 			query = "SELECT   CONCAT('', k.login)"
 			    	+ " FROM  Kunde k"
@@ -288,8 +288,9 @@ public class Kunde implements Serializable, Cloneable {
 
 	public Kunde(String email, String geschlecht, String login, 
 			String name, String vorname, String passwort, float rabatt) {
-		this(email, geschlecht == null ? null : geschlecht.equals("m") ? GeschlechtType.MAENNLICH : GeschlechtType.WEIBLICH, 
-				login, name, vorname, passwort, rabatt);
+		this(email,
+			geschlecht == null ? null : (geschlecht.equals("m") ? GeschlechtType.MAENNLICH : GeschlechtType.WEIBLICH),
+			login, name, vorname, passwort, rabatt);
 	}
 	
 	public Kunde(String email, String geschlecht, String login, String name, String vorname,
