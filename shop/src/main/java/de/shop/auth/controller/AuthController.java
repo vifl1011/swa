@@ -293,4 +293,8 @@ public class AuthController implements Serializable {
 
 		return JSF_INDEX + JSF_REDIRECT_SUFFIX;
 	}
+
+	public Long getKundeId() {
+		return kundeId;
+	}
 }

@@ -58,7 +58,7 @@
 					               removeAllText="#{msgAuth['updateRollen.removeAllText']}"
 					               removeText="#{msgAuth['updateRollen.removeText']}"
 					               listHeight="100"
-					               rendered="#{not empty auth.ausgewaehlteRollen}">
+					               rendered="#{not empty auth.kundeId}">
 						<f:selectItems id="selectItems"
 						               value="#{auth.verfuegbareRollen}"/>
 						<f:converter converterId="RollenConverter"/>
@@ -77,7 +77,7 @@
 					<h:commandButton id="updateButton"
 					                 action="#{auth.updateRollen}"
 						             value="#{msgAuth['updateRollen.submit']}"
-						             rendered="#{not empty auth.ausgewaehlteRollen}"/>
+						             rendered="#{not empty auth.kundeId}"/>
 				</a4j:outputPanel>
 			</h:form>
 		</ui:define>
