@@ -31,6 +31,7 @@ import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
+import javax.validation.groups.Default;
 import javax.xml.bind.DatatypeConverter;
 
 import org.jboss.logging.Logger;
@@ -97,7 +98,7 @@ public class KundeController implements Serializable {
 	private static final String MSG_KEY_CREATE_KUNDE_EMAIL_EXISTS = "createKunde.emailExists";
 
 	private static final Class<?>[] PASSWORD_GROUP = { PasswordGroup.class };
-
+	private static final Class<?>[] DEFAULT_GROUP = { Default.class, PasswordGroup.class };
 	private static final String CLIENT_ID_UPDATE_PASSWORD = "updateKundeForm:password";
 	private static final String CLIENT_ID_UPDATE_EMAIL = "updateKundeForm:email";
 	private static final String MSG_KEY_UPDATE_KUNDE_DUPLIKAT = "updateKunde.duplikat";
@@ -412,6 +413,10 @@ public class KundeController implements Serializable {
 
 	public Class<?>[] getPasswordGroup() {
 		return PASSWORD_GROUP.clone();
+	}
+	
+	public Class<?>[] getDefaultGroup() {
+		return DEFAULT_GROUP.clone();
 	}
 
 	/**

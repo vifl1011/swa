@@ -288,7 +288,7 @@ public class Kunde implements Serializable, Cloneable {
 
 	public Kunde(String email, String geschlecht, String login, 
 			String name, String vorname, String passwort, float rabatt) {
-		this(email, geschlecht.equals("m") ? GeschlechtType.MAENNLICH : GeschlechtType.WEIBLICH, 
+		this(email, geschlecht == null ? null : geschlecht.equals("m") ? GeschlechtType.MAENNLICH : GeschlechtType.WEIBLICH, 
 				login, name, vorname, passwort, rabatt);
 	}
 	
