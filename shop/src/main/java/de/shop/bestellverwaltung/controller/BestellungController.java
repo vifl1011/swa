@@ -121,7 +121,7 @@ public class BestellungController implements Serializable {
 		// Bestellung im Flash speichern wegen anschliessendem Redirect
 		flash.put("bestellung", bestellung);
 		
-		warenkorb.reset();
+		warenkorb.endConversation();
 		
 		return JSF_VIEW_BESTELLUNG_FLASH;
 	}
