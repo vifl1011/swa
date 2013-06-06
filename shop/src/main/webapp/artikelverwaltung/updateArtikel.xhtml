@@ -21,7 +21,7 @@
 			
 			<h:outputText id="fehlerKeinArtikel" value="#{msgAv['updateArtikel.keinArtikel']}" class="rf-msg-err" rendered="#{empty ac.produkt}"/>
 
-			<a4j:push id="updateEvent" address="updateArtikel"
+			<a4j:push id="updateEvent" address="updateProdukt"
 		              ondataavailable="if (event.rf.data == '#{ac.produkt.id}') { $('#updateMessage').html('&lt;span class=rf-msg-err&gt;#{msgAv['updateArtikel.concurrentUpdate']}&lt;/span&gt;') }"/>
 			<span id="updateMessage"></span>
 			

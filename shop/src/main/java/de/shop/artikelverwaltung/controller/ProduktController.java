@@ -52,7 +52,7 @@ import static javax.ejb.TransactionAttributeType.SUPPORTS;
 @Log
 @Stateful
 @TransactionAttribute(SUPPORTS)
-@RolesAllowed({ ADMIN, KUNDE, MITARBEITER, ABTEILUNGSLEITER })
+@PermitAll
 public class ProduktController implements Serializable {
 	private static final long serialVersionUID = 1564024850446471639L;
 
@@ -183,7 +183,6 @@ public class ProduktController implements Serializable {
 	}
 
 	@Transactional
-	@PermitAll
 	public void loadLadenhueter() {
 		ladenhueter = as.ladenhueter(ANZAHL_LADENHUETER);
 	}
@@ -246,6 +245,7 @@ public class ProduktController implements Serializable {
 	 * legt ein neues Produkt an
 	 */
 	@Transactional
+	@RolesAllowed({ ADMIN, MITARBEITER, ABTEILUNGSLEITER })
 	public String createProdukt() {
 		try {
 			as.createProdukt(neuesProdukt, locale);
@@ -259,6 +259,7 @@ public class ProduktController implements Serializable {
 		return JSF_LIST_ARTIKEL + JSF_REDIRECT_SUFFIX;
 	}
 	
+	@RolesAllowed({ ADMIN, MITARBEITER, ABTEILUNGSLEITER })
 	@TransactionAttribute(REQUIRED)
 	public String update() {
 		auth.preserveLogin();
