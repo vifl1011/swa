@@ -122,6 +122,8 @@ public class KundeResourceTest extends AbstractResourceTest {
 		             		          .add("geschlecht", geschlecht)
 		             		          .add("login", login)
 		             		          .add("passwort", passwort)
+		             		          .add("passwortWdh", passwort)
+		             		          .add("agbAkzeptiert",true)
 		             		          .add("adresse", getJsonBuilderFactory().createObjectBuilder()
 		                    		                  .add("plz", plz)
 		                    		                  .add("ort", ort)
