@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -46,6 +45,10 @@ public class BestellService implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+	private static final String EXC_NO_SHIPMENT_AVAILABLE = "keine Lieferung vorhanden mit ID ";
+	private static final String EXC_NO_PRODUCT_AVAILABLE = "kein Produkt vorhanden mit ID ";
+	private static final String EXC_NO_ORDER_AVAILABLE = "keine Bestellung vorhanden mit ID ";
+	private static final String EXC_ORDER_ITEMS_NULL_OR_EMPTY = "Bestellung nicht erstellt => bestellpositionen sind null oder leer";
 
 	@PersistenceContext
 	private transient EntityManager em;
@@ -55,9 +58,6 @@ public class BestellService implements Serializable {
 	
 	@Inject
 	private ProduktService ps;
-
-	@Inject
-	private transient Event<Bestellung> event;
 
 	@PostConstruct
 	private void postConstruct() {
@@ -81,13 +81,13 @@ public class BestellService implements Serializable {
 		try {
 			lieferungId = Long.valueOf(lieferungIdStr);
 		} catch (NotFoundException e) {
-			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
+			throw new NotFoundException(EXC_NO_SHIPMENT_AVAILABLE + lieferungIdStr, e);
 		}
 				
 		final Lieferung lieferung = findLieferungById(lieferungId, locale);
 		
 		if (lieferung == null) {
-			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
+			throw new NotFoundException(EXC_NO_SHIPMENT_AVAILABLE + lieferungId);
 		}
 				
 		bestellposition.setLieferung(lieferung);
@@ -103,13 +103,13 @@ public class BestellService implements Serializable {
 		try {
 			produktId = Long.valueOf(produktIdStr);
 		} catch (NotFoundException e) {
-			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
+			throw new NotFoundException(EXC_NO_PRODUCT_AVAILABLE + produktIdStr, e);
 		}
 		
 		final Produkt produkt = ps.findProduktById(produktId, locale);
 		
 		if (produkt == null) {
-			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
+			throw new NotFoundException(EXC_NO_PRODUCT_AVAILABLE + produktId);
 		}
 		
 		bestellposition.setProdukt(produkt);
@@ -125,13 +125,13 @@ public class BestellService implements Serializable {
 		try {
 			bestellungId = Long.valueOf(bestellungIdStr);
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException("keine Bestellung vorhanden mit ID " + bestellungIdStr);
+			e.printStackTrace();
 		}
 		
 		final Bestellung bestellung = findBestellungById(bestellungId, locale);
 		
 		if (bestellung == null) {
-			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungId);
+			throw new NotFoundException(EXC_NO_ORDER_AVAILABLE + bestellungId);
 		}
 		
 		bestellposition.setBestellung(bestellung);
@@ -155,10 +155,10 @@ public class BestellService implements Serializable {
 		final List<Bestellung> result = em.createNamedQuery(Bestellung.FIND_BESTELLUNG_BY_ID, Bestellung.class)
 				.setParameter(Bestellung.PARAM_BESTELLUNG_ID, id).getResultList();
 
-		if (result.size() > 0)
-			return result.get(0);
-		else
+		if (result.isEmpty())
 			return null;
+		else
+			return result.get(0);
 	}
 	
 	/*
@@ -186,10 +186,10 @@ public class BestellService implements Serializable {
 	public List<Lieferung> findLieferungen(Locale locale) {
 		final List<Lieferung> result = em.createNamedQuery(Lieferung.FIND_LIEFERUNGEN, Lieferung.class).getResultList();
 
-		if (result.size() > 0)
-			return result;
-		else
+		if (result.isEmpty())
 			return null;
+		else
+			return result;
 	}
 
 	/*
@@ -335,13 +335,13 @@ public class BestellService implements Serializable {
 		try {
 			lieferungId = Long.valueOf(lieferungIdStr);
 		} catch (NotFoundException e) {
-			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungIdStr, e);
+			throw new NotFoundException(EXC_NO_SHIPMENT_AVAILABLE + lieferungIdStr, e);
 		}
 		
 		final Lieferung lieferung = findLieferungById(lieferungId, locale);
 		
 		if (lieferung == null) {
-			throw new NotFoundException("keine Lieferung vorhanden mit ID " + lieferungId);
+			throw new NotFoundException(EXC_NO_SHIPMENT_AVAILABLE + lieferungId);
 		}
 		
 		//	Extrahiere Produkt ID
@@ -355,13 +355,13 @@ public class BestellService implements Serializable {
 		try {
 			produktId = Long.valueOf(produktIdStr);
 		} catch (NotFoundException e) {
-			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktIdStr, e);
+			throw new NotFoundException(EXC_NO_PRODUCT_AVAILABLE + produktIdStr, e);
 		}
 		
 		final Produkt produkt = ps.findProduktById(produktId, locale);
 		
 		if (produkt == null) {
-			throw new NotFoundException("kein Produkt vorhanden mit ID " + produktId);
+			throw new NotFoundException(EXC_NO_PRODUCT_AVAILABLE + produktId);
 		}
 		
 		//	Extrahiere Bestellung ID
@@ -375,13 +375,13 @@ public class BestellService implements Serializable {
 		try {
 			bestellungId = Long.valueOf(bestellungIdStr);
 		} catch (NumberFormatException e) {
-			throw new NumberFormatException("keine Bestellung vorhanden mit ID " + bestellungIdStr);
+			e.printStackTrace();
 		}
 		
 		final Bestellung bestellung = findBestellungById(bestellungId, locale);
 		
 		if (bestellung == null) {
-			throw new NotFoundException("keine Bestellung vorhanden mit ID " + bestellungId);
+			throw new NotFoundException(EXC_NO_ORDER_AVAILABLE + bestellungId);
 		}
 		
 		
@@ -419,8 +419,8 @@ public class BestellService implements Serializable {
 		final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		
 		if (bestellpositionen == null || bestellpositionen.isEmpty()) {
-			LOGGER.finest("Bestellung nicht erstellt => bestellpositionen sind null oder leer");
-			throw new IllegalArgumentException("Bestellung nicht erstellt => bestellpositionen sind null oder leer");
+			LOGGER.finest(EXC_ORDER_ITEMS_NULL_OR_EMPTY);
+			throw new IllegalArgumentException(EXC_ORDER_ITEMS_NULL_OR_EMPTY);
 		}
 		
 		float p = (float) 0;
@@ -503,8 +503,8 @@ public class BestellService implements Serializable {
 		//final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		
 		if (bestellpositionen == null || bestellpositionen.isEmpty()) {
-			LOGGER.finest("Bestellung nicht erstellt => bestellpositionen sind null oder leer");
-			throw new IllegalArgumentException("Bestellung nicht erstellt => bestellpositionen sind null oder leer");
+			LOGGER.finest(EXC_ORDER_ITEMS_NULL_OR_EMPTY);
+			throw new IllegalArgumentException(EXC_ORDER_ITEMS_NULL_OR_EMPTY);
 		}
 		
 		float p = (float) 0;

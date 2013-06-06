@@ -77,6 +77,7 @@ public class Bestellposition implements Serializable {
 			PREFIX + "findBestellpositionByBestellungIdByProduktId";
 	public static final String FIND_BESTELLPOSITION_BY_ID = 
 			PREFIX + "findBestellpositionById";
+	private static final String DATE_PATTERNS = "yyyy-MM-dd";
 
 	// Query Parameters
 	public static final String PARAM_ID = "BestellpositionId";
@@ -243,12 +244,12 @@ public class Bestellposition implements Serializable {
 		if (aktualisiert == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(aktualisiert);
+		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(aktualisiert);
 	}
 	
 	public void setAktualisiertStr(String date) throws ParseException {
 		try {
-			aktualisiert = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			aktualisiert = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
 		} catch (ParseException e) {
 			throw e;
 		}
@@ -274,12 +275,12 @@ public class Bestellposition implements Serializable {
 		if (erzeugt == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(erzeugt);
+		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(erzeugt);
 	}
 	
 	public void setErzeugtStr(String date) throws ParseException {
 		try {
-			erzeugt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			erzeugt = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
 		} catch (ParseException e) {
 			throw e;
 		}

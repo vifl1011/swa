@@ -225,10 +225,11 @@ public class Bestellung implements Serializable {
 	}
 
 	public Date getAktualisiert() {
-		if (aktualisiert != null)
-			return (Date) this.aktualisiert.clone();
-		else
+		if (aktualisiert == null)
 			return null;
+		else
+			return (Date) this.aktualisiert.clone();
+			
 	}
 
 	public void setAktualisiert(Date aktualisiert) {
@@ -277,7 +278,7 @@ public class Bestellung implements Serializable {
 		if (this.erzeugt == null)
 			return null;
 		
-		return new SimpleDateFormat(format).format(this.erzeugt);
+		return new SimpleDateFormat(format, Locale.getDefault()).format(this.erzeugt);
 	}
 	
 	public Date getErzeugt() {

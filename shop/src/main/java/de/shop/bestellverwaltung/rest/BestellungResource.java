@@ -167,17 +167,17 @@ public class BestellungResource {
 	public Kunde findKundeByBestellungId(@PathParam("id") Long id) {
 		final Locale locale = localeHelper.getLocale(headers);
 		final Bestellung bestellung = bs.findBestellungById(id, locale);
-		if (bestellung != null) {
+		if (bestellung == null) {
+			final String msg = "Keine Bestellung gefunden mit der ID " + id;
+			throw new NotFoundException(msg);
+		} 
+		else {
 			final Kunde kunde = bestellung.getKunde();
 			if (kunde == null) {
 				final String msg = "Kein Kunde gefunden";
 				throw new NotFoundException(msg);
 			}
 			return kunde;
-		} 
-		else {
-			final String msg = "Keine Bestellung gefunden mit der ID " + id;
-			throw new NotFoundException(msg);
 		}
 	}
 
@@ -222,7 +222,7 @@ public class BestellungResource {
 			try {
 				produktId = Long.valueOf(produktIdStr);
 			} catch (NumberFormatException e) {
-				throw new NumberFormatException("Kein Produkt vorhanden mit ID " + produktIdStr);
+				e.printStackTrace();
 			}
 
 			final Produkt produkt = ps.findProduktById(produktId, locale);
@@ -238,7 +238,7 @@ public class BestellungResource {
 			try {
 				lieferungId = Long.valueOf(lieferungIdStr);
 			} catch (NumberFormatException e) {
-				throw new NumberFormatException("Keine Lieferung vorhanden mit ID " + lieferungIdStr);
+				e.printStackTrace();
 			}
 			final Lieferung lieferung = bs.findLieferungById(lieferungId, locale);
 			if (lieferung == null) {
@@ -258,7 +258,7 @@ public class BestellungResource {
 				final String produktUriStr = bp.getProduktUri().toString();
 				startPos = produktUriStr.lastIndexOf('/') + 1;
 				sb.append(produktUriStr.substring(startPos));
-				sb.append(" ");
+				sb.append("; ");
 			}
 			throw new NotFoundException(sb.toString());
 		}

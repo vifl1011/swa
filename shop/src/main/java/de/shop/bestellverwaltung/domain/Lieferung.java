@@ -57,6 +57,8 @@ public class Lieferung implements Serializable {
 	public static final String FIND_LIEFERUNGEN = "findLieferungen";
 
 	public static final String PARAM_LIEFERUNG_ID = "lieferungId";
+	
+	private static final String DATE_PATTERNS = "yyyy-MM-dd";
 
 	@Id
 	@GeneratedValue
@@ -138,11 +140,11 @@ public class Lieferung implements Serializable {
 		if (aktualisiert == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(aktualisiert);
+		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(aktualisiert);
 	}
 	
 	public void setAktualisiertStr(String date) throws ParseException {
-			aktualisiert = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			aktualisiert = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
 	}
 
 	public String getArt() {
@@ -165,11 +167,11 @@ public class Lieferung implements Serializable {
 		if (erzeugt == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(erzeugt);
+		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(erzeugt);
 	}
 	
 	public void setErzeugtStr(String date) throws ParseException {
-			erzeugt = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			erzeugt = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
 	}
 
 	public Date getVersanddatum() {
@@ -184,11 +186,11 @@ public class Lieferung implements Serializable {
 		if (versanddatum == null)
 			return null;
 		
-		return new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(versanddatum);
+		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(versanddatum);
 	}
 	
 	public void setVersanddatumStr(String date) throws ParseException {
-			versanddatum = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(date);
+			versanddatum = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
 	}
 	
 	@JsonIgnore

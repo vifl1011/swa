@@ -44,6 +44,7 @@ import de.shop.util.Transactional;
 public class BestellpositionResource {
 	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().lookupClass());
 	private static final String VERSION = "1.0";
+	private static final String MSG_OBJECT_NOT_FOUND = "{object.notFound}";
 
 	@Inject
 	private BestellService bs;
@@ -104,7 +105,7 @@ public class BestellpositionResource {
 		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			final String msg = "{object.notFound}";
+			final String msg = MSG_OBJECT_NOT_FOUND;
 			throw new NotFoundException(msg);
 		}
 
@@ -124,7 +125,7 @@ public class BestellpositionResource {
 		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			final String msg = "{object.notFound}";
+			final String msg = MSG_OBJECT_NOT_FOUND;
 			throw new NotFoundException(msg);
 		}
 
@@ -144,7 +145,7 @@ public class BestellpositionResource {
 		final Bestellposition bestellposition = bs.findBestellpositionById(id, locale);
 
 		if (bestellposition == null) {
-			final String msg = "{object.notFound}";
+			final String msg = MSG_OBJECT_NOT_FOUND;
 			throw new NotFoundException(msg);
 		}
 		
