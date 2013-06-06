@@ -70,8 +70,6 @@ public class ProduktController implements Serializable {
 	private static final String PRODUCT_ID_PRODUKTID = "form:produktIdInput";
 	private static final String MSG_KEY_PRODUKT_NOT_FOUND_BY_ID = "selectArtikel.notFound";
 	private static final String MSG_KEY_UPDATE_PRODUKT_BEZEICHNUNG = "updateProdukt.bezeichnung";
-	
-
 
 	private String bezeichnung;
 	
@@ -250,6 +248,7 @@ public class ProduktController implements Serializable {
 		try {
 			as.createProdukt(neuesProdukt, locale);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return e.getMessage();
 		}
 		

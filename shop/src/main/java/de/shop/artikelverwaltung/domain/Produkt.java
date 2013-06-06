@@ -179,7 +179,11 @@ public class Produkt implements Serializable {
 	}
 
 	public Date getAktualisiert() {
-		return (Date) this.aktualisiert.clone();
+		if (aktualisiert != null) {
+			return (Date) this.aktualisiert.clone();
+		} else {
+			return null;
+		}
 	}
 
 	public void setAktualisiert(Date aktualisiert) {
@@ -187,7 +191,11 @@ public class Produkt implements Serializable {
 	}
 
 	public Date getErzeugt() {
-		return (Date) this.erzeugt.clone();
+		if (aktualisiert != null) {
+			return (Date) this.erzeugt.clone();
+		} else {
+			return null;
+		}
 	}
 
 	public void setErzeugt(Date erzeugt) {
