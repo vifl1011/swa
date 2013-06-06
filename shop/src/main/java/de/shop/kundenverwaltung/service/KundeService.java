@@ -251,6 +251,7 @@ public class KundeService implements Serializable {
 		}
 		
 		// Werden alle Constraints beim Einfuegen gewahrt?
+		kunde.setPasswortWdh(kunde.getPasswort());
 		validateKunde(kunde, locale, Default.class, PasswordGroup.class);
 		// Pruefung, ob die Email-Adresse schon existiert
 		final Kunde eKunde = findKundeByEmail(kunde.getEmail(), locale);
