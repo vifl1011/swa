@@ -129,7 +129,7 @@
 			    <rich:panelMenuItem id="artikelverwaltungUpdateArtikel" rendered="#{rich:isUserInRole('admin') or rich:isUserInRole('mitarbeiter') or rich:isUserInRole('abteilungsleiter')}">
 					<h:commandLink id="menuUpdateArtikel"
 						                   action="#{ac.findArtikelByBezeichnung}">
-						#{msg['nav.artikelverwaltung.update']}
+						#{msg['nav.artikelverwaltung.updateArtikel']}
 						
 					</h:commandLink>
 				</rich:panelMenuItem>
