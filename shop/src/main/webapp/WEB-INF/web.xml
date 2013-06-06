@@ -203,7 +203,40 @@
     <auth-method>BASIC</auth-method>
     <realm-name>Webshop</realm-name>
   </login-config>
+  <!-- SECURITY CONSTRAINTS -->
+  <!-- Constraints für Website -->
+	<security-constraint>
+	    <web-resource-collection>
+	      	<web-resource-name>shopKundeTaetigkeiten</web-resource-name>
+	      	<url-pattern>/bestellverwaltung/chooseLieferung.jsf</url-pattern>
+	      	<url-pattern>/bestellverwaltung/viewBestellung.jsf</url-pattern>
+	    </web-resource-collection>
+	    <auth-constraint>
+	       <role-name>*</role-name>
+	    </auth-constraint>
+	</security-constraint>
+    <security-constraint>
+	    <web-resource-collection>
+		      <web-resource-name>shopMitarbeiterTaetigkeiten</web-resource-name>
+		      <url-pattern>/kundenverwaltung/createKunde.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/updateKunde.jsf</url-pattern>
+	    </web-resource-collection>
+	    <auth-constraint>
+		      <role-name>admin</role-name>
+		      <role-name>mitarbeiter</role-name>
+	    </auth-constraint>
+  </security-constraint>
   <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>shopAdminTaetigkeiten</web-resource-name>
+      <url-pattern>/auth/updateRollen.jsf</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>admin</role-name>
+    </auth-constraint>
+  </security-constraint>
+ <!-- ==================== Constraints für REST =========================================== -->
+ <security-constraint>
   <web-resource-collection>
    <web-resource-name>Kunden erzeugen und modifizieren</web-resource-name>
    <url-pattern>/rest/kunden</url-pattern>
@@ -248,54 +281,6 @@
    <role-name>kunde</role-name>
   </auth-constraint>
  </security-constraint>
-   <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>shopKundeTaetigkeiten</web-resource-name>
-      <url-pattern>/bestellverwaltung/confirmBestellung.jsf</url-pattern>
-      <url-pattern>/bestellverwaltung/confirmBestellung.faces</url-pattern>
-      <url-pattern>/kundenverwaltung/desktop/viewKunde.xhtml</url-pattern>
-      <url-pattern>/kundenverwaltung/updateKunde.jsf</url-pattern><!--zum aendern des eigenen Profils-->
-      <url-pattern>/indexDesktop.xhtml</url-pattern>
-      <url-pattern>/indexDesktop.jsf</url-pattern>
-      <url-pattern>/faces/bestellverwaltung/confirmBestellung.xhtml</url-pattern>
-      <http-method>GET</http-method>
-      <http-method>POST</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>*</role-name>
-    </auth-constraint>
-  </security-constraint>
-    <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>shopMitarbeiterTaetigkeiten</web-resource-name>
-      <url-pattern>/kundenverwaltung/createKunde.jsf</url-pattern>
-      <url-pattern>/kundenverwaltung/createKunde.faces</url-pattern>
-      <url-pattern>/faces/kundenverwaltung/createKunde.xhtml</url-pattern>
-      <url-pattern>/kundenverwaltung/updateKunde.jsf</url-pattern>
-      <url-pattern>/kundenverwaltung/updateKunde.faces</url-pattern>
-      <url-pattern>/faces/kundenverwaltung/updateKunde.xhtml</url-pattern>
-      <http-method>POST</http-method>
-      <http-method>GET</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>admin</role-name>
-      <role-name>mitarbeiter</role-name>
-    </auth-constraint>
-  </security-constraint>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>shopAdminTaetigkeiten</web-resource-name>
-      <url-pattern>/auth/updateRollen.jsf</url-pattern>
-      <url-pattern>/auth/updateRollen.faces</url-pattern>
-      <url-pattern>/faces/auth/updateRollen.xhtml</url-pattern>
-      <http-method>POST</http-method>
-      <http-method>GET</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>admin</role-name>
-    </auth-constraint>
-  </security-constraint>
- <!-- ==================== Tobias Weigel 16.04.2013=========================================== -->
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Bestellungen ändern</web-resource-name>
