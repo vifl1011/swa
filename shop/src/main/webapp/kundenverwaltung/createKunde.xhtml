@@ -29,12 +29,14 @@
 					https://issues.jboss.org/browse/AS7-1348
 					http://community.jboss.org/thread/169487 
 				-->
-				<rich:graphValidator id="kundeValidator"
-				                     value="#{kc.neuerKunde}"
-				                     groups="#{kc.passwordGroup}">
+					<rich:graphValidator value="#{kc.neuerKunde}" id="kundeValidator" groups="#{kc.passwordGroup}">
 					<rich:messages for="kundeValidator"/>
-
-					<rich:messages id="fehlermeldungPassword" globalOnly="true"/>
+					<rich:messages globalOnly="true"/>
+				 	
+<!-- 				 	<rich:graphValidator value="#{passwordValidationBean}" id="gv"> -->
+<!--                	 	<rich:messages for="gv" /> -->
+<!--                 	<rich:messages globalOnly="true" /> -->
+					
 					<p id="abstand"/>
 					
 					<h:panelGrid id="createKundeTabelle"
@@ -78,7 +80,7 @@
 						               <rich:validator oninvalid="$(#{rich:element('passwort')}).addClass('invalid')"
                                             onvalid="$(#{rich:element('passwort')}).removeClass('invalid')"/>
                         </h:inputSecret>
-						<rich:messages id="fehlermeldungPasswort" for="Passwort"/>
+						<rich:messages id="fehlermeldungPasswort" for="passwort"/>
 						
 						<h:outputLabel id="passwortWdhLabel"
 						               for="passwortWdh"
