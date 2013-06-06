@@ -256,11 +256,18 @@ public class Bestellung implements Serializable {
 	}
 	
 	public Date getBestellzeitpunkt() {
-		return this.bestellzeitpunkt;
+		if (this.bestellzeitpunkt == null)
+			return null;
+		else
+			return (Date) this.bestellzeitpunkt.clone();
+		
 	}
 
 	public void setBestellzeitpunkt(Date bestellzeitpunkt) {
-		this.bestellzeitpunkt = bestellzeitpunkt;
+		if (bestellzeitpunkt == null)
+			this.bestellzeitpunkt = null;
+		else
+			this.bestellzeitpunkt = (Date) bestellzeitpunkt.clone();
 	}
 
 	public String getBestellzeitpunktStr() {
@@ -282,11 +289,17 @@ public class Bestellung implements Serializable {
 	}
 	
 	public Date getErzeugt() {
-		return this.erzeugt;
+		if (this.erzeugt == null)
+			return null;
+		else
+			return (Date) this.erzeugt.clone();
 	}
 
 	public void setErzeugt(Date erzeugt) {
-		this.erzeugt = erzeugt;
+		if (erzeugt == null)
+			this.erzeugt = null;
+		else
+			this.erzeugt = (Date) erzeugt.clone();
 	}
 
 	public String getErzeugtStr() {

@@ -502,7 +502,7 @@ public class BestellService implements Serializable {
 		
 		//final List<Bestellposition> bestellpositionen = bestellung.getBestellpositionen();
 		
-		if (bestellpositionen == null || bestellpositionen.isEmpty()) {
+		if (bestellpositionen.isEmpty()) {
 			LOGGER.finest(EXC_ORDER_ITEMS_NULL_OR_EMPTY);
 			throw new IllegalArgumentException(EXC_ORDER_ITEMS_NULL_OR_EMPTY);
 		}

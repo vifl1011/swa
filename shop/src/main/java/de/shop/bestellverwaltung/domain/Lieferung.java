@@ -129,11 +129,17 @@ public class Lieferung implements Serializable {
 	}
 
 	public Date getAktualisiert() {
-		return this.aktualisiert;
+		if (this.aktualisiert == null)
+			return null;
+		else
+			return (Date) this.aktualisiert.clone();
 	}
 
 	public void setAktualisiert(Date aktualisiert) {
-		this.aktualisiert = aktualisiert;
+		if (aktualisiert == null)
+			this.aktualisiert = null;
+		else
+			this.aktualisiert = (Date) aktualisiert.clone();
 	}
 	
 	public String getAktualisiertStr() {
@@ -156,11 +162,17 @@ public class Lieferung implements Serializable {
 	}
 
 	public Date getErzeugt() {
-		return (Date) this.erzeugt;
+		if (this.erzeugt == null)
+			return null;
+		else
+			return (Date) this.erzeugt.clone();
 	}
 
 	public void setErzeugt(Date erzeugt) {
-		this.erzeugt = erzeugt;
+		if (erzeugt == null)
+			this.erzeugt = null;
+		else
+			this.erzeugt = (Date) erzeugt.clone();
 	}
 	
 	public String getErzeugtStr() {
@@ -175,11 +187,17 @@ public class Lieferung implements Serializable {
 	}
 
 	public Date getVersanddatum() {
-		return (Date) this.versanddatum;
+		if (this.versanddatum == null)
+			return null;
+		else
+			return (Date) this.versanddatum.clone();
 	}
 
 	public void setVersanddatum(Date versanddatum) {
-		this.versanddatum = versanddatum;
+		if (versanddatum == null)
+			this.versanddatum = null;
+		else
+			this.versanddatum = (Date) versanddatum.clone();
 	}
 
 	public String getVersanddatumStr() {
