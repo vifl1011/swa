@@ -82,7 +82,7 @@
 								</h:commandButton>
 							</rich:column>
 							
-							<rich:column id="editSpalte" rendered="#{not empty artikel}">
+							<rich:column id="editSpalte" rendered="#{not empty artikel and rich:isUserInRole('admin')}">
 								<h:commandButton id="editButton"
 										 image="#{resource['images:edit.gif']}"
 								         action="#{ac.selectForUpdate(art)}"
