@@ -3,6 +3,7 @@ package de.shop.bestellverwaltung.controller;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -103,6 +104,7 @@ public class BestellungController implements Serializable {
 		
 		// Neue Bestellung mit neuen Bestellpositionen erstellen
 		Bestellung bestellung = new Bestellung();
+		bestellung.setBestellzeitpunkt(new Date());
 		bestellung.setBestellpositionen(neuePositionen);
 		
 		LOGGER.tracef("Neue Bestellung: %s\nBestellpositionen: %s", bestellung, bestellung.getBestellpositionen());
