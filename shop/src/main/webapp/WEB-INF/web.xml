@@ -184,7 +184,7 @@
     <location>/error/timeout.jsf</location>
   </error-page>
    <error-page>  
-  <exception-type>org.jboss.weld.context.NonexistentConversationException</exception-type>  
+  <exception-type>javax.enterprise.context.NonexistentConversationException</exception-type>  
   <location>/error/expired.jsf?nocid=true</location>  
  </error-page>
   <error-page>
@@ -208,8 +208,15 @@
 	<security-constraint>
 	    <web-resource-collection>
 	      	<web-resource-name>shopKundeTaetigkeiten</web-resource-name>
-	      	<url-pattern>/bestellverwaltung/chooseLieferung.jsf</url-pattern>
-	      	<url-pattern>/bestellverwaltung/viewBestellung.jsf</url-pattern>
+		      <url-pattern>/bestellverwaltung/chooseLieferung.jsf</url-pattern>
+		      <url-pattern>/bestellverwaltung/confirmBestellung.jsf</url-pattern>
+		      <url-pattern>/bestellverwaltung/viewBestellung.jsf</url-pattern>
+		      <url-pattern>/bestellverwaltung/viewBestellungGET.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/updateKunde.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/upload.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/viewKunde.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/viewKundePopup.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/desktop/viewKunde.jsf</url-pattern>
 	    </web-resource-collection>
 	    <auth-constraint>
 	       <role-name>*</role-name>
@@ -219,7 +226,10 @@
 	    <web-resource-collection>
 		      <web-resource-name>shopMitarbeiterTaetigkeiten</web-resource-name>
 		      <url-pattern>/kundenverwaltung/createKunde.jsf</url-pattern>
-		      <url-pattern>/kundenverwaltung/updateKunde.jsf</url-pattern>
+		      <url-pattern>/artikelverwaltung/createProdukt.jsf</url-pattern>
+		      <url-pattern>/artikelverwaltung/updateArtikel.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/listKunde.jsf</url-pattern>
+		      <url-pattern>/kundenverwaltung/okDelete.jsf</url-pattern>
 	    </web-resource-collection>
 	    <auth-constraint>
 		      <role-name>admin</role-name>
