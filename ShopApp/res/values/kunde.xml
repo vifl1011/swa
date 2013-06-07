@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="k_kunde_details_title">Customer</string>
+    <string name="k_kunde_id">Customer No.</string>
+    <string name="k_name">Name</string>
+	
+</resources>

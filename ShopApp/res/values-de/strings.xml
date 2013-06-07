@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resources>
+
+    <string name="s_app_name">Shop</string>
+    <string name="s_btn_suchen">Suchen</string>
+    <string name="s_menu_settings">Einstellungen</string>
+	<string name="s_kunde_id_hint">Kundennummer eingeben</string>
+    
+</resources>

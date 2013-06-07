@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<resources>
+
+    <string name="k_kunde_details_title">Gesuchter Kunde</string>
+    <string name="k_kunde_id">Kundennummer</string>
+    <string name="k_name">Name</string>
+
+</resources>
