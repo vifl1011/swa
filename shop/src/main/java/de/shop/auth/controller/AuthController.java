@@ -157,6 +157,10 @@ public class AuthController implements Serializable {
 			return null;   // Gleiche Seite nochmals aufrufen: mit den fehlerhaften Werten
 		}
 		final Kunde tmp = ks.findKundenByLogin(username);
+		if (tmp == null) {
+			messages.error(SHOP, MSG_KEY_LOGIN_ERROR, CLIENT_ID_USERNAME);
+			return null;
+		}
 		try {
 			request.login(tmp.getId().toString(), password);
 		}

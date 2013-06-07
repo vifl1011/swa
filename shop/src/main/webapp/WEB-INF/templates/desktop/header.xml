@@ -16,7 +16,7 @@
 		    </c:if>
 		</h:outputLink>
 		<rich:toolbarGroup id="headerToolbarContainer" location="right">
-				<h:form id="loginForm"  rendered="#{not auth.loggedIn}">
+				<h:form id="loginFormHeader"  rendered="#{not auth.loggedIn}">
 					<h:panelGrid id="loginGrid" columns="3">
 						<h:outputLabel id="usernameLabel"
 						               value="#{msg['login.kundeId']}"
@@ -30,7 +30,7 @@
 						<h:inputSecret id="password" value="#{auth.password}"/>
 						<h:commandButton id="loginButton" action="#{auth.login}" value="#{msg['login.submit']}"/>
 					</h:panelGrid>
-				
+					<rich:messages id="loginError" for="loginFormHeader:username"/>
 				</h:form>
 				<h:panelGroup id="fehlermeldungGroup" rendered="#{param.error eq 'true'}">
 					<p id="abstandZuForm" class="rf-msg-err">
