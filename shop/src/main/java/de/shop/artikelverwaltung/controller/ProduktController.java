@@ -2,7 +2,6 @@ package de.shop.artikelverwaltung.controller;
 
 import static de.shop.auth.service.jboss.AuthService.ABTEILUNGSLEITER;
 import static de.shop.auth.service.jboss.AuthService.ADMIN;
-import static de.shop.auth.service.jboss.AuthService.KUNDE;
 import static de.shop.auth.service.jboss.AuthService.MITARBEITER;
 import static de.shop.util.Messages.MessagesType.ARTIKELVERWALTUNG;
 
@@ -248,7 +247,7 @@ public class ProduktController implements Serializable {
 		try {
 			as.createProdukt(neuesProdukt, locale);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return e.getMessage();
 		}
 		
@@ -323,3 +322,4 @@ public class ProduktController implements Serializable {
 		return JSF_UPDATE_PRODUKT;
 	}
 }
+

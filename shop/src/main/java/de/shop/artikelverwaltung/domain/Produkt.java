@@ -181,7 +181,8 @@ public class Produkt implements Serializable {
 	public Date getAktualisiert() {
 		if (aktualisiert != null) {
 			return (Date) this.aktualisiert.clone();
-		} else {
+		} else 
+		{
 			return null;
 		}
 	}
@@ -193,7 +194,8 @@ public class Produkt implements Serializable {
 	public Date getErzeugt() {
 		if (aktualisiert != null) {
 			return (Date) this.erzeugt.clone();
-		} else {
+		} else 
+		{
 			return null;
 		}
 	}
@@ -348,3 +350,4 @@ public class Produkt implements Serializable {
 	
 
 }
+
