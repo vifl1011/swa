@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:rich="http://richfaces.org/rich">
+
+	<ui:composition template="/WEB-INF/templates/desktop/main.xml">		
+		<ui:param name="pageTitle" value="#{msgBv['updateBestellung.title']}"/>
+		
+		<ui:define name="article">
+			<h1>
+				#{msgAv['createProdukt.heading']}
+			</h1>
+	
+			<h:form id="updatebestellungForm">
+				<rich:jQuery id="bezeichnungFocus" selector="#bezeichnung" query="focus()"/>
+
+				<rich:graphValidator id="bestellungValidator"
+				                     value="#{bc.bestellung}">
+					<rich:messages for="bestellungValidator"/>
+					<rich:messages id="fehlermeldung" globalOnly="true"/>
+					
+					<p id="abstand"/>
+					
+					<h:panelGrid id="updateBestellungTabelle"
+					             columns="3">
+						<h:outputLabel id="bestellnrLabel" for="bestellnr" value="#{msgBv['updateBestellung.bestellnr']}"/>
+						<h:outputLabel id="bestellnr" for="bestellnr" value="#{bc.bestellung.id}:"/>						
+						<h:outputLabel id="bestellnrFehlerLabel" for="bestellnr" value=""/>
+						
+						<h:outputLabel id="gezahltLabel" for="gezahlt" value="#{msgBv['updateBestellung.gezahlt']}"/>
+						<h:selectBooleanCheckbox id="gezahlt" 
+							value="#{bc.bestellung.gezahlt}">
+						</h:selectBooleanCheckbox>
+						
+					</h:panelGrid>
+					<p id="buttons">
+						<h:commandButton id="createSubmit" action="#{ac.createProdukt}" value="#{msgAv['createProdukt.submit']}"/>
+						#{' '}
+						<h:commandButton id="reset" type="reset" value="#{msgAv['createProdukt.reset']}"/>
+					</p>
+				</rich:graphValidator>
+			</h:form>
+			
+			<p id="hinweisPflichtfelder">
+				#{msgKv['createKunde.required']}
+			</p>
+		</ui:define>
+	</ui:composition>
+</html>

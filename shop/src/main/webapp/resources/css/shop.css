@@ -15,6 +15,14 @@
 	background-color: #BED6F8;   /* blueSky */
 }
 
+#aside {
+	float: right;
+	width: 15%;
+	height: 550px;
+	padding: 5px;
+	background-color: #BED6F8;   /* blueSky */
+}
+
 #article {
 	margin-left: 15%;
 	/* width: 80%; */

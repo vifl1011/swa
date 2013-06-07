@@ -39,13 +39,15 @@
 				</ui:insert>
 			</nav>
 		
+			<aside id="aside">
+				<ui:insert name="aside">
+					<ui:include src="aside.xml"/>
+				</ui:insert>
+			</aside>
+			
 			<article id="article">
 				<ui:insert name="article"/>
 			</article>
-			
-			<aside id="aside">
-				<ui:insert name="aside"/>
-			</aside>
 		
 			<footer id="footer">
 				<ui:insert name="footer">
