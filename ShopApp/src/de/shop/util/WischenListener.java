@@ -4,6 +4,7 @@ import static de.shop.util.Constants.WISCHEN_MAX_OFFSET_PATH;
 import static de.shop.util.Constants.WISCHEN_MIN_DISTANCE;
 import static de.shop.util.Constants.WISCHEN_THRESHOLD_VELOCITY;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,6 +19,12 @@ public class WischenListener extends SimpleOnGestureListener {
 	public WischenListener(Fragment fragment) {
 		super();
 		actionBar = fragment.getActivity().getActionBar();
+		tabCount = actionBar.getTabCount();
+	}
+	
+	public WischenListener(Activity activity) {
+		super();
+		actionBar = activity.getActionBar();
 		tabCount = actionBar.getTabCount();
 	}
 
