@@ -1,0 +1,5 @@
+<!-- http://developer.android.com/guide/topics/search/searchable-config.html -->
+<!-- siehe auch <intent-filter> in AndroidManifest.xml -->
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+	android:label="@string/s_app_name"
+	android:hint="@string/k_hint_kundenname" />

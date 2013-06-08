@@ -44,5 +44,7 @@
        	<item>Divorced</item>
        	<item>Widowed</item>
     </string-array>
+    <string name="k_karte">Kundenkarte</string>
+    <string name="k_name">Kundenname</string>
     
 </resources>

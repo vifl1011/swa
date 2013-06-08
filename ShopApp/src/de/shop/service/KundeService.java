@@ -8,6 +8,7 @@ import static de.shop.util.Constants.KUNDEN_PATH;
 import static de.shop.util.Constants.LOCALHOST;
 import static de.shop.util.Constants.LOCALHOST_EMULATOR;
 import static de.shop.util.Constants.NACHNAME_PATH;
+import static de.shop.util.Constants.NAME_PATH;
 import static de.shop.util.Constants.NACHNAME_PREFIX_PATH;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
@@ -155,6 +156,57 @@ public class KundeService extends Service {
 			};
 			
 			sucheKundenByNameTask.execute(nachname);
+			HttpResponse<AbstractKunde> result = null;
+			try {
+				result = sucheKundenByNameTask.get(timeout, SECONDS);
+			}
+	    	catch (Exception e) {
+	    		throw new InternalShopError(e.getMessage(), e);
+			}
+
+	    	if (result.responseCode != HTTP_OK) {
+	    		return result;
+	    	}
+	    	
+	    	final ArrayList<AbstractKunde> kunden = result.resultList;
+	    	// URLs fuer Emulator anpassen
+	    	for (AbstractKunde k : kunden) {
+	    		setBestellungenUri(k);
+	    	}
+			return result;
+	    }
+		
+		
+		/**
+		 */
+		public HttpResponse<AbstractKunde> sucheKundenByName(String Name, final Context ctx) {
+			// (evtl. mehrere) Parameter vom Typ "String", Resultat vom Typ "List<AbstractKunde>"
+			final AsyncTask<String, Void, HttpResponse<AbstractKunde>> sucheKundenByNameTask = new AsyncTask<String, Void, HttpResponse<AbstractKunde>>() {
+				@Override
+	    		protected void onPreExecute() {
+					progressDialog = showProgressDialog(ctx);
+				}
+				
+				@Override
+				// Neuer Thread, damit der UI-Thread nicht blockiert wird
+				protected HttpResponse<AbstractKunde> doInBackground(String... namen) {
+					final String name = namen[0];
+					final String path = NAME_PATH + name;
+					Log.v(LOG_TAG, "path = " + path);
+		    		final HttpResponse<AbstractKunde> result = mock
+		    				                                   ? Mock.sucheKundenByNachname(name)
+		    				                                   : WebServiceClient.getJsonList(path, TYPE, CLASS_MAP);
+					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
+					return result;
+				}
+				
+				@Override
+	    		protected void onPostExecute(HttpResponse<AbstractKunde> unused) {
+					progressDialog.dismiss();
+	    		}
+			};
+			
+			sucheKundenByNameTask.execute(Name);
 			HttpResponse<AbstractKunde> result = null;
 			try {
 				result = sucheKundenByNameTask.get(timeout, SECONDS);
