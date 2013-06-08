@@ -1,0 +1,100 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="de.shop"
+	android:name="de.shop.ShopApp"
+	android:versionCode="1"
+	android:versionName="1.0" >
+
+	<uses-sdk
+		android:minSdkVersion="14"
+		android:targetSdkVersion="17" />
+	
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	
+	<!-- Ansonsten: android.content.res.Resources$NotFoundException -->
+	<supports-screens android:requiresSmallestWidthDp="600"/>
+
+	<application
+		android:icon="@drawable/ic_launcher"
+		android:label="@string/s_app_name"
+		android:theme="@style/AppTheme"
+		android:name="ShopApp"
+		android:allowBackup="true" >
+		
+		<activity
+			android:name=".ui.main.Main"
+			android:label="@string/s_app_name" >
+			
+			<intent-filter>
+				<!-- in Android gibt es keine Methode main() -->
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			
+			<meta-data
+            	android:name="android.app.default_searchable"
+            	android:value=".ui.main.SucheIdActivity" />
+		</activity>
+		
+		<!-- android:parentActivityName seit API Level 16 -->
+		<!-- siehe http://developer.android.com/guide/topics/manifest/activity-element.html -->
+		<activity
+			android:name=".ui.kunde.KundenListe"
+			android:label="@string/k_kunden_liste_title"
+			android:parentActivityName=".ui.main.Main"
+			android:exported="false" > <!-- false ist der Defaultwert, da es keinen intent-filter gibt -->
+			
+			<meta-data
+            	android:name="android.app.default_searchable"
+            	android:value=".ui.kunde.SucheNachnameActivity" />
+				
+			<!-- Up-Navigation fuer 4.0 durch Support Library -->
+			<meta-data android:name="android.support.PARENT_ACTIVITY"
+					   android:value=".ui.main.Main" />
+		</activity>
+		
+		<activity
+			android:name=".ui.main.SucheIdActivity"
+			android:exported="false" >
+			
+			<!-- Activity als "searchable" deklarieren -->
+			<intent-filter>
+	            <action android:name="android.intent.action.SEARCH" />
+	            <category android:name="android.intent.category.DEFAULT" />
+	        </intent-filter>
+			
+			<!-- Weitere Konfiguration fuer die Suche durch diese Activity -->
+			<meta-data
+	            android:name="android.app.searchable"
+	            android:resource="@xml/searchable_id" />
+		</activity>
+		
+		<activity
+			android:name=".ui.kunde.SucheNachnameActivity"
+			android:exported="false" >
+			
+			<!-- Activity als "searchable" deklarieren -->
+			<intent-filter>
+	            <action android:name="android.intent.action.SEARCH" />
+	            <category android:name="android.intent.category.DEFAULT" />
+	        </intent-filter>
+			
+			<!-- Weitere Konfiguration fuer die Suche durch diese Activity -->
+			<meta-data
+	            android:name="android.app.searchable"
+	            android:resource="@xml/searchable_nachname" />
+		</activity>
+		
+		<!-- Local Services -->
+		<service
+			android:name=".service.KundeService" />
+		
+		<service
+			android:name=".service.BestellungService" />
+		
+		<service
+			android:name=".service.NetworkService" />
+				
+	</application>
+
+</manifest>
