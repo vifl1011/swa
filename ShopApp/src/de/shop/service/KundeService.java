@@ -34,15 +34,11 @@ import de.shop.util.InternalShopError;
 
 public class KundeService extends Service {
 	private static final String LOG_TAG = KundeService.class.getSimpleName();
-	private static final String TYPE = "type";
-	private static final Map<String, Class<? extends Kunde>> CLASS_MAP;
 	
 	private KundeServiceBinder binder = new KundeServiceBinder();
 	
 	static {
 		// 2 Eintraege in die HashMap mit 100% = 1.0 Fuellgrad
-		CLASS_MAP = new HashMap<String, Class<? extends Kunde>>(2, 1);
-		CLASS_MAP.put("P", Kunde.class);
 	}
 
 	@Override
@@ -86,7 +82,7 @@ public class KundeService extends Service {
 		    		Log.v(LOG_TAG, "path = " + path);
 		    		final HttpResponse<Kunde> result = mock
 		    				                                   ? Mock.sucheKundeById(id)
-		    				                                   : WebServiceClient.getJsonSingle(path, TYPE, CLASS_MAP);
+		    				                                   : WebServiceClient.getJsonSingle(path, Kunde.class);
 
 					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
 					return result;
@@ -111,10 +107,10 @@ public class KundeService extends Service {
 	    		return result;
 		    }
     		
-    		setBestellungenUri(result.resultObject);
+    	//	setBestellungenUri(result.resultObject);
 		    return result;
 		}
-		
+		/*
 		private void setBestellungenUri(Kunde kunde) {
 	    	// URLs der Bestellungen fuer Emulator anpassen
 	    	final String bestellungenUri = kunde.bestellungenUri;
@@ -122,6 +118,7 @@ public class KundeService extends Service {
 			    kunde.bestellungenUri = bestellungenUri.replace(LOCALHOST, LOCALHOST_EMULATOR);
 	    	}
 		}
+		*/
 		
 		/**
 		 */
@@ -141,7 +138,7 @@ public class KundeService extends Service {
 					Log.v(LOG_TAG, "path = " + path);
 		    		final HttpResponse<Kunde> result = mock
 		    				                                   ? Mock.sucheKundenByNachname(nachname)
-		    				                                   : WebServiceClient.getJsonList(path, TYPE, CLASS_MAP);
+		    				                                   : WebServiceClient.getJsonList(path, Kunde.class);
 					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
 					return result;
 				}
@@ -167,9 +164,11 @@ public class KundeService extends Service {
 	    	
 	    	final ArrayList<Kunde> kunden = result.resultList;
 	    	// URLs fuer Emulator anpassen
+	    	/*
 	    	for (Kunde k : kunden) {
 	    		setBestellungenUri(k);
 	    	}
+	    	*/
 			return result;
 	    }
 		
@@ -192,7 +191,7 @@ public class KundeService extends Service {
 					Log.v(LOG_TAG, "path = " + path);
 		    		final HttpResponse<Kunde> result = mock
 		    				                                   ? Mock.sucheKundenByNachname(name)
-		    				                                   : WebServiceClient.getJsonList(path, TYPE, CLASS_MAP);
+		    				                                   : WebServiceClient.getJsonList(path, Kunde.class);
 					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
 					return result;
 				}
@@ -218,9 +217,11 @@ public class KundeService extends Service {
 	    	
 	    	final ArrayList<Kunde> kunden = result.resultList;
 	    	// URLs fuer Emulator anpassen
+	    	/*
 	    	for (Kunde k : kunden) {
 	    		setBestellungenUri(k);
 	    	}
+	    	*/
 			return result;
 	    }
 	

@@ -82,10 +82,6 @@ public class KundeStammdaten extends Fragment {
 	    	txtHausnr.setText(kunde.adresse.hausnr);
     	}
     	
-    	final TextView txtSeit = (TextView) view.findViewById(R.id.seit);
-		final String seitStr = DateFormat.getDateFormat(view.getContext()).format(kunde.seit);
-    	txtSeit.setText(seitStr);
-
     	
     
 	}

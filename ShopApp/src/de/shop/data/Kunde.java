@@ -22,15 +22,11 @@ public class Kunde implements JsonMappable, Serializable {
 	public int version;
 	public String nachname;
 	public String vorname;
-	public BigDecimal umsatz;
 	public BigDecimal rabatt;
-	public short kategorie;
 	public String email;
 	public Adresse adresse;
-	public boolean newsletter;
 	public boolean agbAkzeptiert = true;
-	public Date seit;
-	public String bestellungenUri;
+	//public String bestellungenUri;
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
 		return jsonBuilderFactory.createObjectBuilder()
@@ -42,7 +38,8 @@ public class Kunde implements JsonMappable, Serializable {
 			                     .add("email", email)
 			                     .add("adresse", adresse.getJsonBuilderFactory())
 			                     .add("agbAkzeptiert", agbAkzeptiert)
-			                     .add("bestellungenUri", bestellungenUri);
+			                     //.add("bestellungenUri", bestellungenUri)
+			                     ;
 	}
 	
 	@Override
@@ -60,7 +57,7 @@ public class Kunde implements JsonMappable, Serializable {
 		adresse = new Adresse();
 		adresse.fromJsonObject(jsonObject.getJsonObject("adresse"));
 		agbAkzeptiert = jsonObject.getBoolean("agbAkzeptiert");
-		bestellungenUri = jsonObject.getString("bestellungenUri");
+		//bestellungenUri = jsonObject.getString("bestellungenUri");
 	}
 	
 	@Override
@@ -96,9 +93,10 @@ public class Kunde implements JsonMappable, Serializable {
 	@Override
 	public String toString() {
 		return "Kunde [id=" + id + ", nachname=" + nachname + ", vorname="
-				+ vorname + ", umsatz=" + umsatz + ", rabatt=" + rabatt
+				+ vorname  + ", rabatt=" + rabatt
 				+ ", email=" + email + ", adresse=" + adresse
-				+ ", newsletter=" + newsletter  + ", seit=" + seit
-				+ ", bestellungenUri=" + bestellungenUri+"]";
+		//		+ ", newsletter=" + newsletter  + ", seit=" + seit
+		//		+ ", bestellungenUri=" + bestellungenUri
+				+"]";
 	}
 }

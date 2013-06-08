@@ -94,7 +94,7 @@ public class KundeEdit extends Fragment {
     	
     	edtHausnr = (EditText) view.findViewById(R.id.hausnr_edt);
     	edtHausnr.setText(kunde.adresse.hausnr);
-    	
+    	/*
     	dpSeit = (DatePicker) view.findViewById(R.id.seit);
     	final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
     	cal.setTime(kunde.seit);
@@ -111,7 +111,7 @@ public class KundeEdit extends Fragment {
 
     	tglNewsletter.setChecked(kunde.newsletter);
 
-	
+	*/
 
     }
     
@@ -211,7 +211,7 @@ public class KundeEdit extends Fragment {
 		kunde.adresse.ort = edtOrt.getText().toString();
 		kunde.adresse.strasse = edtStrasse.getText().toString();
 		kunde.adresse.hausnr = edtHausnr.getText().toString();
-		
+/*
 		final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
 		cal.set(dpSeit.getYear(), dpSeit.getMonth(), dpSeit.getDayOfMonth());
 		kunde.seit = cal.getTime();
@@ -219,7 +219,7 @@ public class KundeEdit extends Fragment {
 		kunde.kategorie = (short) npKategorie.getValue();
 		
 		kunde.newsletter = tglNewsletter.isChecked();	
-
+*/
 		Log.d(LOG_TAG, kunde.toString());
 	}
 }

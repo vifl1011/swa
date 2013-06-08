@@ -184,7 +184,7 @@ final class WebServiceClient {
     			jsonReader.close();
     		}
     	}
-    	
+    	Log.v(LOG_TAG, "path = " + path);
 		try {
 			result.resultObject = clazz.newInstance();
 		}
