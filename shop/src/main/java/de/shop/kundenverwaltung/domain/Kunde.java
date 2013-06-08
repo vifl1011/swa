@@ -36,6 +36,7 @@ import javax.validation.constraints.Min;
 import javax.persistence.UniqueConstraint;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 //Gruppe Tobias Weigel, Florian Vieﬂer, Alex Vollmann, Patrik Steuer
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.ScriptAssert;
@@ -240,6 +241,7 @@ public class Kunde implements Serializable, Cloneable {
 		joinColumns = @JoinColumn(name = "kunde_fk", nullable = false),
 		uniqueConstraints =  @UniqueConstraint(columnNames = { "kunde_fk", "rolle_fk" }))
 	@Column(table = "kunde_rolle", name = "rolle_fk", nullable = false)
+	@JsonIgnore
 	private Set<RolleType> rollen;
 	
 	@OneToOne(fetch = LAZY, cascade = { PERSIST, REMOVE })
@@ -369,10 +371,11 @@ public class Kunde implements Serializable, Cloneable {
 		this.email = email;
 	}
 
+	@JsonProperty
 	public String getGeschlecht() {
 		return this.geschlecht;
 	}
-	
+	@JsonProperty
 	public void setGeschlecht(String geschlecht) {
 		if  (geschlecht == null)
 			return;
@@ -622,6 +625,10 @@ public class Kunde implements Serializable, Cloneable {
 		this.bestellungenUri = bestellungenUri;
 	}
 
+	public URI getBestellungenUri(){
+		return bestellungenUri;
+	}
+	
 	public int getVersion() {
 		return version;
 	}
