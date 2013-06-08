@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+
+
+
 import javax.json.Json;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonReaderFactory;
@@ -11,7 +14,6 @@ import javax.json.JsonReaderFactory;
 import android.app.Application;
 import android.util.Log;
 import android.content.Context;
-
 import de.shop.util.InternalShopError;
 
 /**
