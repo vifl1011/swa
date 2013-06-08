@@ -312,7 +312,8 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setPasswortWdh(String passwortWdh) {
-		this.passwortWdh = passwortWdh;
+		if(passwortWdh != null)
+			this.passwortWdh = passwortWdh;
 	}
 	
 	public void setAgbAkzeptiert(boolean agbAkzeptiert) {
@@ -394,7 +395,8 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		if(login!=null)
+			this.login = login;
 	}
 
 	public String getName() {
@@ -410,7 +412,8 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setPasswort(String passwort) {
-		this.passwort = passwort;
+		if(passwort!=null)
+			this.passwort = passwort;
 	}
 
 	public float getRabatt() {
@@ -459,8 +462,8 @@ public class Kunde implements Serializable, Cloneable {
 		setRabatt(k.getRabatt());
 		setEmail(k.getEmail());
 		setPasswort(k.getPasswort());
-		passwortWdh = k.passwort;
-		agbAkzeptiert = k.agbAkzeptiert;
+		setPasswortWdh( k.passwort);
+		setAgbAkzeptiert( k.agbAkzeptiert);
 		setLogin(k.getLogin());
 		setGeschlecht(k.geschlecht);
 		setVersion(k.getVersion());

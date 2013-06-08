@@ -627,6 +627,9 @@ final class WebServiceClient {
     	}
     	
 		final String usernamePassword = username + ':' + password;
+
+    	Log.v(LOG_TAG, "Passwort:"+usernamePassword);
+    	
 		httpConnection.setRequestProperty(AUTHORIZATION, "Basic " + Base64.encodeToString(usernamePassword.getBytes(), Base64.DEFAULT));
 		
 		return httpConnection;    	

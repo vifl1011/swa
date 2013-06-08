@@ -42,7 +42,7 @@ public class KundeSucheId extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		kundeIdTxt = (AutoCompleteTextView) view.findViewById(R.id.kunde_id_auto);
-    	kundeIdTxt.setAdapter(new AutoCompleteIdAdapter(kundeIdTxt.getContext()));
+    	//kundeIdTxt.setAdapter(new AutoCompleteIdAdapter(kundeIdTxt.getContext()));
     	
     	// IME
     	kundeIdTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -121,7 +121,7 @@ public class KundeSucheId extends Fragment {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+	/*
     // Fuer die Verwendung von AutoCompleteTextView in der Methode onViewCreated()
     private class AutoCompleteIdAdapter extends ArrayAdapter<Long> {
     	private LayoutInflater inflater;
@@ -201,5 +201,5 @@ public class KundeSucheId extends Fragment {
     		
     		return filter;
     	}
-    }
+    } */
 }
