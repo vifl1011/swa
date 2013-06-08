@@ -2,5 +2,24 @@
 <resources>
 
     <string name="b_bestellungen_neu">Bestellungen neu</string>
+    <string name="b_bestellung_id_hint">Geben sie eine Bestellungsid ein.</string>
+    <string name="b_bestellung_id_auswahl_hint">Wählen sie eine Bestellungsid aus.</string>
+    <string name="b_bestellung_suchen">Suche Bestellung</string>
+    <string name="b_stammdaten">Allgemein</string>
+    <string name="b_bestellpositionen">Positionen</string>
+    <string name="b_bestellnr_fehlt">ID fehlt</string>
+    <string name="b_bestellung_not_found">Bestellung nicht gefunden</string>
+    <string name="b_bestellung_id">Bestellung ID: </string>
+	<string name="b_bestellung_status">Bestellstatus: </string>
+	<string name="b_bestellung_gezahlt">Gezahlt: </string>
+	<string name="b_bestellung_gesamtpreis">Kosten Gesamt: </string>
+	<string name="b_bestellung_bestellzeitpunkt">Bestellzeitpunkt: </string>
+	<string name="b_bestellung_aktualisiert">letztes Update: </string>
+	<string name="b_bestellung_erzeugt">Erstellt am: </string>	
+	<string name="b_bestellposition_bestellung_id">Position ID: %d</string>
+	<string name="b_bestellposition_id">Position ID: </string>
+	<string name="b_bestellposition_datum">Versand: </string>
+	<string name="b_keine_bestellpositionen">Keine bestellpositionen vorhanden für Bestellung %d!</string>
+	<string name="b_bestellung_bestellposition_id">Position ID %d</string>
     
 </resources>

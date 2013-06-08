@@ -10,8 +10,6 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import javax.json.JsonValue;
-
 import android.net.Uri;
 
 

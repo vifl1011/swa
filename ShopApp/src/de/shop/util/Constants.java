@@ -4,6 +4,9 @@ public final class Constants {
 	public static final String KUNDE_KEY = "kunde";
 	public static final String KUNDEN_KEY = "kunden";
 	
+	public static final String BESTELLUNG_KEY = "bestellung";
+	public static final String BESTELLUNGEN_KEY = "bestellungen";
+	
 	public static final int WISCHEN_MIN_DISTANCE = 30;        // Min. Laenge des Wischens in Pixel
 	public static final int WISCHEN_MAX_OFFSET_PATH = 30;       // Max. Abweichung in der Y-Richtung in Pixel
 	public static final int WISCHEN_THRESHOLD_VELOCITY = 30;  // Geschwindigkeit: Pixel pro Sekunde
@@ -20,6 +23,7 @@ public final class Constants {
 	public static final String NAME_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/name";
 	
 	public static final String BESTELLUNG_PATH = "/bestellungen";
+	public static final String BESTELLPOSITION_PATH = "/bestellposition";
 	public static final String PRODUKT_PATH = "/Produkt";
 	
 	public static final short MIN_KATEGORIE = 1;

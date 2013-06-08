@@ -1,5 +1,24 @@
 <resources>
     
 	<string name="b_bestellungen_neu">New order</string>
+	<string name="b_bestellung_id_hint">enter order no</string>
+	<string name="b_bestellung_id_auswahl_hint">Select an order no</string>
+	<string name="b_bestellung_suchen">search Order</string>
+	<string name="b_stammdaten">General</string>
+	<string name="b_bestellpositionen">Items</string>
+	<string name="b_bestellnr_fehlt">ID is missing</string>
+	<string name="b_bestellung_not_found">No Order Found</string>
+	<string name="b_bestellung_id">Order no.: </string>
+	<string name="b_bestellung_status">Order State: </string>
+	<string name="b_bestellung_gezahlt">Paid: </string>
+	<string name="b_bestellung_gesamtpreis">Total Costs: </string>
+	<string name="b_bestellung_bestellzeitpunkt">Date of Order: </string>
+	<string name="b_bestellung_aktualisiert">Last Update: </string>
+	<string name="b_bestellung_erzeugt">Date of Creation: </string>
+	<string name="b_bestellposition_bestellung_id">Item no.: %d</string>
+	<string name="b_bestellposition_id">Item no.: </string>
+	<string name="b_bestellposition_datum">Sended: </string>
+	<string name="b_keine_bestellpositionen">No Items available for order %d!</string>
+	<string name="b_bestellung_bestellposition_id">Item no. %d</string>
 
 </resources>

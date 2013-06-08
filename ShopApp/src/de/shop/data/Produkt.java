@@ -20,6 +20,15 @@ public class Produkt implements JsonMappable, Serializable  {
 	public String groesse;
 	public int vorrat;
 	
+	public Produkt() {
+		super();
+	}
+	
+	public Produkt(Long id) {
+		super();
+		this.id = id;
+	}
+	
 	@Override
 	public JsonObject toJsonObject() {
 		return jsonBuilderFactory.createObjectBuilder()

@@ -25,8 +25,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
 import de.shop.ShopApp;
+import de.shop.data.Bestellposition;
 import de.shop.data.Kunde;
 import de.shop.data.Bestellung;
+import de.shop.data.Produkt;
 
 final class Mock {
 	private static final String LOG_TAG = Mock.class.getSimpleName();
@@ -233,6 +235,15 @@ final class Mock {
 		
 		final JsonObject jsonObject = bestellung.toJsonObject();
 		final HttpResponse<Bestellung> result = new HttpResponse<Bestellung>(HTTP_OK, jsonObject.toString(), bestellung);
+		Log.d(LOG_TAG, result.resultObject.toString());
+		return result;
+	}
+    
+    static HttpResponse<Bestellposition> sucheBestellpositionById(Long id) {
+		final Bestellposition bestellposition = new Bestellposition(id, new Bestellung(), new Produkt(Long.valueOf(500)));
+		
+		final JsonObject jsonObject = bestellposition.toJsonObject();
+		final HttpResponse<Bestellposition> result = new HttpResponse<Bestellposition>(HTTP_OK, jsonObject.toString(), bestellposition);
 		Log.d(LOG_TAG, result.resultObject.toString());
 		return result;
 	}

@@ -2,5 +2,8 @@
     <item
     	android:id="@+id/bestellungen_neu"
         android:title="@string/s_neu_anlegen" />
+    <item
+    	android:id="@+id/bestellungen_suche_id"
+        android:title="@string/b_bestellung_suchen" />
     
 </menu>

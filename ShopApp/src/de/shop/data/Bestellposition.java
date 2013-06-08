@@ -30,6 +30,13 @@ public class Bestellposition implements JsonMappable, Serializable {
 		super();
 	}
 	
+	public Bestellposition(Long id, Bestellung best, Produkt prod) {
+		super();
+		this.id = id;
+		this.bestellung = best;
+		this.produkt = prod;
+	}
+	
 	@Override
 	public JsonObject toJsonObject() {
 		return jsonBuilderFactory.createObjectBuilder()

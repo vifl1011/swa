@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.Main" >
+	
+	<AutoCompleteTextView
+	    android:id="@+id/bestellung_id_auto"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:completionHint="@string/b_bestellung_id_auswahl_hint"
+	    android:completionThreshold="1"
+	    android:hint="@string/b_bestellung_id_hint"
+	    android:imeActionId="@+id/ime_suchen"
+        android:imeActionLabel="@string/s_action_suchen_short"
+        android:imeOptions="actionUnspecified"
+	    android:inputType="number"
+	    tools:ignore="LabelFor" >
+		
+		<requestFocus />
+		
+	</AutoCompleteTextView>
+	
+	<Button
+		android:id="@+id/btn_suchen"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="50dp"
+		android:text="@string/s_btn_suchen" />
+
+</LinearLayout>
