@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.SearchView;
 import android.widget.TextView;
 import de.shop.R;
@@ -82,7 +83,22 @@ public class KundeStammdaten extends Fragment {
 	    	txtHausnr.setText(kunde.adresse.hausnr);
     	}
     	
+       	final RadioButton rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
+    	final RadioButton rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
     	
+    	if (kunde.geschlecht != null) {
+	    	switch (kunde.geschlecht) {
+		    	case MAENNLICH:
+		        	rbMaennlich.setChecked(true);
+			    	break;
+			    	
+		    	case WEIBLICH:
+		        	rbWeiblich.setChecked(true);
+			    	break;
+			    	
+			    default:
+	    	}
+    	}
     
 	}
 

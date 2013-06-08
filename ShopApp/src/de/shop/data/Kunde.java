@@ -26,9 +26,17 @@ public class Kunde implements JsonMappable, Serializable {
 	public String email;
 	public Adresse adresse;
 	public boolean agbAkzeptiert = true;
-	//public String bestellungenUri;
+	public GeschlechtType geschlecht;
+	public String bestellungenUri;
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
+		String ges="";
+		if(geschlecht!=null){
+			if(geschlecht.equals(GeschlechtType.WEIBLICH))
+				ges="w";
+			else
+				ges="m";
+		}
 		return jsonBuilderFactory.createObjectBuilder()
 				                 .add("id", id)
 			                     .add("version", version)
@@ -38,7 +46,8 @@ public class Kunde implements JsonMappable, Serializable {
 			                     .add("email", email)
 			                     .add("adresse", adresse.getJsonBuilderFactory())
 			                     .add("agbAkzeptiert", agbAkzeptiert)
-			                     //.add("bestellungenUri", bestellungenUri)
+			                     .add("bestellungenUri", bestellungenUri)
+			                     .add("geschlecht", ges)
 			                     ;
 	}
 	
@@ -48,6 +57,7 @@ public class Kunde implements JsonMappable, Serializable {
 	}
 
 	public void fromJsonObject(JsonObject jsonObject) {
+
 		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
 	    version = jsonObject.getInt("version");
 		nachname = jsonObject.getString("name");
@@ -57,7 +67,14 @@ public class Kunde implements JsonMappable, Serializable {
 		adresse = new Adresse();
 		adresse.fromJsonObject(jsonObject.getJsonObject("adresse"));
 		agbAkzeptiert = jsonObject.getBoolean("agbAkzeptiert");
-		//bestellungenUri = jsonObject.getString("bestellungenUri");
+		bestellungenUri = jsonObject.getString("bestellungenUri");
+		String ges=jsonObject.getString("geschlecht");
+		if(ges!=null){
+			if(ges.equals("w"))
+				geschlecht=GeschlechtType.WEIBLICH;
+			else
+				geschlecht=GeschlechtType.MAENNLICH;
+		}
 	}
 	
 	@Override
@@ -94,9 +111,9 @@ public class Kunde implements JsonMappable, Serializable {
 	public String toString() {
 		return "Kunde [id=" + id + ", nachname=" + nachname + ", vorname="
 				+ vorname  + ", rabatt=" + rabatt
+				+ ", geschlecht=" + geschlecht  
 				+ ", email=" + email + ", adresse=" + adresse
-		//		+ ", newsletter=" + newsletter  + ", seit=" + seit
-		//		+ ", bestellungenUri=" + bestellungenUri
+				+ ", bestellungenUri=" + bestellungenUri
 				+"]";
 	}
 }

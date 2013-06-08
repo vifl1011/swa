@@ -4,7 +4,7 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.main.Main" >
 
-	<TableLayout
+<TableLayout
 	    android:layout_width="match_parent"
 		android:layout_height="wrap_content" >
 	
@@ -118,39 +118,8 @@
 	        </RelativeLayout>
 	
 	    </TableRow>
-	    
-	    <TableRow>
-	    	
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_seit" />
-	    	
-	    	<TextView
-	        	style="@style/RechteSpalteText"
-	            android:id="@+id/seit"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:textIsSelectable="false" />
-	    	
-	   	</TableRow>
 
-	    <TableRow>
-	    
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_newsletter" />
-	
-	    	<ToggleButton
-			    android:id="@+id/newsletter"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:textOn="@string/s_ja"
-			    android:textOff="@string/s_nein"
-			    android:clickable="false" />
-	    	
-	    </TableRow>
+
 	    
 	    <TableRow>
 	    
@@ -180,59 +149,7 @@
 		    </RadioGroup>
 	    
 	    </TableRow>
-	
-	    <TableRow>
-	    
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_familienstand" />
-	    	
-		    <Spinner
-		    	android:id="@+id/familienstand"
-		    	android:layout_width="wrap_content"
-		    	android:layout_height="wrap_content"
-		    	android:clickable="false"
-		    	android:entries="@array/k_familienstand_entries"
-		    	android:entryValues="@array/a_familienstand_enum" />
-		    
-		</TableRow>
-	
-	    <TableRow>
-	    	<TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/k_hobbies" />
-	    	
-	    	<LinearLayout
-	    		android:orientation="vertical"
-	    		android:layout_width="wrap_content"
-	    		android:layout_height="wrap_content">
-	
-			    <CheckBox
-			    	android:id="@+id/sport"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:clickable="false"
-			    	android:text="@string/k_sport" />
-			    
-			    <CheckBox
-			    	android:id="@+id/lesen"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:clickable="false"
-			    	android:text="@string/k_lesen" />
-			    
-			    <CheckBox
-			    	android:id="@+id/reisen"
-			    	android:layout_width="wrap_content"
-			    	android:layout_height="wrap_content"
-			    	android:clickable="false"
-			    	android:text="@string/k_reisen" />
-	
-	    	</LinearLayout>
-	    	
-	    </TableRow>
+
 	
 	</TableLayout>
 

@@ -18,9 +18,7 @@ public final class Constants {
 	public static final String KUNDEN_ID_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/id";
 	public static final String NACHNAME_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/nachname";
 	public static final String NAME_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/name";
-	
-	public static final String BESTELLUNG_PATH = "/bestellungen";
-	public static final String PRODUKT_PATH = "/Produkt";
+	public static final String BESTELLUNGEN_PATH = "/bestellungen";
 	
 	public static final short MIN_KATEGORIE = 1;
 	public static final short MAX_KATEGORIE = 9;
@@ -32,10 +30,6 @@ public final class Constants {
 	public static final String PATH_DEFAULT = "/shop/rest";
 	public static final String TIMEOUT_DEFAULT = "3";
 	public static final boolean MOCK_DEFAULT = false;
-	public static final String REST_PATH = PROTOCOL_DEFAULT + "://" + HOST_DEFAULT + ":" + PORT_DEFAULT + PATH_DEFAULT; 	//TODO nicht überprüft
-	
-	public static final String REST_BESTELLUNG_PATH = REST_PATH + BESTELLUNG_PATH;
-	public static final String PRODUKT = REST_PATH + PRODUKT_PATH;
 	
 	public static final String LOCALHOST = "localhost";
 	

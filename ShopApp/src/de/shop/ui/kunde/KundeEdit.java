@@ -30,9 +30,11 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.shop.R;
+import de.shop.data.GeschlechtType;
 import de.shop.data.Kunde;
 import de.shop.service.HttpResponse;
 import de.shop.service.KundeService.KundeServiceBinder;
@@ -52,9 +54,9 @@ public class KundeEdit extends Fragment {
 	private EditText edtOrt;
 	private EditText edtStrasse;
 	private EditText edtHausnr;
-	private DatePicker dpSeit;
-	private NumberPicker npKategorie;
-	private ToggleButton tglNewsletter;
+
+	private RadioButton rbMaennlich;
+	private RadioButton rbWeiblich;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +96,24 @@ public class KundeEdit extends Fragment {
     	
     	edtHausnr = (EditText) view.findViewById(R.id.hausnr_edt);
     	edtHausnr.setText(kunde.adresse.hausnr);
+    	
+    	
+    	rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
+    	rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
+    	
+    	if (kunde.geschlecht != null) {
+	    	switch (kunde.geschlecht) {
+		    	case MAENNLICH:
+		        	rbMaennlich.setChecked(true);
+			    	break;
+			    	
+		    	case WEIBLICH:
+		        	rbWeiblich.setChecked(true);
+			    	break;
+			    	
+			    default:
+	    	}
+    	}
     	/*
     	dpSeit = (DatePicker) view.findViewById(R.id.seit);
     	final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
@@ -211,6 +231,12 @@ public class KundeEdit extends Fragment {
 		kunde.adresse.ort = edtOrt.getText().toString();
 		kunde.adresse.strasse = edtStrasse.getText().toString();
 		kunde.adresse.hausnr = edtHausnr.getText().toString();
+		if (rbMaennlich.isChecked()) {
+			kunde.geschlecht = GeschlechtType.MAENNLICH;
+		} else if (rbWeiblich.isChecked()) {
+			kunde.geschlecht = GeschlechtType.WEIBLICH;
+		}
+		
 /*
 		final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
 		cal.set(dpSeit.getYear(), dpSeit.getMonth(), dpSeit.getDayOfMonth());
