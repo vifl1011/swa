@@ -171,7 +171,7 @@ public class KundeBestellungen extends Fragment {
 		}
 		
 		txtBestellungId.setText(String.valueOf(bestellung.id));
-		final String datumStr = bestellung.datum == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellung.datum);
+		final String datumStr = bestellung.aktualisiert == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellung.aktualisiert);
     	txtBestellungDatum.setText(datumStr);
 	}
 }
