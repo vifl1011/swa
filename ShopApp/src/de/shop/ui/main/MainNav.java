@@ -20,6 +20,7 @@ import android.widget.SimpleAdapter;
 import de.shop.R;
 import de.shop.ui.bestellung.BestellungSucheId;
 import de.shop.ui.bestellung.BestellungenNeu;
+import de.shop.ui.kunde.KundeCreate;
 import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
 import de.shop.ui.kunde.KundenSucheNachname;
@@ -141,6 +142,10 @@ public class MainNav extends ListFragment {
 						
 					case R.id.kunden_suche_nachname:
 						neuesFragment = new KundenSucheNachname();
+						break;
+						
+					case R.id.kunde_create:
+						neuesFragment = new KundeCreate();
 						break;
 						
 					case R.id.kunden_delete:

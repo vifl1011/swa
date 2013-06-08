@@ -4,7 +4,6 @@ import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.BESTELLUNG_PATH;
 import static de.shop.util.Constants.BESTELLPOSITION_PATH;
-import static de.shop.util.Constants.KUNDEN_PATH;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.List;

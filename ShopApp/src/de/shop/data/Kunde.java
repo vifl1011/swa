@@ -26,20 +26,60 @@ public class Kunde implements JsonMappable, Serializable {
 	public String email;
 	public Adresse adresse;
 	public boolean agbAkzeptiert = true;
-	//public String bestellungenUri;
+	public GeschlechtType geschlecht;
+	public String bestellungenUri;
+	public String login;
+	public String passwort;
+	
+	/*
+	public void initKunde(){
+		nachname="";
+		vorname="";
+		rabatt=BigDecimal.valueOf(0);
+		vorname="";
+		
+		
+	}*/
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
-		return jsonBuilderFactory.createObjectBuilder()
-				                 .add("id", id)
-			                     .add("version", version)
-			                     .add("name", nachname)
-			                     .add("vorname", vorname)
-			                     .add("rabatt", rabatt)
-			                     .add("email", email)
-			                     .add("adresse", adresse.getJsonBuilderFactory())
-			                     .add("agbAkzeptiert", agbAkzeptiert)
-			                     //.add("bestellungenUri", bestellungenUri)
-			                     ;
+		String ges="";
+		if(geschlecht!=null){
+			if(geschlecht.equals(GeschlechtType.WEIBLICH))
+				ges="w";
+			else
+				ges="m";
+		}
+		if(passwort==null) {
+		
+			return jsonBuilderFactory.createObjectBuilder()
+	                 .add("id", id)
+                    .add("version", version)
+                    .add("name", nachname)
+                    .add("vorname", vorname)
+                    .add("rabatt", rabatt)
+                    .add("email", email)
+                    .add("adresse", adresse.getJsonBuilderFactory())
+                    .add("agbAkzeptiert", agbAkzeptiert)
+                    .add("bestellungenUri", bestellungenUri)
+                    .add("geschlecht", ges)
+                    ;
+		} else
+		{		
+			return jsonBuilderFactory.createObjectBuilder()
+                .add("id", id)
+                .add("version", version)
+                .add("name", nachname)
+                .add("vorname", vorname)
+                .add("rabatt", rabatt)
+                .add("email", email)
+                .add("adresse", adresse.getJsonBuilderFactory())
+                .add("agbAkzeptiert", agbAkzeptiert)
+                .add("bestellungenUri", bestellungenUri)
+                .add("geschlecht", ges)
+                .add("login", login)
+                .add("passwort", passwort)
+                ;
+		}
 	}
 	
 	@Override
@@ -48,6 +88,7 @@ public class Kunde implements JsonMappable, Serializable {
 	}
 
 	public void fromJsonObject(JsonObject jsonObject) {
+
 		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
 	    version = jsonObject.getInt("version");
 		nachname = jsonObject.getString("name");
@@ -57,7 +98,15 @@ public class Kunde implements JsonMappable, Serializable {
 		adresse = new Adresse();
 		adresse.fromJsonObject(jsonObject.getJsonObject("adresse"));
 		agbAkzeptiert = jsonObject.getBoolean("agbAkzeptiert");
-		//bestellungenUri = jsonObject.getString("bestellungenUri");
+		bestellungenUri = jsonObject.getString("bestellungenUri");
+		bestellungenUri = jsonObject.getString("login");
+		String ges=jsonObject.getString("geschlecht");
+		if(ges!=null){
+			if(ges.equals("w"))
+				geschlecht=GeschlechtType.WEIBLICH;
+			else
+				geschlecht=GeschlechtType.MAENNLICH;
+		}
 	}
 	
 	@Override
@@ -94,9 +143,9 @@ public class Kunde implements JsonMappable, Serializable {
 	public String toString() {
 		return "Kunde [id=" + id + ", nachname=" + nachname + ", vorname="
 				+ vorname  + ", rabatt=" + rabatt
+				+ ", geschlecht=" + geschlecht  
 				+ ", email=" + email + ", adresse=" + adresse
-		//		+ ", newsletter=" + newsletter  + ", seit=" + seit
-		//		+ ", bestellungenUri=" + bestellungenUri
+				+ ", bestellungenUri=" + bestellungenUri
 				+"]";
 	}
 }

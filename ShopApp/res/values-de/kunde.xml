@@ -47,4 +47,7 @@
     </string-array>
     <string name="k_karte">Kundenkarte</string>
     <string name="k_name">Kundenname</string>
+    
+    <string name="k_login">Login</string>
+    <string name="k_passwort">Password</string>
 </resources>

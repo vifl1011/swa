@@ -5,8 +5,6 @@ import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.KUNDEN_ID_PREFIX_PATH;
 import static de.shop.util.Constants.KUNDEN_PATH;
-import static de.shop.util.Constants.LOCALHOST;
-import static de.shop.util.Constants.LOCALHOST_EMULATOR;
 import static de.shop.util.Constants.NACHNAME_PATH;
 import static de.shop.util.Constants.NAME_PATH;
 import static de.shop.util.Constants.NACHNAME_PREFIX_PATH;
@@ -15,10 +13,7 @@ import static java.net.HttpURLConnection.HTTP_OK;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
@@ -26,7 +21,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
-import android.text.TextUtils;
 import android.util.Log;
 import de.shop.R;
 import de.shop.data.Kunde;

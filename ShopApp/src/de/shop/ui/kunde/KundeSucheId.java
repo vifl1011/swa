@@ -3,9 +3,6 @@ package de.shop.ui.kunde;
 import static de.shop.util.Constants.KUNDE_KEY;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 
-import java.util.Collections;
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Context;
@@ -18,9 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Filter;
 import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Kunde;
@@ -42,7 +37,7 @@ public class KundeSucheId extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		kundeIdTxt = (AutoCompleteTextView) view.findViewById(R.id.kunde_id_auto);
-    	kundeIdTxt.setAdapter(new AutoCompleteIdAdapter(kundeIdTxt.getContext()));
+    	//kundeIdTxt.setAdapter(new AutoCompleteIdAdapter(kundeIdTxt.getContext()));
     	
     	// IME
     	kundeIdTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -121,7 +116,7 @@ public class KundeSucheId extends Fragment {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	
+	/*
     // Fuer die Verwendung von AutoCompleteTextView in der Methode onViewCreated()
     private class AutoCompleteIdAdapter extends ArrayAdapter<Long> {
     	private LayoutInflater inflater;
@@ -201,5 +196,5 @@ public class KundeSucheId extends Fragment {
     		
     		return filter;
     	}
-    }
+    } */
 }

@@ -1,26 +1,26 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/kunde_create"
+	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".ui.main.Main" >
+	tools:context=".ui.kunde.KundeCreate" >
 	
-	<TableLayout
-	    android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
 	
-		<TableRow>
+	<TableRow>
 	
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/k_kunde_id" />
+				android:text="@string/k_login" />
 			
-			<TextView
-				android:id="@+id/kunde_id"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textIsSelectable="true"
-				android:paddingLeft="5dp" />
+			<EditText
+			    android:id="@+id/login_create"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
 	
 		</TableRow>
 		
@@ -29,10 +29,28 @@
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
+				android:text="@string/k_passwort" />
+			
+			<EditText
+			    android:id="@+id/passwort_create"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
+	
+		</TableRow>
+	
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
 				android:text="@string/k_nachname" />
 			
 			<EditText
-			    android:id="@+id/nachname_edt"
+			    android:id="@+id/nachname_create"
 			    style="@style/RechteSpalteText"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
@@ -50,7 +68,7 @@
 	            android:text="@string/k_vorname" />
 	        
 	        <EditText
-	            android:id="@+id/vorname_edt"
+	            android:id="@+id/vorname_create"
 	            style="@style/RechteSpalteText"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -67,7 +85,7 @@
 	            android:text="@string/k_email" />
 	        
 	        <EditText
-	            android:id="@+id/email_edt"
+	            android:id="@+id/email_create"
 	            style="@style/RechteSpalteText"
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
@@ -85,7 +103,7 @@
 	            android:layout_height="wrap_content" />
 
 	        <EditText
-	            android:id="@+id/plz_edt"
+	            android:id="@+id/plz_create"
 	            style="@style/RechteSpalteText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -103,7 +121,7 @@
 	            android:layout_height="wrap_content" />
 
 	        <EditText
-	            android:id="@+id/ort_edt"
+	            android:id="@+id/ort_create"
 	            style="@style/RechteSpalteText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -121,7 +139,7 @@
 	            android:layout_height="wrap_content" />
 	        
 	        <EditText
-	            android:id="@+id/strasse_edt"
+	            android:id="@+id/strasse_create"
 	            style="@style/RechteSpalteText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -139,7 +157,7 @@
 	            android:layout_height="wrap_content" />
             
 	        <EditText
-	            android:id="@+id/hausnr_edt"
+	            android:id="@+id/hausnr_create"
 	            style="@style/RechteSpalteText"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
@@ -176,9 +194,5 @@
 		    </RadioGroup>
 	    
 	    </TableRow>
-	
 
-	
-	</TableLayout>
-	
-</ScrollView>
+</TableLayout>

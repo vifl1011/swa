@@ -1,7 +1,5 @@
 package de.shop.data;
 
-import static de.shop.ShopApp.jsonBuilderFactory;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,15 +19,8 @@ public class Lieferung implements JsonMappable, Serializable  {
 	
 	@Override
 	public JsonObject toJsonObject() {
-		return jsonBuilderFactory.createObjectBuilder()
-                .add("id", id)
-                .add("version", version)
-                .add("aktualisiert", aktualisiert.getTime())
-                .add("art", art)
-                .add("erzeugt", erzeugt.getTime())
-                .add("versanddatum", versanddatum.getTime())
-               
-                .build();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

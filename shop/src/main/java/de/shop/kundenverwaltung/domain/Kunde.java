@@ -36,6 +36,7 @@ import javax.validation.constraints.Min;
 import javax.persistence.UniqueConstraint;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 //Gruppe Tobias Weigel, Florian Vieﬂer, Alex Vollmann, Patrik Steuer
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.ScriptAssert;
@@ -240,6 +241,7 @@ public class Kunde implements Serializable, Cloneable {
 		joinColumns = @JoinColumn(name = "kunde_fk", nullable = false),
 		uniqueConstraints =  @UniqueConstraint(columnNames = { "kunde_fk", "rolle_fk" }))
 	@Column(table = "kunde_rolle", name = "rolle_fk", nullable = false)
+	@JsonIgnore
 	private Set<RolleType> rollen;
 	
 	@OneToOne(fetch = LAZY, cascade = { PERSIST, REMOVE })
@@ -310,7 +312,8 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setPasswortWdh(String passwortWdh) {
-		this.passwortWdh = passwortWdh;
+		if(passwortWdh != null)
+			this.passwortWdh = passwortWdh;
 	}
 	
 	public void setAgbAkzeptiert(boolean agbAkzeptiert) {
@@ -369,10 +372,11 @@ public class Kunde implements Serializable, Cloneable {
 		this.email = email;
 	}
 
+	@JsonProperty
 	public String getGeschlecht() {
 		return this.geschlecht;
 	}
-	
+	@JsonProperty
 	public void setGeschlecht(String geschlecht) {
 		if  (geschlecht == null)
 			return;
@@ -391,7 +395,8 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setLogin(String login) {
-		this.login = login;
+		if(login!=null)
+			this.login = login;
 	}
 
 	public String getName() {
@@ -407,7 +412,8 @@ public class Kunde implements Serializable, Cloneable {
 	}
 
 	public void setPasswort(String passwort) {
-		this.passwort = passwort;
+		if(passwort!=null)
+			this.passwort = passwort;
 	}
 
 	public float getRabatt() {
@@ -456,8 +462,8 @@ public class Kunde implements Serializable, Cloneable {
 		setRabatt(k.getRabatt());
 		setEmail(k.getEmail());
 		setPasswort(k.getPasswort());
-		passwortWdh = k.passwort;
-		agbAkzeptiert = k.agbAkzeptiert;
+		setPasswortWdh( k.passwort);
+		setAgbAkzeptiert( k.agbAkzeptiert);
 		setLogin(k.getLogin());
 		setGeschlecht(k.geschlecht);
 		setVersion(k.getVersion());
@@ -622,6 +628,10 @@ public class Kunde implements Serializable, Cloneable {
 		this.bestellungenUri = bestellungenUri;
 	}
 
+	public URI getBestellungenUri(){
+		return bestellungenUri;
+	}
+	
 	public int getVersion() {
 		return version;
 	}

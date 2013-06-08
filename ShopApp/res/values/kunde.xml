@@ -17,6 +17,8 @@
     <string name="k_strasse">Street</string>
     <string name="k_hausnr">No.</string>
     <string name="k_seit">Since</string>
+    <string name="k_login">Login</string>
+    <string name="k_passwort">Password</string>
     <string name="k_newsletter">Newsletter</string>
     <string name="k_geschlecht">Gender</string>
     <string name="k_maennlich">Male</string>

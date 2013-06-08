@@ -10,6 +10,7 @@ import java.util.List;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+
 import android.net.Uri;
 
 
@@ -56,7 +57,8 @@ public class Bestellung implements JsonMappable, Serializable {
 		                         .add("gesamtpreis", gesamtpreis)
 		                         .add("gezahlt", gezahlt)
 		                         .add("bestellpositionen", arrayBuilder)
-		                         .add("kundeUri", kundeUri.toString())
+		                         //.add("kunde", kunde.toJsonObject())
+		                         //	TODO comments entfernen sobald die Kunde Klasse fertig ist
 		                        
 		                         .build();
 	}
@@ -72,15 +74,19 @@ public class Bestellung implements JsonMappable, Serializable {
 		gesamtpreis = Float.valueOf(jsonObject.getString("gesamtpreis"));
 		gezahlt = Byte.valueOf(jsonObject.getString("gezahlt"));
 		
-		Bestellposition bp;
-		bestellpositionen = new ArrayList<Bestellposition>();
-		JsonArray positionen = jsonObject.getJsonArray("bestellpositionen");
-		for (int i = 0; i < positionen.size(); ++i) {
-			bp = new Bestellposition();
-			bp.fromJsonObject(positionen.getJsonObject(i));
-			bestellpositionen.add(bp);
-		}
+		//Kunden ermitteln --> muss erst ermittelt werden da im Objekt nur die Uri ist
+		kundeUri = Uri.parse(jsonObject.getString("kundeUri"));
+		//	TODO hier kommt noch n bissel zeugs rein sonst ist der Kunde null =)
 		
+		//bestellpositionen ermitteln
+		bestellpositionen = new ArrayList<Bestellposition>();
+		Bestellposition pos;
+		JsonArray jayArray = jsonObject.getJsonArray("bestellpositionen");
+		for (int i = 0; i < jayArray.size(); ++i) {
+			pos = new Bestellposition();
+			pos.fromJsonObject(jayArray.getJsonObject(i));
+			bestellpositionen.add(pos);
+		}
 		
 	}
 	

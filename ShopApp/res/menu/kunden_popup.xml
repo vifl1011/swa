@@ -7,6 +7,10 @@
     	android:id="@+id/kunden_suche_nachname"
         android:title="@string/s_kunden_suche_nachname" />
     
+   <item
+    	android:id="@+id/kunde_create"
+        android:title="@string/s_kunde_create" />
+    
     <item
     	android:id="@+id/kunden_delete"
         android:title="@string/s_kunden_delete" />

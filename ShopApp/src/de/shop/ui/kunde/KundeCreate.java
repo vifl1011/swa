@@ -1,11 +1,20 @@
 package de.shop.ui.kunde;
 
 import static de.shop.util.Constants.KUNDE_KEY;
+import static de.shop.util.Constants.MAX_KATEGORIE;
+import static de.shop.util.Constants.MIN_KATEGORIE;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
+
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -18,9 +27,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import de.shop.R;
 import de.shop.data.GeschlechtType;
 import de.shop.data.Kunde;
@@ -29,19 +41,20 @@ import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
 
-public class KundeEdit extends Fragment {
-	private static final String LOG_TAG = KundeEdit.class.getSimpleName();
+public class KundeCreate extends Fragment {
+	private static final String LOG_TAG = KundeCreate.class.getSimpleName();
 	
 	private Bundle args;
 	
 	private Kunde kunde;
-	private EditText edtNachname;
-	private EditText edtVorname;
-	private EditText edtEmail;
-	private EditText edtPlz;
-	private EditText edtOrt;
-	private EditText edtStrasse;
-	private EditText edtHausnr;
+	private EditText createNachname;
+	private EditText createVorname;
+	private EditText createEmail;
+	private EditText createPlz;
+	private EditText createOrt;
+	private EditText createStrasse;
+	private EditText createHausnr;
+	private EditText createLogin;
 
 	private RadioButton rbMaennlich;
 	private RadioButton rbWeiblich;
@@ -49,41 +62,48 @@ public class KundeEdit extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		args = getArguments();
-		kunde = (Kunde) args.get(KUNDE_KEY);
+		//kunde = (Kunde) args.get(KUNDE_KEY);
+		kunde = new Kunde();
 		Log.d(LOG_TAG, kunde.toString());
         
 		// Voraussetzung fuer onOptionsItemSelected()
 		setHasOptionsMenu(true);
 		
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
-		return inflater.inflate(R.layout.kunde_edit, container, false);
+		return inflater.inflate(R.layout.kunde_create, container, false);
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-    	final TextView txtId = (TextView) view.findViewById(R.id.kunde_id);
+    	
+		/*
+		final TextView txtId = (TextView) view.findViewById(R.id.kunde_id);
     	txtId.setText(String.valueOf(kunde.id));
 
-    	edtNachname = (EditText) view.findViewById(R.id.nachname_edt);
-    	edtNachname.setText(kunde.nachname);
     	
-    	edtVorname = (EditText) view.findViewById(R.id.vorname_edt);
-    	edtVorname.setText(kunde.vorname);
+    	createLogin = (EditText) view.findViewById(R.id.login_create);
+    	createLogin.setText(kunde.login);
     	
-    	edtEmail = (EditText) view.findViewById(R.id.email_edt);
-    	edtEmail.setText(kunde.email);
+    	createNachname = (EditText) view.findViewById(R.id.nachname_create);
+    	createNachname.setText(kunde.nachname);
     	
-    	edtPlz = (EditText) view.findViewById(R.id.plz_edt);
-    	edtPlz.setText(kunde.adresse.plz);
+    	createVorname = (EditText) view.findViewById(R.id.vorname_create);
+    	createVorname.setText(kunde.vorname);
     	
-    	edtOrt = (EditText) view.findViewById(R.id.ort_edt);
-    	edtOrt.setText(kunde.adresse.ort);
+    	createEmail = (EditText) view.findViewById(R.id.email_create);
+    	createEmail.setText(kunde.email);
     	
-    	edtStrasse = (EditText) view.findViewById(R.id.strasse_edt);
-    	edtStrasse.setText(kunde.adresse.strasse);
+    	createPlz = (EditText) view.findViewById(R.id.plz_create);
+    	createPlz.setText(kunde.adresse.plz);
     	
-    	edtHausnr = (EditText) view.findViewById(R.id.hausnr_edt);
-    	edtHausnr.setText(kunde.adresse.hausnr);
+    	createOrt = (EditText) view.findViewById(R.id.ort_create);
+    	createOrt.setText(kunde.adresse.ort);
+    	
+    	createStrasse = (EditText) view.findViewById(R.id.strasse_create);
+    	createStrasse.setText(kunde.adresse.strasse);
+    	
+    	createHausnr = (EditText) view.findViewById(R.id.hausnr_create);
+    	createHausnr.setText(kunde.adresse.hausnr);
     	
     	
     	rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
@@ -101,25 +121,9 @@ public class KundeEdit extends Fragment {
 			    	
 			    default:
 	    	}
+	    	
     	}
-    	/*
-    	dpSeit = (DatePicker) view.findViewById(R.id.seit);
-    	final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
-    	cal.setTime(kunde.seit);
-    	final int jahr = cal.get(YEAR);
-    	final int monat = cal.get(MONTH);
-    	final int tag = cal.get(DAY_OF_MONTH);
-    	dpSeit.init(jahr, monat, tag, null);
-    	
-    	npKategorie = (NumberPicker) view.findViewById(R.id.kategorie);
-    	npKategorie.setMinValue(MIN_KATEGORIE);
-    	npKategorie.setMaxValue(MAX_KATEGORIE);
-    	npKategorie.setWrapSelectorWheel(false); // kein zyklisches Scrollen
-    	npKategorie.setValue(kunde.kategorie);
-
-    	tglNewsletter.setChecked(kunde.newsletter);
-
-	*/
+    	*/
 
     }
     
@@ -152,7 +156,7 @@ public class KundeEdit extends Fragment {
 					return true;
 				}
 				
-				final HttpResponse<Kunde> result = kundeServiceBinder.updateKunde( kunde, activity);
+				final HttpResponse<Kunde> result = kundeServiceBinder.createKunde( kunde, activity);
 				final int statuscode = result.responseCode;
 				if (statuscode != HTTP_NO_CONTENT && statuscode != HTTP_OK) {
 					String msg = null;
@@ -211,14 +215,16 @@ public class KundeEdit extends Fragment {
 	}
 	
 	private void setKunde() {
-		kunde.nachname = edtNachname.getText().toString();
+
+		kunde.login = createLogin.getText().toString();
+		kunde.nachname = createNachname.getText().toString();
 		
-		kunde.vorname = edtVorname.getText().toString();
-		kunde.email = edtEmail.getText().toString();
-		kunde.adresse.plz = edtPlz.getText().toString();
-		kunde.adresse.ort = edtOrt.getText().toString();
-		kunde.adresse.strasse = edtStrasse.getText().toString();
-		kunde.adresse.hausnr = edtHausnr.getText().toString();
+		kunde.vorname = createVorname.getText().toString();
+		kunde.email = createEmail.getText().toString();
+		kunde.adresse.plz = createPlz.getText().toString();
+		kunde.adresse.ort = createOrt.getText().toString();
+		kunde.adresse.strasse = createStrasse.getText().toString();
+		kunde.adresse.hausnr = createHausnr.getText().toString();
 		if (rbMaennlich.isChecked()) {
 			kunde.geschlecht = GeschlechtType.MAENNLICH;
 		} else if (rbWeiblich.isChecked()) {
