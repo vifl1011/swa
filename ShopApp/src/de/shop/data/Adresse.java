@@ -29,7 +29,7 @@ public class Adresse implements JsonMappable, Serializable {
 		this.hausnr = hausnr;
 	}
 	
-	// fuer AbstractKunde.toJsonObject()
+	// fuer Kunde.toJsonObject()
 	JsonObjectBuilder getJsonBuilderFactory() {
 		return jsonBuilderFactory.createObjectBuilder()
 		                         .add("version", version)

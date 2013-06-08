@@ -23,7 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.data.Bestellung;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
@@ -34,7 +34,7 @@ import de.shop.util.WischenListener;
 public class KundeBestellungen extends Fragment {
 	private static final String LOG_TAG = KundeBestellungen.class.getSimpleName();
 	
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	private List<Long> bestellungenIds;
 	private List<Bestellung> bestellungen;
 	private Bestellung bestellung;
@@ -48,7 +48,7 @@ public class KundeBestellungen extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		kunde = (AbstractKunde) getArguments().get(KUNDE_KEY);
+		kunde = (Kunde) getArguments().get(KUNDE_KEY);
         
         setHasOptionsMenu(true);
         

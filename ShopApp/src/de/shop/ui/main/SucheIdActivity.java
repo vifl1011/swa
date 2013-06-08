@@ -10,7 +10,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.service.KundeService;
 import de.shop.service.KundeService.KundeServiceBinder;
 
@@ -36,7 +36,7 @@ public class SucheIdActivity extends Activity {
 
 	private void suchen() {
 		Log.v(LOG_TAG, "suchen()");
-		final AbstractKunde kunde = kundeServiceBinder.sucheKundeById(kundeId, this).resultObject;
+		final Kunde kunde = kundeServiceBinder.sucheKundeById(kundeId, this).resultObject;
 		Log.d(LOG_TAG, kunde.toString());
 		
 		final Intent intent = new Intent(this, Main.class);

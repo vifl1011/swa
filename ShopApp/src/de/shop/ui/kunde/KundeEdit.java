@@ -12,8 +12,6 @@ import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -29,20 +27,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
-import de.shop.data.FamilienstandType;
-import de.shop.data.GeschlechtType;
-import de.shop.data.HobbyType;
-import de.shop.data.Privatkunde;
+import de.shop.data.Kunde;
 import de.shop.service.HttpResponse;
 import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.main.Main;
@@ -53,7 +44,7 @@ public class KundeEdit extends Fragment {
 	
 	private Bundle args;
 	
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	private EditText edtNachname;
 	private EditText edtVorname;
 	private EditText edtEmail;
@@ -64,17 +55,11 @@ public class KundeEdit extends Fragment {
 	private DatePicker dpSeit;
 	private NumberPicker npKategorie;
 	private ToggleButton tglNewsletter;
-	private RadioButton rbMaennlich;
-	private RadioButton rbWeiblich;
-	private Spinner spFamilienstand;
-	private CheckBox cbHobbiesSport;
-	private CheckBox cbHobbiesLesen;
-	private CheckBox cbHobbiesReisen;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		args = getArguments();
-		kunde = (AbstractKunde) args.get(KUNDE_KEY);
+		kunde = (Kunde) args.get(KUNDE_KEY);
 		Log.d(LOG_TAG, kunde.toString());
         
 		// Voraussetzung fuer onOptionsItemSelected()
@@ -123,84 +108,11 @@ public class KundeEdit extends Fragment {
     	npKategorie.setMaxValue(MAX_KATEGORIE);
     	npKategorie.setWrapSelectorWheel(false); // kein zyklisches Scrollen
     	npKategorie.setValue(kunde.kategorie);
-    	
-    	tglNewsletter = (ToggleButton) view.findViewById(R.id.newsletter_tgl);
-    	tglNewsletter.setChecked(kunde.newsletter);
-    	
-    	rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
-    	rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
-    	
-    	spFamilienstand = (Spinner) view.findViewById(R.id.familienstand);
-    	
-    	cbHobbiesSport = (CheckBox) view.findViewById(R.id.sport);
-    	cbHobbiesLesen = (CheckBox) view.findViewById(R.id.lesen);
-    	cbHobbiesReisen = (CheckBox) view.findViewById(R.id.reisen);
 
-    	if (kunde.getClass().equals(Privatkunde.class)) {
-    		final Privatkunde privatkunde = (Privatkunde) kunde;
-    	
-	    	if (privatkunde.geschlecht != null) {
-		    	switch (privatkunde.geschlecht) {
-			    	case MAENNLICH:
-			        	rbMaennlich.setChecked(true);
-				    	break;
-				    	
-			    	case WEIBLICH:
-			        	rbWeiblich.setChecked(true);
-				    	break;
-				    	
-				    default:
-		    	}
-	    	}
-	    	
-	    	if (privatkunde.familienstand != null) {
-		    	switch (privatkunde.familienstand) {
-			    	case LEDIG:
-			    		spFamilienstand.setSelection(0);
-				    	break;
-			    	case VERHEIRATET:
-			    		spFamilienstand.setSelection(1);
-				    	break;
-			    	case GESCHIEDEN:
-			    		spFamilienstand.setSelection(2);
-				    	break;
-			    	case VERWITWET:
-			    		spFamilienstand.setSelection(3);
-				    	break;
-				    	
-				    default:
-				}
-	    	}
-	    	
-	    	if (privatkunde.hobbies != null) {
-		    	for (HobbyType h : privatkunde.hobbies) {
-		    		switch (h) {
-		    			case SPORT: 
-		    		    	cbHobbiesSport.setChecked(true);
-		    		    	break;
-		    		    	
-		    			case LESEN: 
-		    		    	cbHobbiesLesen.setChecked(true);
-		    		    	break;
-		    		    	
-		    			case REISEN:
-		    		    	cbHobbiesReisen.setChecked(true);
-		    		    	break;
-		    		    	
-		    		    default:
-		    		}
-		    	}
-	    	}
-    	}
-    	else {
-    		// Firmenkunde hat nicht Geschlecht, Familienstand, Hobbies : nicht anklickbar
-    		rbMaennlich.setEnabled(false);
-    		rbWeiblich.setEnabled(false);
-    		spFamilienstand.setEnabled(false);
-    		cbHobbiesSport.setEnabled(false);
-    		cbHobbiesLesen.setEnabled(false);
-    		cbHobbiesReisen.setEnabled(false);
-    	}
+    	tglNewsletter.setChecked(kunde.newsletter);
+
+	
+
     }
     
 	@Override
@@ -232,7 +144,7 @@ public class KundeEdit extends Fragment {
 					return true;
 				}
 				
-				final HttpResponse<AbstractKunde> result = kundeServiceBinder.updateKunde((Privatkunde) kunde, activity);
+				final HttpResponse<Kunde> result = kundeServiceBinder.updateKunde( kunde, activity);
 				final int statuscode = result.responseCode;
 				if (statuscode != HTTP_NO_CONTENT && statuscode != HTTP_OK) {
 					String msg = null;
@@ -306,41 +218,7 @@ public class KundeEdit extends Fragment {
 		
 		kunde.kategorie = (short) npKategorie.getValue();
 		
-		kunde.newsletter = tglNewsletter.isChecked();
-		
-		if (kunde.getClass().equals(Privatkunde.class)) {
-			final Privatkunde privatkunde = (Privatkunde) kunde;
-		
-			if (rbMaennlich.isChecked()) {
-				privatkunde.geschlecht = GeschlechtType.MAENNLICH;
-			} else if (rbWeiblich.isChecked()) {
-				privatkunde.geschlecht = GeschlechtType.WEIBLICH;
-			}
-			else {
-				privatkunde.geschlecht = null;
-			}
-			
-			final int familienstandPos = spFamilienstand.getSelectedItemPosition();
-			privatkunde.familienstand = FamilienstandType.valueOf(familienstandPos);
-			
-			Collection<HobbyType> hobbies = privatkunde.hobbies;
-			if (hobbies != null) {
-				hobbies.clear();
-			}
-			else {
-				privatkunde.hobbies = new ArrayList<HobbyType>();
-				hobbies = privatkunde.hobbies;
-			}
-			if (cbHobbiesSport.isChecked()) {
-				hobbies.add(HobbyType.SPORT);
-			}
-			if (cbHobbiesLesen.isChecked()) {
-				hobbies.add(HobbyType.LESEN);
-			}
-			if (cbHobbiesReisen.isChecked()) {
-				hobbies.add(HobbyType.REISEN);
-			}
-		}
+		kunde.newsletter = tglNewsletter.isChecked();	
 
 		Log.d(LOG_TAG, kunde.toString());
 	}

@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.service.BestellungService;
 import de.shop.service.KundeService;
 import de.shop.service.BestellungService.BestellungServiceBinder;
@@ -59,7 +59,7 @@ public class KundenListe extends Activity {
 		final Bundle extras = getIntent().getExtras();
         if (extras != null) {
         	@SuppressWarnings("unchecked")
-			final List<AbstractKunde> kunden = (List<AbstractKunde>) extras.get(KUNDEN_KEY);
+			final List<Kunde> kunden = (List<Kunde>) extras.get(KUNDEN_KEY);
         	if (kunden != null && !kunden.isEmpty()) {
         		final Bundle args = new Bundle(1);
         		args.putSerializable(KUNDE_KEY, kunden.get(0));

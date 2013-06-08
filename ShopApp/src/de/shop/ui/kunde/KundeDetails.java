@@ -14,19 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.util.TabListener;
 
 public class KundeDetails extends Fragment {
 	private static final String LOG_TAG = KundeDetails.class.getSimpleName();
 	
 	private Bundle args;
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		args = getArguments();
-        kunde = (AbstractKunde) args.get(KUNDE_KEY);
+        kunde = (Kunde) args.get(KUNDE_KEY);
         Log.d(LOG_TAG, kunde.toString());
         
 		// attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt

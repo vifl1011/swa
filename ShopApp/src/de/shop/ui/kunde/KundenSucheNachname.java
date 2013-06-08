@@ -26,7 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.TextView;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.service.HttpResponse;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
@@ -82,7 +82,7 @@ public class KundenSucheNachname extends Fragment {
     		return;
     	}
 		final Main mainActivity = (Main) getActivity();
-		final HttpResponse<AbstractKunde> result = mainActivity.getKundeServiceBinder().sucheKundenByNachname(nachname, ctx);
+		final HttpResponse<Kunde> result = mainActivity.getKundeServiceBinder().sucheKundenByNachname(nachname, ctx);
 
 		if (result.responseCode == HTTP_NOT_FOUND) {
 			final String msg = getString(R.string.k_kunden_not_found, nachname);

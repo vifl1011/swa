@@ -16,16 +16,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.RadioButton;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
-import de.shop.data.HobbyType;
-import de.shop.data.Privatkunde;
+import de.shop.data.Kunde;
 import de.shop.ui.main.Prefs;
 import de.shop.util.WischenListener;
 
@@ -33,12 +27,12 @@ public class KundeStammdaten extends Fragment {
 	private static final String LOG_TAG = KundeStammdaten.class.getSimpleName();
 	
 	private Bundle args;
-	private AbstractKunde kunde;
+	private Kunde kunde;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		args = getArguments();
-        kunde = (AbstractKunde) args.get(KUNDE_KEY);
+        kunde = (Kunde) args.get(KUNDE_KEY);
         Log.d(LOG_TAG, kunde.toString());
 
         // Voraussetzung fuer onOptionsItemSelected()
@@ -91,66 +85,9 @@ public class KundeStammdaten extends Fragment {
     	final TextView txtSeit = (TextView) view.findViewById(R.id.seit);
 		final String seitStr = DateFormat.getDateFormat(view.getContext()).format(kunde.seit);
     	txtSeit.setText(seitStr);
+
     	
-    	final ToggleButton tglNewsletter = (ToggleButton) view.findViewById(R.id.newsletter);
-    	tglNewsletter.setChecked(kunde.newsletter);
-    	
-    	final RadioButton rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
-    	final RadioButton rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
-    	final Spinner spFamilienstand = (Spinner) view.findViewById(R.id.familienstand);
-    	final CheckBox cbHobbiesSport = (CheckBox) view.findViewById(R.id.sport);
-    	final CheckBox cbHobbiesLesen = (CheckBox) view.findViewById(R.id.lesen);
-    	final CheckBox cbHobbiesReisen = (CheckBox) view.findViewById(R.id.reisen);
-    	
-    	if (kunde.getClass().equals(Privatkunde.class)) {
-    		final Privatkunde privatkunde = (Privatkunde) kunde;
-    		
-	    	if (privatkunde.geschlecht != null) {
-		    	switch (privatkunde.geschlecht) {
-			    	case MAENNLICH:
-			        	rbMaennlich.setChecked(true);
-				    	break;
-				    	
-			    	case WEIBLICH:
-			        	rbWeiblich.setChecked(true);
-				    	break;
-				    	
-				    default:
-		    	}
-	    	}
-	    	
-	    	if (privatkunde.familienstand != null) {
-	    		spFamilienstand.setSelection(privatkunde.familienstand.value());
-	    	}
-	    	
-	    	if (privatkunde.hobbies != null) {
-		    	for (HobbyType h : privatkunde.hobbies) {
-		    		switch (h) {
-		    			case SPORT: 
-		    		    	cbHobbiesSport.setChecked(true);
-		    		    	break;
-		    		    	
-		    			case LESEN: 
-		    		    	cbHobbiesLesen.setChecked(true);
-		    		    	break;
-		    		    	
-		    			case REISEN:
-		    		    	cbHobbiesReisen.setChecked(true);
-		    		    	break;
-		    		    	
-		    		    default:
-		    		}
-		    	}
-	    	}
-    	}
-    	else {
-    		rbMaennlich.setEnabled(false);
-    		rbWeiblich.setEnabled(false);
-    		spFamilienstand.setEnabled(false);
-    		cbHobbiesSport.setEnabled(false);
-    		cbHobbiesLesen.setEnabled(false);
-    		cbHobbiesReisen.setEnabled(false);
-    	}
+    
 	}
 
 	@Override

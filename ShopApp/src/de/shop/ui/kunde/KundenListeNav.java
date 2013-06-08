@@ -19,7 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 
 public class KundenListeNav extends ListFragment {
 	private static final String LOG_TAG = KundenListeNav.class.getSimpleName();
@@ -29,14 +29,14 @@ public class KundenListeNav extends ListFragment {
 	private static final String[] FROM = { ID, NACHNAME};
 	private static final int[] TO = { R.id.kunde_id, R.id.nachname_txt };
 	
-	private List<AbstractKunde> kunden;
+	private List<Kunde> kunden;
 	private List<Map<String, Object>> kundenItems;
 	private int position = 0;
 	
 	@Override
 	@SuppressWarnings("unchecked")
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        kunden = (List<AbstractKunde>) getActivity().getIntent().getExtras().get(KUNDEN_KEY);
+        kunden = (List<Kunde>) getActivity().getIntent().getExtras().get(KUNDEN_KEY);
         Log.d(LOG_TAG, kunden.toString());
         
 		final ListAdapter listAdapter = createListAdapter();
@@ -47,7 +47,7 @@ public class KundenListeNav extends ListFragment {
 	
 	private ListAdapter createListAdapter() {
 		kundenItems = new ArrayList<Map<String, Object>>(kunden.size());
-		for (AbstractKunde k : kunden) {
+		for (Kunde k : kunden) {
     		final Map<String, Object> kundeItem = new HashMap<String, Object>(2, 1); // max 2 Eintraege, bis zu 100 % Fuellung
     		kundeItem.put(ID, k.id);
     		kundeItem.put(NACHNAME, k.nachname);
@@ -58,7 +58,7 @@ public class KundenListeNav extends ListFragment {
 		return listAdapter;
     }
 	
-	public void refresh(AbstractKunde kunde) {
+	public void refresh(Kunde kunde) {
 		kunden.set(position, kunde);
 		final ListAdapter listAdapter = createListAdapter();
         setListAdapter(listAdapter);
@@ -81,7 +81,7 @@ public class KundenListeNav extends ListFragment {
             	// angeklickte Position fuer evtl. spaeteres Refresh merken, falls der angeklickte Kunde noch aktualisiert wird
             	position = itemPosition;
             	
-        		final AbstractKunde kunde = kunden.get(itemPosition);
+        		final Kunde kunde = kunden.get(itemPosition);
         		final Bundle args = new Bundle(1);
         		args.putSerializable(KUNDE_KEY, kunde);
         		

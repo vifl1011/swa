@@ -23,7 +23,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.TextView;
 import de.shop.R;
-import de.shop.data.AbstractKunde;
+import de.shop.data.Kunde;
 import de.shop.service.HttpResponse;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
@@ -78,7 +78,7 @@ public class KundeSucheId extends Fragment {
 		
 		final Long kundeId = Long.valueOf(kundeIdStr);
 		final Main mainActivity = (Main) getActivity();
-		final HttpResponse<? extends AbstractKunde> result = mainActivity.getKundeServiceBinder().sucheKundeById(kundeId, ctx);
+		final HttpResponse<? extends Kunde> result = mainActivity.getKundeServiceBinder().sucheKundeById(kundeId, ctx);
 
 		if (result.responseCode == HTTP_NOT_FOUND) {
 			final String msg = getString(R.string.k_kunde_not_found, kundeIdStr);
@@ -86,7 +86,7 @@ public class KundeSucheId extends Fragment {
 			return;
 		}
 		
-		final AbstractKunde kunde = result.resultObject;
+		final Kunde kunde = result.resultObject;
 		final Bundle args = new Bundle(1);
 		args.putSerializable(KUNDE_KEY, kunde);
 		
