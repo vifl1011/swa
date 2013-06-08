@@ -2,6 +2,7 @@ package de.shop.data;
 
 import java.io.Serializable;
 
+
 public class Kunde implements Serializable {
 	private static final long serialVersionUID = 1293068472891525321L;
 	
@@ -18,7 +19,6 @@ public class Kunde implements Serializable {
 		this.name = name;
 	}
 
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="horizontal"
+	tools:context=".ui.main.Main" >
+	
+<!--
+	Die Warning "This tag and its children can be replaced by one <TextView/> and a compound drawable"
+	beinhaltet zunaechst einmal "can be" und nicht "must be".
+	Ausserdem ist die Ersetzung durch <TextView android:drawableLeft="@drawable/..."/> NICHT moeglich,
+	weil das Icon fuer den Navigations-Eintrag durch die Platzhalter-ID "nav_icon" definiert wird
+	und keiner realen Datei innerhalb eines Verzeichnisses drawable-... entsprechen kann.
+-->
+	
+	<ImageView
+		android:id="@+id/nav_icon"
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:contentDescription="@string/s_desc_icon" />
+	
+	<TextView
+		android:id="@+id/nav_text"
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:textIsSelectable="false"
+		android:layout_marginLeft="20dp"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:gravity="center_vertical"
+	    android:minHeight="?android:attr/listPreferredItemHeight" />
+	
+</LinearLayout>

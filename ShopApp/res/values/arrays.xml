@@ -1,0 +1,15 @@
+<resources>
+
+	<string-array name="a_protocol_values">
+	    <item>http</item>
+	    <item>https</item>
+	</string-array>
+	
+	<string-array name="a_familienstand_enum">
+      	<item>LEDIG</item>
+       	<item>VERHEIRATET</item>
+       	<item>GESCHIEDEN</item>
+       	<item>VERWITWET</item>
+    </string-array>
+
+</resources>

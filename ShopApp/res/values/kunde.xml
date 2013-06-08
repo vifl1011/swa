@@ -1,7 +1,48 @@
 <resources>
 
-    <string name="k_kunde_details_title">Customer</string>
-    <string name="k_kunde_id">Customer No.</string>
-    <string name="k_name">Name</string>
-	
+	<string name="k_kunde_id_auswahl_hint">Select a customer no.</string>
+	<string name="k_kunde_id_hint">Enter customer no.</string>
+	<string name="k_kundennr_fehlt">The customer no. is missing.</string>
+	<string name="k_kunde_id">Customer No.</string>
+    <string name="k_nachname">Lastname</string>
+    <string name="k_nachname_hint">Enter the lastname</string>
+    <string name="k_nachname_auswahl_hint">Select a lastname</string>
+    <string name="k_nachname_fehlt">The lastname is missing.</string>
+    <string name="k_vorname">Firstname</string>
+    <string name="k_kategorie">Category</string>
+    <string name="k_email">Email</string>
+    <string name="k_adresse">Address</string>
+    <string name="k_plz">Zip</string>
+    <string name="k_ort">City</string>
+    <string name="k_strasse">Street</string>
+    <string name="k_hausnr">No.</string>
+    <string name="k_seit">Since</string>
+    <string name="k_newsletter">Newsletter</string>
+    <string name="k_geschlecht">Gender</string>
+    <string name="k_maennlich">Male</string>
+    <string name="k_weiblich">Female</string>
+    <string name="k_familienstand">Marriage</string>
+    <string name="k_hobbies">Hobbies</string>
+    <string name="k_sport">Sports</string>
+    <string name="k_lesen">Reading</string>
+    <string name="k_reisen">Travelling</string>
+    <string name="k_stammdaten">Master data</string>
+    <string name="k_bestellungen">Orders</string>
+    <string name="k_bestellungen_kunde_id">Customer %d:</string>
+    <string name="k_keine_bestellungen">No orders of customer %d</string>
+    <string name="k_kunde_bestellung_id">Order no. %d</string>
+    <string name="k_bestellung_id">Order no.</string>
+    <string name="k_datum">Date</string>
+    <string name="k_kunden_liste_title">Customers</string>
+    <string name="k_hint_kundenname">Customer name</string>
+    <string name="k_kunde_not_found">No customer found with id %s.</string>
+    <string name="k_kunden_not_found">No customers found with lastname %s.</string>
+    
+    <string-array name="k_familienstand_entries">
+       	<item>Single</item>
+       	<item>Married</item>
+       	<item>Divorced</item>
+       	<item>Widowed</item>
+    </string-array>
+    
 </resources>

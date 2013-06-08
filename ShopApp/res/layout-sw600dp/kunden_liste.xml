@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:baselineAligned="false"
+    tools:context=".ui.KundenListe" >
+
+	<!-- Fragmente gibt es erst ab Honeycomb bzw. Version 3.0 bzw. API Level 11 -->
+	
+	<!-- Verhaeltnis zwischen Master und Detail wird auf 1:4 durch layout_weight gesetzt -->
+	<!-- layout_width darf deshalb nicht wirksam sein -->
+	
+	<fragment
+    	android:id="@+id/kunden_liste_nav"
+    	android:name="de.shop.ui.kunde.KundenListeNav"
+    	android:layout_weight="1"
+    	android:layout_width="0dp"
+    	android:layout_height="match_parent" />
+    
+	<!-- <FrameLayout> statt <fragment>, damit das Fragment spaeter dynamisch austauschbar ist -->
+    <FrameLayout
+    	android:id="@+id/details"
+    	android:layout_weight="4"
+    	android:layout_width="0dp"
+    	android:layout_height="match_parent" />
+
+</LinearLayout>

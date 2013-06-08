@@ -1,0 +1,71 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/kunde_details_bestellungen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+	android:baselineAligned="false"
+    tools:context=".ui.main.Main" >
+
+    <!-- textAppearanceListItemSmall erfordert API Level 14, d.h. Android 4.0 -->
+	<TextView
+		android:id="@+id/bestellungen_kunde_id"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textIsSelectable="false"
+		android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+	
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:baselineAligned="false" >
+	
+	    <ListView
+	    	android:id="@+id/bestellungen_liste"
+	    	android:layout_weight="1"
+	    	android:layout_width="0dp"
+	        android:layout_height="wrap_content" />
+	    
+	    <TableLayout
+			android:layout_weight="4"
+			android:layout_width="0dp"
+			android:layout_height="match_parent" >
+		
+			<TableRow>
+		
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/k_bestellung_id" />
+				
+				<TextView
+					android:id="@+id/bestellung_id"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textIsSelectable="false"
+					android:paddingLeft="5dp" />
+		
+			</TableRow>
+			
+			<TableRow>
+		
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/k_datum" />
+				
+				<TextView
+					android:id="@+id/datum"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textIsSelectable="false"
+					android:paddingLeft="5dp" />
+		
+			</TableRow>
+		
+		</TableLayout>
+    
+    </LinearLayout>
+
+</LinearLayout>

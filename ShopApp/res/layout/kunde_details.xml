@@ -10,7 +10,8 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/k_kunde_id" />
+			android:text="@string/k_kunde_id"
+			android:paddingLeft="5dp" />
 		
 		<TextView
 			android:id="@+id/kunde_id"
@@ -25,7 +26,8 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/k_name" />
+			android:text="@string/k_name"
+			android:paddingLeft="5dp" />
 		
 		<TextView
 			android:id="@+id/name"

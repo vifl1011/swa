@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	
+	<!-- Suchfeld -->
+	<item android:id="@+id/suchen"
+          android:title="@string/s_option_suchen"
+          android:icon="@drawable/ic_option_suchen"
+          android:inputType="number"
+          android:showAsAction="ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
+	
+    <item android:id="@+id/edit"
+          android:title="@string/s_option_edit"
+          android:icon="@drawable/ic_option_edit"
+          android:showAsAction="ifRoom|withText" />
+    
+	<item
+		android:id="@+id/einstellungen"
+		android:title="@string/s_einstellungen"
+		android:icon="@drawable/ic_option_einstellungen"
+		android:orderInCategory="100"
+		android:showAsAction="never" />
+    
+</menu>

@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.main.Main" >
+	
+	<AutoCompleteTextView
+		android:id="@+id/kunde_id_auto"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="@string/k_kunde_id_hint"
+		android:completionHint="@string/k_kunde_id_auswahl_hint"
+		android:completionThreshold="1"
+		android:inputType="number"
+		android:imeActionId="@+id/ime_loeschen"
+        android:imeActionLabel="@string/s_action_loeschen_short"
+        android:imeOptions="actionUnspecified"
+		tools:ignore="LabelFor" >
+		
+		<requestFocus />
+		
+	</AutoCompleteTextView>
+	
+	<Button
+		android:id="@+id/btn_delete"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="50dp"
+		android:text="@string/s_btn_delete" />
+
+</LinearLayout>

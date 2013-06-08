@@ -1,0 +1,28 @@
+{
+	"type": "P",
+	"id": 100,
+	"version": 0,
+    "nachname": "Test",
+    "vorname": "Theo",
+    "seit": "2001-01-31",
+    "umsatz": 1500.5,
+    "rabatt": 0.1,
+    "kategorie": 3,
+    "email": "theo@test.de",
+    "newsletter": true,
+    "password": "100",
+    "passwordWdh": "100",
+    "adresse": {
+		"id": 200,
+		"version": 0,
+        "plz": "76133",
+        "ort": "Karlsruhe",
+        "strasse": "Moltkestraße",
+        "hausnr": "31"
+    },
+    "agbAkzeptiert": true,
+    "bestellungenUri": "http://localhost:8080/shop/rest/kunden/100/bestellungen",
+    "familienstand": "VERHEIRATET",
+    "geschlecht": "MAENNLICH",
+    "hobbies": [ "SPORT", "LESEN" ]
+}

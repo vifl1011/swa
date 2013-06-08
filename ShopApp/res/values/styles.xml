@@ -16,5 +16,17 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+    
+    <style name="RechteSpalte">
+		<item name="android:paddingLeft">5dp</item>
+	</style>
+	
+    <style name="RechteSpalteText" parent="RechteSpalte">
+		<item name="android:textAppearance">?android:attr/textAppearanceButton</item>
+		<!-- siehe <android-sdk>\platforms\android-16\data\res\values\attrs.xml, z.B.
+			   textAppearanceSmall
+			   textAppearanceListItemSmall
+		-->
+	</style>
 
 </resources>

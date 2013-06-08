@@ -1,0 +1,88 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+			android:title="@string/s_verbindungsdaten_pref">
+		
+		<ListPreference
+			android:key="protocol"
+			android:title="@string/s_protocol_title"
+			android:summary="@string/s_protocol_summary"
+			android:defaultValue="http"
+			android:entries="@array/a_protocol_values"
+			android:entryValues="@array/a_protocol_values" />
+	
+		<EditTextPreference
+			android:key="host"
+			android:title="@string/s_host_title"
+			android:summary="@string/s_host_summary"
+			android:defaultValue="10.0.2.2" />
+	
+		<EditTextPreference
+			android:key="port"
+			android:title="@string/s_port_title"
+			android:summary="@string/s_port_summary"
+			android:defaultValue="8080" />
+	
+		<EditTextPreference
+			android:key="path"
+			android:title="@string/s_path_title"
+			android:summary="@string/s_path_summary"
+			android:defaultValue="/shop/rest" />
+
+		<EditTextPreference
+			android:key="timeout"
+			android:title="@string/s_timeout_title"
+			android:summary="@string/s_timeout_summary"
+			android:defaultValue="3" />
+		
+		<EditTextPreference
+			android:key="username"
+			android:title="@string/s_username_title"
+			android:summary="@string/s_username_summary" />
+		
+		<EditTextPreference
+			android:key="password"
+			android:title="@string/s_password_title"
+			android:summary="@string/s_password_summary"
+			android:password="true" />
+		
+	</PreferenceCategory>
+	
+	<PreferenceCategory
+			android:title="@string/s_proxy_pref">
+		
+		<EditTextPreference
+			android:key="proxy_host"
+			android:title="@string/s_proxy_host_title"
+			android:summary="@string/s_proxy_host_summary" />
+	
+		<EditTextPreference
+			android:key="proxy_port"
+			android:title="@string/s_proxy_port_title"
+			android:summary="@string/s_proxy_port_summary" />
+	    
+	    <EditTextPreference
+			android:key="proxy_username"
+			android:title="@string/s_proxy_username_title"
+			android:summary="@string/s_proxy_username_summary" />
+		
+		<EditTextPreference
+			android:key="proxy_password"
+			android:title="@string/s_proxy_password_title"
+			android:summary="@string/s_proxy_password_summary"
+			android:password="true" />
+		
+	</PreferenceCategory>
+	
+	<PreferenceCategory
+			android:title="@string/s_mock_pref">
+		
+		<CheckBoxPreference
+			android:key="mock"
+			android:title="@string/s_mock_title"
+			android:summary="@string/s_mock_summary"
+			android:defaultValue="false" />
+	
+	</PreferenceCategory>
+
+</PreferenceScreen>

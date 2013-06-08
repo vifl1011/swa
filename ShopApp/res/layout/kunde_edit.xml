@@ -1,0 +1,275 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.main.Main" >
+	
+	<TableLayout
+	    android:layout_width="match_parent"
+		android:layout_height="wrap_content" >
+	
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/k_kunde_id" />
+			
+			<TextView
+				android:id="@+id/kunde_id"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textIsSelectable="true"
+				android:paddingLeft="5dp" />
+	
+		</TableRow>
+		
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/k_nachname" />
+			
+			<EditText
+			    android:id="@+id/nachname_edt"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
+	
+		</TableRow>
+		
+		<TableRow>
+		
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_vorname" />
+	        
+	        <EditText
+	            android:id="@+id/vorname_edt"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+	    <TableRow>
+	
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_email" />
+	        
+	        <EditText
+	            android:id="@+id/email_edt"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="textEmailAddress"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+	    <TableRow>
+	
+            <TextView
+	            android:id="@+id/plz_label"
+	            android:text="@string/k_plz"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+
+	        <EditText
+	            android:id="@+id/plz_edt"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="number"
+	            tools:ignore="LabelFor" />
+	        
+	    </TableRow>
+		
+	    <TableRow>
+	    
+	        <TextView
+	            android:id="@+id/ort_label"
+	            android:text="@string/k_ort"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+
+	        <EditText
+	            android:id="@+id/ort_edt"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="textPostalAddress"
+	            tools:ignore="LabelFor" />
+		        
+	    </TableRow>
+	    
+	    <TableRow>
+	        
+            <TextView
+	            android:id="@+id/strasse_label"
+	            android:text="@string/k_strasse"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	        
+	        <EditText
+	            android:id="@+id/strasse_edt"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="textPostalAddress"
+	            tools:ignore="LabelFor" />
+		        
+	    </TableRow>
+
+	    <TableRow>
+		        
+            <TextView
+	            android:id="@+id/hausnr_label"
+	            android:text="@string/k_hausnr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+            
+	        <EditText
+	            android:id="@+id/hausnr_edt"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+			        
+	    </TableRow>
+	    
+	    <TableRow>
+	    	
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_seit" />
+	    	
+	    	<DatePicker
+		        android:id="@+id/seit"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" 
+		        android:calendarViewShown="false" />
+	    	
+	   	</TableRow>
+	   	
+		<TableRow>
+		
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_kategorie" />
+	        
+	        <!-- ab API Level 11 bzw. Android 3.0 -->
+	        <NumberPicker
+	        	android:id="@+id/kategorie"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content" />
+	
+	    </TableRow>
+
+	    <TableRow>
+	    
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_newsletter" />
+	    	
+	    	<ToggleButton
+			    android:id="@+id/newsletter_tgl"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:textOn="@string/s_ja"
+			    android:textOff="@string/s_nein" />
+	    	
+	    </TableRow>
+	    
+	    <TableRow>
+	    
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_geschlecht" />
+	    	
+		    <RadioGroup
+		        android:id="@+id/geschlecht"
+		    	android:orientation="vertical">
+		
+		        <RadioButton
+		        	android:id="@+id/maennlich"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="@string/k_maennlich" />
+		        
+			   	<RadioButton
+			   		android:id="@+id/weiblich"
+			   		android:layout_width="wrap_content"
+			   		android:layout_height="wrap_content"
+			   		android:text="@string/k_weiblich" />
+		    	
+		    </RadioGroup>
+	    
+	    </TableRow>
+	
+	    <TableRow>
+	    
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_familienstand" />
+	    	
+		    <Spinner
+		        android:id="@+id/familienstand"
+		    	android:layout_width="wrap_content"
+		    	android:layout_height="wrap_content"
+		    	android:entries="@array/k_familienstand_entries"
+		    	android:entryValues="@array/a_familienstand_enum" />
+		    
+		</TableRow>
+	
+	    <TableRow>
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_hobbies" />
+	    	
+	    	<LinearLayout
+	    		android:orientation="vertical"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content">
+	
+			    <CheckBox
+			    	android:id="@+id/sport"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="@string/k_sport" />
+			    
+			    <CheckBox
+			    	android:id="@+id/lesen"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="@string/k_lesen" />
+			    
+			    <CheckBox
+			    	android:id="@+id/reisen"
+			    	android:layout_width="wrap_content"
+			    	android:layout_height="wrap_content"
+			    	android:text="@string/k_reisen" />
+	
+	    	</LinearLayout>
+	    	
+	    </TableRow>
+	
+	</TableLayout>
+	
+</ScrollView>

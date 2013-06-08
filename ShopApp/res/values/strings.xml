@@ -1,8 +1,60 @@
 <resources>
 
-    <string name="s_app_name">Shop</string>
+	<string name="s_app_name">Shop</string>
+	<string name="s_hallo">Hello!</string>
+	<string name="s_desc_icon">Icon of the menu item</string>
+	<string name="s_nav_kunden">Customers</string>
+	<string name="s_nav_bestellungen">Orders</string>
+	<string name="s_einstellungen">Settings</string>
+	<string name="s_kunden_suche_id">Search by ID</string>
+	<string name="s_action_suchen_short">Search</string>
+	<string name="s_action_loeschen_short">Delete</string>
+	<string name="s_kunden_suche_nachname">Search by lastname</string>
+	<string name="s_kunden_delete">Delete customer</string>
+	<string name="s_neu_anlegen">Create</string>
     <string name="s_btn_suchen">Search</string>
-    <string name="s_menu_settings">Settings</string>
-    <string name="s_kunde_id_hint">Enter customer no.</string>
-    	
+    <string name="s_btn_delete">Delete</string>
+	<string name="s_ja">Yes</string>
+    <string name="s_nein">No</string>
+    <string name="s_option_edit">Edit</string>
+    <string name="s_option_suchen">Search</string>
+    <string name="s_option_speichern">Save</string>
+    <string name="s_hint_kundennr_bestellnr">Customer/Order no.</string>
+    <string name="s_verbindungsdaten_pref">Configuration of the connection to the web wervice</string>
+    <string name="s_proxy_pref">Proxy configuration</string>
+    <string name="s_mock_pref">Configuration of mock objects</string>
+    <string name="s_protocol_title">Http(s) Protocol</string>
+    <string name="s_protocol_summary">Http or https as protocol for the web wervice</string>
+    <string name="s_host_title">Host</string>
+    <string name="s_host_summary">Host or ip address for the web service, e.g. 10.0.2.2</string>
+    <string name="s_port_title">Port number</string>
+    <string name="s_port_summary">Port number for the web service, e.g. 80 or 8080</string>
+    <string name="s_path_title">Path</string>
+    <string name="s_path_summary">Path for the web service, e.g. /shop/rest</string>
+    <string name="s_timeout_title">Timeout for server access</string>
+    <string name="s_timeout_summary">Timeout in seconds</string>
+    <string name="s_username_title">Username</string>
+    <string name="s_username_summary">Username for the RESTful Web Service</string>
+    <string name="s_password_title">Password</string>
+    <string name="s_password_summary">Password for the RESTful Web Service</string>
+    <string name="s_proxy_host_title">Host</string>
+    <string name="s_proxy_host_summary">Host or ip address for the proxy, e.g. proxy.hs-karlsruhe.de</string>
+    <string name="s_proxy_port_title">Port number</string>
+    <string name="s_proxy_port_summary">Port number for the proxy, z.B. 8888</string>
+    <string name="s_proxy_username_title">Username</string>
+    <string name="s_proxy_username_summary">Username for the Proxy</string>
+    <string name="s_proxy_password_title">Password</string>
+    <string name="s_proxy_password_summary">Password for the Proxy</string>
+
+    <string name="s_mock_title">Offline test mode</string>
+    <string name="s_mock_summary">Instead of RESTful Web Service</string>
+    <string name="s_bitte_warten">Please wait &#8230;</string>
+    <string name="s_ok">OK</string>
+    <string name="s_error_prefs_login">Missing or wrong login data in the settings.</string>
+    <string name="s_error_forbidden">You are not allowed to invoke this operation.</string>
+    <string name="s_wifi">WiFi Connection available</string>
+    <string name="s_mobile">Mobile Connection available</string>
+    <string name="s_not_connected">No Network available</string>
+    <string name="s_mock">ATTENTION: offline test mode</string>
+	
 </resources>

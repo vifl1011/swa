@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    	android:id="@+id/bestellungen_neu"
+        android:title="@string/s_neu_anlegen" />
+    
+</menu>

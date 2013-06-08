@@ -1,28 +1,36 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:orientation="vertical"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-    android:baselineAligned="false"
-	tools:context=".ui.main.Main" >
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	tools:context=".ui.main.MainSmartphone" >
 
-	<EditText
-	    android:id="@+id/kunde_id"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:hint="@string/s_kunde_id_hint"
-	    android:inputType="number"
-	    tools:ignore="LabelFor" >
+    <!-- Warning, da nur 1 TableRow, d.h. LinearLayout waere ausreichend -->
+	<TableRow >
+	    
+	    <!-- Ab Honeycomb = API Level 11
+	    style="?android:attr/buttonBarButtonStyle"
+	    -->
 
-		<requestFocus />
-		
-	</EditText>
-	
-	<Button
-		android:id="@+id/btn_suchen"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginTop="50dp"
-		android:text="@string/s_btn_suchen" />
+	    <Button
+	        android:id="@+id/btn_kunden"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:drawableTop="@drawable/ic_kunden"
+	        android:minHeight="62dp"
+	        android:minWidth="120dp"
+	        android:text="@string/s_nav_kunden"
+	        tools:ignore="InconsistentLayout" />
+	    
+	    <Button
+	        android:id="@+id/btn_bestellungen"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:drawableTop="@drawable/ic_bestellungen"
+	        android:minHeight="62dp"
+	        android:minWidth="120dp"
+	        android:text="@string/s_nav_bestellungen"
+	        tools:ignore="InconsistentLayout" />
+	    
+	</TableRow>
 
-</LinearLayout>
+</TableLayout>

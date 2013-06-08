@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/kunde_liste"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="horizontal"
+	tools:context=".ui.main.KundenListe" >
+	
+	<TextView
+		android:id="@+id/kunde_id"
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:textIsSelectable="false"
+		android:layout_marginLeft="20dp"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:gravity="center_vertical"
+	    android:minHeight="?android:attr/listPreferredItemHeight" />
+	
+	<TextView
+		android:id="@+id/nachname_txt"
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:textIsSelectable="false"
+		android:layout_marginLeft="20dp"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:gravity="center_vertical"
+	    android:minHeight="?android:attr/listPreferredItemHeight" />
+	
+</LinearLayout>

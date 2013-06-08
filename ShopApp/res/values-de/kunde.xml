@@ -1,8 +1,49 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <resources>
 
-    <string name="k_kunde_details_title">Gesuchter Kunde</string>
+	<string name="k_kunde_id_auswahl_hint">Wählen Sie eine Nummer aus</string>
+	<string name="k_kunde_id_hint">Kundennummer eingeben</string>
+	<string name="k_kundennr_fehlt">Die Kundennummer fehlt.</string>
     <string name="k_kunde_id">Kundennummer</string>
-    <string name="k_name">Name</string>
-
+    <string name="k_nachname">Nachname</string>
+    <string name="k_nachname_hint">Nachname eingeben</string>
+    <string name="k_nachname_auswahl_hint">Wählen Sie einen Nachnamen aus</string>
+    <string name="k_nachname_fehlt">Der Nachname fehlt.</string>
+    <string name="k_vorname">Vorname</string>
+    <string name="k_kategorie">Kategorie</string>
+    <string name="k_email">Email</string>
+    <string name="k_adresse">Adresse</string>
+    <string name="k_plz">PLZ</string>
+    <string name="k_ort">Ort</string>
+    <string name="k_strasse">Straße</string>
+    <string name="k_hausnr">Nr.</string>
+    <string name="k_seit">Seit</string>
+    <string name="k_newsletter">Newsletter</string>
+    <string name="k_geschlecht">Geschlecht</string>
+    <string name="k_maennlich">Männlich</string>
+    <string name="k_weiblich">Weiblich</string>
+    <string name="k_familienstand">Familienstand</string>
+    <string name="k_hobbies">Hobbys</string>
+    <string name="k_sport">Sport</string>
+    <string name="k_lesen">Lesen</string>
+    <string name="k_reisen">Reisen</string>
+    <string name="k_stammdaten">Stammdaten</string>
+    <string name="k_bestellungen">Bestellungen</string>
+    <string name="k_bestellungen_kunde_id">Kunde %d:</string>
+    <string name="k_keine_bestellungen">Der Kunde %d hat keine Bestellungen.</string>
+    <string name="k_kunde_bestellung_id">Bestellnr. %d</string>
+    <string name="k_bestellung_id">Bestellnr.</string>
+    <string name="k_datum">Datum</string>
+    <string name="k_kunden_liste_title">Gefundene Kunden</string>
+    <string name="k_hint_kundenname">Kundenname</string>
+    <string name="k_kunde_not_found">Kein Kunde mit Nr. %s gefunden.</string>
+    <string name="k_kunden_not_found">Keine Kunden mit Nachname %s gefunden.</string>
+    
+    <string-array name="k_familienstand_entries">
+       	<item>Ledig</item>
+       	<item>Verheiratet</item>
+       	<item>Geschieden</item>
+       	<item>Verwitwet</item>
+    </string-array>
+    
 </resources>
