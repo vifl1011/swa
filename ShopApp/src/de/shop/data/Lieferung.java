@@ -25,14 +25,26 @@ public class Lieferung implements JsonMappable, Serializable  {
 
 	@Override
 	public void fromJsonObject(JsonObject jsonObject) {
-		// TODO Auto-generated method stub
-		
+		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+		version = jsonObject.getInt("version");
+		aktualisiert = new Date(jsonObject.getJsonNumber("aktualisiert").longValue());
+		art = jsonObject.getString("art");
+		versanddatum = new Date(jsonObject.getJsonNumber("versanddatum").longValue());
+		erzeugt = new Date(jsonObject.getJsonNumber("erzeugt").longValue());
 	}
 
 	@Override
 	public void updateVersion() {
-		// TODO Auto-generated method stub
-		
+		version++;		
 	}
 
+	@Override
+	public String toString() {
+		return "Lieferung [id=" + id 
+				+ ", Aktualisiert="	+ aktualisiert 
+				+ ", Erzeugt=" + erzeugt 
+				+ ", Art=" + art 
+				+ ", Versanddatum=" + versanddatum 
+				+ "]";
+	}
 }
