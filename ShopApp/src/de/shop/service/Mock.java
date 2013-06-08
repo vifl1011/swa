@@ -229,7 +229,7 @@ final class Mock {
     }
 
     static HttpResponse<Bestellung> sucheBestellungById(Long id) {
-		final Bestellung bestellung = new Bestellung(id, new Date());
+		final Bestellung bestellung = new Bestellung(id, new Kunde());
 		
 		final JsonObject jsonObject = bestellung.toJsonObject();
 		final HttpResponse<Bestellung> result = new HttpResponse<Bestellung>(HTTP_OK, jsonObject.toString(), bestellung);
