@@ -28,6 +28,18 @@ public class Kunde implements JsonMappable, Serializable {
 	public boolean agbAkzeptiert = true;
 	public GeschlechtType geschlecht;
 	public String bestellungenUri;
+	public String login;
+	public String passwort;
+	
+	/*
+	public void initKunde(){
+		nachname="";
+		vorname="";
+		rabatt=BigDecimal.valueOf(0);
+		vorname="";
+		
+		
+	}*/
 	
 	protected JsonObjectBuilder getJsonObjectBuilder() {
 		String ges="";
@@ -37,18 +49,37 @@ public class Kunde implements JsonMappable, Serializable {
 			else
 				ges="m";
 		}
-		return jsonBuilderFactory.createObjectBuilder()
-				                 .add("id", id)
-			                     .add("version", version)
-			                     .add("name", nachname)
-			                     .add("vorname", vorname)
-			                     .add("rabatt", rabatt)
-			                     .add("email", email)
-			                     .add("adresse", adresse.getJsonBuilderFactory())
-			                     .add("agbAkzeptiert", agbAkzeptiert)
-			                     .add("bestellungenUri", bestellungenUri)
-			                     .add("geschlecht", ges)
-			                     ;
+		if(passwort==null) {
+		
+			return jsonBuilderFactory.createObjectBuilder()
+	                 .add("id", id)
+                    .add("version", version)
+                    .add("name", nachname)
+                    .add("vorname", vorname)
+                    .add("rabatt", rabatt)
+                    .add("email", email)
+                    .add("adresse", adresse.getJsonBuilderFactory())
+                    .add("agbAkzeptiert", agbAkzeptiert)
+                    .add("bestellungenUri", bestellungenUri)
+                    .add("geschlecht", ges)
+                    ;
+		} else
+		{		
+			return jsonBuilderFactory.createObjectBuilder()
+                .add("id", id)
+                .add("version", version)
+                .add("name", nachname)
+                .add("vorname", vorname)
+                .add("rabatt", rabatt)
+                .add("email", email)
+                .add("adresse", adresse.getJsonBuilderFactory())
+                .add("agbAkzeptiert", agbAkzeptiert)
+                .add("bestellungenUri", bestellungenUri)
+                .add("geschlecht", ges)
+                .add("login", login)
+                .add("passwort", passwort)
+                ;
+		}
 	}
 	
 	@Override
@@ -68,6 +99,7 @@ public class Kunde implements JsonMappable, Serializable {
 		adresse.fromJsonObject(jsonObject.getJsonObject("adresse"));
 		agbAkzeptiert = jsonObject.getBoolean("agbAkzeptiert");
 		bestellungenUri = jsonObject.getString("bestellungenUri");
+		bestellungenUri = jsonObject.getString("login");
 		String ges=jsonObject.getString("geschlecht");
 		if(ges!=null){
 			if(ges.equals("w"))

@@ -1,0 +1,198 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/kunde_create"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.kunde.KundeCreate" >
+	
+	
+	<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/k_login" />
+			
+			<EditText
+			    android:id="@+id/login_create"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
+	
+		</TableRow>
+		
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/k_passwort" />
+			
+			<EditText
+			    android:id="@+id/passwort_create"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
+	
+		</TableRow>
+	
+		<TableRow>
+	
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/k_nachname" />
+			
+			<EditText
+			    android:id="@+id/nachname_create"
+			    style="@style/RechteSpalteText"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:inputType="text"
+			    android:paddingLeft="5dp"
+			    tools:ignore="LabelFor" />
+	
+		</TableRow>
+		
+		<TableRow>
+		
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_vorname" />
+	        
+	        <EditText
+	            android:id="@+id/vorname_create"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+	    <TableRow>
+	
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_email" />
+	        
+	        <EditText
+	            android:id="@+id/email_create"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:inputType="textEmailAddress"
+	            tools:ignore="LabelFor" />
+	
+	    </TableRow>
+	    
+	    <TableRow>
+	
+            <TextView
+	            android:id="@+id/plz_label"
+	            android:text="@string/k_plz"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+
+	        <EditText
+	            android:id="@+id/plz_create"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="number"
+	            tools:ignore="LabelFor" />
+	        
+	    </TableRow>
+		
+	    <TableRow>
+	    
+	        <TextView
+	            android:id="@+id/ort_label"
+	            android:text="@string/k_ort"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+
+	        <EditText
+	            android:id="@+id/ort_create"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="textPostalAddress"
+	            tools:ignore="LabelFor" />
+		        
+	    </TableRow>
+	    
+	    <TableRow>
+	        
+            <TextView
+	            android:id="@+id/strasse_label"
+	            android:text="@string/k_strasse"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	        
+	        <EditText
+	            android:id="@+id/strasse_create"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="textPostalAddress"
+	            tools:ignore="LabelFor" />
+		        
+	    </TableRow>
+
+	    <TableRow>
+		        
+            <TextView
+	            android:id="@+id/hausnr_label"
+	            android:text="@string/k_hausnr"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+            
+	        <EditText
+	            android:id="@+id/hausnr_create"
+	            style="@style/RechteSpalteText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:inputType="text"
+	            tools:ignore="LabelFor" />
+			        
+	    </TableRow>
+	    
+
+	    
+	    <TableRow>
+	    
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_geschlecht" />
+	    	
+		    <RadioGroup
+		        android:id="@+id/geschlecht"
+		    	android:orientation="vertical">
+		
+		        <RadioButton
+		        	android:id="@+id/maennlich"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:text="@string/k_maennlich" />
+		        
+			   	<RadioButton
+			   		android:id="@+id/weiblich"
+			   		android:layout_width="wrap_content"
+			   		android:layout_height="wrap_content"
+			   		android:text="@string/k_weiblich" />
+		    	
+		    </RadioGroup>
+	    
+	    </TableRow>
+
+</TableLayout>
