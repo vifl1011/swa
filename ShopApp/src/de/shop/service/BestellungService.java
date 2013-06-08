@@ -2,7 +2,7 @@ package de.shop.service;
 
 import static de.shop.ui.main.Prefs.mock;
 import static de.shop.ui.main.Prefs.timeout;
-import static de.shop.util.Constants.BESTELLUNGEN_PATH;
+import static de.shop.util.Constants.BESTELLUNG_PATH;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import android.app.ProgressDialog;
@@ -55,7 +55,7 @@ public class BestellungService extends Service {
 				// Neuer Thread, damit der UI-Thread nicht blockiert wird
 				protected HttpResponse<Bestellung> doInBackground(Long... ids) {
 					final Long bestellungId = ids[0];
-		    		final String path = BESTELLUNGEN_PATH + "/" + bestellungId;
+		    		final String path = BESTELLUNG_PATH + "/" + bestellungId;
 		    		Log.v(LOG_TAG, "path = " + path);
 
 		    		final HttpResponse<Bestellung> result = mock

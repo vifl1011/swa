@@ -3,11 +3,16 @@ package de.shop.data;
 import static de.shop.ShopApp.jsonBuilderFactory;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonValue;
+
+import android.net.Uri;
 
 
 public class Bestellung implements JsonMappable, Serializable {
@@ -23,6 +28,8 @@ public class Bestellung implements JsonMappable, Serializable {
 	public byte gezahlt;
 	public Kunde kunde;
 	public List<Bestellposition> bestellpositionen;
+	
+	public Uri kundeUri;
 
 	public Bestellung() {
 		super();
@@ -51,8 +58,7 @@ public class Bestellung implements JsonMappable, Serializable {
 		                         .add("gesamtpreis", gesamtpreis)
 		                         .add("gezahlt", gezahlt)
 		                         .add("bestellpositionen", arrayBuilder)
-		                         //.add("kunde", kunde.toJsonObject())
-		                         //	TODO comments entfernen sobald die Kunde Klasse fertig ist
+		                         .add("kundeUri", kundeUri.toString())
 		                        
 		                         .build();
 	}
@@ -68,12 +74,15 @@ public class Bestellung implements JsonMappable, Serializable {
 		gesamtpreis = Float.valueOf(jsonObject.getString("gesamtpreis"));
 		gezahlt = Byte.valueOf(jsonObject.getString("gezahlt"));
 		
-		//Kunden ermitteln
-		Kunde kunde = new Kunde();
-		//	TODO hier kommt noch n bissel zeugs rein =)
+		Bestellposition bp;
+		bestellpositionen = new ArrayList<Bestellposition>();
+		JsonArray positionen = jsonObject.getJsonArray("bestellpositionen");
+		for (int i = 0; i < positionen.size(); ++i) {
+			bp = new Bestellposition();
+			bp.fromJsonObject(positionen.getJsonObject(i));
+			bestellpositionen.add(bp);
+		}
 		
-		//bestellpositionen ermitteln
-		//	TODO auch hier kommt noch zeugs rein
 		
 	}
 	

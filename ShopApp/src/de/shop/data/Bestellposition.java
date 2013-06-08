@@ -3,12 +3,9 @@ package de.shop.data;
 import static de.shop.ShopApp.jsonBuilderFactory;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.util.Date;
 
 import javax.json.JsonObject;
-import javax.json.JsonValue;
-
 import android.net.Uri;
 
 public class Bestellposition implements JsonMappable, Serializable {
