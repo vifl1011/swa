@@ -18,7 +18,7 @@ import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import de.shop.R;
-//import de.shop.ui.bestellung.BestellungSucheId;
+import de.shop.ui.bestellung.BestellungSucheId;
 import de.shop.ui.bestellung.BestellungenNeu;
 import de.shop.ui.kunde.KundeCreate;
 import de.shop.ui.kunde.KundeDelete;
@@ -183,11 +183,11 @@ public class MainNav extends ListFragment {
 				switch (item.getItemId()) {
 					case R.id.bestellungen_neu:
 						neuesFragment = new BestellungenNeu();
-						break;/*
+						break;
 					case R.id.bestellungen_suche_id:
 						neuesFragment = new BestellungSucheId();
 						break;
-*/
+
 					default:
 						return false;
 				}
