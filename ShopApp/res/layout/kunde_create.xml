@@ -194,5 +194,21 @@
 		    </RadioGroup>
 	    
 	    </TableRow>
+	    
+	    <TableRow>
+	    	<TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/k_agbs" />
+	    		    	
+	    	<ToggleButton
+			    android:id="@+id/agb_tgl"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:textOn="@string/s_akzeptiert"
+			    android:textOff="@string/s_nicht_akzeptiert" />
+	    	
+	    	
+	    </TableRow>
 
 </TableLayout>

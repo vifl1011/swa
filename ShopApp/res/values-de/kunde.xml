@@ -50,4 +50,5 @@
     
     <string name="k_login">Login</string>
     <string name="k_passwort">Password</string>
+    <string name="k_agbs">AGBs</string>
 </resources>

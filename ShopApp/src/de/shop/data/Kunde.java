@@ -52,7 +52,7 @@ public class Kunde implements JsonMappable, Serializable {
 		if(passwort==null) {
 		
 			return jsonBuilderFactory.createObjectBuilder()
-	                 .add("id", id)
+	                .add("id", id)
                     .add("version", version)
                     .add("name", nachname)
                     .add("vorname", vorname)
@@ -65,16 +65,14 @@ public class Kunde implements JsonMappable, Serializable {
                     ;
 		} else
 		{		
+			//zum Anlegen eines Kunden
 			return jsonBuilderFactory.createObjectBuilder()
-                .add("id", id)
                 .add("version", version)
                 .add("name", nachname)
                 .add("vorname", vorname)
-                .add("rabatt", rabatt)
                 .add("email", email)
                 .add("adresse", adresse.getJsonBuilderFactory())
                 .add("agbAkzeptiert", agbAkzeptiert)
-                .add("bestellungenUri", bestellungenUri)
                 .add("geschlecht", ges)
                 .add("login", login)
                 .add("passwort", passwort)

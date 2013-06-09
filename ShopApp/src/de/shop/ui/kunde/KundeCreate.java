@@ -34,6 +34,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import de.shop.R;
+import de.shop.data.Adresse;
 import de.shop.data.GeschlechtType;
 import de.shop.data.Kunde;
 import de.shop.service.HttpResponse;
@@ -55,17 +56,21 @@ public class KundeCreate extends Fragment {
 	private EditText createStrasse;
 	private EditText createHausnr;
 	private EditText createLogin;
+	private EditText createPasswort;
 
 	private RadioButton rbMaennlich;
 	private RadioButton rbWeiblich;
+	
+	private ToggleButton tglAGBs;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		args = getArguments();
 		//kunde = (Kunde) args.get(KUNDE_KEY);
+/*		
 		kunde = new Kunde();
 		Log.d(LOG_TAG, kunde.toString());
-        
+ */       
 		// Voraussetzung fuer onOptionsItemSelected()
 		setHasOptionsMenu(true);
 		
@@ -76,39 +81,44 @@ public class KundeCreate extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
     	
-		/*
+		
 		final TextView txtId = (TextView) view.findViewById(R.id.kunde_id);
-    	txtId.setText(String.valueOf(kunde.id));
-
+    	//txtId.setText(String.valueOf(kunde.id));
+    	
+		createPasswort = (EditText) view.findViewById(R.id.passwort_create);
+    	//createLogin.setText(kunde.login);
+    	
     	
     	createLogin = (EditText) view.findViewById(R.id.login_create);
-    	createLogin.setText(kunde.login);
+    	//createLogin.setText(kunde.login);
     	
     	createNachname = (EditText) view.findViewById(R.id.nachname_create);
-    	createNachname.setText(kunde.nachname);
+    	//createNachname.setText(kunde.nachname);
     	
     	createVorname = (EditText) view.findViewById(R.id.vorname_create);
-    	createVorname.setText(kunde.vorname);
+    	//createVorname.setText(kunde.vorname);
     	
     	createEmail = (EditText) view.findViewById(R.id.email_create);
-    	createEmail.setText(kunde.email);
+    	//createEmail.setText(kunde.email);
     	
     	createPlz = (EditText) view.findViewById(R.id.plz_create);
-    	createPlz.setText(kunde.adresse.plz);
+    	//createPlz.setText(kunde.adresse.plz);
     	
     	createOrt = (EditText) view.findViewById(R.id.ort_create);
-    	createOrt.setText(kunde.adresse.ort);
+    	//createOrt.setText(kunde.adresse.ort);
     	
     	createStrasse = (EditText) view.findViewById(R.id.strasse_create);
-    	createStrasse.setText(kunde.adresse.strasse);
+    	//createStrasse.setText(kunde.adresse.strasse);
     	
     	createHausnr = (EditText) view.findViewById(R.id.hausnr_create);
-    	createHausnr.setText(kunde.adresse.hausnr);
+    	//createHausnr.setText(kunde.adresse.hausnr);
     	
     	
     	rbMaennlich = (RadioButton) view.findViewById(R.id.maennlich);
     	rbWeiblich = (RadioButton) view.findViewById(R.id.weiblich);
     	
+    	tglAGBs =(ToggleButton) view.findViewById(R.id.agb_tgl);
+    	/*
     	if (kunde.geschlecht != null) {
 	    	switch (kunde.geschlecht) {
 		    	case MAENNLICH:
@@ -124,7 +134,6 @@ public class KundeCreate extends Fragment {
 	    	
     	}
     	*/
-
     }
     
 	@Override
@@ -138,7 +147,7 @@ public class KundeCreate extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.speichern:
-				setKunde();
+				createKunde();
 
 				final Activity activity = getActivity();
 				
@@ -214,11 +223,12 @@ public class KundeCreate extends Fragment {
 		}
 	}
 	
-	private void setKunde() {
-
+	private void createKunde() {
+		kunde=new Kunde();
+		kunde.adresse=new Adresse();
+		kunde.passwort = createPasswort.getText().toString();
 		kunde.login = createLogin.getText().toString();
 		kunde.nachname = createNachname.getText().toString();
-		
 		kunde.vorname = createVorname.getText().toString();
 		kunde.email = createEmail.getText().toString();
 		kunde.adresse.plz = createPlz.getText().toString();
@@ -230,7 +240,7 @@ public class KundeCreate extends Fragment {
 		} else if (rbWeiblich.isChecked()) {
 			kunde.geschlecht = GeschlechtType.WEIBLICH;
 		}
-		
+		kunde.agbAkzeptiert = tglAGBs.isChecked();
 /*
 		final GregorianCalendar cal = new GregorianCalendar(Locale.getDefault());
 		cal.set(dpSeit.getYear(), dpSeit.getMonth(), dpSeit.getDayOfMonth());

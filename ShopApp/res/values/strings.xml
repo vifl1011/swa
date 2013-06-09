@@ -17,6 +17,8 @@
     <string name="s_btn_delete">Delete</string>
 	<string name="s_ja">Yes</string>
     <string name="s_nein">No</string>
+    <string name="s_akzeptiert">Accepted</string>
+    <string name="s_nicht_akzeptiert">Not Accepted</string>
     <string name="s_option_edit">Edit</string>
     <string name="s_option_suchen">Search</string>
     <string name="s_option_speichern">Save</string>
