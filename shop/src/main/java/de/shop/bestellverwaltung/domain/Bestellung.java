@@ -117,10 +117,10 @@ public class Bestellung implements Serializable {
 
 	@Version
 	@Basic(optional = false)
+	@Column(name = "version")
 	private int version = 0;
-	
+
 	@Temporal(TIMESTAMP)
-	@JsonIgnore
 	private Date aktualisiert;
 
 	@NotNull
@@ -128,11 +128,9 @@ public class Bestellung implements Serializable {
 	private String bestellstatus;
 
 	@Temporal(TIMESTAMP)
-	@JsonIgnore
 	private Date bestellzeitpunkt;
 
 	@Temporal(TIMESTAMP)
-	@JsonIgnore
 	private Date erzeugt;
 
 	@Min(value = (long) 0, message = "gesamtpreis darf nicht negativ sein")
@@ -223,6 +221,14 @@ public class Bestellung implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 	public Date getAktualisiert() {
 		if (aktualisiert == null)
@@ -236,16 +242,16 @@ public class Bestellung implements Serializable {
 		this.aktualisiert = aktualisiert == null ? null : (Date) aktualisiert.clone();
 	}
 	
-	public String getAktualisiertStr() {
-		if (aktualisiert == null)
-			return null;
-		
-		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(aktualisiert);
-	}
-	
-	public void setAktualisiertStr(String date) throws ParseException {
-			aktualisiert = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
-	}
+//	public String getAktualisiertStr() {
+//		if (aktualisiert == null)
+//			return null;
+//		
+//		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(aktualisiert);
+//	}
+//	
+//	public void setAktualisiertStr(String date) throws ParseException {
+//			aktualisiert = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
+//	}
 
 	public String getBestellstatus() {
 		return this.bestellstatus;
@@ -270,16 +276,16 @@ public class Bestellung implements Serializable {
 			this.bestellzeitpunkt = (Date) bestellzeitpunkt.clone();
 	}
 
-	public String getBestellzeitpunktStr() {
-		if (bestellzeitpunkt == null)
-			return null;
-		
-		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(bestellzeitpunkt);
-	}
-	
-	public void setBestellzeitpunktStr(String date) throws ParseException {
-			bestellzeitpunkt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
-	}
+//	public String getBestellzeitpunktStr() {
+//		if (bestellzeitpunkt == null)
+//			return null;
+//		
+//		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(bestellzeitpunkt);
+//	}
+//	
+//	public void setBestellzeitpunktStr(String date) throws ParseException {
+//			bestellzeitpunkt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
+//	}
 
 	public String getErzeugt(String format) {
 		if (this.erzeugt == null)
@@ -302,16 +308,16 @@ public class Bestellung implements Serializable {
 			this.erzeugt = (Date) erzeugt.clone();
 	}
 
-	public String getErzeugtStr() {
-		if (erzeugt == null)
-			return null;
-		
-		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(erzeugt);
-	}
-	
-	public void setErzeugtStr(String date) throws ParseException {
-			erzeugt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
-	}
+//	public String getErzeugtStr() {
+//		if (erzeugt == null)
+//			return null;
+//		
+//		return new SimpleDateFormat(DATEFORM, Locale.getDefault()).format(erzeugt);
+//	}
+//	
+//	public void setErzeugtStr(String date) throws ParseException {
+//			erzeugt = new SimpleDateFormat(DATEFORM, Locale.getDefault()).parse(date);
+//	}
 	
 	public float getGesamtpreis() {
 		return this.gesamtpreis;
@@ -357,7 +363,8 @@ public class Bestellung implements Serializable {
 	@Override
 	public String toString() {
 		return "Bestellung [id=" + getId() 
-				+ ", aktualisiert=" + getAktualisiert() 
+				+ ", version=" + getVersion()
+				+ ", aktualisiert=" + getAktualisiert()
 				+ ", bestellstatus=" + getBestellstatus()
 				+ ", bestellzeitpunkt=" + getBestellzeitpunkt() 
 				+ ", erzeugt=" + getErzeugt() 

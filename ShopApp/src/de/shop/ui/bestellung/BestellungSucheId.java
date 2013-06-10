@@ -43,7 +43,7 @@ public class BestellungSucheId extends Fragment {
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		bestellungIdTxt = (AutoCompleteTextView) view.findViewById(R.id.bestellung_id_auto);
-    	bestellungIdTxt.setAdapter(new AutoCompleteIdAdapter(bestellungIdTxt.getContext()));
+    	//bestellungIdTxt.setAdapter(new AutoCompleteIdAdapter(bestellungIdTxt.getContext()));
     	
     	// IME
     	bestellungIdTxt.setOnEditorActionListener(new TextView.OnEditorActionListener() {

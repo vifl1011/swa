@@ -305,29 +305,6 @@
  </security-constraint>
  <security-constraint>
   <web-resource-collection>
-   <web-resource-name>Bestellungen lesen</web-resource-name>
-   <url-pattern>/rest/bestellung</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
-   <web-resource-name>Bestellung lesen</web-resource-name>
-   <url-pattern>/rest/bestellung/*</url-pattern>
-   <http-method>GET</http-method>
-  </web-resource-collection>
-  <auth-constraint>
-   <role-name>admin</role-name>
-   <role-name>mitarbeiter</role-name>
-   <role-name>kunde</role-name>
-  </auth-constraint>
- </security-constraint>
- <security-constraint>
-  <web-resource-collection>
    <web-resource-name>Lieferung erstellen / updaten</web-resource-name>
    <url-pattern>/rest/lieferung</url-pattern>
    <http-method>POST</http-method>

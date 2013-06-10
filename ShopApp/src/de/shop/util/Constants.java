@@ -22,7 +22,7 @@ public final class Constants {
 	public static final String NACHNAME_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/nachname";
 	public static final String NAME_PREFIX_PATH = KUNDEN_PREFIX_PATH + "/name";
 	
-	public static final String BESTELLUNG_PATH = "/bestellungen";
+	public static final String BESTELLUNG_PATH = "/bestellung";
 	public static final String BESTELLPOSITION_PATH = "/bestellposition";
 	public static final String PRODUKT_PATH = "/Produkt";
 

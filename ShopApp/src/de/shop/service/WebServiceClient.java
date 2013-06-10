@@ -84,7 +84,7 @@ final class WebServiceClient {
 			httpConnection = (HttpURLConnection) url.openConnection();
 			httpConnection.setRequestProperty(ACCEPT, APPLICATION_JSON);
 			httpConnection.setRequestProperty(ACCEPT_LANGUAGE, Locale.getDefault().getLanguage());
-			httpConnection = auth(httpConnection);
+			httpConnection = basicAuth(httpConnection);
 			reader =  new BufferedReader(new InputStreamReader(httpConnection.getInputStream()));
 		}
 		catch (IOException e) {

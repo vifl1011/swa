@@ -94,14 +94,12 @@ public class Bestellposition implements Serializable {
 	@Column(name = "version")
 	private int version = 0;
 
-	@JsonIgnore
 	private Date aktualisiert;
 
 	@Min(value = Constants.ANZAHL_MIN, message = "{bestellverwaltung.bestellposition.preis.min}")
 	private float einzelpreis;
 
 	//@Column(nullable = false, updatable = false)
-	@JsonIgnore
 	private Date erzeugt;
 
 	@Min(value = Constants.ANZAHL_MIN, message = "{bestellverwaltung.bestellposition.anzahl.min}")
@@ -240,20 +238,20 @@ public class Bestellposition implements Serializable {
 				.clone();
 	}
 	
-	public String getAktualisiertStr() {
-		if (aktualisiert == null)
-			return null;
-		
-		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(aktualisiert);
-	}
-	
-	public void setAktualisiertStr(String date) throws ParseException {
-		try {
-			aktualisiert = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
-		} catch (ParseException e) {
-			throw e;
-		}
-	}
+//	public String getAktualisiertStr() {
+//		if (aktualisiert == null)
+//			return null;
+//		
+//		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(aktualisiert);
+//	}
+//	
+//	public void setAktualisiertStr(String date) throws ParseException {
+//		try {
+//			aktualisiert = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
+//		} catch (ParseException e) {
+//			throw e;
+//		}
+//	}
 
 	public float getEinzelpreis() {
 		return this.einzelpreis;
@@ -271,20 +269,20 @@ public class Bestellposition implements Serializable {
 		this.erzeugt = erzeugt == null ? null : (Date) erz.clone();
 	}
 	
-	public String getErzeugtStr() {
-		if (erzeugt == null)
-			return null;
-		
-		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(erzeugt);
-	}
-	
-	public void setErzeugtStr(String date) throws ParseException {
-		try {
-			erzeugt = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
-		} catch (ParseException e) {
-			throw e;
-		}
-	}
+//	public String getErzeugtStr() {
+//		if (erzeugt == null)
+//			return null;
+//		
+//		return new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).format(erzeugt);
+//	}
+//	
+//	public void setErzeugtStr(String date) throws ParseException {
+//		try {
+//			erzeugt = new SimpleDateFormat(DATE_PATTERNS, Locale.getDefault()).parse(date);
+//		} catch (ParseException e) {
+//			throw e;
+//		}
+//	}
 
 	public int getMenge() {
 		return this.menge;

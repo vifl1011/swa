@@ -6,10 +6,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.json.JsonObject;
+
 import android.net.Uri;
+import android.util.Log;
 
 public class Bestellposition implements JsonMappable, Serializable {
 	private static final long serialVersionUID = -2495835532451031403L;
+	private static final String LOG_TAG = Bestellposition.class.getSimpleName();
 	
 	public Long id;
 	public int version;
@@ -55,15 +58,28 @@ public class Bestellposition implements JsonMappable, Serializable {
 
 	@Override
 	public void fromJsonObject(JsonObject jsonObject) {
+		Log.v(LOG_TAG, "start fromJsonObject() method...");
+		
 		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+		Log.v(LOG_TAG, "	id = " + id);
 		version = jsonObject.getInt("version");
+		Log.v(LOG_TAG, "	version = " + version);
 		aktualisiert = new Date(jsonObject.getJsonNumber("aktualisiert").longValue());
-		einzelpreis = Float.valueOf(jsonObject.getString("einzelpreis"));
+		Log.v(LOG_TAG, "	aktualisiert = " + aktualisiert);
+		einzelpreis = Float.valueOf(jsonObject.getJsonNumber("einzelpreis").toString());
+		Log.v(LOG_TAG, "	einzelpreis = " + einzelpreis);
 		erzeugt = new Date(jsonObject.getJsonNumber("erzeugt").longValue());
+		Log.v(LOG_TAG, "	erzeugt = " + erzeugt);
 		menge = jsonObject.getInt("menge");	
+		Log.v(LOG_TAG, "	menge = " + menge);
 		produktUri = Uri.parse(jsonObject.getString("produktUri"));
+		Log.v(LOG_TAG, "	produktUri = " + produktUri);
 		lieferungUri = Uri.parse(jsonObject.getString("lieferungUri"));
+		Log.v(LOG_TAG, "	lieferungUri = " + lieferungUri);
 		bestellungUri = Uri.parse(jsonObject.getString("bestellungUri"));
+		Log.v(LOG_TAG, "	bestellungUri = " + bestellungUri);
+		
+		Log.v(LOG_TAG, "end fromJsonObject() method...");
 	}
 
 	@Override
