@@ -1,5 +1,8 @@
 package de.shop.util;
 
+import static de.shop.util.Constants.HOST_DEFAULT;
+import static de.shop.util.Constants.LOCALHOST_DEVICE;
+
 public final class Constants {
 	public static final String KUNDE_KEY = "kunde";
 	public static final String KUNDEN_KEY = "kunden";
@@ -30,10 +33,11 @@ public final class Constants {
 	public static final short MIN_KATEGORIE = 1;
 	public static final short MAX_KATEGORIE = 9;
 	
+	public static final String DEVICE_NAME = "2526989af32224f8";	//	Developer ID of the our Tablet
 	public static final String PROTOCOL_DEFAULT = "http";
 	public static final String LOCALHOST_EMULATOR = "10.0.2.2";
 	public static final String LOCALHOST_DEVICE = "192.168.173.246"; //<---The IP Adress of the running Server in your network
-	public static final String HOST_DEFAULT = LOCALHOST_EMULATOR;
+	public static String HOST_DEFAULT = LOCALHOST_EMULATOR;
 	public static final String PORT_DEFAULT = "8080";
 	public static final String PATH_DEFAULT = "/shop/rest";
 	public static final String TIMEOUT_DEFAULT = "3";

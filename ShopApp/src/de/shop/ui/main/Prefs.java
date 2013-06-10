@@ -1,6 +1,9 @@
 package de.shop.ui.main;
 
+import static de.shop.util.Constants.DEVICE_NAME;
 import static de.shop.util.Constants.HOST_DEFAULT;
+import static de.shop.util.Constants.LOCALHOST_DEVICE;
+import static de.shop.util.Constants.LOCALHOST_EMULATOR;
 import static de.shop.util.Constants.MOCK_DEFAULT;
 import static de.shop.util.Constants.PATH_DEFAULT;
 import static de.shop.util.Constants.PORT_DEFAULT;
@@ -12,6 +15,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import de.shop.R;

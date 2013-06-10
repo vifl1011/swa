@@ -3,7 +3,10 @@ package de.shop.ui.main;
 import static android.widget.Toast.LENGTH_LONG;
 import static de.shop.ui.main.Prefs.mock;
 import static de.shop.util.Constants.KUNDE_KEY;
-
+import static de.shop.util.Constants.HOST_DEFAULT;
+import static de.shop.util.Constants.LOCALHOST_DEVICE;
+import static de.shop.util.Constants.LOCALHOST_EMULATOR;
+import static de.shop.util.Constants.DEVICE_NAME;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.ComponentName;
@@ -12,9 +15,9 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
-
 import de.shop.R;
 import de.shop.data.Kunde;
 import de.shop.service.BestellungService;
@@ -60,6 +63,22 @@ public class Main extends Activity {
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        
+        //Prüfe ob das Gerät innerhalb des Emulators oder des realen Gerätes läuft
+        // TODO: Remove before production
+		Log.i(LOG_TAG, "Checking the Running Environment...");
+		String ANDROID_DEVICE_ID = "";
+		ANDROID_DEVICE_ID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+		Log.i(LOG_TAG, "Shop is running on " + ANDROID_DEVICE_ID);
+	    if (ANDROID_DEVICE_ID.equals(DEVICE_NAME)) {
+	        HOST_DEFAULT = LOCALHOST_DEVICE;
+	        Log.i(LOG_TAG, "Environment is the Tablet..");
+	    }
+	    else {
+	    	HOST_DEFAULT = LOCALHOST_EMULATOR;
+	    	Log.i(LOG_TAG, "Environment is the Emulator..");
+	    }
         
         // Gibt es Suchergebnisse durch SearchView in der ActionBar, z.B. Kunde ?
         
