@@ -342,12 +342,21 @@ final class WebServiceClient {
     			jsonReader.close();
     		}
     	}
-    	
+    	Log.v(LOG_TAG, "Json eingelesen...");
 		final List<JsonNumber> jsonNumberList = jsonArray.getValuesAs(JsonNumber.class);
+		Log.v(LOG_TAG, "JsonNumber's extrahiert");
 		final List<Long> result = new ArrayList<Long>(jsonArray.size());
-		for (JsonNumber jsonNumber : jsonNumberList) {
-			result.add(Long.valueOf(jsonNumber.longValue()));
+		Log.v(LOG_TAG, "test " + jsonArray.size());
+		//for (JsonNumber jsonNumber : jsonNumberList) {
+		for (int i = 0; i < jsonArray.size(); ++i) {
+			Log.v(LOG_TAG, "2");
+			String jsonString = jsonNumberList.toString();
+			Log.v(LOG_TAG, jsonString);
+			Long jsonLong=Long.valueOf(jsonString);
+			Log.v(LOG_TAG, "Long: " + jsonLong);
+			result.add(jsonLong);
 		}
+		Log.v(LOG_TAG, "Liste aus Long Werten erstellt");
 		
 		return result;
 	}

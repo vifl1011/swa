@@ -70,26 +70,31 @@ public class BestellungBestellpositionen extends Fragment {
 			Main main = (Main) activity;
 			kundeServiceBinder = main.getKundeServiceBinder();
 			bestellungServiceBinder = main.getBestellungServiceBinder();
+			Log.e(LOG_TAG, "Activity " + activity.getClass().getSimpleName() + " ==> Service Binder wurden neu generiert.");
 		}
 		else {
 			Log.e(LOG_TAG, "Activity " + activity.getClass().getSimpleName() + " nicht beruecksichtigt.");
 			return;
 		}
+		Log.d(LOG_TAG, "BESTELLUNG ID: " + bestellung.id);
 		
-		//TODO entsprechende Methode für bestellungServiceBinder erstellen
-		bestellpositionenIds = bestellungServiceBinder.sucheBestellpositionenIdsByBestellungId(bestellung.id, view.getContext());
-		if (bestellpositionenIds == null || bestellpositionenIds.isEmpty()) {
+		//bestellpositionenIds = bestellungServiceBinder.sucheBestellpositionenIdsByBestellungId(bestellung.id, view.getContext());
+		if (bestellung.bestellpositionen == null || bestellung.bestellpositionen.isEmpty()) {
 			bestellungTxt.setText(getString(R.string.b_keine_bestellpositionen, bestellung.id));
 		}
 		else {
+			Log.d(LOG_TAG, "BESTELLUNG: " + bestellung);
+			Log.d(LOG_TAG, "BESTELLPOSITIONEN: " + bestellung.bestellpositionen);
 			// ListView mit den IDs der Bestellungen aufbauen
 			final ListView listView = (ListView) view.findViewById(R.id.bestellpositionen_liste);
-	        int anzahl = bestellpositionenIds.size();
-	        bestellpositionen = new ArrayList<Bestellposition>(anzahl);
+			Log.d(LOG_TAG, "View: " + listView);
+	        int anzahl =  bestellung.bestellpositionen.size();
+	        Log.d(LOG_TAG, "Anzahl: " + anzahl);
+	        //bestellpositionen = new ArrayList<Bestellposition>(anzahl);
 			final String[] values = new String[anzahl];
 			for (int i = 0; i < anzahl; i++) {
-				bestellpositionen.add(null);
-	        	values[i] = getString(R.string.b_bestellung_bestellposition_id, bestellpositionenIds.get(anzahl - i - 1));
+				//bestellpositionen.add(null);
+	        	values[i] = getString(R.string.b_bestellung_bestellposition_id, bestellung.bestellpositionen.get(anzahl - i - 1).id);
 	        	Log.d(LOG_TAG, values[i]);
 	        }
 	        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),
@@ -151,10 +156,10 @@ public class BestellungBestellpositionen extends Fragment {
 
 	private void activateBestellposition(int itemPosition, View view) {
 		// Bestellposition-ID ermitteln
-		bestellpositionenListePos = bestellpositionenIds.size() - itemPosition - 1;
+		bestellpositionenListePos = bestellung.bestellpositionen.size() - itemPosition - 1;
 		
 		// Bestellposition ermitteln bzw. per Web Service nachladen
-		bestellposition = bestellpositionen.get(bestellpositionenListePos);
+		bestellposition = bestellung.bestellpositionen.get(bestellpositionenListePos);
 		if (bestellposition == null) {
 			final Long bestellpositionId = bestellpositionenIds.get(bestellpositionenListePos);
 			Log.v(LOG_TAG, "Bestellposition nachladen: " + bestellpositionId);
