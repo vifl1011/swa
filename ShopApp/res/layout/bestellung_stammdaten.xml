@@ -107,12 +107,9 @@
 	    <TableRow>
 
 	        <TextView
-	        	android:id="@+id/erzeugt_txt"
-	        	style="@style/RechteSpalteText"
 	        	android:layout_width="match_parent"
 	        	android:layout_height="wrap_content"
 	        	android:text="@string/b_bestellung_erzeugt"
-	        	android:textAppearance="?android:attr/textAppearanceSmall"
 	        	android:textIsSelectable="false" />
 	    
 	    	<TextView

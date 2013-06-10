@@ -56,26 +56,45 @@ public class BestellungStammdaten extends Fragment {
     }
 	
 	private void fillValues(View view) {
+		Log.v(LOG_TAG, "start fillValues...");
+		
 		final TextView txtId = (TextView) view.findViewById(R.id.bestellung_id_txt);
     	txtId.setText(bestellung.id.toString());
+    	Log.v(LOG_TAG, "set id..." + bestellung.id);
     	
     	final TextView txtStatus = (TextView) view.findViewById(R.id.bestellstatus_txt);
     	txtStatus.setText(bestellung.bestellstatus);
+    	Log.v(LOG_TAG, "set bestellstatus..." + bestellung.bestellstatus);
     	
     	final TextView txtGezahlt = (TextView) view.findViewById(R.id.bezahlt_txt);
-    	txtGezahlt.setText(bestellung.gezahlt);
+    	Log.v(LOG_TAG, txtGezahlt.toString());
+    	if (bestellung.gezahlt == 0) {
+    		txtGezahlt.setText("nein");
+    		Log.v(LOG_TAG, "set gezahlt...nein");
+    	}
+    	else {
+    		txtGezahlt.setText("ja");
+    		Log.v(LOG_TAG, "set gezahlt...ja");
+    	}
+    	Log.v(LOG_TAG, "set gezahlt..." + bestellung.gezahlt);
     	
     	final TextView txtPreis = (TextView) view.findViewById(R.id.gesamtpreis_txt);
     	txtPreis.setText(String.valueOf(bestellung.gesamtpreis));
+    	Log.v(LOG_TAG, "set gesamtpreis...");
     	
-    	final TextView txtBestellzeitpunkt = (TextView) view.findViewById(R.id.ort);
+    	final TextView txtBestellzeitpunkt = (TextView) view.findViewById(R.id.bestellzeitpunkt_txt);
     	txtBestellzeitpunkt.setText(bestellung.bestellzeitpunkt.toString());
+    	Log.v(LOG_TAG, "set bestellzeitpunkt...");
     	
     	final TextView txtAktualisiert = (TextView) view.findViewById(R.id.aktualisiert_txt);
     	txtAktualisiert.setText(bestellung.aktualisiert.toString());
+    	Log.v(LOG_TAG, "set aktualisiert..");
     	
     	final TextView txtErzeugt = (TextView) view.findViewById(R.id.erzeugt_txt);
     	txtErzeugt.setText(bestellung.erzeugt.toString());
+    	Log.v(LOG_TAG, "set erzeugt...");
+    	
+    	Log.v(LOG_TAG, "end fillValues");
     }
 
 	@Override
