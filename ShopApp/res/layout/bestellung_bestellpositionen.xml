@@ -13,6 +13,7 @@
     	android:id="@+id/bestellpositionen_bestellung_id"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
+    	
     	android:textAppearance="?android:attr/textAppearanceListItemSmall"
     	android:textIsSelectable="false" />
 	
@@ -25,7 +26,7 @@
 	    <ListView
 	    	android:id="@+id/bestellpositionen_liste"
 	    	android:layout_width="0dp"
-	    	android:layout_height="wrap_content"
+	    	android:layout_height="match_parent"
 	    	android:layout_weight="1" />
 	    
 	    <TableLayout
@@ -63,6 +64,67 @@
 					android:paddingLeft="5dp"
 					android:textIsSelectable="false" />
 		
+			</TableRow>
+
+			<TableRow
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/b_bestellposition_produkt_bezeichnung" />
+
+				<TextView
+					android:id="@+id/bp_produkt"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/b_bestellposition_produkt_farbe" />
+
+				<TextView
+					android:id="@+id/bp_farbe"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/b_bestellposition_menge" />
+
+				<TextView
+					android:id="@+id/b_bestellposition_menge"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/b_bestellposition_produkt_preis" />
+
+				<TextView
+					android:id="@+id/b_bestellposition_preis"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
 			</TableRow>
 		
 		</TableLayout>

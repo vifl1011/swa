@@ -33,6 +33,23 @@ public class Bestellposition implements JsonMappable, Serializable {
 		super();
 	}
 	
+	public Long getProduktId() {
+		String produktUriStr = produktUri.toString();
+		int pos = produktUriStr.lastIndexOf("/");
+		String idString = produktUriStr.substring(pos+1);
+		
+		Long result;
+		
+		try {
+			result = Long.valueOf(idString);
+		} catch (Exception e) {
+			Log.e(LOG_TAG, e.getStackTrace().toString());
+			return null;
+		}
+		
+		return result;
+	}
+	
 	public Bestellposition(Long id, Bestellung best, Produkt prod) {
 		super();
 		this.id = id;

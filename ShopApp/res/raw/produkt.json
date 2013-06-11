@@ -1,0 +1,10 @@
+{
+	"type": "F",
+	"id": 550,
+	"version": 0,
+    "bezeichnung": "T-Shirt",
+    "preis": 30.7,
+    "farbe": "blau",
+    "groesse": "l",
+    "vorrat": 10
+}

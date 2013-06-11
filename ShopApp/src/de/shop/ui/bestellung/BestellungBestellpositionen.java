@@ -26,6 +26,7 @@ import de.shop.R;
 import de.shop.data.Bestellposition;
 import de.shop.data.Kunde;
 import de.shop.data.Bestellung;
+import de.shop.data.Produkt;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.ui.main.Main;
@@ -158,6 +159,18 @@ public class BestellungBestellpositionen extends Fragment {
 		// Bestellposition-ID ermitteln
 		bestellpositionenListePos = bestellung.bestellpositionen.size() - itemPosition - 1;
 		
+		//Produkt nachladen
+		try {
+			if (bestellung.bestellpositionen.get(bestellpositionenListePos).produkt == null) {
+				Produkt prod = bestellungServiceBinder.getProduktByBestellposition(bestellung.bestellpositionen
+																				.get(bestellpositionenListePos), view.getContext())
+																				.resultObject;
+				bestellung.bestellpositionen.get(bestellpositionenListePos).produkt = prod;
+			}
+		} catch (Exception e) {
+			//	TODO anzeigen das die Bestellposition nicht geladen werden konnte
+		}
+		
 		// Bestellposition ermitteln bzw. per Web Service nachladen
 		bestellposition = bestellung.bestellpositionen.get(bestellpositionenListePos);
 		if (bestellposition == null) {
@@ -171,9 +184,43 @@ public class BestellungBestellpositionen extends Fragment {
 			
 			//TODO Werte der geladenen Bestellung visualisieren
 		}
-		
-		txtBestellpositionId.setText(String.valueOf(bestellposition.id));
-		final String datumStr = bestellposition.aktualisiert == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellposition.aktualisiert);
-    	txtBestellpositionDatum.setText(datumStr);
+		fillValues(view, bestellpositionenListePos);
+//		txtBestellpositionId.setText(String.valueOf(bestellposition.id));
+//		final String datumStr = bestellposition.aktualisiert == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellposition.aktualisiert);
+//    	txtBestellpositionDatum.setText(datumStr);
 	}
+	
+	private void fillValues(View view, int pos) {
+		Log.v(LOG_TAG, "start fillValues...");
+		
+		TextView txt = (TextView) view.findViewById(R.id.bestellposition_id);
+    	txt.setText(bestellung.bestellpositionen.get(pos).id.toString());
+    	
+    	txt = (TextView) view.findViewById(R.id.bestellzeitpunkt);
+    	txt.setText(bestellung.bestellpositionen.get(pos).aktualisiert.toString());
+    	
+    	txt = (TextView) view.findViewById(R.id.bp_produkt);
+    	if (bestellung.bestellpositionen.get(pos).produkt == null) {
+    		txt.setText(R.string.b_not_found_produkt);
+    	} else {
+    		txt.setText(bestellung.bestellpositionen.get(pos).produkt.bezeichnung);
+    	}
+    	
+    	txt = (TextView) view.findViewById(R.id.bp_farbe);
+    	if (bestellung.bestellpositionen.get(pos).produkt == null) {
+    		txt.setText(R.string.b_not_found_produkt);
+    	} else {
+    		txt.setText(bestellung.bestellpositionen.get(pos).produkt.farbe);
+    	}
+    	
+    	Log.v(LOG_TAG, bestellung.bestellpositionen.get(pos).toString());
+    	
+    	txt = (TextView) view.findViewById(R.id.b_bestellposition_menge);
+    	txt.setText(String.valueOf(bestellung.bestellpositionen.get(pos).menge));
+    	
+    	txt = (TextView) view.findViewById(R.id.b_bestellposition_preis);
+    	txt.setText(String.valueOf(bestellung.bestellpositionen.get(pos).einzelpreis));
+    	
+    	Log.v(LOG_TAG, "end fillValues");
+    }
 }

@@ -12,7 +12,6 @@ import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.json.JsonArray;
@@ -32,6 +31,36 @@ import de.shop.data.Produkt;
 
 final class Mock {
 	private static final String LOG_TAG = Mock.class.getSimpleName();
+	
+	static HttpResponse<Produkt> sucheProduktByBestellposition(Long id) {
+		if (id <= 0 || id >= 1000) {
+    		return new HttpResponse<Produkt>(HTTP_NOT_FOUND, "Kein Produkt gefunden mit ID " + id);
+    	}
+    	
+    	int dateinameId;
+    	dateinameId = R.raw.produkt;
+    	
+    	JsonReader jsonReader = null;
+    	JsonObject jsonObject;
+    	try {
+    		jsonReader = ShopApp.jsonReaderFactory.createReader(ShopApp.open(dateinameId));
+    		jsonObject = jsonReader.readObject();
+    	}
+    	// FIXME Ab Java 7 gibt es try-with-resources fuer Autoclosable
+    	finally {
+    		if (jsonReader != null) {
+    			jsonReader.close();
+    		}
+    	}
+    	
+    	final Produkt produkt = new Produkt();
+
+    	produkt.fromJsonObject(jsonObject);
+    	produkt.id = id;
+		
+    	final HttpResponse<Produkt> result = new HttpResponse<Produkt>(HTTP_OK, jsonObject.toString(), produkt);
+    	return result;
+	}
 	
 	static HttpResponse<Kunde> sucheKundeById(Long id) {
     	if (id <= 0 || id >= 1000) {

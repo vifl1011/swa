@@ -19,6 +19,7 @@ import android.util.Log;
 import de.shop.R;
 import de.shop.data.Bestellposition;
 import de.shop.data.Bestellung;
+import de.shop.data.Produkt;
 import de.shop.util.InternalShopError;
 
 public class BestellungService extends Service {
@@ -121,6 +122,52 @@ public HttpResponse<Bestellung> getBestellungById(Long id, final Context ctx) {
 			
 			getBestellpositionByIdTask.execute(Long.valueOf(id));
 			HttpResponse<Bestellposition> result = null;
+			try {
+				result = getBestellpositionByIdTask.get(timeout, SECONDS);
+			}
+			catch (Exception e) {
+				throw new InternalShopError(e.getMessage(), e);
+			}
+			
+			return result;
+		}
+		
+		
+		/**
+	 	*/
+		public HttpResponse<Produkt> getProduktByBestellposition(Bestellposition bp, final Context ctx) {
+			
+			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Bestellung"
+			final AsyncTask<Long, Void, HttpResponse<Produkt>> getBestellpositionByIdTask = new AsyncTask<Long, Void, HttpResponse<Produkt>>() {
+		
+				@Override
+				protected void onPreExecute() {
+					progressDialog = showProgressDialog(ctx);
+				}
+				
+				@Override
+				// Neuer Thread, damit der UI-Thread nicht blockiert wird
+				protected HttpResponse<Produkt> doInBackground(Long... ids) {
+					final Long bestellpositionId = ids[0];
+		    		final String path = BESTELLPOSITION_PATH + "/" + bestellpositionId + "/produkt";
+		    		Log.v(LOG_TAG, "path = " + path);
+		
+		    		//	TODO Mock option ist noch nicht angepasst
+		    		final HttpResponse<Produkt> result = mock
+		    				                                ? Mock.sucheProduktByBestellposition(bestellpositionId)
+		    				                                : WebServiceClient.getJsonSingle(path, Produkt.class);
+					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
+					return result;
+				}
+				
+				@Override
+				protected void onPostExecute(HttpResponse<Produkt> unused) {
+					progressDialog.dismiss();
+				}
+			};
+			
+			getBestellpositionByIdTask.execute(Long.valueOf(bp.id));
+			HttpResponse<Produkt> result = null;
 			try {
 				result = getBestellpositionByIdTask.get(timeout, SECONDS);
 			}

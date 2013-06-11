@@ -16,10 +16,17 @@
 	<string name="b_bestellung_bestellzeitpunkt">Bestellzeitpunkt: </string>
 	<string name="b_bestellung_aktualisiert">letztes Update: </string>
 	<string name="b_bestellung_erzeugt">Erstellt am: </string>	
-	<string name="b_bestellposition_bestellung_id">Position ID: %d</string>
+	<string name="b_bestellposition_bestellung_id">Bestellung: %d</string>
 	<string name="b_bestellposition_id">Position ID: </string>
 	<string name="b_bestellposition_datum">Versand: </string>
 	<string name="b_keine_bestellpositionen">Keine bestellpositionen vorhanden für Bestellung %d!</string>
 	<string name="b_bestellung_bestellposition_id">Position ID %d</string>
+	
+	<string name="b_bestellposition_produkt_bezeichnung">Produkt: </string>
+	<string name="b_bestellposition_produkt_farbe">Farbe: </string>
+	<string name="b_bestellposition_produkt_preis">Preis: </string>
+	<string name="b_bestellposition_menge">Menge: </string>
     
+	<string name="b_not_found_produkt">Produkt nicht verfügbar</string>
+	
 </resources>

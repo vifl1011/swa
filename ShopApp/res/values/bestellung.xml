@@ -15,10 +15,19 @@
 	<string name="b_bestellung_bestellzeitpunkt">Date of Order: </string>
 	<string name="b_bestellung_aktualisiert">Last Update: </string>
 	<string name="b_bestellung_erzeugt">Date of Creation: </string>
-	<string name="b_bestellposition_bestellung_id">Item no.: %d</string>
+	<string name="b_bestellposition_bestellung_id">Order: %d</string>
 	<string name="b_bestellposition_id">Item no.: </string>
 	<string name="b_bestellposition_datum">Sended: </string>
 	<string name="b_keine_bestellpositionen">No Items available for order %d!</string>
 	<string name="b_bestellung_bestellposition_id">Item no. %d</string>
+	
+	<string name="b_bestellposition_produkt_bezeichnung">Product: </string>
+	<string name="b_bestellposition_produkt_farbe">Colour: </string>
+	<string name="b_bestellposition_produkt_preis">Cost: </string>
+	<string name="b_bestellposition_menge">Quantity: </string>
+	
+	<string name="b_not_found_produkt">Product n.a.</string>
+	
+	
 
 </resources>
