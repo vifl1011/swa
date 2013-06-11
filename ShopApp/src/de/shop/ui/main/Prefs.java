@@ -51,8 +51,8 @@ public class Prefs extends PreferenceFragment {
 	
 	private static final String HOST_PROXY_KEY = "hostProxy";
 	private static final String PORT_PROXY_KEY = "portProxy";
-	private static final String USERNAME_PROXY_KEY = "usernameProxy";
-	private static final String PASSWORD_PROXY_KEY = "passwordProxy";
+	private static final String USERNAME_PROXY_KEY = "proxy_username";
+	private static final String PASSWORD_PROXY_KEY = "proxy_password";
 	
 	private static final String MOCK_KEY = "mock";
 
@@ -106,13 +106,16 @@ public class Prefs extends PreferenceFragment {
 			timeout = Long.parseLong(TIMEOUT_DEFAULT);
 		}
 		
-		username = prefs.getString(USERNAME_KEY, "");
-		password = prefs.getString(PASSWORD_KEY, "");
+		prefs.edit().putString(USERNAME_KEY, "noUser").commit();
+		prefs.edit().putString(USERNAME_PROXY_KEY, "noUser").commit();
+		
+		username = prefs.getString(USERNAME_KEY, "noUser");
+		password = prefs.getString(PASSWORD_KEY, "noPassword");
 
-		hostProxy = prefs.getString(HOST_PROXY_KEY, "");
-		portProxy = prefs.getString(PORT_PROXY_KEY, "");
-		usernameProxy = prefs.getString(USERNAME_PROXY_KEY, "");
-		passwordProxy = prefs.getString(PASSWORD_PROXY_KEY, "");
+		hostProxy = prefs.getString(HOST_PROXY_KEY, "notSet");
+		portProxy = prefs.getString(PORT_PROXY_KEY, "notSet");
+		usernameProxy = prefs.getString(USERNAME_PROXY_KEY, "notSet");
+		passwordProxy = prefs.getString(PASSWORD_PROXY_KEY, "notSet");
 
 		mock = prefs.getBoolean(MOCK_KEY, MOCK_DEFAULT);
 		
@@ -312,6 +315,8 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setUsernameProxyListener() {
+		if (findPreference(USERNAME_PROXY_KEY) == null) 
+			Log.v(LOG_TAG, "lol");
 		findPreference(USERNAME_PROXY_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -320,12 +325,11 @@ public class Prefs extends PreferenceFragment {
 				                 .edit()
 				                 .putString(USERNAME_PROXY_KEY, usernameProxy)
 				                 .commit();
-
-				// Fragment neu laden, damit die Aenderung sofort sichtbar ist
+					// Fragment neu laden, damit die Aenderung sofort sichtbar ist
 				getFragmentManager().beginTransaction()
-		                            .replace(R.id.details, new Prefs())
-		                            .addToBackStack(null)
-		                            .commit();				
+				                          .replace(R.id.details, new Prefs())
+				                          .addToBackStack(null)
+				                          .commit();				
 				return false;
 			}
 		});

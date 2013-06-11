@@ -10,6 +10,9 @@ public final class Constants {
 	public static final String BESTELLUNG_KEY = "bestellung";
 	public static final String BESTELLUNGEN_KEY = "bestellungen";
 	
+	public static final String PRODUKT_KEY = "produkt";
+	public static final String PRODUKTE_KEY = "produkte";
+	
 	public static final int WISCHEN_MIN_DISTANCE = 30;        // Min. Laenge des Wischens in Pixel
 	public static final int WISCHEN_MAX_OFFSET_PATH = 30;       // Max. Abweichung in der Y-Richtung in Pixel
 	public static final int WISCHEN_THRESHOLD_VELOCITY = 30;  // Geschwindigkeit: Pixel pro Sekunde

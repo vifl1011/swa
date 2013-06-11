@@ -43,7 +43,11 @@ public class BestellungBestellpositionen extends Fragment {
 	private int bestellpositionenListePos;
 	
 	private TextView txtBestellpositionId;
-	private TextView txtBestellpositionDatum;
+	private TextView txtBestellpositionAktualisiert;
+	private TextView txtBestellpositionProduktBezeichnung;
+	private TextView txtBestellpositionProduktFarbe;
+	private TextView txtBestellpositionMenge;
+	private TextView txtBestellpositionPreis;
 	
 	private KundeServiceBinder kundeServiceBinder;
 	private BestellungServiceBinder bestellungServiceBinder;
@@ -60,11 +64,15 @@ public class BestellungBestellpositionen extends Fragment {
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
-		// View-IDs fuer die Textfelder einer Bestellung des aktuellen Kunden
+		// View-IDs fuer die Textfelder einer Bestellung der aktuellen Bestellposition
 		final TextView bestellungTxt = (TextView) view.findViewById(R.id.bestellpositionen_bestellung_id);
 		bestellungTxt.setText(getString(R.string.b_bestellposition_bestellung_id, bestellung.id));
 		txtBestellpositionId = (TextView) view.findViewById(R.id.bestellposition_id);
-		txtBestellpositionDatum = (TextView) view.findViewById(R.id.bestellzeitpunkt);
+		txtBestellpositionAktualisiert = (TextView) view.findViewById(R.id.bestellzeitpunkt);
+		txtBestellpositionProduktBezeichnung = (TextView) view.findViewById(R.id.bp_produkt);
+		txtBestellpositionProduktFarbe = (TextView) view.findViewById(R.id.bp_farbe);
+		txtBestellpositionMenge = (TextView) view.findViewById(R.id.b_bestellposition_menge);
+		txtBestellpositionPreis = (TextView) view.findViewById(R.id.b_bestellposition_preis);
 		
 		final Activity activity = getActivity();
 		if (Main.class.equals(activity.getClass())) {		//Falls wir uns in MAIN befinden werden die Services generiert
@@ -155,7 +163,7 @@ public class BestellungBestellpositionen extends Fragment {
 		}
 	}
 
-	private void activateBestellposition(int itemPosition, View view) {
+	private void activateBestellposition(int itemPosition, View view) {		
 		// Bestellposition-ID ermitteln
 		bestellpositionenListePos = bestellung.bestellpositionen.size() - itemPosition - 1;
 		
@@ -192,34 +200,26 @@ public class BestellungBestellpositionen extends Fragment {
 	
 	private void fillValues(View view, int pos) {
 		Log.v(LOG_TAG, "start fillValues...");
-		
-		TextView txt = (TextView) view.findViewById(R.id.bestellposition_id);
-    	txt.setText(bestellung.bestellpositionen.get(pos).id.toString());
-    	
-    	txt = (TextView) view.findViewById(R.id.bestellzeitpunkt);
-    	txt.setText(bestellung.bestellpositionen.get(pos).aktualisiert.toString());
-    	
-    	txt = (TextView) view.findViewById(R.id.bp_produkt);
+
+		txtBestellpositionId.setText(bestellung.bestellpositionen.get(pos).id.toString());
+
+    	txtBestellpositionAktualisiert.setText(bestellung.bestellpositionen.get(pos).aktualisiert.toString());
+
     	if (bestellung.bestellpositionen.get(pos).produkt == null) {
-    		txt.setText(R.string.b_not_found_produkt);
+    		txtBestellpositionProduktBezeichnung.setText(R.string.b_not_found_produkt);
     	} else {
-    		txt.setText(bestellung.bestellpositionen.get(pos).produkt.bezeichnung);
+    		txtBestellpositionProduktBezeichnung.setText(bestellung.bestellpositionen.get(pos).produkt.bezeichnung);
     	}
-    	
-    	txt = (TextView) view.findViewById(R.id.bp_farbe);
+
     	if (bestellung.bestellpositionen.get(pos).produkt == null) {
-    		txt.setText(R.string.b_not_found_produkt);
+    		txtBestellpositionProduktFarbe.setText(R.string.b_not_found_produkt);
     	} else {
-    		txt.setText(bestellung.bestellpositionen.get(pos).produkt.farbe);
+    		txtBestellpositionProduktFarbe.setText(bestellung.bestellpositionen.get(pos).produkt.farbe);
     	}
-    	
-    	Log.v(LOG_TAG, bestellung.bestellpositionen.get(pos).toString());
-    	
-    	txt = (TextView) view.findViewById(R.id.b_bestellposition_menge);
-    	txt.setText(String.valueOf(bestellung.bestellpositionen.get(pos).menge));
-    	
-    	txt = (TextView) view.findViewById(R.id.b_bestellposition_preis);
-    	txt.setText(String.valueOf(bestellung.bestellpositionen.get(pos).einzelpreis));
+
+    	txtBestellpositionMenge.setText(String.valueOf(bestellung.bestellpositionen.get(pos).menge));
+
+    	txtBestellpositionPreis.setText(String.valueOf(bestellung.bestellpositionen.get(pos).einzelpreis));
     	
     	Log.v(LOG_TAG, "end fillValues");
     }

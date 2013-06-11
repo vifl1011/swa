@@ -24,6 +24,7 @@ import de.shop.ui.kunde.KundeCreate;
 import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
 import de.shop.ui.kunde.KundenSucheNachname;
+import de.shop.ui.produkt.ListProdukte;
 
 public class MainNav extends ListFragment {
 	public enum NavType {
@@ -59,6 +60,7 @@ public class MainNav extends ListFragment {
 	
 	private PopupMenu kundenPopup;
 	private PopupMenu bestellungenPopup;
+	private PopupMenu produktePopup;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -119,6 +121,11 @@ public class MainNav extends ListFragment {
         			case BESTELLUNGEN:
         				initBestellungenPopup(view);
         				bestellungenPopup.show();
+        				return;
+        				
+        			case PRODUKTE:
+        				initProduktePopup(view);
+        				produktePopup.show();
         				return;
         				
         			default:
@@ -188,11 +195,41 @@ public class MainNav extends ListFragment {
 			public boolean onMenuItemClick(MenuItem item) {
 				Fragment neuesFragment;
 				switch (item.getItemId()) {
-					case R.id.bestellungen_neu:
-						neuesFragment = new BestellungenNeu();
-						break;
 					case R.id.bestellungen_suche_id:
 						neuesFragment = new BestellungSucheId();
+						break;
+
+					default:
+						return false;
+				}
+				
+				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+				getFragmentManager().beginTransaction()
+				                    .replace(R.id.details, neuesFragment)
+				                    .addToBackStack(null)  
+				                    .commit();
+				
+				return true;
+			}
+		});
+	}
+	
+	private void initProduktePopup(View view) {
+		if (produktePopup != null) {
+			return;
+		}
+		
+		produktePopup = new PopupMenu(getActivity(), view);
+		// inflate() ab Android 4.0 bzw. API-Level 14
+		produktePopup.inflate(R.menu.produkte_popup);
+		
+		produktePopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				Fragment neuesFragment;
+				switch (item.getItemId()) {
+					case R.id.produkte_suche:
+						neuesFragment = new ListProdukte();
 						break;
 
 					default:
