@@ -59,6 +59,7 @@ public class MainNav extends ListFragment {
 	
 	private PopupMenu kundenPopup;
 	private PopupMenu bestellungenPopup;
+	private PopupMenu produktePopup;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -119,6 +120,11 @@ public class MainNav extends ListFragment {
         			case BESTELLUNGEN:
         				initBestellungenPopup(view);
         				bestellungenPopup.show();
+        				return;
+        				
+        			case PRODUKTE:
+        				initProduktePopup(view);
+        				produktePopup.show();
         				return;
         				
         			default:
@@ -209,4 +215,41 @@ public class MainNav extends ListFragment {
 			}
 		});
 	}
+	
+	private void initProduktePopup(View view) {
+		if (produktePopup != null) {
+			return;
+		}
+		
+		produktePopup = new PopupMenu(getActivity(), view);
+		// inflate() ab Android 4.0 bzw. API-Level 14
+		produktePopup.inflate(R.menu.produkte_popup);
+		
+		bestellungenPopup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				Fragment neuesFragment;
+				switch (item.getItemId()) {
+					case R.id.produkte_neu:
+//						neuesFragment = new ProdukteNeu();
+						break;
+					case R.id.produkte_suche_id:
+//						neuesFragment = new ProdukteSucheId();
+						break;
+
+					default:
+						return false;
+				}
+				
+				// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+//				getFragmentManager().beginTransaction()
+//				                    .replace(R.id.details, neuesFragment)
+//				                    .addToBackStack(null)  
+//				                    .commit();
+				
+				return true;
+			}
+		});
+	}
+	
 }
