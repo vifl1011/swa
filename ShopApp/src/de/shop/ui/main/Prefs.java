@@ -205,7 +205,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setTimeoutListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(TIMEOUT_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				timeoutStr = (String) newValue;
@@ -272,7 +272,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setHostProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(HOST_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				hostProxy = (String) newValue;
@@ -292,7 +292,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setPortProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(PORT_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				portProxy = (String) newValue;
@@ -312,7 +312,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setUsernameProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(USERNAME_PROXY_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				usernameProxy = (String) newValue;
@@ -332,7 +332,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setPasswordProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(PASSWORD_PROXY_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				passwordProxy = (String) newValue;
