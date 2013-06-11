@@ -55,6 +55,7 @@ public class Prefs extends PreferenceFragment {
 	private static final String PASSWORD_PROXY_KEY = "passwordProxy";
 	
 	private static final String MOCK_KEY = "mock";
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -230,10 +231,11 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setUsernameListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(USERNAME_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				username = (String) newValue;
+				Log.v(LOG_TAG, "Username:"+username);
 				PreferenceManager.getDefaultSharedPreferences(getActivity())
 				                 .edit()
 				                 .putString(USERNAME_KEY, username)
@@ -250,7 +252,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setPasswordListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(PASSWORD_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				password = (String) newValue;
