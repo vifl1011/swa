@@ -1,5 +1,6 @@
 package de.shop.ui.kunde;
 
+import static de.shop.util.Constants.BESTELLUNG_KEY;
 import static de.shop.util.Constants.KUNDE_KEY;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import de.shop.data.Kunde;
 import de.shop.data.Bestellung;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
+import de.shop.ui.bestellung.BestellungDetails;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
 import de.shop.util.WischenListener;
@@ -173,5 +175,20 @@ public class KundeBestellungen extends Fragment {
 		txtBestellungId.setText(String.valueOf(bestellung.id));
 		final String datumStr = bestellung.aktualisiert == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellung.aktualisiert);
     	txtBestellungDatum.setText(datumStr);
+    	
+    	/*
+		final Bundle args = new Bundle(1);
+		args.putSerializable(BESTELLUNG_KEY, bestellung);
+		
+		final Fragment neuesFragment = new BestellungDetails();
+		neuesFragment.setArguments(args);
+		
+		// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+		getFragmentManager().beginTransaction()
+		                    .replace(R.id.details, neuesFragment)
+		                    .addToBackStack(null)
+		                    .commit();
+		                    */
+    	
 	}
 }

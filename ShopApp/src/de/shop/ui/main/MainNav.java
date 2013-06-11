@@ -228,7 +228,7 @@ public class MainNav extends ListFragment {
 			public boolean onMenuItemClick(MenuItem item) {
 				Fragment neuesFragment;
 				switch (item.getItemId()) {
-					case R.id.produkte_suche:
+					case R.id.produkte_suche_id:
 						neuesFragment = new ListProdukte();
 						break;
 

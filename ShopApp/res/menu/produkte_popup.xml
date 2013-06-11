@@ -1,6 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-    	android:id="@+id/produkte_suche"
-        android:title="@string/p_produkt_suche" />
+    	android:id="@+id/produkte_neu"
+        android:title="@string/s_neu_anlegen" />
+    <item
+    	android:id="@+id/produkte_suche_id"
+        android:title="@string/p_produkte_suchen" />
     
 </menu>
