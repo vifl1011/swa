@@ -282,7 +282,7 @@
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>Bestellungen erzeugen</web-resource-name>
-   <url-pattern>/rest/bestellungen</url-pattern>
+   <url-pattern>/rest/bestellung</url-pattern>
    <http-method>POST</http-method>
   </web-resource-collection>
   <auth-constraint>
@@ -293,8 +293,20 @@
  </security-constraint>
  <security-constraint>
   <web-resource-collection>
+   <web-resource-name>Bestellungen lesen</web-resource-name>
+   <url-pattern>/rest/bestellung/*</url-pattern>
+   <http-method>GET</http-method>
+  </web-resource-collection>
+  <auth-constraint>
+   <role-name>admin</role-name>
+   <role-name>mitarbeiter</role-name>
+   <role-name>kunde</role-name>
+  </auth-constraint>
+  </security-constraint>
+ <security-constraint>
+  <web-resource-collection>
    <web-resource-name>Bestellungen ändern</web-resource-name>
-   <url-pattern>/rest/bestellungen</url-pattern>
+   <url-pattern>/rest/bestellung</url-pattern>
    <http-method>PUT</http-method>
   </web-resource-collection>
   <auth-constraint>

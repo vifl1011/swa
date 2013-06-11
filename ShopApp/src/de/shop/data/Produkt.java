@@ -7,8 +7,11 @@ import java.util.Date;
 
 import javax.json.JsonObject;
 
+import android.util.Log;
+
 public class Produkt implements JsonMappable, Serializable  {
 	private static final long serialVersionUID = -2691507537306675231L;
+	private static final String LOG_TAG = Bestellung.class.getSimpleName();
 
 	public Long id;
 	public int version;
@@ -47,15 +50,24 @@ public class Produkt implements JsonMappable, Serializable  {
 
 	@Override
 	public void fromJsonObject(JsonObject jsonObject) {
+		Log.v(LOG_TAG, "start fromJsonObject() method...");
+		
 		id = Long.valueOf(jsonObject.getJsonNumber("id").longValue());
+		Log.v(LOG_TAG, "...");
 		version = jsonObject.getInt("version");
-		aktualisiert = new Date(jsonObject.getJsonNumber("aktualisiert").longValue());
+		Log.v(LOG_TAG, "...");
 		bezeichnung = jsonObject.getString("bezeichnung");
-		preis = Float.valueOf(jsonObject.getString("preis"));
-		erzeugt = new Date(jsonObject.getJsonNumber("erzeugt").longValue());
+		Log.v(LOG_TAG, "...");
+		preis = Float.valueOf(jsonObject.getJsonNumber("preis").toString());
+		Log.v(LOG_TAG, "...");
 		farbe = jsonObject.getString("farbe");
+		Log.v(LOG_TAG, "...");
 		groesse = jsonObject.getString("groesse");
+		Log.v(LOG_TAG, "...");
 		vorrat = jsonObject.getInt("vorrat");
+		Log.v(LOG_TAG, "...");
+		
+		Log.v(LOG_TAG, "start fromJsonObject() method...");
 	}
 
 	@Override
