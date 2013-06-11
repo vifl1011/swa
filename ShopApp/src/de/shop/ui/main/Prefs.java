@@ -55,6 +55,7 @@ public class Prefs extends PreferenceFragment {
 	private static final String PASSWORD_PROXY_KEY = "passwordProxy";
 	
 	private static final String MOCK_KEY = "mock";
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -204,7 +205,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setTimeoutListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(TIMEOUT_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				timeoutStr = (String) newValue;
@@ -230,10 +231,11 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setUsernameListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(USERNAME_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				username = (String) newValue;
+				Log.v(LOG_TAG, "Username:"+username);
 				PreferenceManager.getDefaultSharedPreferences(getActivity())
 				                 .edit()
 				                 .putString(USERNAME_KEY, username)
@@ -250,7 +252,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setPasswordListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(PASSWORD_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				password = (String) newValue;
@@ -270,7 +272,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setHostProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(HOST_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				hostProxy = (String) newValue;
@@ -290,7 +292,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setPortProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(PORT_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				portProxy = (String) newValue;
@@ -310,7 +312,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setUsernameProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(USERNAME_PROXY_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				usernameProxy = (String) newValue;
@@ -330,7 +332,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setPasswordProxyListener() {
-		findPreference(PATH_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(PASSWORD_PROXY_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				passwordProxy = (String) newValue;
