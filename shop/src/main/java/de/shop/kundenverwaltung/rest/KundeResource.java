@@ -9,6 +9,7 @@ import static javax.ws.rs.core.MediaType.TEXT_XML;
 
 import java.lang.invoke.MethodHandles;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -19,12 +20,14 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
@@ -130,6 +133,58 @@ public class KundeResource {
 		return kunde;
 	}
 	
+	@GET
+	public Collection<Kunde> findKundenByNachname(@QueryParam("nachname") @DefaultValue("") String name,
+            @Context UriInfo uriInfo,
+            @Context HttpHeaders headers) {
+		Collection<Kunde> kunden = null;
+		if ("".equals(name)) {
+			kunden = ks.findAllKunden(FetchType.NUR_KUNDE);
+		}
+		else {
+			final List<Locale> locales = headers.getAcceptableLanguages();
+			final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+			kunden = ks.findKundenByName(name, FetchType.NUR_KUNDE, locale);
+			if (kunden.isEmpty()) {
+				final String msg = "Kein Kunde gefunden mit Nachname " + name;
+				throw new NotFoundException(msg);
+			}
+		}
+		
+		// URIs innerhalb der gefundenen Kunden anpassen
+		for (Kunde kunde : kunden) {
+			uriHelperKunde.updateUriKunde(kunde, uriInfo);
+		}
+		return kunden;
+	}
+	
+	
+	@GET
+	@Path("{id:[1-9][0-9]*}/bestellungenIds")
+	@Wrapped(element = "bestellungen")
+	public Collection<Long> findBestellungenIdsByKundeId(@PathParam("id") Long id,
+			                           @Context UriInfo uriInfo,
+			                           @Context HttpHeaders headers) {
+		final List<Locale> locales = headers.getAcceptableLanguages();
+		final Locale locale = locales.isEmpty() ? config.getDefaultLocale() : locales.get(0);
+		final Kunde kunde = ks.findKundeById(id, FetchType.MIT_BESTELLUNGEN, locale);
+		if (kunde == null) {
+			// TODO msg passend zu locale
+			final String msg = "Kein Kunde gefunden mit der ID " + id;
+			throw new NotFoundException(msg);
+		}
+		final Collection<Bestellung> bestellungen = kunde.getBestellungen();
+		if (bestellungen.isEmpty()) {
+			final String msg = "Kunde mit der ID " + id + " hat keine Bestellungen";
+			throw new NotFoundException(msg);
+		}
+		Collection<Long> ids = new ArrayList<Long>();
+		for (Bestellung bestellung : bestellungen){
+			ids.add(bestellung.getId());
+		}
+			
+		return ids;
+	}
 	
 	/**
 	 * Mit der URL /kunden/{id}/bestellungen die bestellungen eines Kunden ermitteln
