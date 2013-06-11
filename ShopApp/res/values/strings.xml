@@ -5,6 +5,7 @@
 	<string name="s_desc_icon">Icon of the menu item</string>
 	<string name="s_nav_kunden">Customers</string>
 	<string name="s_nav_bestellungen">Orders</string>
+	<string name="s_nav_produkte">Products</string>
 	<string name="s_einstellungen">Settings</string>
 	<string name="s_kunden_suche_id">Search by ID</string>
 	<string name="s_kunde_create">Kunde Erstellen</string>

@@ -28,7 +28,8 @@ import de.shop.ui.kunde.KundenSucheNachname;
 public class MainNav extends ListFragment {
 	public enum NavType {
 		KUNDEN(0),
-		BESTELLUNGEN(1);
+		BESTELLUNGEN(1),
+		PRODUKTE(2);
 		
 		private int value;
 		
@@ -44,6 +45,7 @@ public class MainNav extends ListFragment {
 			switch (value) {
 				case 0:	return KUNDEN;
 				case 1:	return BESTELLUNGEN;
+				case 2:	return PRODUKTE;
 				default: return KUNDEN;
 			}
 		}
@@ -81,6 +83,11 @@ public class MainNav extends ListFragment {
 				case BESTELLUNGEN:
 					navItem.put(ICON, R.drawable.ic_bestellungen);
 					navItem.put(TEXT, getString(R.string.s_nav_bestellungen));
+					break;
+					
+				case PRODUKTE:
+					navItem.put(ICON, R.drawable.ic_artikel);
+					navItem.put(TEXT, getString(R.string.s_nav_produkte));
 					break;
 					
 				default:

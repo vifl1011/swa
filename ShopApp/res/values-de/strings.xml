@@ -6,6 +6,7 @@
 	<string name="s_desc_icon">Icon für den Navigationseintrag</string>
 	<string name="s_nav_kunden">Kunden</string>
 	<string name="s_nav_bestellungen">Bestellungen</string>
+	<string name="s_nav_produkte">Produkte</string>
 	<string name="s_einstellungen">Einstellungen</string>
 	<string name="s_kunden_suche_id">Suche mit Kundennr.</string>
 	<string name="s_kunde_create">Kunde Erstellen</string>
