@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class Produkt implements JsonMappable, Serializable  {
 	private static final long serialVersionUID = -2691507537306675231L;
-	private static final String LOG_TAG = Bestellung.class.getSimpleName();
+	private static final String LOG_TAG = Produkt.class.getSimpleName();
 
 	public Long id;
 	public int version;

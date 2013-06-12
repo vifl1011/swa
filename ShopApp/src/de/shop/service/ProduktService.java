@@ -16,8 +16,6 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import de.shop.R;
-import de.shop.data.Bestellposition;
-import de.shop.data.Bestellung;
 import de.shop.data.Produkt;
 import de.shop.util.InternalShopError;
 
@@ -47,7 +45,7 @@ public class ProduktService extends Service {
 		// Aufruf in einem eigenen Thread
 		public HttpResponse<Produkt> getProduktById(Long id, final Context ctx) {
 			
-			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Bestellung"
+			// (evtl. mehrere) Parameter vom Typ "Long"
 			final AsyncTask<Long, Void, HttpResponse<Produkt>> getProduktByIdTask = new AsyncTask<Long, Void, HttpResponse<Produkt>>() {
 
 				@Override
@@ -85,12 +83,14 @@ public class ProduktService extends Service {
 	    	return result;
 		}
 
+		
+		
 		/**
 	 	*/
 		public HttpResponse<Produkt> getProdukte(final Context ctx) {
 			
-			// (evtl. mehrere) Parameter vom Typ "Long", Resultat vom Typ "Bestellung"
-			final AsyncTask<Long, Void, HttpResponse<Produkt>> getBestellpositionByIdTask = new AsyncTask<Long, Void, HttpResponse<Produkt>>() {
+			// (evtl. mehrere) Parameter vom Typ "Long"
+			final AsyncTask<Long, Void, HttpResponse<Produkt>> getProdukte = new AsyncTask<Long, Void, HttpResponse<Produkt>>() {
 		
 				@Override
 				protected void onPreExecute() {
@@ -115,10 +115,10 @@ public class ProduktService extends Service {
 				}
 			};
 			
-			getBestellpositionByIdTask.execute();
+			getProdukte.execute();
 			HttpResponse<Produkt> result = null;
 			try {
-				result = getBestellpositionByIdTask.get(timeout, SECONDS);
+				result = getProdukte.get(timeout, SECONDS);
 			}
 			catch (Exception e) {
 				throw new InternalShopError(e.getMessage(), e);

@@ -1,6 +1,8 @@
 <resources>
     
 	<string name="p_produkt_suche">List products</string>
+	<string name="p_produkt_id">Produkt id</string>
+	<string name="p_produkt_bez">Produkt name</string>
 	
 	
 
