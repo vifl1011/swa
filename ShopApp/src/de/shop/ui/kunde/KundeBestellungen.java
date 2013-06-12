@@ -6,6 +6,7 @@ import static de.shop.util.Constants.KUNDE_KEY;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -48,18 +49,20 @@ public class KundeBestellungen extends Fragment {
 	private KundeServiceBinder kundeServiceBinder;
 	private BestellungServiceBinder bestellungServiceBinder;
 	
+	private Fragment altesFragment;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		kunde = (Kunde) getArguments().get(KUNDE_KEY);
         
         setHasOptionsMenu(true);
-        
         // attachToRoot = false, weil die Verwaltung des Fragments durch die Activity erfolgt
 		return inflater.inflate(R.layout.kunde_bestellungen, container, false);
 	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
+		
 		// View-IDs fuer die Textfelder einer Bestellung des aktuellen Kunden
 		final TextView kundeTxt = (TextView) view.findViewById(R.id.bestellungen_kunde_id);
 		kundeTxt.setText(getString(R.string.k_bestellungen_kunde_id, kunde.id));
@@ -102,7 +105,7 @@ public class KundeBestellungen extends Fragment {
 	        		                                                      android.R.id.text1,
 	        		                                                      values);
 			listView.setAdapter(adapter);
-			activateBestellung(0, view);                  // Die neueste Bestellung visualisieren
+			activateBestellung(0, view, false);                  // Die neueste Bestellung visualisieren
 			setItemClickListenerBestellungen(listView);   // Bestellungen in der Liste duerfen angeklickt werden
 		}
 		
@@ -118,7 +121,7 @@ public class KundeBestellungen extends Fragment {
 				// itemId = itemPosition bei String-Arrays bzw. = Primaerschluessel bei Listen aus einer DB
 				
 				// Bestellung ermitteln bzw. per Web Service nachladen
-				activateBestellung(itemPosition, view);
+				activateBestellung(itemPosition, view, true);
 			}
 		});
 	}
@@ -154,9 +157,10 @@ public class KundeBestellungen extends Fragment {
 		}
 	}
 
-	private void activateBestellung(int itemPosition, View view) {
+	private void activateBestellung(int itemPosition, View view, boolean newFragment) {
 		// Bestellung-ID ermitteln
 		bestellungenListePos = bestellungenIds.size() - itemPosition - 1;
+		
 		
 		// Bestellung ermitteln bzw. per Web Service nachladen
 		bestellung = bestellungen.get(bestellungenListePos);
@@ -176,19 +180,31 @@ public class KundeBestellungen extends Fragment {
 		final String datumStr = bestellung.aktualisiert == null ? "" : DateFormat.getDateFormat(getActivity()).format(bestellung.aktualisiert);
     	txtBestellungDatum.setText(datumStr);
     	
-    	/*
-		final Bundle args = new Bundle(1);
-		args.putSerializable(BESTELLUNG_KEY, bestellung);
-		
-		final Fragment neuesFragment = new BestellungDetails();
-		neuesFragment.setArguments(args);
-		
-		// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
-		getFragmentManager().beginTransaction()
-		                    .replace(R.id.details, neuesFragment)
-		                    .addToBackStack(null)
-		                    .commit();
-		                    */
-    	
+    	if(newFragment){
+			final Bundle args = new Bundle(1);
+			args.putSerializable(BESTELLUNG_KEY, bestellung);
+			
+			final Fragment neuesFragment = new BestellungDetails();
+			neuesFragment.setArguments(args);
+			
+			// Kein Name (null) fuer die Transaktion, da die Klasse BackStageEntry nicht verwendet wird
+			//getActivity().getActionBar().getTabCount() >2
+			
+			if(altesFragment!=null){
+				getFragmentManager().beginTransaction()
+									.remove(altesFragment)
+									.commit();
+		    	final ActionBar actionBar = getActivity().getActionBar();
+		    	while(actionBar.getTabCount() >2){
+		    		actionBar.removeTabAt(actionBar.getTabCount()-1);
+		    	}
+			}
+			getFragmentManager().beginTransaction()
+			                    .add(R.id.details, neuesFragment)
+			                    .commit();
+
+			altesFragment=neuesFragment;
+    	}             
+    
 	}
 }
