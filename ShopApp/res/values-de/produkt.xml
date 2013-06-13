@@ -3,7 +3,8 @@
 	<string name="p_produkt_suche">Zeige Produkte</string>
 	<string name="p_produkt_id">Produkt id</string>
 	<string name="p_produkt_bez">Produkt bezeichnung</string>
-	
+	<string name="p_produkt_id_auswahl_hint">Wählen Sie eine Nummer aus</string>
+	<string name="p_produkt_id_hint">Produktnummer eingeben</string>
 	
 
 </resources>
