@@ -49,8 +49,8 @@ public class Prefs extends PreferenceFragment {
 	private static final String USERNAME_KEY = "username";
 	private static final String PASSWORD_KEY = "password";
 	
-	private static final String HOST_PROXY_KEY = "hostProxy";
-	private static final String PORT_PROXY_KEY = "portProxy";
+	private static final String HOST_PROXY_KEY = "proxy_host";
+	private static final String PORT_PROXY_KEY = "proxy_port";
 	private static final String USERNAME_PROXY_KEY = "proxy_username";
 	private static final String PASSWORD_PROXY_KEY = "proxy_password";
 	
@@ -275,7 +275,7 @@ public class Prefs extends PreferenceFragment {
 	}
 	
 	private void setHostProxyListener() {
-		findPreference(HOST_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+		findPreference(HOST_PROXY_KEY).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				hostProxy = (String) newValue;
