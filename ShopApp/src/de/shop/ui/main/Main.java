@@ -24,6 +24,7 @@ import de.shop.service.BestellungService;
 import de.shop.service.KundeService;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
+import de.shop.service.ProduktService.ProduktServiceBinder;
 import de.shop.ui.kunde.KundeDetails;
 
 public class Main extends Activity {
@@ -31,6 +32,7 @@ public class Main extends Activity {
 	
 	private KundeServiceBinder kundeServiceBinder;
 	private BestellungServiceBinder bestellungServiceBinder;
+	private ProduktServiceBinder produktServiceBinder;
 	
 	// ServiceConnection ist ein Interface: anonyme Klasse verwenden, um ein Objekt davon zu erzeugen
 	private ServiceConnection kundeServiceConnection = new ServiceConnection() {
@@ -135,6 +137,10 @@ public class Main extends Activity {
 
 	public KundeServiceBinder getKundeServiceBinder() {
 		return kundeServiceBinder;
+	}
+	
+	public ProduktServiceBinder getProduktServiceBinder() {
+		return produktServiceBinder;
 	}
 
 	public BestellungServiceBinder getBestellungServiceBinder() {
