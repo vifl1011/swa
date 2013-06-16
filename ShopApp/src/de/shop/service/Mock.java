@@ -2,6 +2,7 @@ package de.shop.service;
 
 import static de.shop.ui.main.Prefs.username;
 import static de.shop.util.Constants.KUNDEN_PATH;
+import static de.shop.util.Constants.PRODUKT_PATH;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_CREATED;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
@@ -232,6 +233,14 @@ final class Mock {
     	Log.d(LOG_TAG, "createKunde: " + kunde);
     	Log.d(LOG_TAG, "createKunde: " + kunde.toJsonObject());
     	final HttpResponse<Kunde> result = new HttpResponse<Kunde>(HTTP_CREATED, KUNDEN_PATH + "/1", kunde);
+    	return result;
+    }
+    
+    static HttpResponse<Produkt> createProdukt(Produkt produkt) {
+    	produkt.id = Long.valueOf(produkt.bezeichnung.length());  // Anzahl der Buchstaben der Bezeichnung als emulierte neue ID
+    	Log.d(LOG_TAG, "createProdukt: " + produkt);
+    	Log.d(LOG_TAG, "createProdukt: " + produkt.toJsonObject());
+    	final HttpResponse<Produkt> result = new HttpResponse<Produkt>(HTTP_CREATED, PRODUKT_PATH + "/1", produkt);
     	return result;
     }
 

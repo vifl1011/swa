@@ -127,5 +127,48 @@ public class ProduktService extends Service {
 			return result;
 		}
 		
+		public HttpResponse<Produkt> createProdukt(Produkt produkt, final Context ctx) {
+			// (evtl. mehrere) Parameter vom Typ "Produkte", Resultat vom Typ "void"
+			final AsyncTask<Produkt, Void, HttpResponse<Produkt>> createProduktTask = new AsyncTask<Produkt, Void, HttpResponse<Produkt>>() {
+				@Override
+	    		protected void onPreExecute() {
+					progressDialog = showProgressDialog(ctx);
+				}
+				
+				@Override
+				// Neuer Thread, damit der UI-Thread nicht blockiert wird
+				protected HttpResponse<Produkt> doInBackground(Produkt... produkte) {
+					final Produkt produkt = produkte[0];
+		    		final String path = PRODUKT_PATH;
+		    		Log.v(LOG_TAG, "path = " + path);
+
+		    		final HttpResponse<Produkt> result = mock
+                                                               ? Mock.createProdukt(produkt)
+                                                               : WebServiceClient.postJson(produkt, path);
+		    		
+					Log.d(LOG_TAG + ".AsyncTask", "doInBackground: " + result);
+					return result;
+				}
+				
+				@Override
+	    		protected void onPostExecute(HttpResponse<Produkt> unused) {
+					progressDialog.dismiss();
+	    		}
+			};
+			
+			createProduktTask.execute(produkt);
+			HttpResponse<Produkt> response = null; 
+			try {
+				response = createProduktTask.get(timeout, SECONDS);
+			}
+	    	catch (Exception e) {
+	    		throw new InternalShopError(e.getMessage(), e);
+			}
+			
+			produkt.id = Long.valueOf(response.content);
+			final HttpResponse<Produkt> result = new HttpResponse<Produkt>(response.responseCode, response.content, produkt);
+			return result;
+	    }
+		
 	}
 }

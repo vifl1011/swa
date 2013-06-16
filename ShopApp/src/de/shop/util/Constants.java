@@ -30,6 +30,7 @@ public final class Constants {
 	
 	public static final String BESTELLUNG_PATH = "/bestellung";
 	public static final String BESTELLPOSITION_PATH = "/bestellposition";
+	
 	public static final String PRODUKT_PATH = "/Produkt";
 
 	
