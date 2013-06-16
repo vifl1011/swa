@@ -1,15 +1,11 @@
 package de.shop.ui.bestellung;
 
 import static de.shop.util.Constants.BESTELLUNG_KEY;
-import static de.shop.util.Constants.PRODUKTE_KEY;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -25,7 +21,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import de.shop.R;
 import de.shop.data.Bestellposition;
-import de.shop.data.Kunde;
 import de.shop.data.Bestellung;
 import de.shop.data.Produkt;
 import de.shop.service.BestellungService.BestellungServiceBinder;
@@ -39,7 +34,6 @@ public class BestellungBestellpositionen extends Fragment {
 	
 	private Bestellung bestellung;
 	private List<Long> bestellpositionenIds;
-	private List<Bestellposition> bestellpositionen;
 	private Bestellposition bestellposition;
 	private int bestellpositionenListePos;
 	

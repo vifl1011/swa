@@ -11,7 +11,6 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 
-import de.shop.service.BestellungService;
 import android.net.Uri;
 import android.util.Log;
 

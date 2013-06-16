@@ -1,20 +1,10 @@
 package de.shop.ui.produkt;
 
-import static de.shop.util.Constants.PRODUKT_KEY;
-import static de.shop.util.Constants.MAX_KATEGORIE;
-import static de.shop.util.Constants.MIN_KATEGORIE;
 import static java.net.HttpURLConnection.HTTP_CONFLICT;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_NO_CONTENT;
 import static java.net.HttpURLConnection.HTTP_OK;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
-
-import java.util.GregorianCalendar;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -27,12 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 import de.shop.R;
 import de.shop.data.Produkt;
 import de.shop.service.HttpResponse;

@@ -1,17 +1,11 @@
 package de.shop.ui.produkt;
 
-import static de.shop.util.Constants.BESTELLUNG_KEY;
-import static de.shop.util.Constants.PRODUKTE_KEY;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -26,13 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.shop.R;
-import de.shop.data.Bestellposition;
-import de.shop.data.Kunde;
-import de.shop.data.Bestellung;
 import de.shop.data.Produkt;
 import de.shop.service.HttpResponse;
 import de.shop.service.BestellungService.BestellungServiceBinder;
-import de.shop.service.KundeService.KundeServiceBinder;
 import de.shop.service.ProduktService.ProduktServiceBinder;
 import de.shop.ui.main.Main;
 import de.shop.ui.main.Prefs;
@@ -54,8 +44,6 @@ public class ListProdukte extends Fragment {
 	private TextView txtProduktPreis;
 	
 	private ProduktServiceBinder produktServiceBinder;
-	private BestellungServiceBinder bestellungServiceBinder;
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		//produkte = (List<Produkt>) getArguments().get(PRODUKTE_KEY);
@@ -83,7 +71,7 @@ public class ListProdukte extends Fragment {
 		if (Main.class.equals(activity.getClass())) {		//Falls wir uns in MAIN befinden werden die Services generiert
 			Main main = (Main) activity;
 			produktServiceBinder = main.getProduktServiceBinder();
-			bestellungServiceBinder = main.getBestellungServiceBinder();
+			main.getBestellungServiceBinder();
 			Log.e(LOG_TAG, "Activity " + activity.getClass().getSimpleName() + " ==> Service Binder wurden neu generiert.");
 		}
 		else {

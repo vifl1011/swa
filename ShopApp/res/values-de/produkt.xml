@@ -1,6 +1,7 @@
 <resources>
     
-	<string name="p_produkt_suche">Zeige Produkte</string>
+	<string name="p_produkt_suche">Suche Produkt nach ID</string>
+	<string name="p_produkte_suchen">All Produkte</string>
 	<string name="p_produkt_id">Produkt id</string>
 	<string name="p_produkt_bez">Produkt</string>
 	<string name="p_produkt_farbe">Farbe</string>

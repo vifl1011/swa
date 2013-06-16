@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import de.shop.R;
 import de.shop.data.Bestellung;
-import de.shop.data.Kunde;
 import de.shop.util.TabListener;
 
 public class BestellungDetails extends Fragment {

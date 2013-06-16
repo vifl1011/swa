@@ -4,20 +4,11 @@ import static de.shop.ShopApp.jsonBuilderFactory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 
-import de.shop.util.InternalShopError;
-
 public class Kunde implements JsonMappable, Serializable {
 	private static final long serialVersionUID = -7505776004556360014L;
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
-
 	public Long id;
 	public int version;
 	public String nachname;

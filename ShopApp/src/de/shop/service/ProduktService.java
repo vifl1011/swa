@@ -5,8 +5,6 @@ import static de.shop.ui.main.Prefs.timeout;
 import static de.shop.util.Constants.PRODUKT_PATH;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-import java.util.List;
-
 import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
