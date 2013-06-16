@@ -102,9 +102,9 @@ public class ProduktCreate extends Fragment {
 					Main main = (Main) activity;
 					produktServiceBinder = main.getProduktServiceBinder();
 				}
-				else if (ProduktListe.class.equals(activity.getClass())) {
-					ProduktListe produktListe = (ProduktListe) activity;
-					produktServiceBinder = produktListe.getProduktServiceBinder();
+				else if (ProduktActivity.class.equals(activity.getClass())) {
+					ProduktActivity produktActivity = (ProduktActivity) activity;
+					produktServiceBinder = produktActivity.getProduktServiceBinder();
 				}
 				else {
 					return true;

@@ -104,7 +104,7 @@ public class BestellungStammdaten extends Fragment {
 	// Nur aufgerufen, falls setHasOptionsMenu(true) in onCreateView() aufgerufen wird
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.kunde_stammdaten_options, menu); //TODO entsprechendes Pendant fehlts
+		inflater.inflate(R.menu.kunde_stammdaten_options, menu); //TODO entsprechendes Pendant fehlt
 		
 		// "Searchable Configuration" in res\xml\searchable.xml wird der SearchView zugeordnet
 		final Activity activity = getActivity();

@@ -93,6 +93,9 @@
 			android:name=".service.BestellungService" />
 		
 		<service
+			android:name=".service.ProduktService" />
+		
+		<service
 			android:name=".service.NetworkService" />
 				
 	</application>
