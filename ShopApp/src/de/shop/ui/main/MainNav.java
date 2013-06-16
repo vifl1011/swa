@@ -25,6 +25,7 @@ import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
 import de.shop.ui.kunde.KundenSucheNachname;
 import de.shop.ui.produkt.ListProdukte;
+import de.shop.ui.produkt.ProduktCreate;
 
 public class MainNav extends ListFragment {
 	public enum NavType {
@@ -230,6 +231,10 @@ public class MainNav extends ListFragment {
 				switch (item.getItemId()) {
 					case R.id.produkte_suche_id:
 						neuesFragment = new ListProdukte();
+						break;
+						
+					case R.id.produkt_create:
+						neuesFragment = new ProduktCreate();
 						break;
 
 					default:

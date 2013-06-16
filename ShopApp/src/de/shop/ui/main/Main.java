@@ -24,6 +24,7 @@ import de.shop.service.BestellungService;
 import de.shop.service.KundeService;
 import de.shop.service.BestellungService.BestellungServiceBinder;
 import de.shop.service.KundeService.KundeServiceBinder;
+import de.shop.service.ProduktService;
 import de.shop.service.ProduktService.ProduktServiceBinder;
 import de.shop.ui.kunde.KundeDetails;
 
@@ -58,6 +59,19 @@ public class Main extends Activity {
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			bestellungServiceBinder = null;
+		}
+	};
+	
+	private ServiceConnection produktServiceConnection = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder serviceBinder) {
+			Log.v(LOG_TAG, "onServiceConnected() fuer ProduktServiceBinder");
+			produktServiceBinder = (ProduktServiceBinder) serviceBinder;
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			produktServiceBinder = null;
 		}
 	};
 	
@@ -125,6 +139,9 @@ public class Main extends Activity {
 		
 		intent = new Intent(this, BestellungService.class);
 		bindService(intent, bestellungServiceConnection, Context.BIND_AUTO_CREATE);
+		
+		intent = new Intent(this, ProduktService.class);
+		bindService(intent, produktServiceConnection, Context.BIND_AUTO_CREATE);
     }
     
 	@Override
@@ -133,6 +150,7 @@ public class Main extends Activity {
 		
 		unbindService(kundeServiceConnection);
 		unbindService(bestellungServiceConnection);
+		unbindService(produktServiceConnection);
 	}
 
 	public KundeServiceBinder getKundeServiceBinder() {

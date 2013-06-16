@@ -8,6 +8,7 @@ import android.view.View;
 import de.shop.R;
 import de.shop.ui.bestellung.BestellungenActivity;
 import de.shop.ui.kunde.KundenActivity;
+import de.shop.ui.produkt.ProduktActivity;
 
 public class MainSmartphone extends Activity {
 	@Override
@@ -32,6 +33,15 @@ public class MainSmartphone extends Activity {
 			}
 		};
         findViewById(R.id.btn_bestellungen).setOnClickListener(clickListenerBestellungen);
+        
+        final View.OnClickListener clickListenerProdukte = new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				final Intent intent = new Intent(view.getContext(), ProduktActivity.class);;
+				startActivity(intent);
+			}
+		};
+        findViewById(R.id.btn_produkt).setOnClickListener(clickListenerProdukte);
     }
 
 	@Override
