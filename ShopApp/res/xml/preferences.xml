@@ -39,6 +39,7 @@
 			android:key="username"
 			android:title="@string/s_username_title"
 			android:summary="@string/s_username_summary" />
+			android:defaultValue="200" />
 		
 		<EditTextPreference
 			android:key="password"

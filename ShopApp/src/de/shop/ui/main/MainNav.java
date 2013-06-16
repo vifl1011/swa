@@ -1,5 +1,9 @@
 package de.shop.ui.main;
 
+import static de.shop.util.Constants.KUNDEN_KEY;
+import static de.shop.util.Constants.PRODUKTE_KEY;
+import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +11,10 @@ import java.util.Map;
 
 import android.app.Fragment;
 import android.app.ListFragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -18,10 +25,14 @@ import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import de.shop.R;
+import de.shop.data.Kunde;
+import de.shop.data.Produkt;
+import de.shop.service.HttpResponse;
 import de.shop.ui.bestellung.BestellungSucheId;
 import de.shop.ui.kunde.KundeCreate;
 import de.shop.ui.kunde.KundeDelete;
 import de.shop.ui.kunde.KundeSucheId;
+import de.shop.ui.kunde.KundenListe;
 import de.shop.ui.kunde.KundenSucheNachname;
 import de.shop.ui.produkt.ListProdukte;
 import de.shop.ui.produkt.ProduktCreate;

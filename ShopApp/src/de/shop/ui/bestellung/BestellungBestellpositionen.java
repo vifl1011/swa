@@ -1,6 +1,7 @@
 package de.shop.ui.bestellung;
 
 import static de.shop.util.Constants.BESTELLUNG_KEY;
+import static de.shop.util.Constants.PRODUKTE_KEY;
 
 import java.util.ArrayList;
 import java.util.List;

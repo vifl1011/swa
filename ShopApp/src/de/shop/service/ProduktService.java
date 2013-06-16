@@ -100,8 +100,8 @@ public class ProduktService extends Service {
 				@Override
 				// Neuer Thread, damit der UI-Thread nicht blockiert wird
 				protected HttpResponse<Produkt> doInBackground(Long... ids) {
-					final Long produktId = ids[0];
-		    		final String path = PRODUKT_PATH + "/" + produktId;
+					//final Long produktId = ids[0];
+		    		final String path = PRODUKT_PATH;
 		    		Log.v(LOG_TAG, "path = " + path);
 		
 		    		final HttpResponse<Produkt> result = WebServiceClient.getJsonList(path, Produkt.class);
