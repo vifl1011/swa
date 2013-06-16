@@ -5,6 +5,11 @@
 	<string name="p_produkt_bez">Produkt name</string>
 	<string name="p_produkt_id_auswahl_hint">Select product number</string>
 	<string name="p_produkt_id_hint">type product number</string>
+	<string name="p_create_bezeichnung">Description</string>
+	<string name="p_create_preis">Cost</string>
+	<string name="p_create_farbe">Colour</string>
+	<string name="p_create_groesse">Size</string>
+	<string name="p_create_vorrat">Stock</string>
 	
 	
 

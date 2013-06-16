@@ -5,6 +5,10 @@
 	<string name="p_produkt_bez">Produkt bezeichnung</string>
 	<string name="p_produkt_id_auswahl_hint">Wählen Sie eine Nummer aus</string>
 	<string name="p_produkt_id_hint">Produktnummer eingeben</string>
-	
+	<string name="p_create_bezeichnung">Bezeichnung</string>
+	<string name="p_create_preis">Preis</string>
+	<string name="p_create_farbe">Farbe</string>
+	<string name="p_create_groesse">Größe</string>
+	<string name="p_create_vorrat">Vorrat</string>
 
 </resources>

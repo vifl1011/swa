@@ -11,7 +11,7 @@
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:text="@string/p_bezeichnung" />
+				android:text="@string/p_create_bezeichnung" />
 			
 			<EditText
 			    android:id="@+id/bezeichnung_create"
@@ -27,9 +27,9 @@
 		<TableRow>
 		
 	        <TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/p_preis" />
+	        	android:layout_width="match_parent"
+	        	android:layout_height="wrap_content"
+	        	android:text="@string/p_create_preis" />
 	        
 	        <EditText
 	            android:id="@+id/preis_create"
@@ -44,9 +44,9 @@
 	    <TableRow>
 	
 	        <TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/p_farbe" />
+	        	android:layout_width="match_parent"
+	        	android:layout_height="wrap_content"
+	        	android:text="@string/p_create_farbe" />
 	        
 	        <EditText
 	            android:id="@+id/farbe_create"
@@ -61,9 +61,9 @@
 	    <TableRow>
 	
             <TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/p_groesse" />
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="@string/p_create_groesse" />
 
 	        <EditText
 	            android:id="@+id/groesse_create"
@@ -78,9 +78,9 @@
 	     <TableRow>
 	
             <TextView
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:text="@string/p_vorrat" />
+            	android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+            	android:text="@string/p_create_vorrat" />
 
 	        <EditText
 	            android:id="@+id/vorrat_create"
