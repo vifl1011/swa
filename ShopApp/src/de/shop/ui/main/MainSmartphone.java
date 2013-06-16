@@ -41,7 +41,7 @@ public class MainSmartphone extends Activity {
 				startActivity(intent);
 			}
 		};
-        findViewById(R.id.btn_produkt).setOnClickListener(clickListenerProdukte);
+        findViewById(R.id.btn_produkte).setOnClickListener(clickListenerProdukte);
     }
 
 	@Override

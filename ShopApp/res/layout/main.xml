@@ -30,6 +30,16 @@
 	    	android:minWidth="120dp"
 	    	android:text="@string/s_nav_bestellungen"
 	    	tools:ignore="InconsistentLayout" />
+	    
+	    <Button
+	    	android:id="@+id/btn_produkte"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:drawableTop="@drawable/ic_artikel"
+	    	android:minHeight="62dp"
+	    	android:minWidth="120dp"
+	    	android:text="@string/s_nav_produkte"
+	    	tools:ignore="InconsistentLayout" />
 
 	</TableRow>
 
