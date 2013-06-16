@@ -2,7 +2,13 @@
     
 	<string name="p_produkt_suche">List products</string>
 	<string name="p_produkt_id">Produkt id</string>
-	<string name="p_produkt_bez">Produkt name</string>
+	<string name="p_produkt_bez">Product</string>
+	<string name="p_produkt_farbe">Colour</string>
+	<string name="p_produkt_groesse">Size</string>
+	<string name="p_produkt_preis">Cost</string>
+	<string name="p_produkt_vorrat">Stock</string>
+	<string name="p_produkt_aktualisiert">last update</string>
+	<string name="p_produkt_erstellt">created</string>
 	<string name="p_produkt_id_auswahl_hint">Select product number</string>
 	<string name="p_produkt_id_hint">type product number</string>
 	<string name="p_create_bezeichnung">Description</string>

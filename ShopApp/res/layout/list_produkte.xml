@@ -1,0 +1,164 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/bestellung_details_bestellpositionen"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:baselineAligned="false"
+	android:orientation="vertical"
+	tools:context=".ui.main.Main" >
+
+    <!-- textAppearanceListItemSmall erfordert API Level 14, d.h. Android 4.0 -->
+
+    <TextView
+    	android:id="@+id/produkte_id"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	
+    	android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    	android:textIsSelectable="false" />
+	
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:baselineAligned="false" >
+	
+	    <ListView
+	    	android:id="@+id/produkte_liste"
+	    	android:layout_width="0dp"
+	    	android:layout_height="match_parent"
+	    	android:layout_weight="1" />
+	    
+	    <TableLayout
+			android:layout_weight="4"
+			android:layout_width="0dp"
+			android:layout_height="match_parent" >
+		
+			<TableRow>
+		
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_id" />
+				
+				<TextView
+					android:id="@+id/list_product_id"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+		
+			</TableRow>
+			
+			<TableRow>
+		
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_bez" />
+				
+				<TextView
+					android:id="@+id/list_produkt_bez"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+		
+			</TableRow>
+
+			<TableRow
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_farbe" />
+
+				<TextView
+					android:id="@+id/list_produkt_farbe"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" >
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_groesse" />
+
+				<TextView
+					android:id="@+id/list_produkt_groesse"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_preis" />
+
+				<TextView
+					android:id="@+id/list_produkt_preis"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_vorrat" />
+
+				<TextView
+					android:id="@+id/list_produkt_vorrat"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_aktualisiert" />
+
+				<TextView
+					android:id="@+id/list_produkt_aktualisiert"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+			</TableRow>
+
+			<TableRow>
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="@string/p_produkt_erstellt" />
+
+				<TextView
+					android:id="@+id/list_produkt_erstellt"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:paddingLeft="5dp"
+					android:textIsSelectable="false" />
+			</TableRow>
+		
+		</TableLayout>
+    
+    </LinearLayout>
+
+</LinearLayout>
