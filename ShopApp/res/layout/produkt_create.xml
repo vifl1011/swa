@@ -14,13 +14,13 @@
 				android:text="@string/p_create_bezeichnung" />
 			
 			<EditText
-			    android:id="@+id/bezeichnung_create"
-			    style="@style/RechteSpalteText"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:inputType="text"
-			    android:paddingLeft="5dp"
-			    tools:ignore="LabelFor" />
+				android:id="@+id/bezeichnung_create"
+				style="@style/RechteSpalteText"
+				android:layout_width="100dp"
+				android:layout_height="wrap_content"
+				android:inputType="text"
+				android:paddingLeft="5dp"
+				tools:ignore="LabelFor" />
 	
 		</TableRow>
 		

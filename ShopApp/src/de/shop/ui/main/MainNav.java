@@ -232,7 +232,8 @@ public class MainNav extends ListFragment {
 						neuesFragment = new ListProdukte();
 						break;
 						
-					case R.id.produkt_create:
+					case R.id.produkte_neu:
+						Log.d(LOG_TAG, "produkt erstellen...");
 						neuesFragment = new ProduktCreate();
 						break;
 

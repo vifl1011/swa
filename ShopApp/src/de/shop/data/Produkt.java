@@ -35,12 +35,8 @@ public class Produkt implements JsonMappable, Serializable  {
 	@Override
 	public JsonObject toJsonObject() {
 		return jsonBuilderFactory.createObjectBuilder()
-                .add("id", id)
-                .add("version", version)
-                .add("aktualisiert", aktualisiert.getTime())
                 .add("bezeichnung", bezeichnung)
-                .add("erzeugt", erzeugt.getTime())
-                .add("preis", preis)
+                .add("preis", (double) preis)
                 .add("farbe", farbe)
                 .add("groesse", groesse)
                 .add("vorrat", vorrat)

@@ -55,7 +55,7 @@ public class ProduktCreate extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		args = getArguments();
-     
+		Log.d(LOG_TAG, "createProduct view...");
 		// Voraussetzung fuer onOptionsItemSelected()
 		setHasOptionsMenu(true);
 		
@@ -138,13 +138,6 @@ public class ProduktCreate extends Fragment {
 				}
 				
 				produkt = result.resultObject;  // ggf. erhoehte Versionsnr. bzgl. konkurrierender Updates
-				
-				// Gibt es in der Navigationsleiste eine ProduktListe? Wenn ja: Refresh mit geaendertem Produkt-Objekt
-				final Fragment fragment = getFragmentManager().findFragmentById(R.id.produkt_liste_nav);
-				if (fragment != null) {
-					final ProduktListeNav produktListeFragment = (ProduktListeNav) fragment;
-					produktListeFragment.refresh(produkt);
-				}
 				
 				final Fragment neuesFragment = new ProduktDetails();
 				neuesFragment.setArguments(args);
